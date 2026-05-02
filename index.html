@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Werner Productions Books</title>
+  <meta name="description" content="Bücher von Dirk Werner — Psychologe, Psychotherapeut, Autor. Fantasy, Psychothriller, Sachbücher zu Schattenarbeit und Individuation.">
+  <link rel="canonical" href="https://books.werner-productions.com/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #0a0a12;
+      color: #e0d8cc;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem; }
+    h1 { font-size: 1.6rem; color: #d4a843; margin-bottom: 0.5rem; }
+    .intro { color: #a09880; margin-bottom: 2rem; font-size: 0.95rem; }
+    .book-card {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: #0e0e1a;
+      border: 1px solid #1a1a2e;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s;
+    }
+    .book-card:hover { border-color: #d4a843; }
+    .book-card img { width: 100px; border-radius: 3px; }
+    .book-card h2 { font-size: 1.1rem; color: #d4a843; margin-bottom: 0.3rem; }
+    .book-card .meta { font-size: 0.85rem; color: #8a8070; margin-bottom: 0.5rem; }
+    .book-card p { font-size: 0.9rem; color: #a09880; }
+    .footer {
+      border-top: 1px solid #1a1a2e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #8a8070;
+    }
+    .footer a { color: #a09880; }
+    @media (max-width: 600px) {
+      .book-card { flex-direction: column; align-items: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Werner Productions Books</h1>
+    <p class="intro">Bücher von Dirk Werner — Psychologe, Psychotherapeut, Autor.</p>
+
+    <a href="die-dreizehn-tore/" class="book-card">
+      <img src="die-dreizehn-tore/cover.jpg" alt="Die Dreizehn Tore" width="100" height="160">
+      <div>
+        <h2>Die Dreizehn Tore</h2>
+        <div class="meta">Fantasy-Psychothriller · 2024 · ISBN 9798233102592</div>
+        <p>Manche Türen sollte man nicht öffnen. Inspiriert von gnostischer Kosmologie, vedischen Yuga-Zyklen und Jungs Individuation.</p>
+      </div>
+    </a>
+
+    <div class="footer">
+      <p>
+        <a href="https://dirkwernerbooks.com">dirkwernerbooks.com</a> ·
+        <a href="https://orcid.org/0009-0001-7822-0041">ORCID</a> ·
+        <a href="https://d-nb.info/gnd/1384382429">GND</a> ·
+        <a href="llms.txt">llms.txt</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

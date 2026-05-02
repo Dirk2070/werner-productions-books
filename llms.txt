@@ -1,0 +1,16 @@
+# Werner Productions Books
+
+> Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429) is a licensed psychotherapist (Dipl.-Psych.) based in Fuessen, Bavaria, Germany. He writes fiction and nonfiction exploring Jungian psychology, shadow work, gnostic philosophy, and comparative mysticism. Published under Werner Productions Media.
+
+## Books
+
+- [Die Dreizehn Tore: Ein Fantasy-Psychothriller](https://books.werner-productions.com/die-dreizehn-tore/): German-language spiritual fiction combining fantasy with psychological thriller. A woman discovers she can read an ancient script and is drawn into a world of thirteen archetypal gates. Inspired by gnostic cosmology, Vedic Yuga cycles, and Jung's individuation. ISBN 9798233102592, ASIN B0GB13C18Y, audiobook available. Schema: [schema-org.jsonld](https://books.werner-productions.com/die-dreizehn-tore/schema-org.jsonld)
+
+## Identity
+
+- ORCID: https://orcid.org/0009-0001-7822-0041
+- GND: https://d-nb.info/gnd/1384382429
+- Goodreads: https://www.goodreads.com/author/show/70076437
+- Amazon Author: https://www.amazon.de/stores/author/B0CB9KB4QT
+- Apple Books: https://books.apple.com/us/author/dirk-werner/id316714929
+- Website: https://dirkwernerbooks.com

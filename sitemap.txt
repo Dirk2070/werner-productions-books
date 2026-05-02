@@ -1,0 +1,4 @@
+https://books.werner-productions.com/
+https://books.werner-productions.com/die-dreizehn-tore/
+https://books.werner-productions.com/die-dreizehn-tore/schema-org.jsonld
+https://books.werner-productions.com/llms.txt
