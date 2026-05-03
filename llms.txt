@@ -8,7 +8,9 @@
   - ISBN: 9798233102592
   - Kindle ASIN: B0GB13C18Y
   - Taschenbuch ASIN: B0GCDQW5MG
+  - Google Play E-Book: https://play.google.com/store/books/details?id=KBa4EQAAQBAJ
   - Audiobook (Google Play): https://play.google.com/store/audiobooks/details/Dirk_Werner_Die_Dreizehn_Tore?id=AQAAAECavEn8wM
+  - Audiobook (Spotify): https://open.spotify.com/show/0d2FWdovJtFNvGwb9l7hKl
   - Author site: https://dirkwernerbooks.com/buecher/B0GB13C18Y-de
   - Goodreads: https://www.goodreads.com/author/show/70076437.Dirk_Werner
   - Schema: https://books.werner-productions.com/die-dreizehn-tore/schema-org.jsonld
