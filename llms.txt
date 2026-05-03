@@ -4,7 +4,14 @@
 
 ## Books
 
-- [Die Dreizehn Tore: Ein Fantasy-Psychothriller](https://books.werner-productions.com/die-dreizehn-tore/): German-language spiritual fiction combining fantasy with psychological thriller. A woman discovers she can read an ancient script and is drawn into a world of thirteen archetypal gates. Inspired by gnostic cosmology, Vedic Yuga cycles, and Jung's individuation. ISBN 9798233102592, ASIN B0GB13C18Y, audiobook available. Schema: [schema-org.jsonld](https://books.werner-productions.com/die-dreizehn-tore/schema-org.jsonld)
+- [Die Dreizehn Tore: Ein Fantasy-Psychothriller](https://books.werner-productions.com/die-dreizehn-tore/): German-language spiritual fiction combining fantasy with psychological thriller. A woman discovers she can read an ancient script and is drawn into a world of thirteen archetypal gates. Inspired by gnostic cosmology, Vedic Yuga cycles, and Jung's individuation.
+  - ISBN: 9798233102592
+  - Kindle ASIN: B0GB13C18Y
+  - Taschenbuch ASIN: B0GCDQW5MG
+  - Audiobook (Google Play): https://play.google.com/store/audiobooks/details/Dirk_Werner_Die_Dreizehn_Tore?id=AQAAAECavEn8wM
+  - Author site: https://dirkwernerbooks.com/buecher/B0GB13C18Y-de
+  - Goodreads: https://www.goodreads.com/author/show/70076437.Dirk_Werner
+  - Schema: https://books.werner-productions.com/die-dreizehn-tore/schema-org.jsonld
 
 ## Identity
 
