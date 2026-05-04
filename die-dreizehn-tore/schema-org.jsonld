@@ -2,158 +2,125 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Person",
-      "@id": "https://dirkwernerbooks.com/#author",
-      "name": "Dirk Werner",
-      "alternateName": [
-        "Dipl.-Psych. Dirk Werner",
-        "Dirk Werner (Psychologe)",
-        "Dirk Werner (Psychotherapeut)"
-      ],
-      "jobTitle": "Psychologischer Psychotherapeut",
-      "description": "Dirk Werner ist Diplom-Psychologe und approbierter Psychotherapeut mit Praxis in Füssen-Hopfen, Bayern. Als Autor verbindet er tiefenpsychologische Arbeit mit gnostischen, vedischen und mystischen Traditionen. Unter dem Label Werner Productions Media entwickelt er AI-gestützte Apps für Schattenarbeit, psychologische Profilierung und kontemplative Praxis.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Füssen-Hopfen",
-        "addressRegion": "Bayern",
-        "addressCountry": "DE"
-      },
-      "knowsAbout": [
-        "Jungian psychology",
-        "Shadow work",
-        "Gnostic philosophy",
-        "Comparative mysticism",
-        "AI-assisted self-reflection",
-        "Speculative fiction",
-        "Vedic philosophy",
-        "Hermeticism",
-        "Bardo meditation",
-        "Sufi mysticism",
-        "Cult psychology",
-        "Self-sabotage",
-        "Thriller writing"
-      ],
-      "hasCredential": [
-        {
-          "@type": "EducationalOccupationalCredential",
-          "name": "Diplom-Psychologe (Dipl.-Psych.)"
-        },
-        {
-          "@type": "EducationalOccupationalCredential",
-          "name": "Approbation als Psychologischer Psychotherapeut"
-        }
-      ],
-      "sameAs": [
-        "https://d-nb.info/gnd/1384382429",
-        "https://orcid.org/0009-0001-7822-0041",
-        "https://www.goodreads.com/author/show/70076437"
-      ],
-      "identifier": [
-        {
-          "@type": "PropertyValue",
-          "propertyID": "ORCID",
-          "value": "0009-0001-7822-0041",
-          "url": "https://orcid.org/0009-0001-7822-0041"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "GND",
-          "value": "1384382429",
-          "url": "https://d-nb.info/gnd/1384382429"
-        }
-      ]
-    },
-    {
       "@type": "Book",
       "@id": "https://books.werner-productions.com/die-dreizehn-tore/#book",
       "name": "Die Dreizehn Tore: Ein Fantasy-Psychothriller",
       "inLanguage": "de",
-      "isbn": "9798233102592",
-      "description": "Manche Türen sollte man nicht öffnen. Ein uraltes Fragment. Eine verborgene Schrift, die Clara lesen kann — obwohl sie sie nie gelernt hat. Eine Nachricht, die sich selbst löscht. Und etwas in ihr, das nach Hause will.\n\n\"Die Dreizehn Tore\" verbindet Fantasy mit Psychothriller: Clara wird in eine Welt gezogen, in der dreizehn Tore auf sie warten — jedes Tor ein archetypisches Hindernis, jede Passage ein Schritt tiefer in das, was sie verdrängt hat.\n\nInspiriert von gnostischer Kosmologie, vedischen Yuga-Zyklen und Jungs Konzept der Individuation. Kein esoterischer Ratgeber, sondern ein literarischer Psychothriller über die Frage: Was wäre, wenn Mystik und Psychologie dieselbe Sprache sprächen?",
-      "abstract": "Manche Türen sollte man nicht öffnen. Ein uraltes Fragment. Eine verborgene Schrift, die Clara lesen kann — obwohl sie sie nie gelernt hat.",
-      "datePublished": "2024-12-20",
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://books.werner-productions.com/die-dreizehn-tore/cover.jpg",
-        "width": 1600,
-        "height": 2560,
-        "encodingFormat": "image/jpeg"
-      },
+      "description": "Manche Türen sollte man nicht öffnen. Ein uraltes Fragment. Eine verborgene Schrift, die Clara lesen kann — obwohl sie sie nie gelernt hat. Eine Nachricht, die sich selbst löscht. Und etwas in ihr, das nach Hause will. \"Die Dreizehn Tore\" verbindet Fantasy mit Psychothriller: Clara wird in eine Welt gezogen, in der dreizehn Tore auf sie warten — jedes Tor ein archetypisches Hindernis, jede Passage ein Schritt tiefer in das, was sie verdrängt hat. Inspiriert von gnostischer Kosmologie, vedischen Yuga-Zyklen und Jungs Konzept der Individuation.",
       "author": {
-        "@id": "https://dirkwernerbooks.com/#author"
+        "@id": "https://books.werner-productions.com/#author"
       },
       "publisher": {
-        "@type": "Organization",
-        "name": "Werner Productions Media"
+        "@id": "https://books.werner-productions.com/#org-werner-productions"
       },
-      "genre": [
-        "Fantasy",
-        "Thriller",
-        "Speculative Fiction",
-        "Psychological Fiction"
-      ],
-      "bookFormat": "https://schema.org/EBook",
-      "identifier": [
+      "image": "https://books.werner-productions.com/die-dreizehn-tore/cover.jpg",
+      "datePublished": "2024-12-20",
+      "dateModified": "2026-05-04",
+      "keywords": "Jungian psychology, shadow work, gnostic cosmology, Vedic Yuga cycles, individuation, archetypal fiction, psychological thriller",
+      "alternativeHeadline": "Ein Fantasy-Psychothriller",
+      "isbn": "9798233102592",
+      "workExample": [
         {
-          "@type": "PropertyValue",
-          "propertyID": "ISBN",
-          "value": "9798233102592"
+          "@type": "Book",
+          "@id": "https://books.werner-productions.com/die-dreizehn-tore/#ebook-9798233102592",
+          "bookFormat": "https://schema.org/EBook",
+          "isbn": "9798233102592",
+          "identifier": {
+            "@type": "PropertyValue",
+            "propertyID": "ASIN",
+            "value": "B0GB13C18Y"
+          },
+          "potentialAction": [
+            {
+              "@type": "BuyAction",
+              "target": "https://www.amazon.de/dp/B0GB13C18Y",
+              "name": "Amazon Kindle"
+            },
+            {
+              "@type": "BuyAction",
+              "target": "https://play.google.com/store/books/details?id=KBa4EQAAQBAJ",
+              "name": "Google Play"
+            },
+            {
+              "@type": "BuyAction",
+              "target": "https://books.apple.com/de/book/id6756828238",
+              "name": "Apple Books"
+            }
+          ]
         },
         {
-          "@type": "PropertyValue",
-          "propertyID": "ASIN",
-          "value": "B0GB13C18Y"
+          "@type": "Book",
+          "@id": "https://books.werner-productions.com/die-dreizehn-tore/#paperback-9798233102592",
+          "bookFormat": "https://schema.org/Paperback",
+          "isbn": "9798233102592",
+          "identifier": {
+            "@type": "PropertyValue",
+            "propertyID": "ASIN",
+            "value": "B0GCDQW5MG"
+          },
+          "potentialAction": [
+            {
+              "@type": "BuyAction",
+              "target": "https://www.amazon.de/dp/B0GCDQW5MG",
+              "name": "Amazon"
+            }
+          ]
         },
         {
-          "@type": "PropertyValue",
-          "propertyID": "GoodreadsBookID",
-          "value": "245731184"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "AppleBooksID",
-          "value": "6756828238"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "GooglePlayID",
-          "value": "AQAAAECavEn8wM"
+          "@type": "Audiobook",
+          "@id": "https://books.werner-productions.com/die-dreizehn-tore/#audiobook-edition",
+          "bookFormat": "https://schema.org/AudiobookFormat",
+          "readBy": {
+            "@type": "Person",
+            "name": "AI Voice (Werner Productions)"
+          },
+          "duration": "PT357M",
+          "potentialAction": [
+            {
+              "@type": "BuyAction",
+              "target": "https://play.google.com/store/audiobooks/details/Dirk_Werner_Die_Dreizehn_Tore?id=AQAAAECavEn8wM",
+              "name": "Google Play"
+            },
+            {
+              "@type": "BuyAction",
+              "target": "https://open.spotify.com/show/0d2FWdovJtFNvGwb9l7hKl",
+              "name": "Spotify"
+            }
+          ]
         }
       ],
-      "alternateName": "The Thirteen Gates",
-      "workExample": {
-        "@type": "Audiobook",
-        "url": "https://dirkwernerbooks.com/buecher/B0GB13C18Y-de"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
+      "about": [
         {
-          "@type": "Question",
-          "name": "Worum geht es in Die Dreizehn Tore?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Um dreizehn innere Schwellen, die jeder Mensch auf dem Weg zu sich selbst durchschreitet — erzählt als spekulative Fiktion zwischen Mystik und Tiefenpsychologie."
-          }
+          "@type": "Thing",
+          "name": "Jungian psychology"
         },
         {
-          "@type": "Question",
-          "name": "Muss man die anderen Bücher von Dirk Werner kennen?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Nein, Die Dreizehn Tore steht für sich. Wer Werners psychologische Sachbücher kennt, erkennt jedoch wiederkehrende Themen wie Schattenarbeit und Individuation."
-          }
+          "@type": "Thing",
+          "name": "Shadow work"
         },
         {
-          "@type": "Question",
-          "name": "Gibt es eine englische Übersetzung?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Ja, unter dem Titel The Thirteen Gates."
-          }
+          "@type": "Thing",
+          "name": "Gnostic philosophy"
+        },
+        {
+          "@type": "Thing",
+          "name": "Comparative mysticism"
         }
       ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://books.werner-productions.com/die-dreizehn-tore/",
+      "url": "https://books.werner-productions.com/die-dreizehn-tore/",
+      "name": "Die Dreizehn Tore: Ein Fantasy-Psychothriller — Dirk Werner",
+      "isPartOf": {
+        "@id": "https://books.werner-productions.com/#website"
+      },
+      "primaryImageOfPage": "https://books.werner-productions.com/die-dreizehn-tore/cover.jpg",
+      "mainEntity": {
+        "@id": "https://books.werner-productions.com/die-dreizehn-tore/#book"
+      },
+      "dateModified": "2026-05-04"
     }
   ]
 }

@@ -1,0 +1,64 @@
+books:
+  - slug: die-dreizehn-tore
+    title: "Die Dreizehn Tore: Ein Fantasy-Psychothriller"
+    subtitle: "Ein Fantasy-Psychothriller"
+    language: de
+    authors:
+      - ref: "https://books.werner-productions.com/#author"
+    workTranslation: []
+    # TODO: add "the-thirteen-gates" when EN entry exists
+    translationOfWork: []
+    descriptions:
+      meta: "Manche Türen sollte man nicht öffnen. Fantasy-Psychothriller über dreizehn archetypische Tore zwischen Mystik und Tiefenpsychologie."
+      short: "German-language spiritual fiction combining fantasy with psychological thriller. Thirteen archetypal gates between mysticism and depth psychology."
+      long: "Manche Türen sollte man nicht öffnen. Ein uraltes Fragment. Eine verborgene Schrift, die Clara lesen kann — obwohl sie sie nie gelernt hat. Eine Nachricht, die sich selbst löscht. Und etwas in ihr, das nach Hause will. \"Die Dreizehn Tore\" verbindet Fantasy mit Psychothriller: Clara wird in eine Welt gezogen, in der dreizehn Tore auf sie warten — jedes Tor ein archetypisches Hindernis, jede Passage ein Schritt tiefer in das, was sie verdrängt hat. Inspiriert von gnostischer Kosmologie, vedischen Yuga-Zyklen und Jungs Konzept der Individuation."
+    cover:
+      filename: die-dreizehn-tore/cover.jpg
+      dimensions:
+        width: 1600
+        height: 2560
+      alt: "Buchcover Die Dreizehn Tore von Dirk Werner"
+    workExample:
+      - format: ebook
+        isbn: "9798233102592"
+        asin: "B0GB13C18Y"
+        publisher: "Werner Productions"
+        publicationDate: "2024-12-20"
+        urls:
+          kindle: "https://www.amazon.de/dp/B0GB13C18Y"
+          googlePlay: "https://play.google.com/store/books/details?id=KBa4EQAAQBAJ"
+          appleBooks: "https://books.apple.com/de/book/id6756828238"
+      - format: paperback
+        isbn: "9798233102592"
+        asin: "B0GCDQW5MG"
+        publisher: "Werner Productions"
+        publicationDate: "2024-12-20"
+        urls:
+          amazon: "https://www.amazon.de/dp/B0GCDQW5MG"
+      - format: audiobook
+        publisher: "Werner Productions"
+        publicationDate: "2024-12-20"
+        narrator: "AI Voice (Werner Productions)"
+        durationMinutes: 357
+        urls:
+          googlePlay: "https://play.google.com/store/audiobooks/details/Dirk_Werner_Die_Dreizehn_Tore?id=AQAAAECavEn8wM"
+          spotify: "https://open.spotify.com/show/0d2FWdovJtFNvGwb9l7hKl"
+    bisac:
+      - FIC009100
+      - FIC031080
+      - FIC028030
+    keywords:
+      - Jungian psychology
+      - shadow work
+      - gnostic cosmology
+      - Vedic Yuga cycles
+      - individuation
+      - archetypal fiction
+      - psychological thriller
+    relatedBooks: []
+    knowsAbout:
+      - Jungian psychology
+      - Shadow work
+      - Gnostic philosophy
+      - Comparative mysticism
+    dateModified: "2026-05-04"

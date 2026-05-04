@@ -1,0 +1,25 @@
+{
+  "name": "werner-productions-books",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "validate:books": "bun scripts/validate-books.ts",
+    "generate": "bun scripts/generate-book-pages.ts",
+    "generate:dry": "bun scripts/generate-book-pages.ts --dry-run",
+    "validate:output": "bun scripts/validate-output.ts",
+    "build:books": "bun run validate:books && bun scripts/generate-book-pages.ts && bun run validate:output",
+    "merge:cowork": "bun scripts/merge-cowork-output.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "yaml": "^2.8.4",
+    "zod": "^4.4.3"
+  }
+}

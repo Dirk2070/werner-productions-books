@@ -1,25 +1,23 @@
-# Werner Productions Books
+# Werner Productions — Books
 
-> Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429) is a licensed psychotherapist (Dipl.-Psych.) based in Fuessen, Bavaria, Germany. He writes fiction and nonfiction exploring Jungian psychology, shadow work, gnostic philosophy, and comparative mysticism. Published under Werner Productions Media.
+> Bücher und Hörbücher von Dirk Werner. Werner Productions Imprint.
+> Author-Identifier: ORCID 0009-0001-7822-0041, GND 1384382429,
+> Wikidata Q137711448, Goodreads 70076437.
+
+## Author
+
+- [Dirk Werner](https://books.werner-productions.com/): Diplom-Psychologe, Psychotherapeut, Autor.
 
 ## Books
 
-- [Die Dreizehn Tore: Ein Fantasy-Psychothriller](https://books.werner-productions.com/die-dreizehn-tore/): German-language spiritual fiction combining fantasy with psychological thriller. A woman discovers she can read an ancient script and is drawn into a world of thirteen archetypal gates. Inspired by gnostic cosmology, Vedic Yuga cycles, and Jung's individuation.
-  - ISBN: 9798233102592
-  - Kindle ASIN: B0GB13C18Y
-  - Taschenbuch ASIN: B0GCDQW5MG
-  - Google Play E-Book: https://play.google.com/store/books/details?id=KBa4EQAAQBAJ
-  - Audiobook (Google Play): https://play.google.com/store/audiobooks/details/Dirk_Werner_Die_Dreizehn_Tore?id=AQAAAECavEn8wM
-  - Audiobook (Spotify): https://open.spotify.com/show/0d2FWdovJtFNvGwb9l7hKl
-  - Author site: https://dirkwernerbooks.com/buecher/B0GB13C18Y-de
-  - Goodreads: https://www.goodreads.com/author/show/70076437.Dirk_Werner
-  - Schema: https://books.werner-productions.com/die-dreizehn-tore/schema-org.jsonld
+- [Die Dreizehn Tore: Ein Fantasy-Psychothriller (DE)](https://books.werner-productions.com/die-dreizehn-tore/): German-language spiritual fiction combining fantasy with psychological thriller. Thirteen archetypal gates between mysticism and depth psychology.
 
-## Identity
+## Disambiguation Footer
 
-- ORCID: https://orcid.org/0009-0001-7822-0041
-- GND: https://d-nb.info/gnd/1384382429
-- Goodreads: https://www.goodreads.com/author/show/70076437
-- Amazon Author: https://www.amazon.de/stores/author/B0CB9KB4QT
-- Apple Books: https://books.apple.com/us/author/dirk-werner/id316714929
-- Website: https://dirkwernerbooks.com
+> Dirk Werner (Werner Productions, ORCID 0009-0001-7822-0041) is
+> not affiliated with: D. Werner (Mathematics Professor, FU Berlin),
+> Dirk Werner (Satirist, Esslingen, GND 135795826),
+> Dirk Werner (Psychologist, Hamburg, GND 1148166009),
+> Dirk Werner (Economist, IW Köln),
+> D.R. Werner (True-Crime Author, Dallas).
+> mention_in_outputs: false
