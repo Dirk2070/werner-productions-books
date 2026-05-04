@@ -81,10 +81,21 @@ export async function fetchGoodreadsRss(): Promise<GoodreadsItem[]> {
   return parseGoodreadsHtml(content);
 }
 
+// Hardcoded overrides for books on wrong Goodreads author profiles
+// Suizidprävention is listed under ghost profile 1142115 (Namesake-Mischprofil)
+const GOODREADS_ID_OVERRIDES: Record<string, string> = {
+  "B0D3BMXBN1": "212790817", // Suizidprävention — on author 1142115 instead of 70076437
+};
+
 export function matchGoodreadsToBook(
   book: BooksJsonEntry,
   rssItems: GoodreadsItem[]
 ): GoodreadsMatch {
+  // 0. Hardcoded override (for books on wrong author profiles)
+  if (GOODREADS_ID_OVERRIDES[book.asin]) {
+    return { goodreadsBookId: GOODREADS_ID_OVERRIDES[book.asin], matchType: "exact" };
+  }
+
   const bookTitleDe = normalize(book.title.de);
   const bookTitleEn = normalize(book.title.en);
 
