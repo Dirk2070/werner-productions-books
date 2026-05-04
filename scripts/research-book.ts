@@ -45,7 +45,6 @@ const AUTHOR_REF = "https://books.werner-productions.com/#author";
 const PUBLISHER = "Werner Productions";
 const PUBLICATION_DATE_PLACEHOLDER = "2024-01-01";
 const NARRATOR_PLACEHOLDER = "AI Voice (Werner Productions)";
-const DURATION_PLACEHOLDER = 180;
 
 // ---------------------------------------------------------------------------
 // CLI args parsing
@@ -314,7 +313,6 @@ async function processBook(
       format: "audiobook",
       publisher: PUBLISHER,
       narrator: NARRATOR_PLACEHOLDER,
-      durationMinutes: DURATION_PLACEHOLDER,
       urls: abUrls,
     });
   }

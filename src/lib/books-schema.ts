@@ -23,8 +23,8 @@ const workExampleSchema = z
     durationMinutes: z.number().int().positive().optional(),
   })
   .refine(
-    (e) => e.format !== "audiobook" || (e.narrator !== undefined && e.durationMinutes !== undefined),
-    { message: "Audiobook format requires narrator and durationMinutes" }
+    (e) => e.format !== "audiobook" || e.narrator !== undefined,
+    { message: "Audiobook format requires narrator" }
   );
 
 const descriptionsSchema = z.object({
