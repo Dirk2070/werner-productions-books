@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { readFileSync, writeFileSync, mkdirSync } from "fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import { resolve } from "path";
 import { stringify as stringifyYaml } from "yaml";
 import { fetchAllAuthorBooks, crossMatchBooks } from "../src/lib/research/goodreads-author-list";
@@ -61,7 +61,7 @@ async function main() {
   };
 
   // Write output
-  mkdirSync(outputDir, { recursive: true });
+  if (!existsSync(outputDir)) mkdirSync(outputDir, { recursive: true });
   writeFileSync(resolve(outputDir, "goodreads-audit.yaml"), stringifyYaml(manifest));
 
   // Console summary
