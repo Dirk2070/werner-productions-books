@@ -1,4 +1,7 @@
 import { describe, test, expect } from "bun:test";
+import { readFileSync, rmSync } from "fs";
+import { resolve } from "path";
+import { logError } from "../src/lib/research/yaml-writer";
 import { toSlug, levenshtein } from "../src/lib/research/slug-utils";
 import { parseBookPage } from "../src/lib/research/parse-book-page";
 import { parseSectionMap, SECTION_BISAC } from "../src/lib/research/parse-section-map";
@@ -240,5 +243,26 @@ describe("buildDescriptions", () => {
     const book = makeBook();
     const result = buildDescriptions(book, undefined, [], null, null, null, []);
     expect(result.long).not.toContain("Goodreads");
+  });
+});
+
+describe("logError", () => {
+  const errorLogPath = resolve(process.cwd(), "output/research/_errors.log");
+
+  test("writes error in pipe-delimited format", () => {
+    try { rmSync(errorLogPath); } catch {}
+
+    logError({
+      timestamp: "2026-05-04T13:00:00Z",
+      asin: "B0DNBSQXXL",
+      type: "GOODREADS_NO_MATCH",
+      detail: 'best candidate: "Cults Guide" (dist=12)',
+    });
+
+    const content = readFileSync(errorLogPath, "utf-8");
+    expect(content).toContain("2026-05-04T13:00:00Z | B0DNBSQXXL | GOODREADS_NO_MATCH |");
+
+    // Clean up
+    try { rmSync(errorLogPath); } catch {}
   });
 });
