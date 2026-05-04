@@ -16,9 +16,15 @@
     "validate:output": "bun scripts/validate-output.ts",
     "build:books": "bun run validate:books && bun scripts/generate-book-pages.ts && bun run validate:output",
     "merge:cowork": "bun scripts/merge-cowork-output.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "research:book": "bun scripts/research-book.ts",
+    "research:all": "bun scripts/research-book.ts --all",
+    "research:link": "bun scripts/research-book.ts --link",
+    "research:clean": "rm -rf .cache/research output/research"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
+    "image-size": "^2.0.2",
     "yaml": "^2.8.4",
     "zod": "^4.4.3"
   }
