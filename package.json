@@ -21,7 +21,8 @@
     "research:all": "bun scripts/research-book.ts --all",
     "research:link": "bun scripts/research-book.ts --link",
     "research:clean": "rm -rf .cache/research output/research",
-    "research:goodreads": "bun scripts/research-goodreads-audit.ts"
+    "research:goodreads": "bun scripts/research-goodreads-audit.ts",
+    "research:goodreads-only": "bun scripts/research-book.ts --refresh-goodreads-only"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

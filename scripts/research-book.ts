@@ -7,11 +7,13 @@
  *   bun scripts/research-book.ts --slug <slug>    # single book by slug
  *   bun scripts/research-book.ts --all            # all books from books.json
  *   bun scripts/research-book.ts --link           # second pass (Task 9, not yet implemented)
+ *   bun scripts/research-book.ts --refresh-goodreads-only  # update YAMLs from Goodreads only
  *
  * Flags:
  *   --refresh   ignore cache (TTL=0)
  *   --en        language override → English
  *   --de        language override → German
+ *   --refresh-goodreads-only   fetch Goodreads author-list & patch existing YAMLs
  */
 
 import { readFileSync, existsSync } from "fs";
@@ -22,6 +24,7 @@ import { fetchWithCache } from "../src/lib/research/fetch-cache";
 import { parseBookPage } from "../src/lib/research/parse-book-page";
 import { parseSectionMap } from "../src/lib/research/parse-section-map";
 import { fetchGoodreadsRss, matchGoodreadsToBook } from "../src/lib/research/goodreads-rss";
+import { fetchAllAuthorBooks, crossMatchBooks, type GoodreadsBookDetail, type CrossMatchResult } from "../src/lib/research/goodreads-author-list";
 import { generateTopics, extractTitleTokens } from "../src/lib/research/topic-generator";
 import { calculateAppMatches, type AppEntry } from "../src/lib/research/app-cross-linker";
 import { buildDescriptions } from "../src/lib/research/description-builder";
@@ -58,6 +61,7 @@ interface CliArgs {
   refresh: boolean;
   langOverride: "de" | "en" | null;
   link: boolean;
+  refreshGoodreadsOnly: boolean;
 }
 
 function parseArgs(argv: string[]): CliArgs {
@@ -69,6 +73,7 @@ function parseArgs(argv: string[]): CliArgs {
     refresh: false,
     langOverride: null,
     link: false,
+    refreshGoodreadsOnly: false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -78,6 +83,7 @@ function parseArgs(argv: string[]): CliArgs {
     else if (a === "--en") result.langOverride = "en";
     else if (a === "--de") result.langOverride = "de";
     else if (a === "--link") result.link = true;
+    else if (a === "--refresh-goodreads-only") result.refreshGoodreadsOnly = true;
     else if (a === "--slug") {
       result.slug = args[++i] ?? null;
     } else if (!a.startsWith("--")) {
@@ -194,7 +200,8 @@ async function processBook(
   goodreadsItems: Awaited<ReturnType<typeof fetchGoodreadsRss>>,
   apps: AppEntry[],
   cacheTtlBook: number,
-  today: string
+  today: string,
+  grCrossMatches: Map<string, CrossMatchResult> | null = null
 ): Promise<boolean> {
   const lang = book.language;
   const title = cleanTitle(lang === "de" ? book.title.de : book.title.en);
@@ -227,7 +234,21 @@ async function processBook(
   const sectionMapping = sectionMappings.find((m) => m.asin === asin);
 
   // 4. Match Goodreads RSS
-  const grMatch = matchGoodreadsToBook(book, goodreadsItems);
+  let grMatch = matchGoodreadsToBook(book, goodreadsItems);
+
+  // 4b. Author-list fallback when RSS match failed or returned no ID
+  if ((!grMatch.goodreadsBookId || grMatch.matchType === null) && grCrossMatches) {
+    const crossMatch = grCrossMatches.get(asin);
+    if (crossMatch) {
+      grMatch = {
+        goodreadsBookId: crossMatch.goodreadsBookId,
+        matchType: "fuzzy" as const,
+        bestCandidate: crossMatch.goodreadsTitle,
+      };
+      console.log(`  ✓ Goodreads fallback (author-list): ${crossMatch.goodreadsBookId} (${crossMatch.matchType})`);
+    }
+  }
+
   if (!grMatch.goodreadsBookId) {
     logError({
       timestamp: new Date().toISOString(),
@@ -260,6 +281,14 @@ async function processBook(
     appMatches,
     book.relatedBook
   );
+
+  // 7b. Enhance long description with Goodreads substrate if available
+  const grDetail = grCrossMatches?.get(asin)?.detail;
+  if (grDetail?.descriptionForLong && grDetail.descriptionForLong.length > 100) {
+    const identLine = `${title} by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint.`;
+    const enhanced = `${identLine} ${grDetail.descriptionForLong}`.slice(0, 800);
+    descriptions.long = enhanced;
+  }
 
   // 8. Cover dimensions
   const coverDims = await getCoverDimensions(asin);
@@ -450,6 +479,70 @@ async function runLinkPass() {
 }
 
 // ---------------------------------------------------------------------------
+// Goodreads-only refresh (--refresh-goodreads-only)
+// ---------------------------------------------------------------------------
+
+async function runGoodreadsOnlyRefresh(allBooks: BooksJsonEntry[]) {
+  const { readdirSync, readFileSync: readFs, writeFileSync: writeFs } = await import("fs");
+  const { parse: parseY, stringify: stringifyY } = await import("yaml");
+  const { resolve: resolvePath } = await import("path");
+  const outputDir = resolvePath(process.cwd(), "output/research");
+
+  // Fetch Goodreads data
+  const { books: grBooks } = await fetchAllAuthorBooks();
+  const { matched } = crossMatchBooks(grBooks, allBooks);
+  const matchMap = new Map(matched.filter(m => m.matchedAsin).map(m => [m.matchedAsin!, m]));
+  console.log(`Goodreads author-list: ${matched.length} cross-matches`);
+
+  // Update existing YAMLs
+  const files = readdirSync(outputDir).filter((f: string) => f.endsWith(".yaml") && !f.startsWith("_"));
+  let updated = 0;
+
+  for (const file of files) {
+    const filePath = resolvePath(outputDir, file);
+    const content = readFs(filePath, "utf-8");
+    const parsed = parseY(content) as any;
+    const book = parsed.books?.[0];
+    if (!book) continue;
+
+    // Find the ASIN from workExample
+    const asin = book.workExample?.find((e: any) => e.asin)?.asin;
+    if (!asin) continue;
+
+    const crossMatch = matchMap.get(asin);
+    if (!crossMatch) continue;
+
+    let changed = false;
+
+    // Update goodreadsBookId if missing
+    if (!book.goodreadsBookId && crossMatch.goodreadsBookId) {
+      book.goodreadsBookId = crossMatch.goodreadsBookId;
+      changed = true;
+    }
+
+    // Update publicationDate from Goodreads if available and missing
+    if (crossMatch.detail.publishedDate) {
+      for (const we of book.workExample || []) {
+        if (!we.publicationDate) {
+          we.publicationDate = crossMatch.detail.publishedDate;
+          changed = true;
+        }
+      }
+    }
+
+    if (changed) {
+      const headerLines = content.split("\n").filter((l: string) => l.startsWith("#"));
+      const header = headerLines.length > 0 ? headerLines.join("\n") + "\n" : "";
+      writeFs(filePath, header + stringifyY(parsed));
+      console.log(`  → ${file}: updated (goodreadsId: ${crossMatch.goodreadsBookId})`);
+      updated++;
+    }
+  }
+
+  console.log(`\nGoodreads-only refresh: ${updated} files updated.`);
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -461,11 +554,19 @@ async function main(): Promise<void> {
     return;
   }
 
+  // Load books.json early so both refresh paths can reuse it
+  const allBooksForRefresh = loadBooksJson();
+
+  if (args.refreshGoodreadsOnly) {
+    await runGoodreadsOnlyRefresh(allBooksForRefresh);
+    return;
+  }
+
   const today = new Date().toISOString().slice(0, 10);
   const cacheTtlBook = args.refresh ? 0 : TTL_7D;
 
-  // Load books.json
-  const allBooks = loadBooksJson();
+  // Reuse books.json already loaded above
+  const allBooks = allBooksForRefresh;
   console.log(`Loaded ${allBooks.length} books from books.json`);
 
   // Load identity.yaml (optional)
@@ -525,6 +626,17 @@ async function main(): Promise<void> {
   const sectionMappings = alleBuecherHtml ? parseSectionMap(alleBuecherHtml) : [];
   console.log(`Section mappings: ${sectionMappings.length}, Goodreads items: ${goodreadsItems.length}`);
 
+  // Fetch Goodreads author-list cross-matches (cached 24h, one fetch for all books)
+  let grCrossMatches: Map<string, CrossMatchResult> | null = null;
+  try {
+    const { books: grDetailBooks } = await fetchAllAuthorBooks();
+    const { matched } = crossMatchBooks(grDetailBooks, allBooks);
+    grCrossMatches = new Map(matched.filter(m => m.matchedAsin).map(m => [m.matchedAsin!, m]));
+    console.log(`Goodreads author-list: ${matched.length} cross-matches`);
+  } catch (e) {
+    console.warn(`⚠ Goodreads author-list fetch failed: ${(e as Error).message}`);
+  }
+
   // Process books
   const manifest: IndexManifest = {
     generatedAt: new Date().toISOString(),
@@ -565,7 +677,8 @@ async function main(): Promise<void> {
       goodreadsItems,
       apps,
       cacheTtlBook,
-      today
+      today,
+      grCrossMatches
     );
     if (ok) manifest.successCount++;
     else manifest.errorCount++;
