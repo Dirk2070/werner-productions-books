@@ -368,16 +368,71 @@ async function processBook(
 }
 
 // ---------------------------------------------------------------------------
+// Link pass (Task 9): cross-reference relatedBooks via knowsAbout overlap
+// ---------------------------------------------------------------------------
+
+async function runLinkPass() {
+  const { readdirSync, readFileSync: readFs, writeFileSync: writeFs } = await import("fs");
+  const { parse: parseY, stringify: stringifyY } = await import("yaml");
+  const { resolve: resolvePath } = await import("path");
+  const outputDir = resolvePath(process.cwd(), "output/research");
+
+  const files = readdirSync(outputDir).filter(f => f.endsWith(".yaml") && !f.startsWith("_"));
+  const allBooks: Array<{ slug: string; knowsAbout: string[]; filePath: string }> = [];
+
+  for (const file of files) {
+    const filePath = resolvePath(outputDir, file);
+    const content = readFs(filePath, "utf-8");
+    const parsed = parseY(content) as any;
+    const book = parsed.books?.[0];
+    if (book) {
+      allBooks.push({ slug: book.slug, knowsAbout: book.knowsAbout || [], filePath });
+    }
+  }
+
+  console.log(`Link pass: ${allBooks.length} books loaded.`);
+
+  let updated = 0;
+  for (const book of allBooks) {
+    const related = allBooks
+      .filter(other => other.slug !== book.slug)
+      .map(other => ({
+        slug: other.slug,
+        overlap: book.knowsAbout.filter(t =>
+          other.knowsAbout.some(ot => t.toLowerCase() === ot.toLowerCase())
+        ).length,
+      }))
+      .filter(r => r.overlap >= 3)
+      .sort((a, b) => b.overlap - a.overlap)
+      .slice(0, 3)
+      .map(r => r.slug);
+
+    if (related.length > 0) {
+      const content = readFs(book.filePath, "utf-8");
+      const parsed = parseY(content) as any;
+      parsed.books[0].relatedBooks = related;
+      // Preserve header comments
+      const headerLines = content.split("\n").filter(l => l.startsWith("#"));
+      const header = headerLines.length > 0 ? headerLines.join("\n") + "\n" : "";
+      writeFs(book.filePath, header + stringifyY(parsed));
+      console.log(`  → ${book.slug}: ${related.join(", ")}`);
+      updated++;
+    }
+  }
+
+  console.log(`Link pass complete. ${updated} books updated with relatedBooks.`);
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
   const args = parseArgs(process.argv);
 
-  // --link: Task 9 placeholder
   if (args.link) {
-    console.log("Link pass not implemented yet.");
-    process.exit(0);
+    await runLinkPass();
+    return;
   }
 
   const today = new Date().toISOString().slice(0, 10);
