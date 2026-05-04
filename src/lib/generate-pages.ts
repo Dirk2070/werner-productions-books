@@ -140,6 +140,11 @@ function buildBookJsonLd(book: Book, allBooks: Book[]): object {
     }));
   }
 
+  // Goodreads sameAs
+  if (book.goodreadsBookId) {
+    bookNode.sameAs = `https://www.goodreads.com/book/show/${book.goodreadsBookId}`;
+  }
+
   const webPageNode = {
     "@type": "WebPage",
     "@id": `${BASE_URL}/${book.slug}/`,

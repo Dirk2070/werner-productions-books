@@ -92,4 +92,25 @@ describe("books-schema", () => {
     const result = bookSchema.safeParse(bad);
     expect(result.success).toBe(false);
   });
+
+  test("goodreadsBookId accepted when valid numeric string", () => {
+    const entry = structuredClone(validEntry);
+    entry.goodreadsBookId = "223349855";
+    const result = bookSchema.safeParse(entry);
+    expect(result.success).toBe(true);
+  });
+
+  test("goodreadsBookId rejected when non-numeric", () => {
+    const entry = structuredClone(validEntry);
+    entry.goodreadsBookId = "abc123";
+    const result = bookSchema.safeParse(entry);
+    expect(result.success).toBe(false);
+  });
+
+  test("goodreadsBookId is optional — missing is valid", () => {
+    const entry = structuredClone(validEntry);
+    delete entry.goodreadsBookId;
+    const result = bookSchema.safeParse(entry);
+    expect(result.success).toBe(true);
+  });
 });

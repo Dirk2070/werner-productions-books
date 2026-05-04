@@ -59,6 +59,7 @@ export const bookSchema = z.object({
   keywords: z.array(z.string()).default([]),
   relatedBooks: z.array(z.string()).default([]),
   knowsAbout: z.array(z.string()).default([]),
+  goodreadsBookId: z.string().regex(/^\d+$/, "Goodreads ID must be numeric").optional(),
   dateModified: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Must be YYYY-MM-DD"),
 });
 

@@ -88,4 +88,54 @@ describe("generate-pages", () => {
     expect(html).toContain('og:type" content="book"');
     expect(html).toContain('og:locale" content="de_DE"');
   });
+
+  test("JSON-LD includes Goodreads sameAs when goodreadsBookId present", () => {
+    const { writeFileSync, mkdirSync, rmSync } = require("fs");
+    const { stringify } = require("yaml");
+    const { parse: parseYaml } = require("yaml");
+    const base = parseYaml(readFileSync(booksYamlPath, "utf-8")) as any;
+    const entry = structuredClone(base.books[0]);
+    entry.slug = "test-goodreads-sameas";
+    entry.goodreadsBookId = "223349855";
+    const tmpYaml = resolve(rootDir, "books.test-goodreads.yaml");
+    const tmpOut = resolve(rootDir, ".test-goodreads-out");
+    writeFileSync(tmpYaml, stringify({ books: [entry] }));
+    mkdirSync(tmpOut, { recursive: true });
+    try {
+      generateBookPages({ booksYamlPath: tmpYaml, outputDir: tmpOut });
+      const jsonLd = JSON.parse(
+        readFileSync(resolve(tmpOut, "test-goodreads-sameas", "schema-org.jsonld"), "utf-8")
+      );
+      const book = jsonLd["@graph"].find((n: any) => n["@type"] === "Book");
+      expect(book.sameAs).toBe("https://www.goodreads.com/book/show/223349855");
+    } finally {
+      rmSync(tmpYaml, { force: true });
+      rmSync(tmpOut, { recursive: true, force: true });
+    }
+  });
+
+  test("JSON-LD omits sameAs when goodreadsBookId absent", () => {
+    const { writeFileSync, mkdirSync, rmSync } = require("fs");
+    const { stringify } = require("yaml");
+    const { parse: parseYaml } = require("yaml");
+    const base = parseYaml(readFileSync(booksYamlPath, "utf-8")) as any;
+    const entry = structuredClone(base.books[0]);
+    entry.slug = "test-no-sameas";
+    delete entry.goodreadsBookId;
+    const tmpYaml = resolve(rootDir, "books.test-nosameas.yaml");
+    const tmpOut = resolve(rootDir, ".test-nosameas-out");
+    writeFileSync(tmpYaml, stringify({ books: [entry] }));
+    mkdirSync(tmpOut, { recursive: true });
+    try {
+      generateBookPages({ booksYamlPath: tmpYaml, outputDir: tmpOut });
+      const jsonLd = JSON.parse(
+        readFileSync(resolve(tmpOut, "test-no-sameas", "schema-org.jsonld"), "utf-8")
+      );
+      const book = jsonLd["@graph"].find((n: any) => n["@type"] === "Book");
+      expect(book.sameAs).toBeUndefined();
+    } finally {
+      rmSync(tmpYaml, { force: true });
+      rmSync(tmpOut, { recursive: true, force: true });
+    }
+  });
 });
