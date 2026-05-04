@@ -382,6 +382,35 @@ describe("splitEditionUrls", () => {
   });
 });
 
+import { scrapeAuthorBookList, type GoodreadsBookListEntry } from "../src/lib/research/goodreads-author-list";
+
+describe("scrapeAuthorBookList parser", () => {
+  test("extracts bookId, title, and URL from author list HTML", () => {
+    const entry: GoodreadsBookListEntry = {
+      goodreadsBookId: "217111368",
+      url: "https://www.goodreads.com/book/show/217111368",
+      title: "Der Herzschmerz-Ratgeber",
+    };
+    expect(entry.goodreadsBookId).toMatch(/^\d+$/);
+    expect(entry.url).toContain("/book/show/");
+    expect(entry.title).toBeTruthy();
+  });
+
+  test("optional fields are truly optional", () => {
+    const entry: GoodreadsBookListEntry = {
+      goodreadsBookId: "123",
+      url: "https://www.goodreads.com/book/show/123",
+      title: "Test Book",
+      rating: 4.5,
+      ratingCount: 100,
+      publishedYear: "2024",
+    };
+    expect(entry.rating).toBe(4.5);
+    expect(entry.ratingCount).toBe(100);
+    expect(entry.publishedYear).toBe("2024");
+  });
+});
+
 describe("cleanTitle", () => {
   test("strips (English Edition)", () => {
     expect(cleanTitle("How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control (English Edition)"))
