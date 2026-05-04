@@ -2,6 +2,8 @@ import { describe, test, expect } from "bun:test";
 import { toSlug, levenshtein } from "../src/lib/research/slug-utils";
 import { parseBookPage } from "../src/lib/research/parse-book-page";
 import { parseSectionMap, SECTION_BISAC } from "../src/lib/research/parse-section-map";
+import { matchGoodreadsToBook, type GoodreadsItem } from "../src/lib/research/goodreads-rss";
+import type { BooksJsonEntry } from "../src/lib/research/types";
 
 describe("toSlug", () => {
   test("DE title → kebab-case", () => {
@@ -98,5 +100,63 @@ describe("parseSectionMap", () => {
     expect(result).toHaveLength(3);
     expect(result[0].section).toBe("Dr. Seelmann Krimireihe");
     expect(result[2].section).toBe("Fantasy & Science Fiction");
+  });
+});
+
+const mockRssItems: GoodreadsItem[] = [
+  { title: "How to Recognize Cults", bookId: "223349855", isbn: "9798230572978" },
+  { title: "Die Dreizehn Tore: Ein Fantasy-Psychothriller", bookId: "112233445", isbn: null },
+  { title: "The Battle Within", bookId: "998877665", isbn: null },
+];
+
+function makeBook(overrides: Partial<BooksJsonEntry> = {}): BooksJsonEntry {
+  return {
+    asin: "B0DNBSQXXL",
+    title: { de: "Wie man Sekten erkennt", en: "How to Recognize Cults" },
+    description: { de: "...", en: "..." },
+    author: "Dirk Werner",
+    image: { link: "" },
+    link: "",
+    links: {},
+    language: "en",
+    bookFormat: { de: "eBook", en: "eBook" },
+    hasAudiobook: true,
+    hasPaperback: true,
+    ...overrides,
+  };
+}
+
+describe("matchGoodreadsToBook", () => {
+  test("exact title match (EN)", () => {
+    const result = matchGoodreadsToBook(makeBook(), mockRssItems);
+    expect(result.goodreadsBookId).toBe("223349855");
+    expect(result.matchType).toBe("exact");
+  });
+
+  test("exact title match (DE)", () => {
+    const book = makeBook({
+      title: { de: "Die Dreizehn Tore: Ein Fantasy-Psychothriller", en: "The Thirteen Gates" },
+    });
+    const result = matchGoodreadsToBook(book, mockRssItems);
+    expect(result.goodreadsBookId).toBe("112233445");
+    expect(result.matchType).toBe("exact");
+  });
+
+  test("fuzzy match with subtitle diff", () => {
+    const book = makeBook({
+      title: { de: "Irgendwas", en: "The Battle Within: Facing Your Inner Demons" },
+    });
+    const result = matchGoodreadsToBook(book, mockRssItems);
+    expect(result.goodreadsBookId).toBe("998877665");
+    expect(result.matchType).toBe("fuzzy");
+  });
+
+  test("no match → null", () => {
+    const book = makeBook({
+      title: { de: "Komplett anders", en: "Totally Different Book Title" },
+    });
+    const result = matchGoodreadsToBook(book, mockRssItems);
+    expect(result.goodreadsBookId).toBeNull();
+    expect(result.matchType).toBeNull();
   });
 });
