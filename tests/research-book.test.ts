@@ -1,4 +1,5 @@
 import { describe, test, expect } from "bun:test";
+import { cleanTitle } from "../src/lib/research/title-cleaner";
 import { readFileSync, rmSync } from "fs";
 import { resolve } from "path";
 import { logError } from "../src/lib/research/yaml-writer";
@@ -266,5 +267,26 @@ describe("logError", () => {
 
     // Clean up
     try { rmSync(errorLogPath); } catch {}
+  });
+});
+
+describe("cleanTitle", () => {
+  test("strips (English Edition)", () => {
+    expect(cleanTitle("How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control (English Edition)"))
+      .toBe("How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control");
+  });
+  test("strips (German Edition)", () => {
+    expect(cleanTitle("Selbstsabotage überwinden: Entfessle dein wahres Potenzial (German Edition)"))
+      .toBe("Selbstsabotage überwinden: Entfessle dein wahres Potenzial");
+  });
+  test("strips (Englische Ausgabe)", () => {
+    expect(cleanTitle("Buch Titel (Englische Ausgabe)")).toBe("Buch Titel");
+  });
+  test("leaves clean titles unchanged", () => {
+    expect(cleanTitle("Die Dreizehn Tore: Ein Fantasy-Psychothriller"))
+      .toBe("Die Dreizehn Tore: Ein Fantasy-Psychothriller");
+  });
+  test("strips (English) without Edition", () => {
+    expect(cleanTitle("Some Book (English)")).toBe("Some Book");
   });
 });

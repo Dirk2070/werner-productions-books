@@ -32,6 +32,7 @@ import {
   type IndexManifest,
 } from "../src/lib/research/yaml-writer";
 import { toSlug } from "../src/lib/research/slug-utils";
+import { cleanTitle } from "../src/lib/research/title-cleaner";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -196,7 +197,7 @@ async function processBook(
   today: string
 ): Promise<boolean> {
   const lang = book.language;
-  const title = lang === "de" ? book.title.de : book.title.en;
+  const title = cleanTitle(lang === "de" ? book.title.de : book.title.en);
   const slug = toSlug(title);
   const asin = book.asin;
 
@@ -325,7 +326,7 @@ async function processBook(
   // Convention: DE = original, EN = translation
   // relatedBook is the ASIN of the sibling language edition
   const relatedBookSlug = book.relatedBook
-    ? toSlug(lang === "de" ? book.title.en : book.title.de)
+    ? toSlug(cleanTitle(lang === "de" ? book.title.en : book.title.de))
     : undefined;
 
   const workTranslation: string[] = [];
@@ -342,11 +343,11 @@ async function processBook(
   // 11. alternateName: only for monolingual books (no relatedBook)
   const alternateName: string[] | undefined =
     !book.relatedBook
-      ? [lang === "de" ? book.title.en : book.title.de].filter(Boolean)
+      ? [cleanTitle(lang === "de" ? book.title.en : book.title.de)].filter(Boolean)
       : undefined;
 
   // 12. searchHints: other-language title tokens (only when no relatedBook, i.e. not a bilingual pair)
-  const otherLangTitle = lang === "de" ? book.title.en : book.title.de;
+  const otherLangTitle = cleanTitle(lang === "de" ? book.title.en : book.title.de);
   const searchHints: string[] | undefined =
     !book.relatedBook && otherLangTitle
       ? extractTitleTokens(otherLangTitle).slice(0, 5)
@@ -486,7 +487,7 @@ async function main(): Promise<void> {
   if (args.all) {
     targetBooks = allBooks;
   } else if (args.slug) {
-    const found = allBooks.find((b) => toSlug(b.language === "de" ? b.title.de : b.title.en) === args.slug);
+    const found = allBooks.find((b) => toSlug(cleanTitle(b.language === "de" ? b.title.de : b.title.en)) === args.slug);
     if (!found) {
       console.error(`No book found with slug: ${args.slug}`);
       process.exit(1);
@@ -543,7 +544,7 @@ async function main(): Promise<void> {
   // Track Goodreads stats and translation pairs per book
   for (const book of targetBooks) {
     const lang = book.language;
-    const title = lang === "de" ? book.title.de : book.title.en;
+    const title = cleanTitle(lang === "de" ? book.title.de : book.title.en);
 
     // Pre-check Goodreads match for manifest stats
     const grMatch = matchGoodreadsToBook(book, goodreadsItems);
@@ -558,8 +559,8 @@ async function main(): Promise<void> {
     // Track translation pairs (DE original has relatedBook pointing to EN)
     if (book.relatedBook && lang === "de") {
       manifest.translationPairs.push({
-        de: toSlug(book.title.de),
-        en: toSlug(book.title.en),
+        de: toSlug(cleanTitle(book.title.de)),
+        en: toSlug(cleanTitle(book.title.en)),
       });
     }
 
