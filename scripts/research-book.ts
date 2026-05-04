@@ -33,6 +33,7 @@ import {
 } from "../src/lib/research/yaml-writer";
 import { toSlug } from "../src/lib/research/slug-utils";
 import { cleanTitle } from "../src/lib/research/title-cleaner";
+import { splitEditionUrls } from "../src/lib/research/url-splitter";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -273,16 +274,14 @@ async function processBook(
 
   // 9. Assemble workExample editions
   const workExample: Record<string, unknown>[] = [];
+  const editionUrls = splitEditionUrls(book);
 
   // eBook (always present)
-  const ebookUrls: Record<string, string> = {};
-  if (book.link) ebookUrls["amazon"] = book.link;
-  if (book.links) Object.assign(ebookUrls, book.links);
   workExample.push({
     format: "ebook",
     asin,
     publisher: PUBLISHER,
-    urls: ebookUrls,
+    urls: editionUrls.ebook,
   });
 
   // Paperback
@@ -290,7 +289,7 @@ async function processBook(
     const pbEntry: Record<string, unknown> = {
       format: "paperback",
       publisher: PUBLISHER,
-      urls: {},
+      urls: editionUrls.paperback,
     };
     if (paperbackIsbn) pbEntry.isbn = paperbackIsbn;
     if (book.paperbackAsin) {
@@ -305,7 +304,8 @@ async function processBook(
 
   // Audiobook
   if (book.hasAudiobook) {
-    const abUrls: Record<string, string> = {};
+    // Merge page-parsed apple ID with books.json audiobook links
+    const abUrls: Record<string, string> = { ...editionUrls.audiobook };
     if (appleAudioId) {
       abUrls["apple"] = `https://books.apple.com/audiobook/id${appleAudioId}`;
     }

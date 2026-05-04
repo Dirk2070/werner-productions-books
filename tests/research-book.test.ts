@@ -11,6 +11,7 @@ import { generateTopics, extractTitleTokens } from "../src/lib/research/topic-ge
 import { calculateAppMatches, type AppEntry } from "../src/lib/research/app-cross-linker";
 import { buildDescriptions } from "../src/lib/research/description-builder";
 import type { BooksJsonEntry } from "../src/lib/research/types";
+import { splitEditionUrls } from "../src/lib/research/url-splitter";
 
 describe("toSlug", () => {
   test("DE title → kebab-case", () => {
@@ -267,6 +268,117 @@ describe("logError", () => {
 
     // Clean up
     try { rmSync(errorLogPath); } catch {}
+  });
+});
+
+describe("splitEditionUrls", () => {
+  test("book.link goes to ebook.amazon", () => {
+    const book = makeBook({ link: "https://amazon.de/dp/B0DNBSQXXL", links: {} });
+    const result = splitEditionUrls(book);
+    expect(result.ebook.amazon).toBe("https://amazon.de/dp/B0DNBSQXXL");
+  });
+
+  test("ebook-specific links land in ebook bucket", () => {
+    const book = makeBook({
+      link: "",
+      links: {
+        amazon_de: "https://amazon.de/ebook",
+        amazon_us: "https://amazon.us/ebook",
+        apple_books: "https://books.apple.com/ebook",
+        books2read: "https://books2read.com/ebook",
+        google_play: "https://play.google.com/ebook",
+        kobo: "https://kobo.com/ebook",
+      },
+    });
+    const { ebook, paperback, audiobook } = splitEditionUrls(book);
+    expect(ebook.amazon_de).toBe("https://amazon.de/ebook");
+    expect(ebook.amazon_us).toBe("https://amazon.us/ebook");
+    expect(ebook.appleBooks).toBe("https://books.apple.com/ebook");
+    expect(ebook.books2read).toBe("https://books2read.com/ebook");
+    expect(ebook.googlePlay).toBe("https://play.google.com/ebook");
+    expect(ebook.kobo).toBe("https://kobo.com/ebook");
+    expect(Object.keys(paperback)).toHaveLength(0);
+    expect(Object.keys(audiobook)).toHaveLength(0);
+  });
+
+  test("paperback links land in paperback bucket", () => {
+    const book = makeBook({
+      link: "",
+      links: {
+        amazon_de_paperback: "https://amazon.de/pb",
+        amazon_us_paperback: "https://amazon.us/pb",
+        books2read_paperback: "https://books2read.com/pb",
+      },
+    });
+    const { ebook, paperback } = splitEditionUrls(book);
+    expect(paperback.amazon_de).toBe("https://amazon.de/pb");
+    expect(paperback.amazon_us).toBe("https://amazon.us/pb");
+    expect(paperback.books2read).toBe("https://books2read.com/pb");
+    expect(Object.keys(ebook)).toHaveLength(0);
+  });
+
+  test("audiobook links land in audiobook bucket", () => {
+    const book = makeBook({
+      link: "",
+      links: {
+        audiobook: "https://books.apple.com/ab",
+        audiobook_de: "https://books.apple.com/de/ab",
+        audiobook_google_play: "https://play.google.com/ab",
+        audiobook_spotify: "https://open.spotify.com/ab",
+        audiobook_kobo: "https://kobo.com/ab",
+        audiobook_elevenreader: "https://elevenreader.com/ab",
+        audiobook_nook: "https://nook.com/ab",
+        audiobook_tunein: "https://tunein.com/ab",
+      },
+    });
+    const { audiobook, ebook, paperback } = splitEditionUrls(book);
+    expect(audiobook.apple).toBe("https://books.apple.com/ab");
+    expect(audiobook.apple_de).toBe("https://books.apple.com/de/ab");
+    expect(audiobook.googlePlay).toBe("https://play.google.com/ab");
+    expect(audiobook.spotify).toBe("https://open.spotify.com/ab");
+    expect(audiobook.kobo).toBe("https://kobo.com/ab");
+    expect(audiobook.elevenreader).toBe("https://elevenreader.com/ab");
+    expect(audiobook.nook).toBe("https://nook.com/ab");
+    expect(audiobook.tunein).toBe("https://tunein.com/ab");
+    expect(Object.keys(ebook)).toHaveLength(0);
+    expect(Object.keys(paperback)).toHaveLength(0);
+  });
+
+  test("unknown keys are silently dropped", () => {
+    const book = makeBook({
+      link: "",
+      links: { unknown_key: "https://example.com", another_unknown: "https://example2.com" },
+    });
+    const { ebook, paperback, audiobook } = splitEditionUrls(book);
+    expect(Object.keys(ebook)).toHaveLength(0);
+    expect(Object.keys(paperback)).toHaveLength(0);
+    expect(Object.keys(audiobook)).toHaveLength(0);
+  });
+
+  test("empty links → empty buckets", () => {
+    const book = makeBook({ link: "", links: {} });
+    const { ebook, paperback, audiobook } = splitEditionUrls(book);
+    expect(Object.keys(ebook)).toHaveLength(0);
+    expect(Object.keys(paperback)).toHaveLength(0);
+    expect(Object.keys(audiobook)).toHaveLength(0);
+  });
+
+  test("mixed links split correctly", () => {
+    const book = makeBook({
+      link: "https://amazon.de/dp/B0TEST",
+      links: {
+        amazon_de: "https://amazon.de/ebook",
+        amazon_de_paperback: "https://amazon.de/pb",
+        audiobook_spotify: "https://spotify.com/ab",
+        kobo: "https://kobo.com/ebook",
+      },
+    });
+    const { ebook, paperback, audiobook } = splitEditionUrls(book);
+    expect(ebook.amazon).toBe("https://amazon.de/dp/B0TEST");
+    expect(ebook.amazon_de).toBe("https://amazon.de/ebook");
+    expect(ebook.kobo).toBe("https://kobo.com/ebook");
+    expect(paperback.amazon_de).toBe("https://amazon.de/pb");
+    expect(audiobook.spotify).toBe("https://spotify.com/ab");
   });
 });
 
