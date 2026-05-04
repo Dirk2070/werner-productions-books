@@ -5,6 +5,7 @@ import { parseSectionMap, SECTION_BISAC } from "../src/lib/research/parse-sectio
 import { matchGoodreadsToBook, type GoodreadsItem } from "../src/lib/research/goodreads-rss";
 import { generateTopics, extractTitleTokens } from "../src/lib/research/topic-generator";
 import { calculateAppMatches, type AppEntry } from "../src/lib/research/app-cross-linker";
+import { buildDescriptions } from "../src/lib/research/description-builder";
 import type { BooksJsonEntry } from "../src/lib/research/types";
 
 describe("toSlug", () => {
@@ -205,5 +206,39 @@ describe("calculateAppMatches", () => {
     const topics = ["Cooking", "Recipes", "Italian Food"];
     const result = calculateAppMatches(topics, apps);
     expect(result).toHaveLength(0);
+  });
+});
+
+describe("buildDescriptions", () => {
+  test("long description contains ORCID, GND, ISBN, Goodreads ID", () => {
+    const book = makeBook();
+    const result = buildDescriptions(
+      book,
+      { asin: "B0DNBSQXXL", section: "Psychologie & Selbsthilfe", bisac: [], genre: ["Self-Help"] },
+      ["Cult Psychology", "Manipulation Detection"],
+      "9798230572978",
+      "1811457128",
+      "223349855",
+      [{ id: "https://shadow-integrator.com/#app", slug: "shadow-integrator", name: "Shadow Integrator", overlap: 3 }]
+    );
+    expect(result.long).toContain("ORCID 0009-0001-7822-0041");
+    expect(result.long).toContain("GND 1384382429");
+    expect(result.long).toContain("ISBN 9798230572978");
+    expect(result.long).toContain("Goodreads: ID 223349855");
+    expect(result.long).toContain("Shadow Integrator");
+    expect(result.long.length).toBeLessThanOrEqual(800);
+  });
+
+  test("meta ≤155, short ≤200", () => {
+    const book = makeBook();
+    const result = buildDescriptions(book, undefined, [], null, null, null, []);
+    expect(result.meta.length).toBeLessThanOrEqual(155);
+    expect(result.short.length).toBeLessThanOrEqual(200);
+  });
+
+  test("omits Goodreads line when no match", () => {
+    const book = makeBook();
+    const result = buildDescriptions(book, undefined, [], null, null, null, []);
+    expect(result.long).not.toContain("Goodreads");
   });
 });
