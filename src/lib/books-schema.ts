@@ -17,7 +17,7 @@ const workExampleSchema = z
     isbn: z.string().regex(isbnPattern, "ISBN must be 13 digits").optional(),
     asin: z.string().regex(asinPattern, "ASIN must start with B0 + 8 alphanumeric chars").optional(),
     publisher: z.string(),
-    publicationDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Must be YYYY-MM-DD"),
+    publicationDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Must be YYYY-MM-DD").optional(),
     urls: urlMapSchema.default({}),
     narrator: z.string().optional(),
     durationMinutes: z.number().int().positive().optional(),

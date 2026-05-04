@@ -68,9 +68,11 @@ function contentHash(content: string): string {
 // --- JSON-LD Builder ---
 function buildBookJsonLd(book: Book, allBooks: Book[]): object {
   const bookId = `${BASE_URL}/${book.slug}/#book`;
-  const earliestDate = book.workExample
+  const dates = book.workExample
     .map((e) => e.publicationDate)
-    .sort()[0];
+    .filter((d): d is string => !!d)
+    .sort();
+  const earliestDate = dates[0];
 
   const firstIsbn = book.workExample.find((e) => e.isbn)?.isbn;
 
@@ -111,11 +113,11 @@ function buildBookJsonLd(book: Book, allBooks: Book[]): object {
     "author": { "@id": AUTHOR_ID },
     "publisher": { "@id": ORG_ID },
     "image": `${BASE_URL}/${book.cover.filename}`,
-    "datePublished": earliestDate,
     "dateModified": book.dateModified,
     "keywords": book.keywords.join(", "),
   };
 
+  if (earliestDate) bookNode.datePublished = earliestDate;
   if (book.subtitle) bookNode.alternativeHeadline = book.subtitle;
   if (firstIsbn) bookNode.isbn = firstIsbn;
   if (workExamples.length > 0) bookNode.workExample = workExamples;
@@ -431,7 +433,7 @@ export function generateBookPages(opts: {
 
     if (!dryRun) {
       const bookDir = resolve(outputDir, book.slug);
-      mkdirSync(bookDir, { recursive: true });
+      if (!existsSync(bookDir)) mkdirSync(bookDir, { recursive: true });
       writeFileSync(resolve(bookDir, "index.html"), html);
       writeFileSync(resolve(bookDir, "schema-org.jsonld"), jsonLdStr);
       state.hashes[book.slug] = hash;

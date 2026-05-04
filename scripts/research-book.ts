@@ -283,7 +283,6 @@ async function processBook(
     format: "ebook",
     asin,
     publisher: PUBLISHER,
-    publicationDate: PUBLICATION_DATE_PLACEHOLDER,
     urls: ebookUrls,
   });
 
@@ -292,7 +291,6 @@ async function processBook(
     const pbEntry: Record<string, unknown> = {
       format: "paperback",
       publisher: PUBLISHER,
-      publicationDate: PUBLICATION_DATE_PLACEHOLDER,
       urls: {},
     };
     if (paperbackIsbn) pbEntry.isbn = paperbackIsbn;
@@ -315,7 +313,6 @@ async function processBook(
     workExample.push({
       format: "audiobook",
       publisher: PUBLISHER,
-      publicationDate: PUBLICATION_DATE_PLACEHOLDER,
       narrator: NARRATOR_PLACEHOLDER,
       durationMinutes: DURATION_PLACEHOLDER,
       urls: abUrls,

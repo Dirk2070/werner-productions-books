@@ -107,6 +107,17 @@ describe("books-schema", () => {
     expect(result.success).toBe(false);
   });
 
+  test("workExample without publicationDate is valid", () => {
+    const entry = structuredClone(validEntry);
+    entry.workExample = entry.workExample.map((e: any) => {
+      const copy = { ...e };
+      delete copy.publicationDate;
+      return copy;
+    });
+    const result = bookSchema.safeParse(entry);
+    expect(result.success).toBe(true);
+  });
+
   test("goodreadsBookId is optional — missing is valid", () => {
     const entry = structuredClone(validEntry);
     delete entry.goodreadsBookId;
