@@ -9,7 +9,7 @@ export async function fetchWithCache(
   ttlMs: number,
   options?: { headers?: Record<string, string> }
 ): Promise<string> {
-  mkdirSync(CACHE_DIR, { recursive: true });
+  if (!existsSync(CACHE_DIR)) mkdirSync(CACHE_DIR, { recursive: true });
   const cachePath = resolve(CACHE_DIR, cacheKey);
 
   if (existsSync(cachePath)) {

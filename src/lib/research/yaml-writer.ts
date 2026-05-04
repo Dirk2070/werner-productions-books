@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync, appendFileSync } from "fs";
+import { writeFileSync, mkdirSync, appendFileSync, existsSync } from "fs";
 import { resolve } from "path";
 import { stringify as stringifyYaml } from "yaml";
 import { bookSchema } from "../books-schema";
@@ -8,7 +8,7 @@ const OUTPUT_DIR = resolve(process.cwd(), "output/research");
 const ERROR_LOG = resolve(OUTPUT_DIR, "_errors.log");
 
 export function writeBookYaml(slug: string, bookData: Record<string, any>): boolean {
-  mkdirSync(OUTPUT_DIR, { recursive: true });
+  if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR, { recursive: true });
 
   // Validate against schema before writing
   const validation = bookSchema.safeParse(bookData);
@@ -37,7 +37,7 @@ export function writeBookYaml(slug: string, bookData: Record<string, any>): bool
 }
 
 export function logError(entry: ErrorLogEntry): void {
-  mkdirSync(OUTPUT_DIR, { recursive: true });
+  if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR, { recursive: true });
   const line = `${entry.timestamp} | ${entry.asin} | ${entry.type} | ${entry.detail}\n`;
   appendFileSync(ERROR_LOG, line);
 }
@@ -59,7 +59,7 @@ export interface IndexManifest {
 }
 
 export function writeIndexManifest(manifest: IndexManifest): void {
-  mkdirSync(OUTPUT_DIR, { recursive: true });
+  if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR, { recursive: true });
   const yamlContent = stringifyYaml(manifest);
   writeFileSync(resolve(OUTPUT_DIR, "_index.yaml"), yamlContent);
 }
