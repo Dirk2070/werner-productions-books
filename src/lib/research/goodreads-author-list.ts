@@ -1,5 +1,8 @@
 import * as cheerio from "cheerio";
 import { fetchWithCache } from "./fetch-cache";
+import { normalize, levenshtein } from "./slug-utils";
+import { cleanTitle } from "./title-cleaner";
+import type { BooksJsonEntry } from "./types";
 
 const AUTHOR_LIST_BASE = "https://www.goodreads.com/author/list/";
 const TTL_24H = 24 * 60 * 60 * 1000;
@@ -310,4 +313,127 @@ export function cleanDescription(rawHtml: string): {
   forLong = accumulated.trim() || forLong.slice(0, 600);
 
   return { full, excerpt, forLong };
+}
+
+export async function fetchAllAuthorBooks(
+  authorId: string = "70076437"
+): Promise<{
+  books: GoodreadsBookDetail[];
+  errors: Array<{ goodreadsBookId: string; error: string }>;
+}> {
+  const list = await scrapeAuthorBookList(authorId);
+  console.log(`  Author list: ${list.length} books found`);
+
+  const books: GoodreadsBookDetail[] = [];
+  const errors: Array<{ goodreadsBookId: string; error: string }> = [];
+
+  const CONCURRENCY = 3;
+  const DELAY_MS = 300;
+
+  for (let i = 0; i < list.length; i += CONCURRENCY) {
+    const batch = list.slice(i, i + CONCURRENCY);
+    const results = await Promise.all(
+      batch.map(async (entry) => {
+        try {
+          const detail = await fetchBookDetail(entry.goodreadsBookId);
+          if (detail) {
+            if (!detail.rating && entry.rating) detail.rating = entry.rating;
+            if (!detail.ratingCount && entry.ratingCount) detail.ratingCount = entry.ratingCount;
+            if (!detail.publishedYear && entry.publishedYear) detail.publishedYear = entry.publishedYear;
+            return { ok: true as const, detail };
+          }
+          return { ok: false as const, id: entry.goodreadsBookId, error: "fetchBookDetail returned null" };
+        } catch (e) {
+          return { ok: false as const, id: entry.goodreadsBookId, error: (e as Error).message };
+        }
+      })
+    );
+
+    for (const r of results) {
+      if (r.ok) books.push(r.detail);
+      else errors.push({ goodreadsBookId: r.id, error: r.error });
+    }
+
+    if (i + CONCURRENCY < list.length) {
+      await new Promise(r => setTimeout(r, DELAY_MS));
+    }
+  }
+
+  return { books, errors };
+}
+
+export interface CrossMatchResult {
+  goodreadsBookId: string;
+  goodreadsTitle: string;
+  matchedAsin: string | null;
+  matchType: "asin" | "isbn" | "title-exact" | "title-fuzzy" | "none";
+  confidence: number;
+  detail: GoodreadsBookDetail;
+}
+
+export function crossMatchBooks(
+  grBooks: GoodreadsBookDetail[],
+  booksJson: BooksJsonEntry[]
+): {
+  matched: CrossMatchResult[];
+  unmappedGoodreads: GoodreadsBookDetail[];
+  missingOnGoodreads: BooksJsonEntry[];
+} {
+  const matched: CrossMatchResult[] = [];
+  const matchedAsins = new Set<string>();
+  const matchedGrIds = new Set<string>();
+
+  for (const gr of grBooks) {
+    let bestMatch: CrossMatchResult | null = null;
+
+    for (const bj of booksJson) {
+      if (matchedAsins.has(bj.asin)) continue;
+
+      // 1. ASIN match
+      if (gr.asin && gr.asin === bj.asin) {
+        bestMatch = { goodreadsBookId: gr.goodreadsBookId, goodreadsTitle: gr.title, matchedAsin: bj.asin, matchType: "asin", confidence: 1.0, detail: gr };
+        break;
+      }
+
+      // 2. ISBN match
+      if (gr.isbn && bj.paperbackAsin?.match(/^\d{13}$/) && gr.isbn === bj.paperbackAsin) {
+        bestMatch = { goodreadsBookId: gr.goodreadsBookId, goodreadsTitle: gr.title, matchedAsin: bj.asin, matchType: "isbn", confidence: 0.95, detail: gr };
+        break;
+      }
+
+      // 3. Title exact match (normalized)
+      const grTitle = normalize(cleanTitle(gr.title));
+      const bjTitleDe = normalize(cleanTitle(bj.title.de));
+      const bjTitleEn = normalize(cleanTitle(bj.title.en));
+      if (grTitle === bjTitleDe || grTitle === bjTitleEn) {
+        bestMatch = { goodreadsBookId: gr.goodreadsBookId, goodreadsTitle: gr.title, matchedAsin: bj.asin, matchType: "title-exact", confidence: 0.9, detail: gr };
+        break;
+      }
+
+      // 4. Title fuzzy (Levenshtein < 5)
+      const grMain = normalize(cleanTitle(gr.title).split(":")[0]);
+      const bjMainDe = normalize(cleanTitle(bj.title.de).split(":")[0]);
+      const bjMainEn = normalize(cleanTitle(bj.title.en).split(":")[0]);
+      const dist = Math.min(
+        levenshtein(grTitle, bjTitleDe), levenshtein(grTitle, bjTitleEn),
+        levenshtein(grMain, bjMainDe), levenshtein(grMain, bjMainEn)
+      );
+      if (dist < 5) {
+        if (!bestMatch) {
+          bestMatch = { goodreadsBookId: gr.goodreadsBookId, goodreadsTitle: gr.title, matchedAsin: bj.asin, matchType: "title-fuzzy", confidence: Math.max(0.5, 1 - dist * 0.1), detail: gr };
+        }
+      }
+    }
+
+    if (bestMatch) {
+      matched.push(bestMatch);
+      if (bestMatch.matchedAsin) matchedAsins.add(bestMatch.matchedAsin);
+      matchedGrIds.add(gr.goodreadsBookId);
+    }
+  }
+
+  const unmappedGoodreads = grBooks.filter(gr => !matchedGrIds.has(gr.goodreadsBookId));
+  const missingOnGoodreads = booksJson.filter(bj => !matchedAsins.has(bj.asin));
+
+  return { matched, unmappedGoodreads, missingOnGoodreads };
 }
