@@ -79,9 +79,9 @@ describe("parseBookPage", () => {
 describe("parseSectionMap", () => {
   test("extracts ASIN from cover URL and maps to section", () => {
     const html = `<html><body>
-      <h2>Psychologie &amp; Selbsthilfe</h2>
-      <div><img src="/images/B0DNBSQXXL-800.webp" alt="book"></div>
-      <h2>Fantasy &amp; Science Fiction</h2>
+      <div class="mega-cat"><strong>Psychologie &amp; Selbsthilfe</strong>
+        <a href="/buecher/B0DNBSQXXL-de"><img src="/assets/covers/B0DNBSQXXL-400.webp" alt="book"></a>
+      </div>
     </body></html>`;
     const result = parseSectionMap(html);
     expect(result).toHaveLength(1);
@@ -96,16 +96,18 @@ describe("parseSectionMap", () => {
 
   test("multiple books across sections", () => {
     const html = `<html><body>
-      <h2>Dr. Seelmann Krimireihe</h2>
-      <div><img src="/images/B0AAAAAAAA-800.webp"></div>
-      <div><img src="/images/B0BBBBBBBB-800.webp"></div>
-      <h2>Fantasy &amp; Science Fiction</h2>
-      <div><img src="/images/B0CCCCCCCC-800.webp"></div>
+      <div class="mega-cat"><strong>Dr. Seelmann Krimireihe</strong>
+        <a href="/buecher/B0AAAAAAAA-de"><img src="/assets/covers/B0AAAAAAAA-400.webp"></a>
+        <a href="/buecher/B0BBBBBBBB-de"><img src="/assets/covers/B0BBBBBBBB-400.webp"></a>
+      </div>
+      <div class="mega-cat"><strong>Fantasy &amp; Sci-Fi</strong>
+        <a href="/buecher/B0CCCCCCCC-de"><img src="/assets/covers/B0CCCCCCCC-400.webp"></a>
+      </div>
     </body></html>`;
     const result = parseSectionMap(html);
     expect(result).toHaveLength(3);
     expect(result[0].section).toBe("Dr. Seelmann Krimireihe");
-    expect(result[2].section).toBe("Fantasy & Science Fiction");
+    expect(result[2].section).toBe("Fantasy & Sci-Fi");
   });
 });
 

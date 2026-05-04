@@ -6,7 +6,8 @@ const CACHE_DIR = resolve(process.cwd(), ".cache/research");
 export async function fetchWithCache(
   url: string,
   cacheKey: string,
-  ttlMs: number
+  ttlMs: number,
+  options?: { headers?: Record<string, string> }
 ): Promise<string> {
   mkdirSync(CACHE_DIR, { recursive: true });
   const cachePath = resolve(CACHE_DIR, cacheKey);
@@ -19,7 +20,10 @@ export async function fetchWithCache(
   }
 
   const resp = await fetch(url, {
-    headers: { "User-Agent": "WernerProductionsResearch/1.0" },
+    headers: {
+      "User-Agent": "WernerProductionsResearch/1.0",
+      ...(options?.headers ?? {}),
+    },
   });
   if (!resp.ok) {
     throw new Error(`HTTP ${resp.status} for ${url}`);

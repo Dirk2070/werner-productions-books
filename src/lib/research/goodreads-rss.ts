@@ -13,8 +13,7 @@ export interface GoodreadsItem {
   isbn: string | null;
 }
 
-export async function fetchGoodreadsRss(): Promise<GoodreadsItem[]> {
-  const xml = await fetchWithCache(RSS_URL, CACHE_KEY, TTL_24H);
+function parseRssXml(xml: string): GoodreadsItem[] {
   const $ = cheerio.load(xml, { xmlMode: true });
   const items: GoodreadsItem[] = [];
 
@@ -36,6 +35,50 @@ export async function fetchGoodreadsRss(): Promise<GoodreadsItem[]> {
   });
 
   return items;
+}
+
+function parseGoodreadsHtml(html: string): GoodreadsItem[] {
+  const $ = cheerio.load(html);
+  const items: GoodreadsItem[] = [];
+  const seen = new Set<string>();
+
+  // Goodreads author list page: book titles in .bookTitle links
+  // href="/book/show/<id>-slug"
+  $("a.bookTitle[href]").each((_, el) => {
+    const href = $(el).attr("href") || "";
+    const idMatch = href.match(/\/book\/show\/(\d+)/);
+    if (!idMatch) return;
+    const bookId = idMatch[1];
+    if (seen.has(bookId)) return;
+    seen.add(bookId);
+
+    // title is the itemprop="name" span inside the link, or the link text
+    const title = $(el).find("[itemprop='name']").text().trim() || $(el).text().trim();
+    if (title) {
+      items.push({ title, bookId, isbn: null });
+    }
+  });
+
+  return items;
+}
+
+export async function fetchGoodreadsRss(): Promise<GoodreadsItem[]> {
+  const content = await fetchWithCache(RSS_URL, CACHE_KEY, TTL_24H, {
+    headers: {
+      "Accept": "application/rss+xml, application/xml, text/xml, */*",
+      "User-Agent": "Mozilla/5.0 (compatible; WernerProductionsResearch/1.0)",
+    },
+  });
+
+  // Check if we got real RSS/XML or an HTML fallback
+  const trimmed = content.trimStart();
+  if (trimmed.startsWith("<?xml") || trimmed.startsWith("<rss") || trimmed.startsWith("<feed")) {
+    const items = parseRssXml(content);
+    if (items.length > 0) return items;
+  }
+
+  // Fallback: parse the HTML author page for book links
+  return parseGoodreadsHtml(content);
 }
 
 export function matchGoodreadsToBook(

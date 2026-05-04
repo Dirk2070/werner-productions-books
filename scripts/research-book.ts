@@ -142,17 +142,41 @@ function loadIdentityYaml(): IdentityYaml {
 // Cover dimensions
 // ---------------------------------------------------------------------------
 
+function parseWebpDimensions(buffer: Buffer): { width: number; height: number } | null {
+  if (buffer.length < 30) return null;
+  if (buffer.toString("ascii", 0, 4) !== "RIFF") return null;
+  if (buffer.toString("ascii", 8, 12) !== "WEBP") return null;
+
+  const chunk = buffer.toString("ascii", 12, 16);
+  if (chunk === "VP8X" && buffer.length >= 30) {
+    const width = (buffer[24] | (buffer[25] << 8) | (buffer[26] << 16)) + 1;
+    const height = (buffer[27] | (buffer[28] << 8) | (buffer[29] << 16)) + 1;
+    return { width, height };
+  }
+  if (chunk === "VP8 " && buffer.length >= 30) {
+    const width = buffer.readUInt16LE(26) & 0x3FFF;
+    const height = buffer.readUInt16LE(28) & 0x3FFF;
+    return { width, height };
+  }
+  if (chunk === "VP8L" && buffer.length >= 25) {
+    const val = buffer.readUInt32LE(21);
+    const width = (val & 0x3FFF) + 1;
+    const height = ((val >> 14) & 0x3FFF) + 1;
+    return { width, height };
+  }
+  return null;
+}
+
 async function getCoverDimensions(asin: string): Promise<{ width: number; height: number }> {
   try {
-    const url = `https://dirkwernerbooks.com/images/${asin}-800.webp`;
+    const url = `https://dirkwernerbooks.com/assets/covers/${asin}-400.webp`;
     const resp = await fetch(url, {
       headers: { "User-Agent": "WernerProductionsResearch/1.0" },
     });
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const buffer = Buffer.from(await resp.arrayBuffer());
-    const { default: imageSize } = await import("image-size");
-    const dims = imageSize(buffer);
-    if (dims.width && dims.height) return { width: dims.width, height: dims.height };
+    const dims = parseWebpDimensions(buffer);
+    if (dims) return dims;
   } catch (e) {
     console.warn(`  ⚠ Cover dimensions failed for ${asin}: ${(e as Error).message}`);
   }
@@ -271,7 +295,13 @@ async function processBook(
       urls: {},
     };
     if (paperbackIsbn) pbEntry.isbn = paperbackIsbn;
-    if (book.paperbackAsin) pbEntry.asin = book.paperbackAsin;
+    if (book.paperbackAsin) {
+      if (/^B0[A-Z0-9]{8}$/.test(book.paperbackAsin)) {
+        pbEntry.asin = book.paperbackAsin;
+      } else if (/^\d{13}$/.test(book.paperbackAsin) && !paperbackIsbn) {
+        pbEntry.isbn = book.paperbackAsin;
+      }
+    }
     workExample.push(pbEntry);
   }
 
