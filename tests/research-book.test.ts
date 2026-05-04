@@ -3,6 +3,8 @@ import { toSlug, levenshtein } from "../src/lib/research/slug-utils";
 import { parseBookPage } from "../src/lib/research/parse-book-page";
 import { parseSectionMap, SECTION_BISAC } from "../src/lib/research/parse-section-map";
 import { matchGoodreadsToBook, type GoodreadsItem } from "../src/lib/research/goodreads-rss";
+import { generateTopics, extractTitleTokens } from "../src/lib/research/topic-generator";
+import { calculateAppMatches, type AppEntry } from "../src/lib/research/app-cross-linker";
 import type { BooksJsonEntry } from "../src/lib/research/types";
 
 describe("toSlug", () => {
@@ -158,5 +160,50 @@ describe("matchGoodreadsToBook", () => {
     const result = matchGoodreadsToBook(book, mockRssItems);
     expect(result.goodreadsBookId).toBeNull();
     expect(result.matchType).toBeNull();
+  });
+});
+
+describe("generateTopics", () => {
+  test("hardcoded ASIN returns predefined topics", () => {
+    const result = generateTopics("B0DNBSQXXL", undefined, [], []);
+    expect(result).toContain("Cult Psychology");
+    expect(result.length).toBeGreaterThan(3);
+  });
+
+  test("non-hardcoded ASIN uses section + title + bullets", () => {
+    const section = { asin: "B0XYZTEST", section: "Psychologie & Selbsthilfe", bisac: [], genre: ["Self-Help", "Psychology"] };
+    const result = generateTopics("B0XYZTEST", section, ["Building emotional resilience"], ["Resilience", "Growth"]);
+    expect(result).toContain("Self-Help");
+    expect(result.length).toBeLessThanOrEqual(8);
+  });
+});
+
+describe("extractTitleTokens", () => {
+  test("filters stopwords and short words", () => {
+    const result = extractTitleTokens("How to Recognize Cults: A Guide");
+    expect(result).toContain("Recognize");
+    expect(result).toContain("Cults");
+    expect(result).toContain("Guide");
+    expect(result).not.toContain("How");
+  });
+});
+
+describe("calculateAppMatches", () => {
+  const apps: AppEntry[] = [
+    { id: "https://shadow-integrator.com/#app", slug: "shadow-integrator", name: "Shadow Integrator", topics: ["Schattenarbeit", "Jung'sche Psychologie", "Selbstsabotage", "Manipulation Detection", "Innere Konflikte", "Selbstreflexion", "Schatten-Integration"] },
+    { id: "https://psyprofiler.com/#app", slug: "psyprofiler", name: "PsyProfiler", topics: ["Psychologische Tests", "Persönlichkeit", "Emotionale Intelligenz", "Selbstdiagnose", "Psychologisches Profiling", "Achtsamkeit"] },
+  ];
+
+  test("Cults book matches Shadow Integrator (≥2 overlap)", () => {
+    const topics = ["Cult Psychology", "Manipulation Detection", "Shadow Work", "Critical Thinking"];
+    const result = calculateAppMatches(topics, apps);
+    expect(result.length).toBeGreaterThanOrEqual(1);
+    expect(result[0].slug).toBe("shadow-integrator");
+  });
+
+  test("no match when overlap < 2", () => {
+    const topics = ["Cooking", "Recipes", "Italian Food"];
+    const result = calculateAppMatches(topics, apps);
+    expect(result).toHaveLength(0);
   });
 });
