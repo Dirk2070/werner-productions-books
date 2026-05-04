@@ -1,6 +1,7 @@
 import { describe, test, expect } from "bun:test";
 import { toSlug, levenshtein } from "../src/lib/research/slug-utils";
 import { parseBookPage } from "../src/lib/research/parse-book-page";
+import { parseSectionMap, SECTION_BISAC } from "../src/lib/research/parse-section-map";
 
 describe("toSlug", () => {
   test("DE title → kebab-case", () => {
@@ -64,5 +65,38 @@ describe("parseBookPage", () => {
     const result = parseBookPage(html);
     expect(result.formatBadges).toContain("EBook");
     expect(result.formatBadges).toContain("Hörbuch");
+  });
+});
+
+describe("parseSectionMap", () => {
+  test("extracts ASIN from cover URL and maps to section", () => {
+    const html = `<html><body>
+      <h2>Psychologie &amp; Selbsthilfe</h2>
+      <div><img src="/images/B0DNBSQXXL-800.webp" alt="book"></div>
+      <h2>Fantasy &amp; Science Fiction</h2>
+    </body></html>`;
+    const result = parseSectionMap(html);
+    expect(result).toHaveLength(1);
+    expect(result[0].asin).toBe("B0DNBSQXXL");
+    expect(result[0].section).toBe("Psychologie & Selbsthilfe");
+    expect(result[0].bisac).toEqual(["SEL031000", "PSY045000"]);
+  });
+
+  test("BISAC mapping covers all sections", () => {
+    expect(Object.keys(SECTION_BISAC)).toHaveLength(5);
+  });
+
+  test("multiple books across sections", () => {
+    const html = `<html><body>
+      <h2>Dr. Seelmann Krimireihe</h2>
+      <div><img src="/images/B0AAAAAAAA-800.webp"></div>
+      <div><img src="/images/B0BBBBBBBB-800.webp"></div>
+      <h2>Fantasy &amp; Science Fiction</h2>
+      <div><img src="/images/B0CCCCCCCC-800.webp"></div>
+    </body></html>`;
+    const result = parseSectionMap(html);
+    expect(result).toHaveLength(3);
+    expect(result[0].section).toBe("Dr. Seelmann Krimireihe");
+    expect(result[2].section).toBe("Fantasy & Science Fiction");
   });
 });
