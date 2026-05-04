@@ -411,6 +411,45 @@ describe("scrapeAuthorBookList parser", () => {
   });
 });
 
+import { cleanDescription } from "../src/lib/research/goodreads-author-list";
+
+describe("cleanDescription", () => {
+  test("strips HTML tags and keeps line breaks", () => {
+    const result = cleanDescription("<p>First paragraph.</p><p>Second paragraph.</p>");
+    expect(result.full).toContain("First paragraph.");
+    expect(result.full).toContain("Second paragraph.");
+  });
+
+  test("removes author bio section", () => {
+    const result = cleanDescription("Great book about psychology.\n\nAbout the Author\nDirk Werner is...");
+    expect(result.full).not.toContain("Dirk Werner is");
+    expect(result.full).toContain("Great book about psychology.");
+  });
+
+  test("removes marketing imperatives", () => {
+    const result = cleanDescription("A profound exploration of the mind. Order now to get your copy. Don't miss out on this.");
+    expect(result.full).not.toContain("Order now");
+    expect(result.full).not.toContain("Don't miss out");
+    expect(result.full).toContain("A profound exploration");
+  });
+
+  test("forLong is max 600 chars, no bullets", () => {
+    const long = "A".repeat(100) + ". " + "B".repeat(100) + ". " + "C".repeat(100) + ". " + "D".repeat(400) + ".";
+    const result = cleanDescription(long);
+    expect(result.forLong.length).toBeLessThanOrEqual(600);
+  });
+
+  test("excerpt is first paragraph, max 800 chars", () => {
+    const result = cleanDescription("First paragraph here.\n\nSecond paragraph here.");
+    expect(result.excerpt).toBe("First paragraph here.");
+  });
+
+  test("decodes HTML entities", () => {
+    const result = cleanDescription("Tom &amp; Jerry &lt;3 each other&#39;s company");
+    expect(result.full).toContain("Tom & Jerry <3 each other's company");
+  });
+});
+
 describe("cleanTitle", () => {
   test("strips (English Edition)", () => {
     expect(cleanTitle("How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control (English Edition)"))
