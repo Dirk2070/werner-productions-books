@@ -17,6 +17,25 @@ const BASE_URL = "https://books.werner-productions.com";
 const jsonLd = generateJsonLd(book, allBooks);
 const ogLocale = book.language === "de" ? "de_DE" : "en_US";
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Bücher von Dirk Werner",
+      "item": `${BASE_URL}/`,
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": book.title,
+      "item": `${BASE_URL}/${book.slug}/`,
+    },
+  ],
+};
+
 // hreflang: find translation partners
 const hreflangLinks: { lang: string; href: string }[] = [];
 const translationSlugs = [...book.workTranslation, ...book.translationOfWork];
@@ -56,6 +75,7 @@ hreflangLinks.unshift({ lang: book.language, href: `${BASE_URL}/${book.slug}/` }
   <meta property="og:url" content={`${BASE_URL}/${book.slug}/`} />
 
   <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <link rel="stylesheet" href="/styles/book-detail.css" />
