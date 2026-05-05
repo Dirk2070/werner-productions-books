@@ -1,0 +1,81 @@
+---
+const channels = [
+  { label: "YouTube — Lux Mesopotamiae", url: "https://www.youtube.com/@LuxMesopotamiae-kw6rw", platform: "YouTube" },
+  { label: "YouTube — Dirk Werner", url: "https://www.youtube.com/@dirkwerner777", platform: "YouTube" },
+  { label: "Instagram", url: "https://www.instagram.com/dirk.werner.d.w.2070/", platform: "Instagram" },
+  { label: "Threads", url: "https://www.threads.net/@dirk.werner.d.w.2070", platform: "Threads" },
+  { label: "TikTok", url: "https://www.tiktok.com/@innergrowthguide5", platform: "TikTok" },
+  { label: "X — @dirk_werner1", url: "https://x.com/dirk_werner1", platform: "X" },
+  { label: "X — @LuxMesopotamiae", url: "https://twitter.com/LuxMesopotamiae", platform: "X" },
+  { label: "LinkedIn", url: "https://de.linkedin.com/in/dirk-werner-657a81a8", platform: "LinkedIn" },
+  { label: "Xing", url: "https://www.xing.com/profile/Dirk_Werner12", platform: "Xing" },
+];
+---
+
+<section class="social-links" id="social">
+  <div class="social-links__inner">
+    <h2 class="social-links__heading">Social Media</h2>
+    <ul class="social-links__list">
+      {channels.map((c) => (
+        <li class="social-links__item">
+          <a class="social-links__link" href={c.url} rel="noopener me" aria-label={c.label}>
+            <span class="social-links__platform">{c.platform}</span>
+            <span class="social-links__label">{c.label.replace(`${c.platform} — `, "").replace(c.platform, "").trim() || "Profil"}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .social-links {
+    padding: 2rem 1.5rem;
+    background: #12122a;
+    border-top: 1px solid #2d2d4e;
+  }
+  .social-links__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .social-links__heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #7060a0;
+    margin: 0 0 1rem;
+  }
+  .social-links__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.5rem;
+  }
+  .social-links__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #2d2d4e;
+    border-radius: 6px;
+    background: #16162e;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .social-links__link:hover {
+    border-color: #c9a96e;
+    background: #1a1a36;
+  }
+  .social-links__platform {
+    color: #c9a96e;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .social-links__label {
+    color: #a090c0;
+    font-size: 0.75rem;
+  }
+</style>

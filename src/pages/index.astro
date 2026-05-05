@@ -4,6 +4,8 @@ import SiteHeader from "../components/SiteHeader.astro";
 import IndexHero from "../components/IndexHero.astro";
 import BookGrid from "../components/BookGrid.astro";
 import AppsSection from "../components/AppsSection.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import FaqSection from "../components/FaqSection.astro";
 import CrossLinkingFooter from "../components/CrossLinkingFooter.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
@@ -21,8 +23,8 @@ const jsonLd = {
       "name": "Dirk Werner",
       "givenName": "Dirk",
       "familyName": "Werner",
-      "jobTitle": "Diplom-Psychologe, Psychotherapeut, Autor",
-      "description": "Dirk Werner ist Diplom-Psychologe, Psychotherapeut und Autor psychologischer Sachbücher und Romane.",
+      "jobTitle": "Diplom-Psychologe, Psychotherapeut, Autor, Digital Creator",
+      "description": "Dirk Werner ist Diplom-Psychologe, Psychotherapeut, Autor psychologischer Sachbücher und Romane sowie Digital Creator von psychologischen Apps und Social Media Content.",
       "image": `${BASE_URL}/assets/dirk-werner.jpg`,
       "url": BASE_URL,
       "sameAs": [
@@ -36,7 +38,16 @@ const jsonLd = {
         "https://insightvue.app",
         "https://www.amazon.de/stores/Dirk-Werner/author/B0F2YNKR78",
         "https://play.google.com/store/books/author?id=Dirk+Werner",
-        "https://books.apple.com/us/author/dirk-werner/id1800990912"
+        "https://books.apple.com/us/author/dirk-werner/id1800990912",
+        "https://www.youtube.com/@LuxMesopotamiae-kw6rw",
+        "https://www.youtube.com/@dirkwerner777",
+        "https://www.instagram.com/dirk.werner.d.w.2070/",
+        "https://www.threads.net/@dirk.werner.d.w.2070",
+        "https://www.tiktok.com/@innergrowthguide5",
+        "https://x.com/dirk_werner1",
+        "https://twitter.com/LuxMesopotamiae",
+        "https://de.linkedin.com/in/dirk-werner-657a81a8",
+        "https://www.xing.com/profile/Dirk_Werner12"
       ],
       "knowsAbout": [
         "Psychologie",
@@ -105,6 +116,8 @@ const jsonLd = {
     <IndexHero />
     <BookGrid books={books} />
     <AppsSection />
+    <SocialLinks />
+    <FaqSection />
   </main>
   <CrossLinkingFooter />
   <SiteFooter />

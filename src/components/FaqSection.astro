@@ -1,0 +1,119 @@
+---
+const faqs = [
+  {
+    q: "Wer ist Dirk Werner?",
+    a: "Diplom-Psychologe und approbierter Psychotherapeut seit 2008 mit über 26 Jahren Erfahrung. Autor von 31 Büchern und Entwickler psychologischer Apps.",
+  },
+  {
+    q: "Welche Therapieformen bietet die Praxis an?",
+    a: "Einzel-, Paar- und Gruppentherapie mit Schwerpunkt Verhaltenstherapie sowie Zusatzqualifikationen in Gestalt-, Körper- und personenzentrierter Therapie.",
+  },
+  {
+    q: "Welche Bücher hat Dirk Werner geschrieben?",
+    a: "31 Werke auf Deutsch und Englisch — Ratgeber, Thriller, spirituell-psychologische Werke und Belletristik. Erhältlich auf Amazon, Google Play Books, Apple Books und weiteren Plattformen.",
+  },
+  {
+    q: "Was ist der Shadow Integrator?",
+    a: "KI-gestützte Android-App für Schattenarbeit nach C. G. Jung mit 30 Aspekten für persönliches Wachstum.",
+  },
+  {
+    q: "Was ist PsyProfiler?",
+    a: "Web-App mit 22 wissenschaftlich fundierten psychologischen Tests, kostenlos und ohne Registrierung nutzbar.",
+  },
+  {
+    q: "Was ist InsightVUE?",
+    a: "KI-gestützte Web-App für psychologische Bildanalyse mit fünf Analysefunktionen pro Bild.",
+  },
+  {
+    q: "Wo befindet sich die Praxis?",
+    a: "Füssen-Hopfen im Allgäu (Bayern), seit 2015 kassenärztlich zugelassen.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.a,
+    },
+  })),
+};
+---
+
+<section class="faq" id="faq">
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  <div class="faq__inner">
+    <h2 class="faq__heading">Häufige Fragen</h2>
+    <dl class="faq__list">
+      {faqs.map((f) => (
+        <details class="faq__item">
+          <summary class="faq__question">{f.q}</summary>
+          <p class="faq__answer">{f.a}</p>
+        </details>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: 2.5rem 1.5rem;
+    background: #12122a;
+    border-top: 1px solid #2d2d4e;
+  }
+  .faq__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .faq__heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #7060a0;
+    margin: 0 0 1.25rem;
+  }
+  .faq__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .faq__item {
+    border: 1px solid #2d2d4e;
+    border-radius: 6px;
+    background: #16162e;
+    padding: 0.8rem 1rem;
+  }
+  .faq__item[open] {
+    border-color: #c9a96e;
+  }
+  .faq__question {
+    color: #c9a96e;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+  .faq__question::before {
+    content: "+";
+    margin-right: 0.5rem;
+    color: #7060a0;
+  }
+  .faq__item[open] .faq__question::before {
+    content: "−";
+  }
+  .faq__answer {
+    color: #b0a0d0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0.75rem 0 0;
+  }
+</style>
