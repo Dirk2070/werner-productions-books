@@ -66,6 +66,7 @@ export const bookSchema = z.object({
     quote: z.string(),
     source: z.string(),
     attribution: z.string().optional(),
+    reviewedBookSlug: z.string().regex(slugPattern).optional(),
   })).default([]),
   mentions: z.array(z.object({
     id: z.string().url(),
@@ -89,9 +90,42 @@ export type BooksFile = z.infer<typeof booksFileSchema>;
 
 // --- Cross-validation ---
 
-function crossValidate(data: BooksFile): string[] {
+const PREPOSITION_STARTS = new Set([
+  "Until", "Beneath", "Over", "Through", "While", "After", "Before", "During",
+  "Above", "Below", "Behind", "Beyond", "Within", "Without", "Against",
+  "Among", "Between", "Towards", "Across", "Beside",
+  "Bis", "Unter", "Ueber", "Durch", "Waehrend", "Nach", "Vor", "Hinter",
+  "Innerhalb", "Ausserhalb", "Gegen", "Zwischen",
+]);
+
+function keywordGarbageScore(
+  keyword: string,
+  descriptionLong: string,
+  descriptionMarketing: string | undefined
+): number {
+  const words = keyword.trim().split(/\s+/);
+  // single-word keywords cannot be sentence-fragments, even if they are prepositions
+  if (words.length < 2 || words[0] === "") return 0;
+
+  let score = 0;
+  if (PREPOSITION_STARTS.has(words[0])) score += 2;
+  if (words.length === 2 && words[1] && words[1][0] === words[1][0].toLowerCase()) {
+    score += 1;
+  }
+  const haystack = `${descriptionLong} ${descriptionMarketing ?? ""}`.toLowerCase();
+  if (haystack.includes(keyword.toLowerCase())) score += 1;
+
+  return score;
+}
+
+function crossValidate(
+  data: BooksFile
+): { errors: string[]; warnings: string[] } {
   const errors: string[] = [];
+  const warnings: string[] = [];
   const slugs = new Set(data.books.map((b) => b.slug));
+  const titleToSlug = new Map<string, string>();
+  for (const b of data.books) titleToSlug.set(b.title, b.slug);
 
   for (const book of data.books) {
     for (const field of ["workTranslation", "translationOfWork", "relatedBooks"] as const) {
@@ -104,28 +138,70 @@ function crossValidate(data: BooksFile): string[] {
         }
       }
     }
+
+    for (const review of book.reviews) {
+      if (review.reviewedBookSlug) {
+        if (!slugs.has(review.reviewedBookSlug)) {
+          errors.push(
+            `${book.slug}: review.reviewedBookSlug references unknown slug "${review.reviewedBookSlug}"`
+          );
+        }
+        if (review.reviewedBookSlug !== book.slug) {
+          errors.push(
+            `${book.slug}: review.reviewedBookSlug "${review.reviewedBookSlug}" differs from book slug — review belongs on the referenced book's page or should be removed`
+          );
+        }
+      }
+      if (review.attribution) {
+        for (const [otherTitle, otherSlug] of titleToSlug) {
+          if (otherSlug !== book.slug && review.attribution.includes(otherTitle)) {
+            warnings.push(
+              `${book.slug}: review.attribution mentions another book's title "${otherTitle}" — possible misattribution (set reviewedBookSlug=${otherSlug} to confirm or move review)`
+            );
+          }
+        }
+      }
+    }
+
+    for (const list of [
+      { name: "keywords", values: book.keywords },
+      { name: "knowsAbout", values: book.knowsAbout },
+    ]) {
+      for (const kw of list.values) {
+        const score = keywordGarbageScore(
+          kw,
+          book.descriptions.long,
+          book.descriptions.marketing
+        );
+        if (score >= 3) {
+          warnings.push(
+            `${book.slug}: ${list.name} contains "${kw}" (score ${score}/4) — looks like an auto-extracted fragment from descriptions, please review`
+          );
+        }
+      }
+    }
   }
 
-  return errors;
+  return { errors, warnings };
 }
 
 // --- Validation function ---
 
 export function validateBooksYaml(yamlPath: string):
-  | { valid: true; data: BooksFile }
-  | { valid: false; errors: string[] } {
+  | { valid: true; data: BooksFile; warnings: string[] }
+  | { valid: false; errors: string[]; warnings: string[] } {
   let raw: string;
   try {
     raw = readFileSync(yamlPath, "utf-8");
   } catch (e) {
-    return { valid: false, errors: [`Cannot read file: ${yamlPath}`] };
+    return { valid: false, errors: [`Cannot read file: ${yamlPath}`], warnings: [] };
   }
 
   let parsed: unknown;
   try {
     parsed = parseYaml(raw);
   } catch (e) {
-    return { valid: false, errors: [`YAML parse error: ${(e as Error).message}`] };
+    return { valid: false, errors: [`YAML parse error: ${(e as Error).message}`], warnings: [] };
   }
 
   const result = booksFileSchema.safeParse(parsed);
@@ -134,13 +210,13 @@ export function validateBooksYaml(yamlPath: string):
       const path = issue.path.join(".");
       return `${path}: ${issue.message} (expected: ${(issue as any).expected ?? "n/a"}, received: ${(issue as any).received ?? "n/a"})`;
     });
-    return { valid: false, errors };
+    return { valid: false, errors, warnings: [] };
   }
 
-  const crossErrors = crossValidate(result.data);
-  if (crossErrors.length > 0) {
-    return { valid: false, errors: crossErrors };
+  const { errors, warnings } = crossValidate(result.data);
+  if (errors.length > 0) {
+    return { valid: false, errors, warnings };
   }
 
-  return { valid: true, data: result.data };
+  return { valid: true, data: result.data, warnings };
 }

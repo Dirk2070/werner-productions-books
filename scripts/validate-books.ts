@@ -4,6 +4,14 @@ import { validateBooksYaml } from "../src/lib/books-schema";
 const yamlPath = resolve(import.meta.dir, "..", "books.yaml");
 const result = validateBooksYaml(yamlPath);
 
+if (result.warnings.length > 0) {
+  console.warn(`⚠  ${result.warnings.length} warning${result.warnings.length === 1 ? "" : "s"}:\n`);
+  for (const w of result.warnings) {
+    console.warn(`  - ${w}`);
+  }
+  console.warn("");
+}
+
 if (result.valid) {
   const count = result.data.books.length;
   const slugs = result.data.books.map((b) => b.slug).join(", ");
