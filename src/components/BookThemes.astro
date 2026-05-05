@@ -1,0 +1,104 @@
+---
+import type { Book } from "../lib/load-books.js";
+
+interface Props {
+  book: Book;
+}
+const { book } = Astro.props;
+
+const BISAC_LABELS: Record<string, string> = {
+  FIC009000: "Fantasy",
+  FIC009100: "Fantasy / Dark Fantasy",
+  FIC031080: "Thriller / Psychologisch",
+  FIC028030: "Science Fiction / Mystik",
+  FIC028000: "Science Fiction",
+  PSY000000: "Psychologie",
+  PSY010000: "Psychologie / Tiefenpsychologie",
+  OCC000000: "Esoterik",
+  OCC014000: "Esoterik / Mystik",
+  SEL000000: "Selbsthilfe",
+  SEL031000: "Selbsthilfe / Persönlichkeitsentwicklung",
+  REL012000: "Spiritualität",
+  REL012110: "Spiritualität / Mystik",
+  PHI000000: "Philosophie",
+};
+
+const genres = book.bisac
+  .map((code) => BISAC_LABELS[code] ?? code)
+  .filter(Boolean);
+const topics = book.knowsAbout;
+---
+{(genres.length > 0 || topics.length > 0) && (
+  <section class="book-themes">
+    <div class="book-themes__inner">
+      {genres.length > 0 && (
+        <div class="book-themes__group">
+          <h2 class="book-themes__heading">Genre</h2>
+          <ul class="book-themes__tags">
+            {genres.map((g) => (
+              <li class="book-themes__tag book-themes__tag--genre">{g}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {topics.length > 0 && (
+        <div class="book-themes__group">
+          <h2 class="book-themes__heading">Themen</h2>
+          <ul class="book-themes__tags">
+            {topics.map((t) => (
+              <li class="book-themes__tag">{t}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<style>
+  .book-themes {
+    padding: 2rem 1.5rem;
+    background: #16162e;
+    border-top: 1px solid #2d2d4e;
+  }
+  .book-themes__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .book-themes__group {
+    flex: 1;
+    min-width: 200px;
+  }
+  .book-themes__heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #7060a0;
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+  }
+  .book-themes__tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .book-themes__tag {
+    background: #1e1e3a;
+    border: 1px solid #3d3d6e;
+    color: #b0a0d0;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+  }
+  .book-themes__tag--genre {
+    background: #2d1e3a;
+    border-color: #6040a0;
+    color: #c9a96e;
+  }
+</style>

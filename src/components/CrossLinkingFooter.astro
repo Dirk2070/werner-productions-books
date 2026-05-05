@@ -1,0 +1,73 @@
+---
+const domains = [
+  { label: "Werner Productions Hub", url: "https://werner-productions.com", desc: "Publisher & Media" },
+  { label: "Shadow Integrator", url: "https://shadow-integrator.com", desc: "App für Schattenarbeit" },
+  { label: "PsyProfiler", url: "https://psyprofiler.com", desc: "Psychologisches Profiling" },
+  { label: "InsightVUE", url: "https://insightvue.app", desc: "Symbolanalyse & Reflexion" },
+  { label: "Dirk Werner", url: "https://dirkwernerbooks.com", desc: "Author-Site" },
+];
+---
+<section class="cross-linking-footer">
+  <div class="cross-linking-footer__inner">
+    <h2 class="cross-linking-footer__heading">Weitere Projekte von Dirk Werner</h2>
+    <ul class="cross-linking-footer__list">
+      {domains.map((d) => (
+        <li class="cross-linking-footer__item">
+          <a href={d.url} rel="noopener" class="cross-linking-footer__link">
+            <span class="cross-linking-footer__name">{d.label}</span>
+            <span class="cross-linking-footer__desc">{d.desc}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cross-linking-footer {
+    background: #12122a;
+    border-top: 1px solid #2d2d4e;
+    padding: 2.5rem 1.5rem;
+    margin-top: 3rem;
+  }
+  .cross-linking-footer__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .cross-linking-footer__heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #7060a0;
+    margin: 0 0 1.25rem;
+  }
+  .cross-linking-footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+  }
+  .cross-linking-footer__link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .cross-linking-footer__name {
+    color: #c9a96e;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .cross-linking-footer__name:hover {
+    text-decoration: underline;
+  }
+  .cross-linking-footer__desc {
+    color: #7060a0;
+    font-size: 0.75rem;
+  }
+  .cross-linking-footer__link:hover .cross-linking-footer__name {
+    text-decoration: underline;
+  }
+</style>

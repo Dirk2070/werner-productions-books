@@ -1,4 +1,4 @@
-import type { BooksJsonEntry, AppMatch } from "./types";
+import type { BooksJsonEntry, AppMatch, ParsedBookPage } from "./types";
 import type { SectionMapping } from "./parse-section-map";
 
 const ORCID = "0009-0001-7822-0041";
@@ -57,4 +57,119 @@ export function buildDescriptions(
   const long = parts.join(" ").slice(0, 800);
 
   return { meta, short, long };
+}
+
+// ---------------------------------------------------------------------------
+// buildMarketing — käufer-orientierter Markdown-Klappentext
+// ---------------------------------------------------------------------------
+
+// HTML entity decoder (minimal, no DOM dependency)
+function decodeHtmlEntities(s: string): string {
+  return s
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
+}
+
+// Strip trailing marketing imperatives ("Lassen Sie sich...", "Holen Sie sich...", etc.)
+function stripTrailingImperatives(text: string): string {
+  const imperativePatterns = [
+    /\n+(Lassen Sie sich[^.!?]*[.!?])\s*$/i,
+    /\n+(Holen Sie sich[^.!?]*[.!?])\s*$/i,
+    /\n+(Entdecken Sie[^.!?]*[.!?])\s*$/i,
+    /\n+(Tauchen Sie ein[^.!?]*[.!?])\s*$/i,
+    /\n+(Erleben Sie[^.!?]*[.!?])\s*$/i,
+    /\n+(Jetzt[^.!?]*kaufen[^.!?]*[.!?])\s*$/i,
+    /\n+(Get your copy[^.!?]*[.!?])\s*$/i,
+    /\n+(Grab your[^.!?]*[.!?])\s*$/i,
+    /\n+(Order now[^.!?]*[.!?])\s*$/i,
+  ];
+  let result = text;
+  for (const pattern of imperativePatterns) {
+    result = result.replace(pattern, "");
+  }
+  return result.trim();
+}
+
+// Detect genre from BISAC prefix
+function isFiction(bisac: string[]): boolean {
+  return bisac.some(b => b.startsWith("FIC"));
+}
+
+export function buildMarketing(
+  parsed: ParsedBookPage,
+  bookEntry: BooksJsonEntry,
+  bisac: string[] = []
+): string {
+  let raw = parsed.marketingMarkdown?.trim() ?? "";
+
+  // Fallback: if no "Über dieses Buch" section found, use bookEntry.description
+  if (!raw || raw.length < 50) {
+    const lang = bookEntry.language;
+    const desc = lang === "de" ? bookEntry.description.de : bookEntry.description.en;
+    raw = desc?.trim() ?? "";
+  }
+
+  if (!raw) return "";
+
+  // Decode HTML entities
+  raw = decodeHtmlEntities(raw);
+
+  // Process the raw markdown into structured blocks
+  const lines = raw.split(/\n/);
+  const blocks: string[] = [];
+  let currentBlock: string[] = [];
+
+  const flushBlock = () => {
+    const joined = currentBlock.join("\n").trim();
+    if (joined) blocks.push(joined);
+    currentBlock = [];
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    // Empty line = block separator
+    if (!trimmed) {
+      flushBlock();
+      continue;
+    }
+
+    // Keep headings as-is (### become bold paragraphs in context)
+    if (trimmed.startsWith("###")) {
+      flushBlock();
+      // Convert h3 to bold text for marketing context
+      const headingText = trimmed.replace(/^###\s*/, "");
+      currentBlock.push(`**${headingText}**`);
+      flushBlock();
+      continue;
+    }
+
+    // Bullet points stay as bullets
+    if (trimmed.startsWith("- ")) {
+      // If we were accumulating a non-bullet block, flush it
+      if (currentBlock.length > 0 && !currentBlock[0]?.startsWith("- ")) {
+        flushBlock();
+      }
+      currentBlock.push(trimmed);
+      continue;
+    }
+
+    currentBlock.push(trimmed);
+  }
+  flushBlock();
+
+  // For fiction (FIC*): keep all prose blocks intact
+  // For non-fiction: keep about section + bullets
+  // (Genre detection is informational here — we keep all blocks regardless)
+  const _ = isFiction(bisac); // consumed for potential future branching
+
+  const result = blocks.join("\n\n");
+
+  // Strip trailing imperatives
+  return stripTrailingImperatives(result);
 }

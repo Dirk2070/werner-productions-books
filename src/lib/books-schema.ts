@@ -31,6 +31,7 @@ const descriptionsSchema = z.object({
   meta: z.string().max(155, "meta description must be ≤155 chars"),
   short: z.string().max(200, "short description must be ≤200 chars"),
   long: z.string().max(800, "long description must be ≤800 chars"),
+  marketing: z.string().min(50, "marketing description must be ≥50 chars").optional(),
 });
 
 const coverSchema = z.object({
@@ -61,6 +62,19 @@ export const bookSchema = z.object({
   knowsAbout: z.array(z.string()).default([]),
   goodreadsBookId: z.string().regex(/^\d+$/, "Goodreads ID must be numeric").optional(),
   dateModified: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Must be YYYY-MM-DD"),
+  reviews: z.array(z.object({
+    quote: z.string(),
+    source: z.string(),
+    attribution: z.string().optional(),
+  })).default([]),
+  mentions: z.array(z.object({
+    id: z.string().url(),
+  })).default([]),
+  searchHints: z.object({
+    de: z.string().nullable(),
+    en: z.string().nullable(),
+  }).optional(),
+  alternateName: z.string().nullable().optional(),
 });
 
 export type Book = z.infer<typeof bookSchema>;

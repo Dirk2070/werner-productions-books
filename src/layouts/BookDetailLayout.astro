@@ -1,0 +1,69 @@
+---
+import type { Book } from "../lib/load-books.js";
+import { generateJsonLd } from "../lib/generate-book-jsonld.js";
+import SiteHeader from "../components/SiteHeader.astro";
+import CrossLinkingFooter from "../components/CrossLinkingFooter.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+interface Props {
+  book: Book;
+  allBooks: Book[];
+}
+
+const { book, allBooks } = Astro.props;
+const BASE_URL = "https://books.werner-productions.com";
+const jsonLd = generateJsonLd(book, allBooks);
+const ogLocale = book.language === "de" ? "de_DE" : "en_US";
+
+// hreflang: find translation partners
+const hreflangLinks: { lang: string; href: string }[] = [];
+const translationSlugs = [...book.workTranslation, ...book.translationOfWork];
+for (const slug of translationSlugs) {
+  const other = allBooks.find((b) => b.slug === slug);
+  if (other) {
+    hreflangLinks.push({
+      lang: other.language,
+      href: `${BASE_URL}/${slug}/`,
+    });
+  }
+}
+// Add self
+hreflangLinks.unshift({ lang: book.language, href: `${BASE_URL}/${book.slug}/` });
+---
+<!DOCTYPE html>
+<html lang={book.language}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{book.title} — Dirk Werner</title>
+  <meta name="description" content={book.descriptions.meta} />
+  <meta name="author" content="Dirk Werner" />
+  <link rel="canonical" href={`${BASE_URL}/${book.slug}/`} />
+
+  <!-- hreflang -->
+  {hreflangLinks.map((h) => (
+    <link rel="alternate" hreflang={h.lang} href={h.href} />
+  ))}
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={book.title} />
+  <meta property="og:description" content={book.descriptions.meta} />
+  <meta property="og:image" content={`${BASE_URL}/${book.cover.filename}`} />
+  <meta property="og:type" content="book" />
+  <meta property="og:locale" content={ogLocale} />
+  <meta property="og:url" content={`${BASE_URL}/${book.slug}/`} />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <link rel="stylesheet" href="/styles/book-detail.css" />
+</head>
+<body>
+  <SiteHeader variant="minimal" />
+  <main>
+    <slot />
+  </main>
+  <CrossLinkingFooter />
+  <SiteFooter />
+</body>
+</html>

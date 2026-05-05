@@ -1,0 +1,91 @@
+---
+const authorName = "Dirk Werner";
+const authorTitle = "Dipl.-Psych., Psychologischer Psychotherapeut & Autor";
+const authorBio = "Diplom-Psychologe und approbierter Psychotherapeut in eigener Praxis (Füssen-Hopfen, Bayern). Autor von Thrillern, Sachbüchern und spirituell-psychologischen Werken.";
+const orcid = "0009-0001-7822-0041";
+const authorSiteUrl = "https://dirkwernerbooks.com";
+const photoSrc = "/assets/dirk-werner.jpg";
+---
+<aside class="author-card">
+  <div class="author-card__inner">
+    <div class="author-card__photo-wrap">
+      <img
+        class="author-card__photo"
+        src={photoSrc}
+        alt={`${authorName} — Autor`}
+        width="80"
+        height="80"
+        loading="lazy"
+        onerror="this.style.display='none'"
+      />
+    </div>
+    <div class="author-card__content">
+      <h2 class="author-card__name">{authorName}</h2>
+      <p class="author-card__title">{authorTitle}</p>
+      <p class="author-card__bio">{authorBio}</p>
+      <nav class="author-card__links">
+        <a href={authorSiteUrl} rel="noopener">Author-Site</a>
+        <a href={`https://orcid.org/${orcid}`} rel="noopener">ORCID {orcid}</a>
+      </nav>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .author-card {
+    padding: 2rem 1.5rem;
+    background: #12122a;
+    border-top: 1px solid #2d2d4e;
+  }
+  .author-card__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  .author-card__photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #3d3d6e;
+    flex-shrink: 0;
+  }
+  .author-card__photo-wrap {
+    flex-shrink: 0;
+  }
+  .author-card__content {
+    flex: 1;
+  }
+  .author-card__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e8e0f0;
+    margin: 0 0 0.2rem;
+  }
+  .author-card__title {
+    font-size: 0.8rem;
+    color: #7060a0;
+    margin: 0 0 0.6rem;
+  }
+  .author-card__bio {
+    color: #b0a0d0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+  }
+  .author-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+  }
+  .author-card__links a {
+    color: #6cbbaa;
+    font-size: 0.8rem;
+    text-decoration: none;
+  }
+  .author-card__links a:hover {
+    text-decoration: underline;
+  }
+</style>

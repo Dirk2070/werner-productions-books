@@ -1,0 +1,236 @@
+---
+const apps = [
+  {
+    id: "shadow-integrator",
+    name: "Shadow Integrator",
+    tagline: "30 Schattenaspekte spielerisch integrieren",
+    topics: ["Jungianische Psychologie", "Schattenarbeit", "Gamification"],
+    url: "https://shadow-integrator.com",
+    icon: "/assets/app-icons/shadow-integrator.png",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.wernerproductions.shadowintegrator",
+  },
+  {
+    id: "psyprofiler",
+    name: "PsyProfiler",
+    tagline: "21 psychologische Tests, ein Profil",
+    topics: ["Psychometrie", "Persönlichkeitsanalyse", "KI-Assessment"],
+    url: "https://psyprofiler.com",
+    icon: "/assets/app-icons/psyprofiler.png",
+    playStoreUrl: null,
+  },
+  {
+    id: "insightvue",
+    name: "InsightVUE",
+    tagline: "Sechs Analyse-Ebenen für ein Bild",
+    topics: ["Bildanalyse", "Symbolinterpretation", "KI-Psychologie"],
+    url: "https://insightvue.app",
+    icon: "/assets/app-icons/insightvue.png",
+    playStoreUrl: null,
+  },
+  {
+    id: "sundamind",
+    name: "Sundamind",
+    tagline: "Ruhe finden. Muster sehen. Klein verändern.",
+    topics: ["Therapeutisches Journaling", "ACT", "IFS"],
+    url: null,
+    icon: "/assets/app-icons/sundamind.png",
+    playStoreUrl: null,
+  },
+];
+
+const appsJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": apps
+    .filter((a) => a.url || a.playStoreUrl)
+    .map((a) => ({
+      "@type": "SoftwareApplication",
+      "name": a.name,
+      "description": a.tagline,
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": a.playStoreUrl ? "Android" : "Web",
+      "url": a.url ?? a.playStoreUrl,
+      "image": a.icon,
+      "author": { "@id": "https://books.werner-productions.com/#author" },
+      ...(a.playStoreUrl && { "installUrl": a.playStoreUrl }),
+      "keywords": a.topics.join(", "),
+    })),
+};
+---
+
+<section class="apps-section" id="apps">
+  <script type="application/ld+json" set:html={JSON.stringify(appsJsonLd)} />
+  <div class="apps-section__inner">
+    <h2 class="apps-section__heading">Apps von Dirk Werner</h2>
+    <ul class="apps-section__list">
+      {apps.map((app) => (
+        <li class="apps-section__item">
+          {app.url ? (
+            <div class="apps-section__card apps-section__card--link">
+              <a href={app.url} rel="noopener" class="apps-section__main-link">
+                <img
+                  class="apps-section__icon"
+                  src={app.icon}
+                  alt={`${app.name} App-Icon`}
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+                <span class="apps-section__name">{app.name}</span>
+                <span class="apps-section__tagline">{app.tagline}</span>
+                <ul class="apps-section__topics">
+                  {app.topics.map((t) => (
+                    <li class="apps-section__topic">{t}</li>
+                  ))}
+                </ul>
+              </a>
+              {app.playStoreUrl && (
+                <a
+                  class="apps-section__playstore"
+                  href={app.playStoreUrl}
+                  rel="noopener"
+                  aria-label={`${app.name} im Google Play Store`}
+                >
+                  ▶ Google Play
+                </a>
+              )}
+            </div>
+          ) : (
+            <div class="apps-section__card apps-section__card--soon">
+              <img
+                class="apps-section__icon"
+                src={app.icon}
+                alt={`${app.name} App-Icon`}
+                width="56"
+                height="56"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+              <span class="apps-section__name">{app.name}</span>
+              <span class="apps-section__tagline">{app.tagline}</span>
+              <ul class="apps-section__topics">
+                {app.topics.map((t) => (
+                  <li class="apps-section__topic">{t}</li>
+                ))}
+              </ul>
+              <span class="apps-section__soon">Demnächst</span>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .apps-section {
+    padding: 2.5rem 1.5rem;
+    background: #12122a;
+    border-top: 1px solid #2d2d4e;
+  }
+  .apps-section__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .apps-section__heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #7060a0;
+    margin: 0 0 1.25rem;
+  }
+  .apps-section__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (min-width: 640px) {
+    .apps-section__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .apps-section__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem;
+    border: 1px solid #2d2d4e;
+    border-radius: 6px;
+    background: #16162e;
+    text-decoration: none;
+    height: 100%;
+  }
+  .apps-section__main-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .apps-section__card--link:hover {
+    border-color: #c9a96e;
+    background: #1a1a36;
+  }
+  .apps-section__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    margin-bottom: 0.4rem;
+    background: #1e1e3a;
+    object-fit: cover;
+  }
+  .apps-section__playstore {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #f0e8d0;
+    background: #2d2d4e;
+    border: 1px solid #3d3d6e;
+    border-radius: 4px;
+    text-decoration: none;
+    align-self: flex-start;
+  }
+  .apps-section__playstore:hover {
+    background: #3d3d6e;
+    border-color: #c9a96e;
+  }
+  .apps-section__card--soon {
+    opacity: 0.6;
+  }
+  .apps-section__name {
+    color: #c9a96e;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .apps-section__tagline {
+    color: #a090c0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  .apps-section__topics {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  .apps-section__topic {
+    font-size: 0.65rem;
+    color: #5040808c;
+    color: #504080;
+    background: #1e1e3a;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+  }
+  .apps-section__soon {
+    font-size: 0.7rem;
+    color: #504080;
+    margin-top: 0.25rem;
+  }
+</style>

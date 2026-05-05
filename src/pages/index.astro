@@ -1,0 +1,112 @@
+---
+import { loadBooks } from "../lib/load-books.js";
+import SiteHeader from "../components/SiteHeader.astro";
+import IndexHero from "../components/IndexHero.astro";
+import BookGrid from "../components/BookGrid.astro";
+import AppsSection from "../components/AppsSection.astro";
+import CrossLinkingFooter from "../components/CrossLinkingFooter.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const books = await loadBooks();
+
+const BASE_URL = "https://books.werner-productions.com";
+
+// JSON-LD: Person + WebSite + ProfilePage @graph (commit 65ee79e — DO NOT MODIFY)
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${BASE_URL}/#author`,
+      "name": "Dirk Werner",
+      "givenName": "Dirk",
+      "familyName": "Werner",
+      "jobTitle": "Diplom-Psychologe, Psychotherapeut, Autor",
+      "description": "Dirk Werner ist Diplom-Psychologe, Psychotherapeut und Autor psychologischer Sachbücher und Romane.",
+      "image": `${BASE_URL}/assets/dirk-werner.jpg`,
+      "url": BASE_URL,
+      "sameAs": [
+        "https://orcid.org/0009-0001-7822-0041",
+        "https://d-nb.info/gnd/1384382429",
+        "https://www.goodreads.com/author/show/70076437",
+        "https://dirkwernerbooks.com",
+        "https://werner-productions.com",
+        "https://shadow-integrator.com",
+        "https://psyprofiler.com",
+        "https://insightvue.app",
+        "https://www.amazon.de/stores/Dirk-Werner/author/B0F2YNKR78",
+        "https://play.google.com/store/books/author?id=Dirk+Werner",
+        "https://books.apple.com/us/author/dirk-werner/id1800990912"
+      ],
+      "knowsAbout": [
+        "Psychologie",
+        "Psychotherapie",
+        "Jungianische Psychologie",
+        "Persönlichkeitsentwicklung",
+        "Fantasy-Literatur",
+        "Psychothriller"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${BASE_URL}/#website`,
+      "url": BASE_URL,
+      "name": "Werner Productions Books",
+      "description": "Bücher von Dirk Werner — Psychologie, Persönlichkeitsentwicklung und Fantasy",
+      "publisher": {
+        "@id": `${BASE_URL}/#author`
+      },
+      "inLanguage": ["de", "en"]
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${BASE_URL}/#profilepage`,
+      "url": BASE_URL,
+      "name": "Dirk Werner — Autor-Profil",
+      "isPartOf": {
+        "@id": `${BASE_URL}/#website`
+      },
+      "about": {
+        "@id": `${BASE_URL}/#author`
+      },
+      "mainEntity": {
+        "@id": `${BASE_URL}/#author`
+      }
+    }
+  ]
+};
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dirk Werner — Bücher, Psychologie & Apps</title>
+  <meta name="description" content="Bücher von Dirk Werner: Psychologie, Persönlichkeitsentwicklung und Fantasy-Romane. Diplom-Psychologe, Psychotherapeut, Autor." />
+  <meta name="author" content="Dirk Werner" />
+  <link rel="canonical" href={BASE_URL + "/"} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dirk Werner — Bücher, Psychologie & Apps" />
+  <meta property="og:description" content="Bücher von Dirk Werner: Psychologie, Persönlichkeitsentwicklung und Fantasy-Romane." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:url" content={BASE_URL + "/"} />
+  <meta property="og:image" content={BASE_URL + "/assets/dirk-werner.jpg"} />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <link rel="stylesheet" href="/styles/book-detail.css" />
+</head>
+<body>
+  <SiteHeader variant="full" />
+  <main>
+    <IndexHero />
+    <BookGrid books={books} />
+    <AppsSection />
+  </main>
+  <CrossLinkingFooter />
+  <SiteFooter />
+</body>
+</html>

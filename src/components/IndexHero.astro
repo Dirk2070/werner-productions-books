@@ -1,0 +1,99 @@
+---
+const orcid = "0009-0001-7822-0041";
+const bio = "Diplom-Psychologe, Psychotherapeut, Autor";
+---
+
+<section class="index-hero">
+  <div class="index-hero__inner">
+    <div class="index-hero__photo-wrap">
+      <img
+        src="/assets/dirk-werner.jpg"
+        alt="Dirk Werner"
+        width="120"
+        height="120"
+        class="index-hero__photo"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+      />
+      <div class="index-hero__photo-fallback" style="display:none">DW</div>
+    </div>
+    <div class="index-hero__text">
+      <h1 class="index-hero__name">Dirk Werner</h1>
+      <p class="index-hero__bio">{bio}</p>
+      <a
+        href={`https://orcid.org/${orcid}`}
+        rel="noopener"
+        class="index-hero__orcid"
+        aria-label="ORCID-Profil von Dirk Werner"
+      >
+        ORCID {orcid}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .index-hero {
+    padding: 2rem 1.5rem 1rem;
+    border-bottom: 1px solid #2d2d4e;
+  }
+  .index-hero__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .index-hero__photo-wrap {
+    flex-shrink: 0;
+  }
+  .index-hero__photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2d2d4e;
+  }
+  .index-hero__photo-fallback {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #1e1e38;
+    color: #7060a0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+  }
+  .index-hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .index-hero__name {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #e8e0f0;
+    font-weight: 700;
+  }
+  .index-hero__bio {
+    margin: 0;
+    color: #a090c0;
+    font-size: 0.9rem;
+  }
+  .index-hero__orcid {
+    color: #6050a0;
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-family: monospace;
+  }
+  .index-hero__orcid:hover {
+    color: #c9a96e;
+    text-decoration: underline;
+  }
+  @media (max-width: 480px) {
+    .index-hero__inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

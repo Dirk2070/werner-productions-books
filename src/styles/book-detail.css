@@ -1,0 +1,38 @@
+/* book-detail.css — Werner Productions Books */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #16162e;
+  color: #d0c8e8;
+  line-height: 1.6;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: #c9a96e;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.25;
+}

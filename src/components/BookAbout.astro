@@ -1,0 +1,76 @@
+---
+import type { Book } from "../lib/load-books.js";
+import { marked } from "marked";
+
+interface Props {
+  book: Book;
+}
+const { book } = Astro.props;
+
+const marketingHtml = book.descriptions.marketing
+  ? marked.parse(book.descriptions.marketing)
+  : `<p>${book.descriptions.long}</p>`;
+
+const pullQuote = book.reviews?.[0] ?? null;
+---
+<section class="about-this-book">
+  <div class="about-this-book__inner">
+    <h2 class="about-this-book__heading">Über dieses Buch</h2>
+    <div class="about-this-book__body" set:html={marketingHtml} />
+    {pullQuote && (
+      <blockquote class="pull-quote">
+        <p class="pull-quote__text">{pullQuote.quote}</p>
+        <footer class="pull-quote__source">
+          — {pullQuote.source}
+          {pullQuote.attribution && <span> ({pullQuote.attribution})</span>}
+        </footer>
+      </blockquote>
+    )}
+  </div>
+</section>
+
+<style>
+  .about-this-book {
+    padding: 2.5rem 1.5rem;
+    background: #16162e;
+  }
+  .about-this-book__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .about-this-book__heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #c9a96e;
+    margin: 0 0 1.25rem;
+    border-bottom: 1px solid #2d2d4e;
+    padding-bottom: 0.5rem;
+  }
+  .about-this-book__body {
+    color: #d0c8e8;
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+  .about-this-book__body p { margin: 0 0 1rem; }
+  .about-this-book__body ul { padding-left: 1.5rem; margin: 0 0 1rem; }
+  .about-this-book__body li { margin-bottom: 0.35rem; }
+  .about-this-book__body strong { color: #e8e0f0; }
+  .about-this-book__body em { color: #b0a0d0; }
+  .pull-quote {
+    border-left: 3px solid #c9a96e;
+    margin: 2rem 0 0;
+    padding: 0.75rem 1.25rem;
+    background: #1e1e3a;
+    border-radius: 0 4px 4px 0;
+  }
+  .pull-quote__text {
+    color: #e0d8f8;
+    font-style: italic;
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+  }
+  .pull-quote__source {
+    color: #8070b0;
+    font-size: 0.85rem;
+  }
+</style>

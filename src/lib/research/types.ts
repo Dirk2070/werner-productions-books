@@ -14,12 +14,22 @@ export interface BooksJsonEntry {
   relatedBook?: string;
 }
 
+export interface Review {
+  quote: string;
+  source: string;
+  attribution?: string;
+}
+
 export interface ParsedBookPage {
   paperbackIsbn: string | null;
   appleAudioId: string | null;
   aboutBullets: string[];
   quotes: string[];
   formatBadges: string[];
+  // New fields (additive)
+  marketingMarkdown: string;
+  reviews: Review[];
+  availableFormats: string[];
 }
 
 export interface GoodreadsMatch {

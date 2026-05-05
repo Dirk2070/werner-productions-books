@@ -10,6 +10,8 @@
     "typescript": "^5"
   },
   "scripts": {
+    "build": "astro build",
+    "dev": "astro dev",
     "validate:books": "bun scripts/validate-books.ts",
     "generate": "bun scripts/generate-book-pages.ts",
     "generate:dry": "bun scripts/generate-book-pages.ts --dry-run",
@@ -22,11 +24,15 @@
     "research:link": "bun scripts/research-book.ts --link",
     "research:clean": "rm -rf .cache/research output/research",
     "research:goodreads": "bun scripts/research-goodreads-audit.ts",
-    "research:goodreads-only": "bun scripts/research-book.ts --refresh-goodreads-only"
+    "research:goodreads-only": "bun scripts/research-book.ts --refresh-goodreads-only",
+    "sync:research": "bun scripts/sync-research-to-books.ts",
+    "sync:research:all": "bun scripts/sync-research-to-books.ts --all"
   },
   "dependencies": {
+    "astro": "^6.2.2",
     "cheerio": "^1.2.0",
     "image-size": "^2.0.2",
+    "marked": "^18.0.3",
     "yaml": "^2.8.4",
     "zod": "^4.4.3"
   }

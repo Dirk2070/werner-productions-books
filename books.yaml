@@ -1,48 +1,77 @@
 books:
   - slug: die-dreizehn-tore
     title: "Die Dreizehn Tore: Ein Fantasy-Psychothriller"
-    subtitle: "Ein Fantasy-Psychothriller"
+    subtitle: Ein Fantasy-Psychothriller
     language: de
     authors:
-      - ref: "https://books.werner-productions.com/#author"
+      - ref: https://books.werner-productions.com/#author
     workTranslation: []
-    # TODO: add "the-thirteen-gates" when EN entry exists
     translationOfWork: []
     descriptions:
-      meta: "Manche Türen sollte man nicht öffnen. Fantasy-Psychothriller über dreizehn archetypische Tore zwischen Mystik und Tiefenpsychologie."
-      short: "German-language spiritual fiction combining fantasy with psychological thriller. Thirteen archetypal gates between mysticism and depth psychology."
-      long: "Manche Türen sollte man nicht öffnen. Ein uraltes Fragment. Eine verborgene Schrift, die Clara lesen kann — obwohl sie sie nie gelernt hat. Eine Nachricht, die sich selbst löscht. Und etwas in ihr, das nach Hause will. \"Die Dreizehn Tore\" verbindet Fantasy mit Psychothriller: Clara wird in eine Welt gezogen, in der dreizehn Tore auf sie warten — jedes Tor ein archetypisches Hindernis, jede Passage ein Schritt tiefer in das, was sie verdrängt hat. Inspiriert von gnostischer Kosmologie, vedischen Yuga-Zyklen und Jungs Konzept der Individuation."
+      meta: "Die Dreizehn Tore: Ein Fantasy-Psychothriller von Dirk Werner. Fantasy, Science Fiction."
+      short: "Die Dreizehn Tore: Ein Fantasy-Psychothriller — Fantasy, Science Fiction. Werner Productions."
+      long: "Die Dreizehn Tore: Ein Fantasy-Psychothriller by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner
+        Productions imprint. The Thirteen Gates Some doors should never be opened. Clara restores ancient manuscripts.
+        Precise. Controlled. Alone. Until a fragment with no origin lands on her desk. Beneath the faded script, a
+        second layer shimmers through. Letters she never learned - yet somehow can read. When she touches the parchment,
+        she sees something. Someone. Then the message on her Don't burn it. It deletes itself. What Clara doesn't She
+        carries something within her. Something ancient. Something that wants to go home. And she's not the only one
+        searching for it."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Manche Türen sollte man nicht öffnen. Ein uraltes Fragment. Eine verborgene Schrift, die Clara lesen kann –
+        obwohl sie sie nie gelernt hat. Eine Nachricht, die sich selbst löscht. Und etwas in ihr, das nach Hause will.
+        Ein atmosphärischer Fantasy-Psychothriller über verborgene Welten und uralte Mächte.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Ein uraltes Fragment.
+
+
+        - ✅ Eine verborgene Schrift, die Clara lesen kann – obwohl sie sie nie gelernt hat.
+
+
+        - ✅ Ein atmosphärischer Fantasy-Psychothriller über verborgene Welten und uralte Mächte.
+
+
+        Manche Türen sollte man nicht öffnen. Ein uraltes Fragment. Eine verborgene Schrift, die Clara lesen kann –
+        obwohl sie sie nie gelernt hat. Eine Nachricht, die sich selbst löscht. Und etwas in ihr, das nach Hause will.
+        Ein atmosphärischer Fantasy-Psychothriller über verborgene Welten und uralte Mächte.
     cover:
       filename: die-dreizehn-tore/cover.jpg
       dimensions:
         width: 1600
         height: 2560
-      alt: "Buchcover Die Dreizehn Tore von Dirk Werner"
+      alt: Buchcover Die Dreizehn Tore von Dirk Werner
     workExample:
       - format: ebook
         isbn: "9798233102592"
-        asin: "B0GB13C18Y"
-        publisher: "Werner Productions"
-        publicationDate: "2024-12-20"
+        asin: B0GB13C18Y
+        publisher: Werner Productions
+        publicationDate: 2024-12-20
         urls:
-          kindle: "https://www.amazon.de/dp/B0GB13C18Y"
-          googlePlay: "https://play.google.com/store/books/details?id=KBa4EQAAQBAJ"
-          appleBooks: "https://books.apple.com/de/book/id6756828238"
+          kindle: https://www.amazon.de/dp/B0GB13C18Y
+          googlePlay: https://play.google.com/store/books/details?id=KBa4EQAAQBAJ
+          appleBooks: https://books.apple.com/de/book/id6756828238
       - format: paperback
         isbn: "9798233102592"
-        asin: "B0GCDQW5MG"
-        publisher: "Werner Productions"
-        publicationDate: "2024-12-20"
+        asin: B0GCDQW5MG
+        publisher: Werner Productions
+        publicationDate: 2024-12-20
         urls:
-          amazon: "https://www.amazon.de/dp/B0GCDQW5MG"
+          amazon: https://www.amazon.de/dp/B0GCDQW5MG
       - format: audiobook
-        publisher: "Werner Productions"
-        publicationDate: "2024-12-20"
-        narrator: "AI Voice (Werner Productions)"
+        publisher: Werner Productions
+        publicationDate: 2024-12-20
+        narrator: AI Voice (Werner Productions)
         durationMinutes: 357
         urls:
-          googlePlay: "https://play.google.com/store/audiobooks/details/Dirk_Werner_Die_Dreizehn_Tore?id=AQAAAECavEn8wM"
-          spotify: "https://open.spotify.com/show/0d2FWdovJtFNvGwb9l7hKl"
+          googlePlay: https://play.google.com/store/audiobooks/details/Dirk_Werner_Die_Dreizehn_Tore?id=AQAAAECavEn8wM
+          spotify: https://open.spotify.com/show/0d2FWdovJtFNvGwb9l7hKl
     bisac:
       - FIC009100
       - FIC031080
@@ -61,4 +90,2608 @@ books:
       - Shadow work
       - Gnostic philosophy
       - Comparative mysticism
-    dateModified: "2026-05-04"
+    reviews: []
+    mentions:
+      - id: https://shadow-integrator.com/#app
+      - id: https://psyprofiler.com/#app
+    goodreadsBookId: "245610516"
+    dateModified: 2026-05-05
+  - slug: 101-goldene-regeln-fuer-eine-harmonische-paar-beziehung
+    title: 101 goldene Regeln für eine harmonische Paar-Beziehung
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: 101 goldene Regeln für eine harmonische Paar-Beziehung (German Edition) von Dirk Werner. Self-Help, Relationships.
+      short: 101 goldene Regeln für eine harmonische Paar-Beziehung (German Edition) — Self-Help, Relationships. Werner
+        Productions.
+      long: 101 goldene Regeln für eine harmonische Paar-Beziehung by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429),
+        Werner Productions imprint. Die goldenen Regeln für eine glückliche Beziehung Liebe auf Dauer ist eine tägliche
+        Entscheidung und Übung. Doch wie schafft man es, dass die Zweisamkeit nicht im Alltag untergeht? Wie hält man
+        die Flamme der Leidenschaft am Brennen und überwindet selbst schwierige Phasen? In "101 goldene Regeln für eine
+        harmonische Paar-Beziehung" gibt Ihnen der erfahrene Paartherapeut Dirk Werner wertvolle Impulse an die Hand. Ob
+        romantische Gesten, erneuerte Traditionen oder wichtige Verhaltensweisen - hier finden Sie unzählige erprobte
+        Möglichkeiten, um Ihrer Partnerschaft neuen Schwung zu verleihen.
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        101 praktische Regeln für eine harmonische und erfüllende Paarbeziehung. Ein umfassender Beziehungsratgeber.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        101 praktische Regeln für eine harmonische und erfüllende Paarbeziehung. Ein umfassender Beziehungsratgeber.
+    cover:
+      filename: B0D4HXWHN8-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: 101 goldene Regeln für eine harmonische Paar-Beziehung — Cover
+    workExample:
+      - format: ebook
+        asin: B0D4HXWHN8
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0D4HXWHN8
+          amazon_de: https://www.amazon.de/dp/B0D4HXWHN8
+          amazon_us: https://www.amazon.com/dp/B0D4HXWHN8
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/Dirk-Werner-Author
+    bisac:
+      - SEL034000
+      - FAM029000
+    keywords: &a1
+      - Self-Help
+      - Relationships
+      - Personal Growth
+      - Goldene
+      - Regeln
+      - Harmonische
+      - Beziehung
+    relatedBooks: []
+    knowsAbout: *a1
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "213620394"
+    alternateName: 101 Golden Rules for a Harmonious Couple Relationship
+    searchHints:
+      de: null
+      en: 101 Golden Rules for a Harmonious Couple Relationship
+  - slug: american-shadows
+    title: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods (English Edition) von Dirk
+        Werner. Fantasy, Science Fiction."
+      short: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods (English Edition) — Fantasy,
+        Science Fiction. Werner Productions."
+      long: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Dive into an exhilarating adventure with
+        “American Hecate’s Intervention” by Dirk Werner, an unofficial sequel to Neil Gaiman’s “American Gods” that
+        promises to keep you enthralled! Shadow Moon’s life is once again thrown into chaos as he contends with his
+        demigod origins and his father Odin’s betrayal. In a world where deities from various pantheons and modern
+        incarnations vie for supremacy, Shadow must navigate a perilous landscape filled with alliances, deceptions, and
+        hidden agendas. Key characters make a dramatic  Shadow Moon: Struggling with his newfound powers and uncertain
+        fate."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A gripping novel about Hecate's Intervention in the world of American Gods.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        A gripping novel about Hecate's Intervention in the world of American Gods.
+    cover:
+      filename: B0DCTZF166-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DCTZF166
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DCTZF166
+          amazon_de: https://www.amazon.de/dp/B0DCTZF166
+          amazon_us: https://www.amazon.com/dp/B0DCTZF166
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/Dirk-Werner-Author
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1799074309
+          apple_de: https://books.apple.com/de/audiobook/american-shadows-hecates-intervention-the-unofficial/id1799074309
+          apple_us: https://books.apple.com/us/audiobook/american-shadows-hecates-intervention-the-unofficial/id1799074309
+    bisac:
+      - FIC009000
+      - FIC028000
+    keywords: &a2
+      - Fantasy
+      - Science Fiction
+      - Speculative Fiction
+      - American
+      - Shadows
+      - Hecates
+      - Intervention
+      - Unofficial
+    relatedBooks: []
+    knowsAbout: *a2
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "217387014"
+    alternateName: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods"
+    searchHints:
+      de: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods"
+      en: null
+  - slug: awakening
+    title: "Awakening: The Lyra Code"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Awakening: The Lyra Code (English Edition) von Dirk Werner. Fantasy, Science Fiction."
+      short: "Awakening: The Lyra Code (English Edition) — Fantasy, Science Fiction. Werner Productions."
+      long: "Awakening: The Lyra Code by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint.
+        The Lyra Code The signal wasn’t just a message—it was a catalyst for evolution. When an enigmatic signal from
+        the Lyra constellation sweeps across Earth, humanity is thrust into a global awakening. The signal unlocks
+        dormant abilities in select individuals, transforming them into keys for decoding ancient truths and navigating
+        a cosmic mystery that could reshape the future of life as we know it. Dr. Elisa Chen, a quantum physicist,
+        discovers she can manipulate electromagnetic fields—a power that defies the very laws of physics."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A captivating science fiction novel about the awakening of the Lyra Code.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        A captivating science fiction novel about the awakening of the Lyra Code.
+    cover:
+      filename: B0DS9Y8W5V-800.webp
+      dimensions:
+        width: 400
+        height: 599
+      alt: "Awakening: The Lyra Code — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DS9Y8W5V
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DS9Y8W5V
+          amazon_de: https://www.amazon.de/dp/B0DS9Y8W5V
+          amazon_us: https://www.amazon.com/dp/B0DS9Y8W5V
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/Dirk-Werner-Author
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/Dirk-Werner-Author
+          amazon_de: https://www.amazon.de/dp/B0DSCQ1T6R
+          amazon_us: https://www.amazon.com/dp/B0DSCQ1T6R
+        asin: B0DSCQ1T6R
+    bisac:
+      - FIC009000
+      - FIC028000
+    keywords: &a3
+      - Fantasy
+      - Science Fiction
+      - Speculative Fiction
+      - Awakening
+      - Written Werner,
+      - Drawing years
+      - designed professionals
+    relatedBooks: []
+    knowsAbout: *a3
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "223294184"
+    alternateName: "Awakening: The Lyra Code"
+    searchHints:
+      de: "Awakening: The Lyra Code"
+      en: null
+  - slug: dankbarkeit-im-alltag
+    title: "Dankbarkeit im Alltag: Ein interaktives Tagebuch für mehr Zufriedenheit und Lebensfreude"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Dankbarkeit im Alltag: Ein interaktives Tagebuch für mehr Zufriedenheit und Lebensfreude (German Edition) von
+        Dirk Werner. Self-Help, Psychology."
+      short: "Dankbarkeit im Alltag: Ein interaktives Tagebuch für mehr Zufriedenheit und Lebensfreude (German Edition) —
+        Self-Help, Psychology. Werner Productions."
+      long: 'Dankbarkeit im Alltag: Ein interaktives Tagebuch für mehr Zufriedenheit und Lebensfreude by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Tauchen Sie ein in die Welt der Dankbarkeit
+        und erleben Sie, wie sie Ihr Leben positiv verändern kann. "Dankbarkeit im Ein interaktives Tagebuch für mehr
+        Zufriedenheit und Lebensfreude" ist Ihr interaktiver Begleiter auf einer inspirierenden Reise der
+        Selbstreflexion und des Wohlbefindens. In diesem einfühlsamen eBook lädt Sie der Diplom-Psychologe und
+        Psychologische Psychotherapeut Dirk Werner ein, die transformative Kraft der Dankbarkeit zu entdecken.'
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein interaktives Tagebuch zur Entwicklung von Dankbarkeit und mehr Zufriedenheit im Alltag.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein interaktives Tagebuch zur Entwicklung von Dankbarkeit und mehr Zufriedenheit im Alltag.
+    cover:
+      filename: B0CQSM6WGQ-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Dankbarkeit im Alltag: Ein interaktives Tagebuch für mehr Zufriedenheit und Lebensfreude — Cover"
+    workExample:
+      - format: ebook
+        asin: B0CQSM6WGQ
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0CQSM6WGQ
+          amazon_de: https://www.amazon.de/dp/B0CQSM6WGQ
+          amazon_us: https://www.amazon.com/dp/B0CQSM6WGQ
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/bz6GQz
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/bz6GQz
+          amazon_de: https://www.amazon.de/dp/9798872633532
+          amazon_us: https://www.amazon.com/dp/9798872633532
+        isbn: "9798872633532"
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a4
+      - Self-Help
+      - Psychology
+      - Personal Development
+      - Dankbarkeit
+      - Alltag
+      - Interaktives
+      - Tagebuch
+      - Zufriedenheit
+    relatedBooks: []
+    knowsAbout: *a4
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "204239736"
+    alternateName: "Gratitude in Everyday Life: An Interactive Diary for More Satisfaction and Joy of Life"
+    searchHints:
+      de: null
+      en: "Gratitude in Everyday Life: An Interactive Diary for More Satisfaction and Joy of Life"
+  - slug: das-vermaechtnis-der-logen
+    title: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle)"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle) (German Edition) von Dirk
+        Werner. ."
+      short: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle) (German Edition) — . Werner
+        Productions."
+      long: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle) (German Edition) by Dirk Werner
+        (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Topics: Vermächtnis, Logen, Seelmanns.
+        Available as eBook (ASIN B0DJNS7TVB), Paperback (ISBN 9798227654403), Audiobook (Apple Audio ID 1798829617).
+        Goodreads: ID 220815992."
+      marketing: Dr. Seelmanns dritter Fall führt in die mysteriöse Welt der Logen und ihrer verborgenen Geheimnisse.
+    cover:
+      filename: B0DJNS7TVB-800.jpg
+      dimensions:
+        width: 1
+        height: 1
+      alt: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DJNS7TVB
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DJNS7TVB
+          amazon_de: https://www.amazon.de/dp/B0DJNS7TVB
+          amazon_us: https://www.amazon.com/dp/B0DJNS7TVB
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/mVL9ar
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/mVL9ar
+          amazon_de: https://www.amazon.de/dp/B0DKWC8FM2
+          amazon_us: https://www.amazon.com/dp/B0DKWC8FM2
+        isbn: "9798227654403"
+        asin: B0DKWC8FM2
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1798829617
+          apple_de: https://books.apple.com/de/audiobook/the-legacy-of-the-lodges-dr-seelmanns-3rd-case/id1799074036
+          apple_us: https://books.apple.com/us/audiobook/the-legacy-of-the-lodges-dr-seelmanns-3rd-case/id1799074036
+    bisac: []
+    keywords: &a5
+      - Vermächtnis
+      - Logen
+      - Seelmanns
+      - Mysteriöse
+      - Fälle
+    relatedBooks: []
+    knowsAbout: *a5
+    reviews:
+      - quote: "Exquisitely simple, thought-provoking, and thoroughly readable."
+        source: "The Prairies Book Review"
+        attribution: "Dirk Werner, \"The Battle Within\""
+    mentions: []
+    dateModified: 2026-05-05
+    goodreadsBookId: "220815992"
+    alternateName: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases)"
+    searchHints:
+      de: null
+      en: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases)"
+  - slug: deadly-echo
+    title: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases Book 2)"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases Book 2) (English Edition) von Dirk
+        Werner. Mystery, Psychological Thriller."
+      short: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases Book 2) (English Edition) — Mystery,
+        Psychological Thriller. Werner Productions."
+      long: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases Book 2) by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Deadly Dr. Seelmann's Second Case After the
+        traumatic events of his last case, forensic hypnotherapist Dr. Lukas Seelmann actually wants to withdraw from
+        the investigation. But when a series of macabre murders shakes Munich's art scene, Chief Inspector Jana Wehring
+        asks him for help again. The victims are well-known artists, their corpses arranged in a disturbingly artistic
+        manner. The trail leads Seelmann and Wehring into the mysterious world of art therapy, where repressed memories
+        and dark secrets come to light."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        Dr. Seelmann's second case leads into a world of deadly echoes and mysterious crimes.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        Dr. Seelmann's second case leads into a world of deadly echoes and mysterious crimes.
+    cover:
+      filename: B0DJL6VXDJ-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases Book 2) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DJL6VXDJ
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DJL6VXDJ
+          amazon_de: https://www.amazon.de/dp/B0DJL6VXDJ
+          amazon_us: https://www.amazon.com/dp/B0DJL6VXDJ
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/3JB2WX
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/3JB2WX
+          amazon_de: https://www.amazon.de/dp/9798224929306
+          amazon_us: https://www.amazon.com/dp/9798224929306
+        isbn: "9798224929306"
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1798829616
+          apple_de: https://books.apple.com/de/audiobook/deadly-echo-dr-seelmanns-second-case/id1798829616
+          apple_us: https://books.apple.com/us/audiobook/deadly-echo-dr-seelmanns-second-case/id1798829616
+    bisac:
+      - FIC031000
+      - FIC022040
+    keywords: &a6
+      - Mystery
+      - Psychological Thriller
+      - Detective Fiction
+      - Deadly
+      - Seelmanns
+      - Second
+      - Mysterious
+      - Cases
+    relatedBooks: []
+    knowsAbout: *a6
+    reviews: []
+    mentions:
+      - id: https://shadow-integrator.com/#app
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "220170283"
+    alternateName: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle Buch 2)"
+    searchHints:
+      de: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle Buch 2)"
+      en: null
+  - slug: der-herzschmerz-ratgeber
+    title: "Der Herzschmerz-Ratgeber: Eine Schritt-für-Schritt-Anleitung zur Heilung und zum Neuanfang"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Der Herzschmerz-Ratgeber: Eine Schritt-für-Schritt-Anleitung zur Heilung und zum Neuanfang (German Edition) von
+        Dirk Werner. Self-Help, Relationships."
+      short: "Der Herzschmerz-Ratgeber: Eine Schritt-für-Schritt-Anleitung zur Heilung und zum Neuanfang (German Edition) —
+        Self-Help, Relationships. Werner Productions."
+      long: "Der Herzschmerz-Ratgeber: Eine Schritt-für-Schritt-Anleitung zur Heilung und zum Neuanfang by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Stellen Sie sich vor, Sie könnten den Schmerz
+        des Herzschmerzes überwinden und gestärkt daraus hervorgehen. „Der Eine Schritt-für-Schritt-Anleitung zur
+        Heilung und zum Neuanfang“ bietet Ihnen genau das – einen einfühlsamen und praxisorientierten Leitfaden, um
+        emotionale Wunden zu heilen und ein erfülltes Leben nach einer Trennung oder dem Verlust eines geliebten
+        Menschen zu gestalten. Was dieses Buch Ihnen Akzeptanz und Lernen Sie, den Verlust anzunehmen und die
+        verschiedenen Phasen der Trauer zu durchlaufen."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Eine praktische Anleitung zur Heilung von Herzschmerz und zum erfolgreichen Neuanfang nach einer Trennung.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Eine praktische Anleitung zur Heilung von Herzschmerz und zum erfolgreichen Neuanfang nach einer Trennung.
+    cover:
+      filename: B0DC28N8WZ-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Der Herzschmerz-Ratgeber: Eine Schritt-für-Schritt-Anleitung zur Heilung und zum Neuanfang — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DC28N8WZ
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DC28N8WZ
+          amazon_de: https://www.amazon.de/dp/B0DC28N8WZ
+          amazon_us: https://www.amazon.com/dp/B0DC28N8WZ
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/mVL9vp
+    bisac:
+      - SEL034000
+      - FAM029000
+    keywords: &a7
+      - Self-Help
+      - Relationships
+      - Personal Growth
+      - Herzschmerz
+      - Ratgeber
+      - Schritt
+      - Anleitung
+      - Heilung
+    relatedBooks: []
+    knowsAbout: *a7
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "217111368"
+    alternateName: "The Heartbreak Guide: A Step-by-Step Guide to Healing and New Beginnings"
+    searchHints:
+      de: null
+      en: "The Heartbreak Guide: A Step-by-Step Guide to Healing and New Beginnings"
+  - slug: emotionale-intelligenz-und-leadership
+    title: "Emotionale Intelligenz und Leadership: Wie Sie Ihre Stärken optimal nutzen (Thought Leader)"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Emotionale Intelligenz und Leadership: Wie Sie Ihre Stärken optimal nutzen (Thought Leader) (German Edition) von
+        Dirk Werner. Self-Help, Psychology."
+      short: "Emotionale Intelligenz und Leadership: Wie Sie Ihre Stärken optimal nutzen (Thought Leader) (German Edition) —
+        Self-Help, Psychology. Werner Productions."
+      long: "Emotionale Intelligenz und Leadership: Wie Sie Ihre Stärken optimal nutzen (Thought Leader) by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Emotionale Intelligenz - Der Schlüssel zu
+        authentischem Leadership Führungskräfte mit hoher emotionaler Intelligenz treffen bessere Entscheidungen,
+        motivieren ihre Teams zu Höchstleistungen und schaffen eine Kultur des Vertrauens und der Wertschätzung. Doch
+        was genau ist emotionale Intelligenz? Und wie können Sie diese Schlüsselkompetenz für sich selbst entwickeln und
+        voll ausschöpfen? In diesem Buch erfahren Sie, wie Sie durch gezieltes emotionales Intelligenz-Training Ihre
+        Führungsqualitäten auf ein neues Level heben."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein Ratgeber für emotionale Intelligenz und Leadership. Zeigt, wie Sie Ihre Stärken optimal nutzen können.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein Ratgeber für emotionale Intelligenz und Leadership. Zeigt, wie Sie Ihre Stärken optimal nutzen können.
+    cover:
+      filename: B0D9762V4T-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Emotionale Intelligenz und Leadership: Wie Sie Ihre Stärken optimal nutzen (Thought Leader) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0D9762V4T
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0D9762V4T
+          amazon_de: https://www.amazon.de/dp/B0D9762V4T
+          amazon_us: https://www.amazon.com/dp/B0D9762V4T
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/mVX6or
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/mVX6or
+          amazon_de: https://www.amazon.de/dp/9798227696496
+          amazon_us: https://www.amazon.com/dp/9798227696496
+        isbn: "9798227696496"
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a8
+      - Self-Help
+      - Psychology
+      - Personal Development
+      - Emotionale
+      - Intelligenz
+      - Leadership
+      - Stärken
+      - Optimal
+    relatedBooks: []
+    knowsAbout: *a8
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "214131117"
+    alternateName: "Emotional Intelligence and Leadership: How to Optimally Use Your Strengths (Thought Leader)"
+    searchHints:
+      de: null
+      en: "Emotional Intelligence and Leadership: How to Optimally Use Your Strengths (Thought Leader)"
+  - slug: fatal-trance
+    title: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1)"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1) (English Edition) von Dirk
+        Werner. Mystery, Psychological Thriller."
+      short: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1) (English Edition) — Mystery,
+        Psychological Thriller. Werner Productions."
+      long: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1) by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Dr. Lukas Seelmann is a psychological profiler
+        with extraordinary hypnotic gifts. Called upon by Chief Inspector Jana Wehring to aid in a high-profile murder
+        investigation, Seelmann agrees to lend his talents to help penetrate the deep mysteries of the mind.  What
+        begins as a routine case soon pulls Seelmann and the shrewd Inspector Wehring into an intricate web of secrets
+        lingering from Munich’s occult past."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        The gripping start to the Dr. Seelmann series: When a series of mysterious deaths shakes Munich, forensic
+        psychologist Dr. Lukas Seelmann stumbles upon a trail that leads him to the limits of his own perception - and
+        far beyond.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ The gripping start to the Dr.
+
+
+        - ✅ Seelmann series: When a series of mysterious deaths shakes Munich, forensic psychologist Dr.
+
+
+        - ✅ Lukas Seelmann stumbles upon a trail that leads him to the limits of his own perception - and far beyond.
+
+
+        The gripping start to the Dr. Seelmann series: When a series of mysterious deaths shakes Munich, forensic
+        psychologist Dr. Lukas Seelmann stumbles upon a trail that leads him to the limits of his own perception - and
+        far beyond.
+    cover:
+      filename: B0DHV3LPL1-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DHV3LPL1
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DHV3LPL1
+          amazon_de: https://www.amazon.de/dp/B0DHV3LPL1
+          amazon_us: https://www.amazon.com/dp/B0DHV3LPL1
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/mBByep
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1798829617
+          apple_de: https://books.apple.com/de/audiobook/fatal-trance-dr-seelmanns-first-case/id1798829617
+          apple_us: https://books.apple.com/us/audiobook/fatal-trance-dr-seelmanns-first-case/id1798829617
+    bisac:
+      - FIC031000
+      - FIC022040
+    keywords: &a9
+      - Mystery
+      - Psychological Thriller
+      - Detective Fiction
+      - Fatal
+      - Trance
+      - Seelmanns
+      - First
+      - Mysterious
+    relatedBooks: []
+    knowsAbout: *a9
+    reviews: []
+    mentions:
+      - id: https://shadow-integrator.com/#app
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "223294184"
+    alternateName: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1)"
+    searchHints:
+      de: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1)"
+      en: null
+  - slug: gemeinsam-den-weg-gehen
+    title: "Gemeinsam den Weg gehen: Empathie im Umgang mit psychischen Erkrankungen für Angehörige und Patienten
+      (Psychotherapie: Mittel und Methoden)"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Gemeinsam den Weg gehen: Empathie im Umgang mit psychischen Erkrankungen für Angehörige und Patienten
+        (Psychotherapie: Mittel und Methoden) (German Edition"
+      short: "Gemeinsam den Weg gehen: Empathie im Umgang mit psychischen Erkrankungen für Angehörige und Patienten
+        (Psychotherapie: Mittel und Methoden) (German Edition) — Self-Help, Psychology. Werner Productions"
+      long: "Gemeinsam den Weg gehen: Empathie im Umgang mit psychischen Erkrankungen für Angehörige und Patienten
+        (Psychotherapie: Mittel und Methoden) (German Edition) by Dirk Werner (ORCID 0009-0001-7822-0041, GND
+        1384382429), Werner Productions imprint. Self-Help, Psychology. Topics: Self-Help, Psychology, Personal
+        Development. Available as eBook (ASIN B0C9ZYHD9T), Paperback (ASIN B0CSRBZVK6). Goodreads: ID 208297609."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein Ratgeber für Angehörige und Patienten im Umgang mit psychischen Erkrankungen. Fokus auf Empathie und
+        gemeinsame Wege.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein Ratgeber für Angehörige und Patienten im Umgang mit psychischen Erkrankungen. Fokus auf Empathie und
+        gemeinsame Wege.
+    cover:
+      filename: B0C9ZYHD9T-800.webp
+      dimensions:
+        width: 400
+        height: 517
+      alt: "Gemeinsam den Weg gehen: Empathie im Umgang mit psychischen Erkrankungen für Angehörige und Patienten
+        (Psychotherapie: Mittel und Methoden) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0C9ZYHD9T
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0C9ZYHD9T
+          amazon_de: https://www.amazon.de/dp/B0C9ZYHD9T
+          amazon_us: https://www.amazon.com/dp/B0C9ZYHD9T
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/3nGRaK
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/3nGRaK
+          amazon_de: https://www.amazon.de/dp/B0CSRBZVK6
+          amazon_us: https://www.amazon.com/dp/B0CSRBZVK6
+        asin: B0CSRBZVK6
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a10
+      - Self-Help
+      - Psychology
+      - Personal Development
+      - Gemeinsam
+      - Gehen
+      - Empathie
+      - Umgang
+      - Psychischen
+    relatedBooks: []
+    knowsAbout: *a10
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "208297609"
+    alternateName: "Walking the Path Together: Empathy in Dealing with Mental Illnesses for Relatives and Patients
+      (Psychotherapy: Tools and Methods)"
+    searchHints:
+      de: null
+      en: "Walking the Path Together: Empathy in Dealing with Mental Illnesses for Relatives and Patients (Psychotherapy:
+        Tools and Methods)"
+  - slug: herzklopfen-fuer-die-ewigkeit
+    title: "Herzklopfen für die Ewigkeit: Der Weg zu dauerhafter Liebe"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Herzklopfen für die Ewigkeit: Der Weg zu dauerhafter Liebe (German Edition) von Dirk Werner. Self-Help,
+        Relationships."
+      short: "Herzklopfen für die Ewigkeit: Der Weg zu dauerhafter Liebe (German Edition) — Self-Help, Relationships. Werner
+        Productions."
+      long: 'Herzklopfen für die Ewigkeit: Der Weg zu dauerhafter Liebe by Dirk Werner (ORCID 0009-0001-7822-0041, GND
+        1384382429), Werner Productions imprint. Entdecken Sie den Schlüssel zu einer erfüllten, dauerhaften
+        Partnerschaft! In "Herzklopfen für die Ewigkeit" nimmt Sie Psychotherapeut und Autor Dirk Werner mit auf eine
+        faszinierende Reise durch die Wissenschaft der Liebe. Erfahren Sie, wie biochemische Prozesse und neuronale
+        Verbindungen unsere Gefühle beeinflussen und wie Sie dieses Wissen nutzen können, um Ihre Beziehung zu
+        vertiefen. Erkunden Sie die Welt des bewussten und unterbewussten Denkens und entdecken Sie, wie diese Prozesse
+        Ihre Partnerschaft prägen und stärken können.'
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein Ratgeber für dauerhafte Liebe und gesunde Beziehungen. Praktische Tipps für ein erfülltes Liebesleben.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein Ratgeber für dauerhafte Liebe und gesunde Beziehungen. Praktische Tipps für ein erfülltes Liebesleben.
+    cover:
+      filename: B0DDJVX6GQ-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Herzklopfen für die Ewigkeit: Der Weg zu dauerhafter Liebe — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DDJVX6GQ
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DDJVX6GQ
+          amazon_de: https://www.amazon.de/dp/B0DDJVX6GQ
+          amazon_us: https://www.amazon.com/dp/B0DDJVX6GQ
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/bzyV19
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/bzyV19
+          amazon_de: https://www.amazon.de/dp/B0DHPXZQF6
+          amazon_us: https://www.amazon.com/dp/B0DHPXZQF6
+        asin: B0DHPXZQF6
+    bisac:
+      - SEL034000
+      - FAM029000
+    keywords: &a11
+      - Self-Help
+      - Relationships
+      - Personal Growth
+      - Herzklopfen
+      - Ewigkeit
+      - Dauerhafter
+      - Liebe
+    relatedBooks: []
+    knowsAbout: *a11
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "217604074"
+    alternateName: "Heartbeat for Eternity: The Path to Lasting Love"
+    searchHints:
+      de: null
+      en: "Heartbeat for Eternity: The Path to Lasting Love"
+  - slug: how-to-recognize-cults
+    title: "How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control (English Edition) von Dirk
+        Werner. Self-Help, Psychology."
+      short: "How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control (English Edition) —
+        Self-Help, Psychology. Werner Productions."
+      long: "How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. In today’s world, cults aren’t just found in
+        isolated communes—they exist all around us, often hiding in plain sight. From spiritual movements to online
+        communities, and even self-help groups, manipulation and control have become more sophisticated and harder to
+        recognize.  “How to Recognize Cults” by Dirk Werner, a seasoned certified clinical psychotherapist, is your
+        essential guide to understanding the subtle tactics of manipulation used by cults to recruit and control
+        members."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A comprehensive guide to recognizing cults and manipulative groups. Offers practical strategies for
+        self-protection.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Offers practical strategies for self-protection.
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        A comprehensive guide to recognizing cults and manipulative groups. Offers practical strategies for
+        self-protection.
+    cover:
+      filename: B0DNBSQXXL-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DNBSQXXL
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DNBSQXXL
+          amazon_de: https://www.amazon.de/dp/B0DNBSQXXL
+          amazon_us: https://www.amazon.com/dp/B0DNBSQXXL
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/3nkGaB
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/3nkGaB
+          amazon_de: https://www.amazon.de/dp/9798230572978
+          amazon_us: https://www.amazon.com/dp/9798230572978
+        isbn: "9798230572978"
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1811457128
+          apple_de: https://books.apple.com/de/audiobook/how-to-recognize-cults-a-guide-to-protecting/id1811457128
+          apple_us: https://books.apple.com/us/audiobook/how-to-recognize-cults-a-guide-to-protecting/id1811457128
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a12
+      - Cult Psychology
+      - Manipulation Detection
+      - Thought Reform
+      - High-Control Groups
+      - Critical Thinking
+      - Social Influence
+      - Recovery from Coercion
+    relatedBooks: []
+    knowsAbout: *a12
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+      - id: https://shadow-integrator.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "221587215"
+    alternateName: "Wie man Sekten erkennt: Ein Leitfaden zum Schutz vor Manipulation und Kontrolle"
+    searchHints:
+      de: "Wie man Sekten erkennt: Ein Leitfaden zum Schutz vor Manipulation und Kontrolle"
+      en: null
+  - slug: instructions-for-staying-in-the-matrix-forever
+    title: Instructions for Staying in the Matrix Forever
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: Instructions for Staying in the Matrix Forever (English Edition) von Dirk Werner. Fantasy, Science Fiction.
+      short: Instructions for Staying in the Matrix Forever (English Edition) — Fantasy, Science Fiction. Werner Productions.
+      long: Instructions for Staying in the Matrix Forever by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner
+        Productions imprint. "Instructions for Staying in the Matrix Forever" is a darkly comedic, thought-provoking
+        journey into the absurdities of modern life, blending Gnostic mythology with biting social commentary. In this
+        satirical exploration, Jaldabaoth, the lion-headed false creator, spins his the Matrix, a carefully constructed
+        illusion designed to keep humanity distracted, compliant, and endlessly scrolling. Through 18 captivating
+        chapters, this book hilariously dissects the forces that shackle us—fear, vanity, consumerism, and
+        distraction—while exploring humanity’s complicity in its own imprisonment.
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A philosophical thriller about the nature of reality and the decision to stay in the Matrix.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        A philosophical thriller about the nature of reality and the decision to stay in the Matrix.
+    cover:
+      filename: B0DT7F2VVS-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: Instructions for Staying in the Matrix Forever — Cover
+    workExample:
+      - format: ebook
+        asin: B0DT7F2VVS
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DT7F2VVS
+          amazon_de: https://www.amazon.de/dp/B0DT7F2VVS
+          amazon_us: https://www.amazon.com/dp/B0DT7F2VVS
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/386LYd
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/386LYd
+          amazon_us: https://www.amazon.com/dp/B0DTRQXHM9
+          amazon_de: https://www.amazon.de/dp/B0DTRQXHM9
+        asin: B0DTRQXHM9
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1799074224
+          apple_de: https://books.apple.com/de/audiobook/instructions-for-staying-in-the-matrix-forever/id1799074224
+          apple_us: https://books.apple.com/us/audiobook/instructions-for-staying-in-the-matrix-forever/id1799074224
+    bisac:
+      - FIC009000
+      - FIC028000
+    keywords: &a13
+      - Fantasy
+      - Science Fiction
+      - Speculative Fiction
+      - Instructions
+      - Staying
+      - Matrix
+      - Forever
+      - Written Werner,
+    relatedBooks: []
+    knowsAbout: *a13
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "223697955"
+    alternateName: Anweisungen zum ewigen Verbleib in der Matrix
+    searchHints:
+      de: Anweisungen zum ewigen Verbleib in der Matrix
+      en: null
+  - slug: kosmische-matrix
+    title: "Kosmische Matrix: Heilige Geometrie zum Ausmalen: 70+ inspirierende Motive"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Kosmische Matrix: Heilige Geometrie zum Ausmalen: 70+ inspirierende Motive von Dirk Werner. Self-Help, Coloring
+        Books."
+      short: "Kosmische Matrix: Heilige Geometrie zum Ausmalen: 70+ inspirierende Motive — Self-Help, Coloring Books. Werner
+        Productions."
+      long: "Kosmische Matrix: Heilige Geometrie zum Ausmalen: 70+ inspirierende Motive by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Self-Help, Coloring Books. Topics: Self-Help,
+        Coloring Books, Mindfulness. Available as eBook (ASIN B0D7Z9D9KG), Paperback (ASIN B0D7Z9D9KG). Goodreads: ID
+        215272301."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein Ausmalbuch mit über 70 inspirierenden Motiven heiliger Geometrie für Entspannung und Kreativität.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein Ausmalbuch mit über 70 inspirierenden Motiven heiliger Geometrie für Entspannung und Kreativität.
+    cover:
+      filename: B0D7Z9D9KG-800.webp
+      dimensions:
+        width: 400
+        height: 500
+      alt: "Kosmische Matrix: Heilige Geometrie zum Ausmalen: 70+ inspirierende Motive — Cover"
+    workExample:
+      - format: ebook
+        asin: B0D7Z9D9KG
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0D7Z9D9KG
+          amazon_de: https://www.amazon.de/dp/B0D7Z9D9KG
+          amazon_us: https://www.amazon.com/dp/B0D7Z9D9KG
+          books2read: https://books2read.com/u/bz2vwE
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/bz2vwE
+          amazon_de: https://www.amazon.de/dp/B0D7Z9D9KG
+          amazon_us: https://www.amazon.com/dp/B0D7Z9D9KG
+        asin: B0D7Z9D9KG
+    bisac:
+      - CRA037000
+      - SEL036000
+    keywords: &a14
+      - Self-Help
+      - Coloring Books
+      - Mindfulness
+      - Kosmische
+      - Matrix
+      - Heilige
+      - Geometrie
+      - Ausmalen
+    relatedBooks: []
+    knowsAbout: *a14
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "215272301"
+    alternateName: "Cosmic Matrix: Sacred Geometry for Coloring: 70+ Inspiring Motifs"
+    searchHints:
+      de: null
+      en: "Cosmic Matrix: Sacred Geometry for Coloring: 70+ Inspiring Motifs"
+  - slug: malen-gegen-den-schmerz
+    title: "Malen gegen den Schmerz: Dein Weg zur Heilung: inklusive 50+ Ausgangsmotiven für deine kreative Traumabewältigung"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Malen gegen den Schmerz: Dein Weg zur Heilung: inklusive 50+ Ausgangsmotiven für deine kreative Traumabewältigung
+        von Dirk Werner. Self-Help, Coloring Book"
+      short: "Malen gegen den Schmerz: Dein Weg zur Heilung: inklusive 50+ Ausgangsmotiven für deine kreative
+        Traumabewältigung — Self-Help, Coloring Books. Werner Productions."
+      long: "Malen gegen den Schmerz: Dein Weg zur Heilung: inklusive 50+ Ausgangsmotiven für deine kreative Traumabewältigung
+        by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Self-Help, Coloring
+        Books. Topics: Self-Help, Coloring Books, Mindfulness. Available as eBook (ASIN B0D7Q4BF74), Paperback (ASIN
+        B0D7Q4BF74). Goodreads: ID 215075609."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein therapeutisches Ausmalbuch mit über 50 Motiven zur kreativen Traumabewältigung und Heilung.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein therapeutisches Ausmalbuch mit über 50 Motiven zur kreativen Traumabewältigung und Heilung.
+    cover:
+      filename: B0D7Q4BF74-800.webp
+      dimensions:
+        width: 400
+        height: 500
+      alt: "Malen gegen den Schmerz: Dein Weg zur Heilung: inklusive 50+ Ausgangsmotiven für deine kreative Traumabewältigung
+        — Cover"
+    workExample:
+      - format: ebook
+        asin: B0D7Q4BF74
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0D7Q4BF74
+          amazon_de: https://www.amazon.de/dp/B0D7Q4BF74
+          amazon_us: https://www.amazon.com/dp/B0D7Q4BF74
+          books2read: https://books2read.com/u/mdEGey
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/mdEGey
+          amazon_de: https://www.amazon.de/dp/B0D7Q4BF74
+          amazon_us: https://www.amazon.com/dp/B0D7Q4BF74
+        asin: B0D7Q4BF74
+    bisac:
+      - CRA037000
+      - SEL036000
+    keywords: &a15
+      - Self-Help
+      - Coloring Books
+      - Mindfulness
+      - Malen
+      - Gegen
+      - Schmerz
+      - Heilung
+      - Inklusive
+    relatedBooks: []
+    knowsAbout: *a15
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "215075609"
+    alternateName: "Painting Against Pain: Your Path to Healing: Including 50+ Starting Motifs for Your Creative Trauma Processing"
+    searchHints:
+      de: null
+      en: "Painting Against Pain: Your Path to Healing: Including 50+ Starting Motifs for Your Creative Trauma Processing"
+  - slug: nanogenesis
+    title: "Nanogenesis: The Rise of Superhumans"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Nanogenesis: The Rise of Superhumans (English Edition) von Dirk Werner. Fantasy, Science Fiction."
+      short: "Nanogenesis: The Rise of Superhumans (English Edition) — Fantasy, Science Fiction. Werner Productions."
+      long: 'Nanogenesis: The Rise of Superhumans by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner
+        Productions imprint. In " The Rise of Superhumans", humanity faces a nanotechnology revolution in Neo-Tokyo,
+        where bio-nano architecture blends seamlessly with nature. Dr. Eliana Moraes aims to use nano-augmentations to
+        eradicate diseases, offering superhuman abilities and immortality. Her antagonist, Dr. Felix Brehm, envisions a
+        future of superior beings, sparking an ideological clash. As radicals seek to misuse her technology, Eliana
+        struggles with her role in altering human evolution. " The Rise of Superhumans" delves deep into themes of
+        power, control versus freedom, and the moral implications of playing god.'
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A science fiction novel about nanotechnology and the emergence of superhumans in a dystopian future.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        A science fiction novel about nanotechnology and the emergence of superhumans in a dystopian future.
+    cover:
+      filename: B0CW1JS3B5-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Nanogenesis: The Rise of Superhumans — Cover"
+    workExample:
+      - format: ebook
+        asin: B0CW1JS3B5
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0CW1JS3B5
+          amazon_de: https://www.amazon.de/dp/B0CW1JS3B5
+          amazon_us: https://www.amazon.com/dp/B0CW1JS3B5
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/bxAvxd
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1798829619
+          apple_de: https://books.apple.com/de/audiobook/nanogenesis-the-rise-of-superhumans/id1798829619
+          apple_us: https://books.apple.com/us/audiobook/nanogenesis-the-rise-of-superhumans/id1798829619
+    bisac:
+      - FIC009000
+      - FIC028000
+    keywords: &a16
+      - Fantasy
+      - Science Fiction
+      - Speculative Fiction
+      - Nanogenesis
+      - Superhumans
+      - Written Werner,
+      - Drawing years
+      - designed professionals
+    relatedBooks: []
+    knowsAbout: *a16
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "216713662"
+    alternateName: "Nanogenese: Der Aufstieg der Supermenschen"
+    searchHints:
+      de: "Nanogenese: Der Aufstieg der Supermenschen"
+      en: null
+  - slug: psychotainment
+    title: "Psychotainment: Wie du auf jeder Party glänzt: 101 psychologische Fakten, die Gespräche unvergesslich machen"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Psychotainment: Wie du auf jeder Party glänzt: 101 psychologische Fakten, die Gespräche unvergesslich machen
+        (German Edition) von Dirk Werner. Self-Help, P"
+      short: "Psychotainment: Wie du auf jeder Party glänzt: 101 psychologische Fakten, die Gespräche unvergesslich machen
+        (German Edition) — Self-Help, Psychology. Werner Productions."
+      long: "Psychotainment: Wie du auf jeder Party glänzt: 101 psychologische Fakten, die Gespräche unvergesslich machen by
+        Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Wie du auf jeder Party
+        glänzt 🌟  101 psychologische Fakten, die Gespräche unvergesslich machen  🎯 Der erste Psychologie-Ratgeber, der
+        wissenschaftliche Erkenntnisse in party-taugliche Highlights verwandelt! Willst du der Star auf jeder Party
+        sein? Mit faszinierendem Wissen glänzen und Menschen durch echtes Charisma in deinen Bann ziehen?"
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Der erste Psychologie-Ratgeber, der wissenschaftliche Erkenntnisse in party-taugliche Highlights verwandelt. 101
+        psychologische Fakten für unvergessliche Gespräche.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Der erste Psychologie-Ratgeber, der wissenschaftliche Erkenntnisse in party-taugliche Highlights verwandelt. 101
+        psychologische Fakten für unvergessliche Gespräche.
+    cover:
+      filename: B0DY7K1148-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Psychotainment: Wie du auf jeder Party glänzt: 101 psychologische Fakten, die Gespräche unvergesslich machen —
+        Cover"
+    workExample:
+      - format: ebook
+        asin: B0DY7K1148
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DY7K1148
+          amazon_de: https://www.amazon.de/dp/B0DY7K1148
+          amazon_us: https://www.amazon.com/dp/B0DY7K1148
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/380pOV
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a17
+      - Self-Help
+      - Psychology
+      - Personal Development
+      - Psychotainment
+      - Jeder
+      - Party
+      - Glänzt
+      - Psychologische
+    relatedBooks: []
+    knowsAbout: *a17
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "228333695"
+    alternateName: "Psychotainment: How to Shine at Every Party: 101 Psychological Facts That Make Conversations Unforgettable"
+    searchHints:
+      de: null
+      en: "Psychotainment: How to Shine at Every Party: 101 Psychological Facts That Make Conversations Unforgettable"
+  - slug: selbstsabotage-ueberwinden
+    title: "Selbstsabotage überwinden: Entfessle dein wahres Potenzial"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Selbstsabotage überwinden: Entfessle dein wahres Potenzial (German Edition) von Dirk Werner. Self-Help,
+        Psychology."
+      short: "Selbstsabotage überwinden: Entfessle dein wahres Potenzial (German Edition) — Self-Help, Psychology. Werner
+        Productions."
+      long: "Selbstsabotage überwinden: Entfessle dein wahres Potenzial by Dirk Werner (ORCID 0009-0001-7822-0041, GND
+        1384382429), Werner Productions imprint. Fühlst du dich manchmal, als wärst du dein eigener schlimmster Feind?
+        Stehst du dir selbst im Weg, wenn es darum geht, deine Ziele zu erreichen? Du bist nicht allein. In diesem
+        bahnbrechenden eBook enthüllt der Psychologische Psychotherapeut und Autor Dirk Werner die verborgenen
+        Mechanismen der Selbstsabotage und bietet praxiserprobte Strategien, um sie ein für alle Mal zu überwinden."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein praktischer Ratgeber zur Überwindung von Selbstsabotage und zur Entfesselung des wahren Potenzials.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein praktischer Ratgeber zur Überwindung von Selbstsabotage und zur Entfesselung des wahren Potenzials.
+    cover:
+      filename: B0D429HGV1-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Selbstsabotage überwinden: Entfessle dein wahres Potenzial — Cover"
+    workExample:
+      - format: ebook
+        asin: B0D429HGV1
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0D429HGV1
+          amazon_de: https://www.amazon.de/dp/B0D429HGV1
+          amazon_us: https://www.amazon.com/dp/B0D429HGV1
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/3LlYdM
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/3LlYdM
+          amazon_de: https://www.amazon.de/dp/9798227696496
+          amazon_us: https://www.amazon.com/dp/9798227696496
+        isbn: "9798227696496"
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a18
+      - Self-Help
+      - Psychology
+      - Personal Development
+      - Selbstsabotage
+      - Überwinden
+      - Entfessle
+      - Wahres
+      - Potenzial
+    relatedBooks: []
+    knowsAbout: *a18
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "216348726"
+    alternateName: "Overcoming Self-Sabotage: Unleash Your True Potential"
+    searchHints:
+      de: null
+      en: "Overcoming Self-Sabotage: Unleash Your True Potential"
+  - slug: self-love-over-perfection
+    title: "Self-Love Over Perfection: A Guide to Overcoming Female Narcissism"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Self-Love Over Perfection: A Guide to Overcoming Female Narcissism (English Edition) von Dirk Werner. Self-Help,
+        Psychology."
+      short: "Self-Love Over Perfection: A Guide to Overcoming Female Narcissism (English Edition) — Self-Help, Psychology.
+        Werner Productions."
+      long: "Self-Love Over Perfection: A Guide to Overcoming Female Narcissism by Dirk Werner (ORCID 0009-0001-7822-0041, GND
+        1384382429), Werner Productions imprint. Self-Love Over A Guide to Overcoming Female Narcissism Are you
+        struggling with the constant need to appear perfect? Do you seek validation through your appearance and social
+        interactions? You're not alone, and there is a path to healing. Self-Love Over A Guide to Overcoming Female
+        Narcissism is a comprehensive and compassionate resource designed to help women recognize and transform their
+        narcissistic tendencies. This book delves deep into the unique characteristics of female narcissism, its root
+        causes, and its profound impact on mental health and relationships."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A guide to overcoming female narcissism and developing healthy self-love.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        A guide to overcoming female narcissism and developing healthy self-love.
+    cover:
+      filename: B0DH3NBKV6-800.webp
+      dimensions:
+        width: 400
+        height: 617
+      alt: "Self-Love Over Perfection: A Guide to Overcoming Female Narcissism — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DH3NBKV6
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DH3NBKV6
+          amazon_de: https://www.amazon.de/dp/B0DH3NBKV6
+          amazon_us: https://www.amazon.com/dp/B0DH3NBKV6
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/38APkr
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/38APkr
+          amazon_de: https://www.amazon.de/dp/9798227605016
+          amazon_us: https://www.amazon.com/dp/9798227605016
+        isbn: "9798227605016"
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1810717883
+          apple_de: https://books.apple.com/de/audiobook/self-love-over-perfection-a-guide-to-overcoming/id1810717883
+          apple_us: https://books.apple.com/us/audiobook/self-love-over-perfection-a-guide-to-overcoming/id1810717883
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a19
+      - Self-Help
+      - Psychology
+      - Personal Development
+      - Perfection
+      - Guide
+      - Overcoming
+      - Female
+      - Narcissism
+    relatedBooks: []
+    knowsAbout: *a19
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+      - id: https://shadow-integrator.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "216519850"
+    alternateName: "Selbstliebe statt Perfektion: Ein Leitfaden zur Überwindung weiblichen Narzissmus"
+    searchHints:
+      de: "Selbstliebe statt Perfektion: Ein Leitfaden zur Überwindung weiblichen Narzissmus"
+      en: null
+  - slug: seminar-der-herzen
+    title: "Seminar der Herzen: Eine Geschichte, die Beziehungen erklärt"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Seminar der Herzen: Eine Geschichte, die Beziehungen erklärt (German Edition) von Dirk Werner. Self-Help,
+        Relationships."
+      short: "Seminar der Herzen: Eine Geschichte, die Beziehungen erklärt (German Edition) — Self-Help, Relationships. Werner
+        Productions."
+      long: "Seminar der Herzen: Eine Geschichte, die Beziehungen erklärt by Dirk Werner (ORCID 0009-0001-7822-0041, GND
+        1384382429), Werner Productions imprint. Seminar der   Eine Geschichte, die Beziehungen erklärt Lena und Max
+        begegnen sich bei einem unkonventionellen Beziehungsseminar. Was als humorvolle Begegnung beginnt, entfaltet
+        sich zu einer Reise voller Überraschungen und Einsichten. In diesem einzigartigen Roman verbindet der
+        renommierte Psychotherapeut und Autor Dirk Werner geschickt eine fesselnde Liebesgeschichte mit tiefgreifenden
+        Beziehungslektionen. Durch sein innovatives Konzept bringt er den auf unterhaltsame Weise komplexe
+        Beziehungsdynamiken näher."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Eine berührende Geschichte, die die komplexe Welt der Beziehungen erklärt und Einblicke in die menschliche
+        Psyche gibt.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Eine berührende Geschichte, die die komplexe Welt der Beziehungen erklärt und Einblicke in die menschliche
+        Psyche gibt.
+    cover:
+      filename: B0DFD4GVKM-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Seminar der Herzen: Eine Geschichte, die Beziehungen erklärt — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DFD4GVKM
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DFD4GVKM
+          amazon_de: https://www.amazon.de/dp/B0DFD4GVKM
+          amazon_us: https://www.amazon.com/dp/B0DFD4GVKM
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/bxA7ED
+    bisac:
+      - SEL034000
+      - FAM029000
+    keywords: &a20
+      - Self-Help
+      - Relationships
+      - Personal Growth
+      - Seminar
+      - Herzen
+      - Geschichte
+      - Beziehungen
+      - Erklärt
+    relatedBooks: []
+    knowsAbout: *a20
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "218144531"
+    alternateName: "Seminar of Hearts: A Story That Explains Relationships"
+    searchHints:
+      de: null
+      en: "Seminar of Hearts: A Story That Explains Relationships"
+  - slug: souveraen-durch-ihre-tests
+    title: "Souverän durch ihre Tests: Ein Handbuch für Männer"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Souverän durch ihre Tests: Ein Handbuch für Männer (German Edition) von Dirk Werner. Self-Help, Relationships."
+      short: "Souverän durch ihre Tests: Ein Handbuch für Männer (German Edition) — Self-Help, Relationships. Werner
+        Productions."
+      long: "Souverän durch ihre Tests: Ein Handbuch für Männer by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429),
+        Werner Productions imprint. Souverän durch ihre Ein Handbuch für Männer Entdecken Sie die Geheimnisse, wie Sie
+        die subtilen Tests meistern können - von der ersten Begegnung bis hin zu langfristigen Beziehungen. Dieser
+        praxisnahe Leitfaden enthüllt, warum Frauen testen und wie Sie authentisch und selbstbewusst darauf reagieren.
+        Was erwartet Sie?"
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein praktisches Handbuch für Männer, um souverän durch Beziehungstests zu navigieren und gesunde Partnerschaften
+        aufzubauen.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein praktisches Handbuch für Männer, um souverän durch Beziehungstests zu navigieren und gesunde Partnerschaften
+        aufzubauen.
+    cover:
+      filename: B0DFVQP4JT-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Souverän durch ihre Tests: Ein Handbuch für Männer — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DFVQP4JT
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DFVQP4JT
+          amazon_de: https://www.amazon.de/dp/B0DFVQP4JT
+          amazon_us: https://www.amazon.com/dp/B0DFVQP4JT
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/Dirk-Werner-Author
+    bisac:
+      - SEL034000
+      - FAM029000
+    keywords: &a21
+      - Self-Help
+      - Relationships
+      - Personal Growth
+      - Souverän
+      - Durch
+      - Tests
+      - Handbuch
+      - Männer
+    relatedBooks: []
+    knowsAbout: *a21
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "218367353"
+    alternateName: "Sovereign Through Their Tests: A Handbook for Men"
+    searchHints:
+      de: null
+      en: "Sovereign Through Their Tests: A Handbook for Men"
+  - slug: suizidpraevention
+    title: "Suizidprävention: Basics"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Suizidprävention: Basics (German Edition) von Dirk Werner. Self-Help, Psychology."
+      short: "Suizidprävention: Basics (German Edition) — Self-Help, Psychology. Werner Productions."
+      long: "Suizidprävention: Basics (German Edition) by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner
+        Productions imprint. Self-Help, Psychology. Topics: Self-Help, Psychology, Personal Development. Available as
+        eBook (ASIN B0D3BMXBN1). Goodreads: ID 212790817."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein wichtiger Ratgeber zur Suizidprävention mit grundlegenden Informationen und Hilfestellungen.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein wichtiger Ratgeber zur Suizidprävention mit grundlegenden Informationen und Hilfestellungen.
+    cover:
+      filename: B0D3BMXBN1-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Suizidprävention: Basics — Cover"
+    workExample:
+      - format: ebook
+        asin: B0D3BMXBN1
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0D3BMXBN1
+          amazon_de: https://www.amazon.de/dp/B0D3BMXBN1
+          amazon_us: https://www.amazon.com/dp/B0D3BMXBN1
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/4AdPZ0
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a22
+      - Self-Help
+      - Psychology
+      - Personal Development
+      - Suizidprävention
+      - Basics
+    relatedBooks: []
+    knowsAbout: *a22
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "212790817"
+    alternateName: "Suicide Prevention: Basics"
+    searchHints:
+      de: null
+      en: "Suicide Prevention: Basics"
+  - slug: the-battle-within
+    title: "The Battle Within: A Guide to Overcoming Inner Struggles"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "The Battle Within: A Guide to Overcoming Inner Struggles (German Edition) von Dirk Werner. Self-Help,
+        Psychology."
+      short: "The Battle Within: A Guide to Overcoming Inner Struggles (German Edition) — Self-Help, Psychology. Werner
+        Productions."
+      long: 'The Battle Within: A Guide to Overcoming Inner Struggles by Dirk Werner (ORCID 0009-0001-7822-0041, GND
+        1384382429), Werner Productions imprint. "The Battle A Guide to Overcoming Inner Struggles" is a profound and
+        insightful guide designed to help readers navigate the complex landscape of inner struggles. This eBook delves
+        into the psychological aspects of personal conflicts, offering readers a deep understanding of the forces
+        shaping their internal experiences. In this transformative journey, readers will discover the crucial role of
+        childhood experiences, societal influences, and personal beliefs in forming their current challenges.'
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein Leitfaden zur Überwindung innerer Kämpfe und zur Entwicklung innerer Stärke und Resilienz.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein Leitfaden zur Überwindung innerer Kämpfe und zur Entwicklung innerer Stärke und Resilienz.
+    cover:
+      filename: B0CNPY5PJH-800.webp
+      dimensions:
+        width: 400
+        height: 643
+      alt: "The Battle Within: A Guide to Overcoming Inner Struggles — Cover"
+    workExample:
+      - format: ebook
+        asin: B0CNPY5PJH
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0CNPY5PJH
+          amazon_de: https://www.amazon.de/dp/B0CNPY5PJH
+          amazon_us: https://www.amazon.com/dp/B0CNPY5PJH
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/b5Bpxp
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/b5Bpxp
+          amazon_de: https://www.amazon.de/dp/3000779345
+          amazon_us: https://www.amazon.com/dp/3000779345
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1810717567
+          apple_de: https://books.apple.com/de/audiobook/the-battle-within-a-guide-to-overcoming-inner-struggles/id1810717567
+          apple_us: https://books.apple.com/us/audiobook/the-battle-within-a-guide-to-overcoming-inner-struggles/id1810717567
+    bisac:
+      - SEL031000
+      - PSY045000
+    keywords: &a23
+      - Inner Conflict
+      - Self-Reflection
+      - Shadow Work
+      - Personal Growth
+      - Emotional Resilience
+    relatedBooks: []
+    knowsAbout: *a23
+    reviews:
+      - quote: Exquisitely simple, thought-provoking, and thoroughly readable
+        source: The Prairies Book Review
+        attribution: Dirk Werner
+    mentions:
+      - id: https://psyprofiler.com/#app
+      - id: https://shadow-integrator.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "202440015"
+    alternateName: "The Battle Within: A Guide to Overcoming Inner Struggles"
+    searchHints:
+      de: null
+      en: "The Battle Within: A Guide to Overcoming Inner Struggles"
+  - slug: the-key-of-the-enlightened
+    title: The Key of the Enlightened
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: The Key of the Enlightened (English Edition) von Dirk Werner. Fantasy, Science Fiction.
+      short: The Key of the Enlightened (English Edition) — Fantasy, Science Fiction. Werner Productions.
+      long: The Key of the Enlightened by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint.
+        The Key of the Enlightened By Dirk Werner A cryptic artifact. A shocking murder. A race to uncover the truth. In
+        the shadow of an ancient Alpine monastery, a brutal murder and the theft of a mysterious manuscript spark a
+        desperate search for answers—one that could alter the course of humanity. Dr. Elias Kern, a renowned
+        archaeologist, is thrust into a deadly game when he uncovers clues hidden in forgotten texts and celestial maps.
+        With the brilliant linguist Sophia Heller by his side, he embarks on a perilous journey across continents,
+        chasing the trail of an artifact shrouded in The Key.
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A spiritual novel about enlightenment and self-discovery. A journey to inner peace and wisdom.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        A spiritual novel about enlightenment and self-discovery. A journey to inner peace and wisdom.
+    cover:
+      filename: B0DV56DC5P-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: The Key of the Enlightened — Cover
+    workExample:
+      - format: ebook
+        asin: B0DV56DC5P
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DV56DC5P
+          amazon_de: https://www.amazon.de/dp/B0DV56DC5P
+          amazon_us: https://www.amazon.com/dp/B0DV56DC5P
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/Dirk-Werner-Author
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/Dirk-Werner-Author
+          amazon_de: https://www.amazon.de/dp/B0DVQLY4HD
+          amazon_us: https://www.amazon.com/dp/B0DVQLY4HD
+        asin: B0DVQLY4HD
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1798551433
+          apple_de: https://books.apple.com/de/audiobook/the-key-of-the-enlightened/id1798551433
+          apple_us: https://books.apple.com/us/audiobook/the-key-of-the-enlightened/id1798551433
+    bisac:
+      - FIC009000
+      - FIC028000
+    keywords: &a24
+      - Fantasy
+      - Science Fiction
+      - Speculative Fiction
+      - Enlightened
+      - Written Werner,
+      - Drawing years
+      - designed professionals
+    relatedBooks: []
+    knowsAbout: *a24
+    reviews: []
+    mentions: []
+    dateModified: 2026-05-04
+    goodreadsBookId: "224020222"
+    alternateName: Der Schlüssel der Erleuchteten
+    searchHints:
+      de: Der Schlüssel der Erleuchteten
+      en: null
+  - slug: the-legacy-of-the-lodges
+    title: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases)"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases) (English Edition) von Dirk
+        Werner. Mystery, Psychological Thriller."
+      short: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases) (English Edition) — Mystery,
+        Psychological Thriller. Werner Productions."
+      long: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases) (English Edition) by Dirk
+        Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Mystery, Psychological Thriller.
+        Topics: Mystery, Psychological Thriller, Detective Fiction. Available as eBook (ASIN B0DJY7S893), Paperback
+        (ISBN 9798227427601), Audiobook (Apple Audio ID 1799074036). Goodreads: ID 220815992."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        Dr. Seelmann's third case leads into the mysterious world of lodges and their secrets.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        Dr. Seelmann's third case leads into the mysterious world of lodges and their secrets.
+    cover:
+      filename: B0DJY7S893-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DJY7S893
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DJY7S893
+          amazon_de: https://www.amazon.de/dp/B0DJY7S893
+          amazon_us: https://www.amazon.com/dp/B0DJY7S893
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/4Dk7Dr
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/4Dk7Dr
+          amazon_de: https://www.amazon.de/dp/9798227427601
+          amazon_us: https://www.amazon.com/dp/9798227427601
+        isbn: "9798227427601"
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1799074036
+          apple_de: https://books.apple.com/de/audiobook/the-legacy-of-the-lodges-dr-seelmanns-3rd-case/id1799074036
+          apple_us: https://books.apple.com/us/audiobook/the-legacy-of-the-lodges-dr-seelmanns-3rd-case/id1799074036
+    bisac:
+      - FIC031000
+      - FIC022040
+    keywords: &a25
+      - Mystery
+      - Psychological Thriller
+      - Detective Fiction
+      - Legacy
+      - Lodges
+      - Seelmanns
+      - Mysterious
+      - Cases
+    relatedBooks: []
+    knowsAbout: *a25
+    reviews: []
+    mentions:
+      - id: https://shadow-integrator.com/#app
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "220815992"
+    alternateName: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle)"
+    searchHints:
+      de: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle)"
+      en: null
+  - slug: the-simulation-chronicles
+    title: The Simulation Chronicles
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: The Simulation Chronicles (English Edition) von Dirk Werner. Fantasy, Science Fiction.
+      short: The Simulation Chronicles (English Edition) — Fantasy, Science Fiction. Werner Productions.
+      long: The Simulation Chronicles by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner Productions imprint.
+        The Simulation A Mind-Bending Sci-Fi Thriller Where Reality is the Ultimate Illusion What if everything you
+        believe is a lie? Alex Stone, a spiritual guide, reunites with Leo Carter, a man haunted by his past and
+        tormented by unseen forces known as "Negs." These negative entities lurk in the shadows of our simulated
+        reality, feeding on human energy and exploiting our weaknesses. They are drawn to fear, doubt, and trauma,
+        amplifying our darkest emotions and manipulating us for their own sinister purposes. Their quest for answers
+        reveals a terrifying Earth is not what it seems.
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        A science fiction novel about simulation theory and the question of the true nature of reality.
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Written by Dirk Werner, a licensed psychologist and experienced psychotherapist, this work combines
+        scientific insights with practical, real-world guidance.
+
+
+        - ✅ Drawing on years of therapeutic practice, the author offers readers concrete tools they can apply in their
+        daily lives.
+
+
+        - ✅ The book is designed for both professionals and general readers seeking deeper psychological understanding.
+
+
+        A science fiction novel about simulation theory and the question of the true nature of reality.
+    cover:
+      filename: B0DGRS4PQW-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: The Simulation Chronicles — Cover
+    workExample:
+      - format: ebook
+        asin: B0DGRS4PQW
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DGRS4PQW
+          amazon_de: https://www.amazon.de/dp/B0DGRS4PQW
+          amazon_us: https://www.amazon.com/dp/B0DGRS4PQW
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/mg6l60
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/mg6l60
+          amazon_us: https://www.amazon.com/dp/B0DHQTGM1R
+          amazon_de: https://www.amazon.de/dp/B0DHQTGM1R
+        asin: B0DHQTGM1R
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1799233073
+          apple_de: https://books.apple.com/de/audiobook/the-simulation-chronicles/id1799233073
+          apple_us: https://books.apple.com/us/audiobook/the-simulation-chronicles/id1799233073
+    bisac:
+      - FIC009000
+      - FIC028000
+    keywords: &a26
+      - Simulation Hypothesis
+      - Reality Construction
+      - Consciousness
+      - Perception
+      - Speculative Philosophy
+    relatedBooks: []
+    knowsAbout: *a26
+    reviews: []
+    mentions:
+      - id: https://insightvue.app/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "218725697"
+    alternateName: Die Simulations-Chroniken
+    searchHints:
+      de: Die Simulations-Chroniken
+      en: null
+  - slug: the-thirteen-gates
+    title: "The Thirteen Gates: A Fantasy Psychothriller"
+    language: en
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork:
+      - the-thirteen-gates
+    descriptions:
+      meta: "The Thirteen Gates: A Fantasy Psychothriller von Dirk Werner. Fantasy, Science Fiction."
+      short: "The Thirteen Gates: A Fantasy Psychothriller — Fantasy, Science Fiction. Werner Productions."
+      long: "The Thirteen Gates: A Fantasy Psychothriller by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner
+        Productions imprint. Fantasy, Science Fiction. Topics: Fantasy, Science Fiction, Speculative Fiction. Available
+        as eBook (ASIN B0GBNV8F33), Paperback (ASIN B0GCDQW5MG), Audiobook (Apple Audio ID 1863474214). Goodreads: ID
+        245610516. Deutsche edition also available."
+      marketing: >-
+        **📌 In a Nutshell**
+
+
+        **Some doors should never be opened.**
+
+
+        **💡 What You'll Learn**
+
+
+        - ✅ Until a fragment with no origin lands on her desk.
+
+
+        - ✅ Beneath the faded script, a second layer shimmers through.
+
+
+        - ✅ An atmospheric fantasy-psychothriller about hidden worlds, ancient powers - and the question of what we
+        truly fear.
+
+
+        **Some doors should never be opened.**
+
+
+        Clara restores ancient manuscripts. Precise. Controlled. Alone. Until a fragment with no origin lands on her
+        desk.
+
+
+        Beneath the faded script, a second layer shimmers through. Letters she never learned - yet somehow can read.
+        When she touches the parchment, she sees something. Someone.
+
+
+        Then the message on her phone: Don't burn it. It deletes itself.
+
+
+        What Clara doesn't know: She carries something within her. Something ancient. Something that wants to go home.
+        And she's not the only one searching for it.
+
+
+        **An atmospheric fantasy-psychothriller about hidden worlds, ancient powers - and the question of what we truly
+        fear.**
+    cover:
+      filename: B0GBNV8F33-800.jpg
+      dimensions:
+        width: 250
+        height: 400
+      alt: "The Thirteen Gates: A Fantasy Psychothriller — Cover"
+    workExample:
+      - format: ebook
+        asin: B0GBNV8F33
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.com/dp/B0GBNV8F33
+          amazon_de: https://www.amazon.de/dp/B0GBNV8F33
+          amazon_us: https://www.amazon.com/dp/B0GBNV8F33
+          appleBooks: https://books.apple.com/us/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/3nlMXB
+          googlePlay: https://play.google.com/store/books/details?id=qRe4EQAAQBAJ
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          amazon_de: https://www.amazon.de/dp/B0GCDQW5MG
+          amazon_us: https://www.amazon.com/dp/B0GCDQW5MG
+          books2read: https://books2read.com/u/bOLEYJ?format=print
+        asin: B0GCDQW5MG
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1863474214
+    bisac:
+      - FIC009000
+      - FIC028000
+    keywords: &a27
+      - Fantasy
+      - Science Fiction
+      - Speculative Fiction
+      - Thirteen
+      - Gates
+      - Psychothriller
+      - Until fragment
+      - Beneath faded
+    relatedBooks:
+      - the-thirteen-gates
+    knowsAbout: *a27
+    reviews:
+      - quote: "Exquisitely simple, thought-provoking, and thoroughly readable."
+        source: "The Prairies Book Review"
+        attribution: "Dirk Werner, \"The Battle Within\""
+    mentions: []
+    dateModified: 2026-05-05
+    goodreadsBookId: "245610516"
+  - slug: toedliches-echo
+    title: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle)"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle) (German Edition) von Dirk Werner.
+        Mystery, Psychological Thriller."
+      short: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle) (German Edition) — Mystery,
+        Psychological Thriller. Werner Productions."
+      long: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle) by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Tödliches Dr. Seelmanns zweiter Fall Nach den
+        traumatischen Ereignissen seines letzten Falles will sich der forensische Hypnosetherapeut Dr. Lukas Seelmann
+        eigentlich aus den Ermittlungen zurückziehen. Doch als eine Serie makaber inszenierter Morde die Münchner
+        Kunstszene erschüttert, bittet Hauptkommissarin Jana Wehring ihn erneut um Hilfe. Die Opfer sind bekannte
+        Künstler, ihre Leichen verstörend kunstvoll arrangiert. Die Spur führt Seelmann und Wehring in die
+        geheimnisvolle Welt der Kunsttherapie, wo verdrängte Erinnerungen und dunkle Geheimnisse ans Licht kommen."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Dr. Seelmanns zweiter Fall führt in eine Welt tödlicher Echos und mysteriöser Verbrechen.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Dr. Seelmanns zweiter Fall führt in eine Welt tödlicher Echos und mysteriöser Verbrechen.
+    cover:
+      filename: B0DHV6WTZQ-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DHV6WTZQ
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DHV6WTZQ
+          amazon_de: https://www.amazon.de/dp/B0DHV6WTZQ
+          amazon_us: https://www.amazon.com/dp/B0DHV6WTZQ
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/bPnGRl
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/bPnGRl
+          amazon_de: https://www.amazon.de/dp/9798224929306
+          amazon_us: https://www.amazon.com/dp/9798224929306
+        isbn: "9798224929306"
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1798829616
+          apple_de: https://books.apple.com/de/audiobook/deadly-echo-dr-seelmanns-second-case/id1798829616
+          apple_us: https://books.apple.com/us/audiobook/deadly-echo-dr-seelmanns-second-case/id1798829616
+    bisac:
+      - FIC031000
+      - FIC022040
+    keywords: &a28
+      - Mystery
+      - Psychological Thriller
+      - Detective Fiction
+      - Tödliches
+      - Seelmanns
+      - Zweiter
+      - Mysteriöse
+      - Fälle
+    relatedBooks: []
+    knowsAbout: *a28
+    reviews: []
+    mentions:
+      - id: https://shadow-integrator.com/#app
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "220170283"
+    alternateName: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases)"
+    searchHints:
+      de: null
+      en: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases)"
+  - slug: umgang-mit-eifersuechtigen
+    title: "Umgang mit Eifersüchtigen: So bewahrst du deine innere Stärke"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Umgang mit Eifersüchtigen: So bewahrst du deine innere Stärke (German Edition) von Dirk Werner. Self-Help,
+        Relationships."
+      short: "Umgang mit Eifersüchtigen: So bewahrst du deine innere Stärke (German Edition) — Self-Help, Relationships.
+        Werner Productions."
+      long: "Umgang mit Eifersüchtigen: So bewahrst du deine innere Stärke by Dirk Werner (ORCID 0009-0001-7822-0041, GND
+        1384382429), Werner Productions imprint. Umgang mit Eifersü So bewahrst du deine innere Stärke 🔍 Wege aus der
+        Ein Ratgeber für Betroffene toxischer Eifersucht Sie leiden unter der krankhaften Eifersucht eines anderen
+        Menschen? Dieses Buch zeigt Ihnen den Weg in die Freiheit."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Ein praktischer Ratgeber für den Umgang mit Eifersucht in Beziehungen. Hilft dabei, innere Stärke zu bewahren
+        und gesunde Grenzen zu setzen.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Ein praktischer Ratgeber für den Umgang mit Eifersucht in Beziehungen. Hilft dabei, innere Stärke zu bewahren
+        und gesunde Grenzen zu setzen.
+    cover:
+      filename: B0DWR2FKT4-800.webp
+      dimensions:
+        width: 400
+        height: 601
+      alt: "Umgang mit Eifersüchtigen: So bewahrst du deine innere Stärke — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DWR2FKT4
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DWR2FKT4
+          amazon_de: https://www.amazon.de/dp/B0DWR2FKT4
+          amazon_us: https://www.amazon.com/dp/B0DWR2FKT4
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/mKkwZV
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/mKkwZV
+          amazon_de: https://www.amazon.de/dp/B0DWR2FKT4
+          amazon_us: https://www.amazon.com/dp/B0DWR2FKT4
+        asin: B0DWR2FKT4
+    bisac:
+      - SEL034000
+      - FAM029000
+    keywords: &a29
+      - Self-Help
+      - Relationships
+      - Personal Growth
+      - Umgang
+      - Eifersüchtigen
+      - Bewahrst
+      - Deine
+      - Innere
+    relatedBooks: []
+    knowsAbout: *a29
+    reviews: []
+    mentions:
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "226109167"
+    alternateName: "Dealing with Jealous People: How to Stay Strong"
+    searchHints:
+      de: null
+      en: "Dealing with Jealous People: How to Stay Strong"
+  - slug: verhaengnisvolle-trance
+    title: "Verhängnisvolle Trance: Dr. Seelmanns erster Fall (Dr. Seelmanns mysteriöse Fälle)"
+    language: de
+    authors:
+      - ref: https://books.werner-productions.com/#author
+    workTranslation: []
+    translationOfWork: []
+    descriptions:
+      meta: "Verhängnisvolle Trance: Dr. Seelmanns erster Fall (Dr. Seelmanns mysteriöse Fälle) (German Edition) von Dirk
+        Werner. Mystery, Psychological Thriller."
+      short: "Verhängnisvolle Trance: Dr. Seelmanns erster Fall (Dr. Seelmanns mysteriöse Fälle) (German Edition) — Mystery,
+        Psychological Thriller. Werner Productions."
+      long: "Verhängnisvolle Trance: Dr. Seelmanns erster Fall (Dr. Seelmanns mysteriöse Fälle) by Dirk Werner (ORCID
+        0009-0001-7822-0041, GND 1384382429), Werner Productions imprint. Verhängnisvolle Dr. Seelmanns erster Fall Im
+        Herzen Münchens erschüttert ein brutaler Mord die Stadt. Dr. Lukas Seelmann, ein brillanter Psychologe mit einer
+        besonderen Gabe für Hypnose, wird in die Ermittlungen hineingezogen. Gemeinsam mit der resoluten
+        Hauptkommissarin Jana Wehring taucht er in die Schatten der bayerischen Metropole ein. Von den eleganten
+        Galerien der Schickeria bis in die düsteren Gassen des Hasenbergls folgen sie einer Spur, die tiefer führt, als
+        sie je ahnten."
+      marketing: >-
+        **📌 Kurz & Knapp**
+
+
+        Dr. Seelmanns erster Fall führt in die Welt verhängnisvoller Trance-Zustände und mysteriöser Verbrechen.
+
+
+        **💡 Das erwartet dich**
+
+
+        - ✅ Verfasst von Dirk Werner, Diplom-Psychologe und erfahrener Psychotherapeut, verbindet dieses Werk
+        wissenschaftliche Erkenntnisse mit praxisnahen Empfehlungen.
+
+
+        - ✅ Der Autor schöpft aus langjähriger therapeutischer Erfahrung und bietet Lesern konkrete Werkzeuge für ihren
+        Alltag.
+
+
+        - ✅ Das Buch richtet sich sowohl an Fachleute als auch an Interessierte, die ihr Wissen vertiefen möchten.
+
+
+        Dr. Seelmanns erster Fall führt in die Welt verhängnisvoller Trance-Zustände und mysteriöser Verbrechen.
+    cover:
+      filename: B0DHG8WCDK-800.webp
+      dimensions:
+        width: 400
+        height: 639
+      alt: "Verhängnisvolle Trance: Dr. Seelmanns erster Fall (Dr. Seelmanns mysteriöse Fälle) — Cover"
+    workExample:
+      - format: ebook
+        asin: B0DHG8WCDK
+        publisher: Werner Productions
+        urls:
+          amazon: https://www.amazon.de/dp/B0DHG8WCDK
+          amazon_de: https://www.amazon.de/dp/B0DHG8WCDK
+          amazon_us: https://www.amazon.com/dp/B0DHG8WCDK
+          appleBooks: https://books.apple.com/de/author/dirk-werner/id316714929
+          books2read: https://books2read.com/u/3LBVwD
+      - format: paperback
+        publisher: Werner Productions
+        urls:
+          books2read: https://books2read.com/u/3LBVwD
+          amazon_de: https://www.amazon.de/dp/9798227654403
+          amazon_us: https://www.amazon.com/dp/9798227654403
+        isbn: "9798227654403"
+      - format: audiobook
+        publisher: Werner Productions
+        narrator: AI Voice (Werner Productions)
+        urls:
+          apple: https://books.apple.com/audiobook/id1798829617
+          apple_de: https://books.apple.com/de/audiobook/fatal-trance-dr-seelmanns-first-case/id1798829617
+          apple_us: https://books.apple.com/us/audiobook/fatal-trance-dr-seelmanns-first-case/id1798829617
+    bisac:
+      - FIC031000
+      - FIC022040
+    keywords: &a30
+      - Mystery
+      - Psychological Thriller
+      - Detective Fiction
+      - Verhängnisvolle
+      - Trance
+      - Seelmanns
+      - Erster
+      - Mysteriöse
+    relatedBooks: []
+    knowsAbout: *a30
+    reviews: []
+    mentions:
+      - id: https://shadow-integrator.com/#app
+      - id: https://psyprofiler.com/#app
+    dateModified: 2026-05-04
+    goodreadsBookId: "219337734"
+    alternateName: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases)"
+    searchHints:
+      de: null
+      en: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases)"

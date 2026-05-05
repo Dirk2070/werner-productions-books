@@ -1,0 +1,117 @@
+---
+import type { Book } from "../lib/load-books.js";
+
+interface Props {
+  book: Book;
+}
+const { book } = Astro.props;
+
+const FORMAT_BADGES: Record<string, string> = {
+  ebook: "📱 E-Book",
+  paperback: "📚 Taschenbuch",
+  hardcover: "📚 Hardcover",
+  audiobook: "🎧 Hörbuch",
+};
+
+const formats = [...new Set(book.workExample.map((e) => e.format))];
+const coverSrc = `/${book.cover.filename}`;
+const goodreadsUrl = book.goodreadsBookId
+  ? `https://www.goodreads.com/book/show/${book.goodreadsBookId}`
+  : null;
+---
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__cover-wrap">
+      <img
+        class="hero__cover"
+        src={coverSrc}
+        alt={book.cover.alt}
+        width={book.cover.dimensions.width}
+        height={book.cover.dimensions.height}
+        loading="eager"
+      />
+    </div>
+    <div class="hero__meta">
+      <h1 class="hero__title">{book.title}</h1>
+      {book.subtitle && <p class="hero__subtitle">{book.subtitle}</p>}
+      <div class="hero__badges">
+        {formats.map((f) => (
+          <span class="hero__badge">{FORMAT_BADGES[f] ?? f}</span>
+        ))}
+      </div>
+      {goodreadsUrl && (
+        <a class="hero__goodreads" href={goodreadsUrl} rel="noopener">
+          Auf Goodreads ansehen
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
+    padding: 2.5rem 1.5rem;
+  }
+  .hero__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+  .hero__cover-wrap {
+    flex-shrink: 0;
+  }
+  .hero__cover {
+    width: 180px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    display: block;
+  }
+  .hero__meta {
+    flex: 1;
+    min-width: 0;
+  }
+  .hero__title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #f0e8d0;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+  .hero__subtitle {
+    font-size: 1.1rem;
+    color: #a090c0;
+    margin: 0 0 1rem;
+    font-style: italic;
+  }
+  .hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .hero__badge {
+    background: #2d2d4e;
+    color: #c9a96e;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    border: 1px solid #3d3d6e;
+  }
+  .hero__goodreads {
+    color: #6cbbaa;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+  .hero__goodreads:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 600px) {
+    .hero__inner { flex-direction: column; gap: 1.5rem; }
+    .hero__cover { width: 140px; }
+    .hero__title { font-size: 1.5rem; }
+  }
+</style>

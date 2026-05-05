@@ -1,0 +1,41 @@
+---
+import { loadBooks } from "../lib/load-books.js";
+import BookDetailLayout from "../layouts/BookDetailLayout.astro";
+import BookHero from "../components/BookHero.astro";
+import BookAbout from "../components/BookAbout.astro";
+import BookBuySection from "../components/BookBuySection.astro";
+import BookThemes from "../components/BookThemes.astro";
+import BookTranslation from "../components/BookTranslation.astro";
+import BookRelated from "../components/BookRelated.astro";
+import AuthorCard from "../components/AuthorCard.astro";
+import type { Book } from "../lib/load-books.js";
+
+export async function getStaticPaths() {
+  // hmr-touch 2026-05-05
+  const books = await loadBooks();
+  return books.map((book) => ({
+    params: { slug: book.slug },
+    props: { book, allBooks: books },
+  }));
+}
+
+interface Props {
+  book: Book;
+  allBooks: Book[];
+}
+
+const { book, allBooks } = Astro.props;
+---
+<BookDetailLayout book={book} allBooks={allBooks}>
+  <BookHero book={book} />
+  <BookAbout book={book} />
+  <BookBuySection book={book} />
+  <BookThemes book={book} />
+  {(book.workTranslation.length > 0 || book.translationOfWork.length > 0) && (
+    <BookTranslation book={book} allBooks={allBooks} />
+  )}
+  {book.relatedBooks.length > 0 && (
+    <BookRelated book={book} allBooks={allBooks} />
+  )}
+  <AuthorCard />
+</BookDetailLayout>

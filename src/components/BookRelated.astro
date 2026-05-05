@@ -1,0 +1,87 @@
+---
+import type { Book } from "../lib/load-books.js";
+
+interface Props {
+  book: Book;
+  allBooks: Book[];
+}
+const { book, allBooks } = Astro.props;
+
+const related = book.relatedBooks
+  .slice(0, 4)
+  .map((slug) => allBooks.find((b) => b.slug === slug))
+  .filter((b): b is Book => !!b);
+---
+{related.length > 0 && (
+  <section class="book-related">
+    <div class="book-related__inner">
+      <h2 class="book-related__heading">Ähnliche Bücher</h2>
+      <ul class="book-related__list">
+        {related.map((r) => (
+          <li class="book-related__item">
+            <a class="book-related__link" href={`/${r.slug}/`}>
+              <img
+                class="book-related__cover"
+                src={`/${r.cover.filename}`}
+                alt={r.cover.alt}
+                width="100"
+                height="160"
+                loading="lazy"
+              />
+              <span class="book-related__title">{r.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<style>
+  .book-related {
+    padding: 2rem 1.5rem;
+    background: #16162e;
+    border-top: 1px solid #2d2d4e;
+  }
+  .book-related__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .book-related__heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #c9a96e;
+    margin: 0 0 1rem;
+  }
+  .book-related__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .book-related__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    width: 100px;
+  }
+  .book-related__cover {
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    object-fit: cover;
+    display: block;
+  }
+  .book-related__title {
+    color: #b0a0d0;
+    font-size: 0.78rem;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .book-related__link:hover .book-related__title {
+    color: #c9a96e;
+  }
+</style>

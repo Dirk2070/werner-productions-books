@@ -1,0 +1,124 @@
+---
+import type { Book } from "../lib/load-books.js";
+
+interface Props {
+  book: Book;
+}
+const { book } = Astro.props;
+
+const FORMAT_LABEL: Record<string, string> = {
+  ebook: "E-Book",
+  paperback: "Taschenbuch",
+  hardcover: "Hardcover",
+  audiobook: "Hörbuch",
+};
+
+const PLATFORM_LABELS: Record<string, string> = {
+  kindle: "Amazon Kindle",
+  amazon: "Amazon",
+  amazon_de: "Amazon.de",
+  amazon_com: "Amazon.com",
+  appleBooks: "Apple Books",
+  apple_books: "Apple Books",
+  apple_books_de: "Apple Books DE",
+  apple_books_us: "Apple Books US",
+  googlePlay: "Google Play",
+  google_play: "Google Play",
+  books2read: "Alle Shops (Books2Read)",
+  spotify: "Spotify",
+  kobo: "Kobo",
+  elevenreader: "ElevenReader",
+  nook: "NOOK",
+  tunein: "TuneIn",
+  tolino: "Tolino",
+  weltbild: "Weltbild",
+  audible: "Audible",
+  inaudio: "INAudio",
+};
+---
+<section class="buy">
+  <div class="buy__inner">
+    <h2 class="buy__heading">Jetzt kaufen</h2>
+    {book.workExample.map((edition) => {
+      const platformEntries = Object.entries(edition.urls);
+      if (platformEntries.length === 0) return null;
+      return (
+        <div class="buy__format-block">
+          <h3 class="buy__format-label">{FORMAT_LABEL[edition.format] ?? edition.format}</h3>
+          <div class="buy__links">
+            {platformEntries.map(([platform, url]) => {
+              const isBooks2Read = platform === "books2read";
+              return (
+                <a
+                  class={isBooks2Read ? "buy__btn buy__btn--multi" : "buy__btn"}
+                  href={url}
+                  rel="noopener"
+                  target="_blank"
+                  title={isBooks2Read ? "Übersicht aller Buchhändler — national und international" : undefined}
+                >
+                  {PLATFORM_LABELS[platform] ?? platform}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .buy {
+    padding: 2.5rem 1.5rem;
+    background: #1a1a2e;
+  }
+  .buy__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .buy__heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #c9a96e;
+    margin: 0 0 1.5rem;
+    border-bottom: 1px solid #2d2d4e;
+    padding-bottom: 0.5rem;
+  }
+  .buy__format-block {
+    margin-bottom: 1.5rem;
+  }
+  .buy__format-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #a090c0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 0.6rem;
+  }
+  .buy__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .buy__btn {
+    display: inline-block;
+    background: #2d2d4e;
+    border: 1px solid #40407e;
+    color: #e0d8f8;
+    font-size: 0.875rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .buy__btn:hover {
+    background: #c9a96e;
+    color: #1a1a2e;
+    border-color: #c9a96e;
+  }
+  .buy__btn--multi {
+    background: #3a2d4e;
+    border-color: #c9a96e;
+    font-weight: 600;
+  }
+</style>

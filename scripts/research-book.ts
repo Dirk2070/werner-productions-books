@@ -26,8 +26,25 @@ import { parseSectionMap } from "../src/lib/research/parse-section-map";
 import { fetchGoodreadsRss, matchGoodreadsToBook } from "../src/lib/research/goodreads-rss";
 import { fetchAllAuthorBooks, crossMatchBooks, type GoodreadsBookDetail, type CrossMatchResult } from "../src/lib/research/goodreads-author-list";
 import { generateTopics, extractTitleTokens } from "../src/lib/research/topic-generator";
-import { calculateAppMatches, type AppEntry } from "../src/lib/research/app-cross-linker";
-import { buildDescriptions } from "../src/lib/research/description-builder";
+import { calculateAppMatches, calculateAppMatchesFromText, type AppEntry } from "../src/lib/research/app-cross-linker";
+
+// Author-blanket reviews appear on every dirkwernerbooks.com detail-page
+// but only legitimately apply to the listed slug. Filter at research time so
+// re-research never re-introduces them on unrelated books.
+const AUTHOR_BLANKET_REVIEWS: Array<{ sourceMatch: string; onlySlug: string }> = [
+  { sourceMatch: "Prairies Book Review", onlySlug: "the-battle-within" },
+];
+
+function filterBlanketReviews(reviews: any[], slug: string): any[] {
+  return reviews.filter((r) => {
+    const blanket = AUTHOR_BLANKET_REVIEWS.find((b) =>
+      (r.source ?? "").toLowerCase().includes(b.sourceMatch.toLowerCase())
+    );
+    if (!blanket) return true; // not a blanket review → keep
+    return slug === blanket.onlySlug;
+  });
+}
+import { buildDescriptions, buildMarketing } from "../src/lib/research/description-builder";
 import {
   writeBookYaml,
   logError,
@@ -123,26 +140,58 @@ function loadBooksJson(): BooksJsonEntry[] {
 // ---------------------------------------------------------------------------
 
 interface IdentityYaml {
-  apps?: AppEntry[];
+  apps?: AppEntry[] | Record<string, any>;
 }
 
-function loadIdentityYaml(): IdentityYaml {
+// Convert object-keyed apps (identity.yaml format) to AppEntry array
+function normalizeApps(raw: IdentityYaml): AppEntry[] {
+  if (!raw.apps) return [];
+
+  // Array format (already normalized)
+  if (Array.isArray(raw.apps)) return raw.apps as AppEntry[];
+
+  // Object-keyed format: { shadow_integrator: { name, domain, topics, ... }, ... }
+  const result: AppEntry[] = [];
+  for (const [key, val] of Object.entries(raw.apps as Record<string, any>)) {
+    if (!val || typeof val !== "object") continue;
+    const domain: string = val.domain ?? "";
+    if (!domain) continue; // skip apps without domain (e.g. sundamind null)
+    result.push({
+      id: `${domain}/#app`,
+      slug: key,
+      name: val.name ?? key,
+      topics: Array.isArray(val.topics) ? val.topics : [],
+    });
+  }
+  return result;
+}
+
+function loadIdentityYaml(): { apps: AppEntry[] } {
   const candidates = [
+    process.env.IDENTITY_YAML_PATH,
     resolve(process.cwd(), "identity.yaml"),
     resolve(process.cwd(), "config/identity.yaml"),
-  ];
+    // Asset-YAMLs repo location
+    resolve(process.cwd(), "../Hermes-Agent/Asset-YAMLs/identity.yaml"),
+    "C:/Users/psych/OneDrive/Hermes-Agent/Asset-YAMLs/identity.yaml",
+  ].filter(Boolean) as string[];
 
   for (const p of candidates) {
     if (existsSync(p)) {
       try {
-        return parseYaml(readFileSync(p, "utf-8")) as IdentityYaml;
+        const raw = parseYaml(readFileSync(p, "utf-8")) as IdentityYaml;
+        const apps = normalizeApps(raw);
+        if (apps.length > 0) {
+          console.log(`  Loaded identity.yaml from: ${p} (${apps.length} apps)`);
+        }
+        return { apps };
       } catch (e) {
         console.warn(`Warning: Could not parse identity.yaml at ${p}: ${(e as Error).message}`);
       }
     }
   }
 
-  return {}; // not found → skip app cross-linking
+  return { apps: [] }; // not found → skip app cross-linking
 }
 
 // ---------------------------------------------------------------------------
@@ -282,6 +331,12 @@ async function processBook(
     book.relatedBook
   );
 
+  // 7c. Build marketing description from parsed page
+  const marketingText = buildMarketing(parsed, book, sectionMapping?.bisac ?? []);
+  if (marketingText && marketingText.length >= 50) {
+    (descriptions as any).marketing = marketingText;
+  }
+
   // 7b. Enhance long description with Goodreads substrate if available
   const grDetail = grCrossMatches?.get(asin)?.detail;
   if (grDetail?.descriptionForLong && grDetail.descriptionForLong.length > 100) {
@@ -364,18 +419,34 @@ async function processBook(
     }
   }
 
-  // 11. alternateName: only for monolingual books (no relatedBook)
-  const alternateName: string[] | undefined =
-    !book.relatedBook
-      ? [cleanTitle(lang === "de" ? book.title.en : book.title.de)].filter(Boolean)
+  // 11. alternateName: only for monolingual books (no relatedBook / no workTranslation)
+  // Schema expects string | null, not array
+  const otherLangTitleRaw = cleanTitle(lang === "de" ? book.title.en : book.title.de);
+  const alternateName: string | null | undefined = !book.relatedBook && otherLangTitleRaw
+    ? otherLangTitleRaw
+    : undefined; // omit for bilingual pairs (workTranslation non-empty)
+
+  // 12. searchHints: {de, en} object — null for the language the book IS in
+  // Only for monolingual books; bilingual pairs omit this entirely
+  const otherLangTitle = otherLangTitleRaw;
+  const searchHints: { de: string | null; en: string | null } | undefined =
+    !book.relatedBook && otherLangTitle
+      ? (lang === "de"
+          ? { de: null, en: otherLangTitle }
+          : { de: otherLangTitle, en: null })
       : undefined;
 
-  // 12. searchHints: other-language title tokens (only when no relatedBook, i.e. not a bilingual pair)
-  const otherLangTitle = cleanTitle(lang === "de" ? book.title.en : book.title.de);
-  const searchHints: string[] | undefined =
-    !book.relatedBook && otherLangTitle
-      ? extractTitleTokens(otherLangTitle).slice(0, 5)
-      : undefined;
+  // 11b. mentions: app URLs for apps with ≥2 topic overlap
+  // Use description-text haystack (long + goodreads forLong) for richer matching.
+  const descHaystack = [
+    descriptions.long,
+    grDetail?.descriptionForLong ?? "",
+    grDetail?.description ?? "",
+  ].join(" ");
+  const mentionMatches = apps.length > 0
+    ? calculateAppMatchesFromText(descHaystack, apps, sectionMapping?.bisac ?? [])
+    : [];
+  const mentions = mentionMatches.map(m => ({ id: m.id }));
 
   // 13. Assemble full book data
   const bookData: Record<string, unknown> = {
@@ -396,6 +467,8 @@ async function processBook(
     keywords: topics,
     relatedBooks: relatedBookSlug ? [relatedBookSlug] : [],
     knowsAbout: topics,
+    reviews: filterBlanketReviews(parsed.reviews, slug),
+    mentions,
     dateModified: today,
   };
 
@@ -403,11 +476,11 @@ async function processBook(
     bookData.goodreadsBookId = grMatch.goodreadsBookId;
   }
 
-  if (alternateName && alternateName.length > 0) {
+  if (alternateName) {
     bookData.alternateName = alternateName;
   }
 
-  if (searchHints && searchHints.length > 0) {
+  if (searchHints) {
     bookData.searchHints = searchHints;
   }
 
@@ -568,6 +641,12 @@ async function main(): Promise<void> {
   // Reuse books.json already loaded above
   const allBooks = allBooksForRefresh;
   console.log(`Loaded ${allBooks.length} books from books.json`);
+  if (allBooks.length < 10) {
+    console.warn(
+      `⚠️  books.json hat nur ${allBooks.length} Einträge. Erwartet: 31. ` +
+      `BOOKS_JSON_PATH ENV gesetzt? Aktuell: ${process.env.BOOKS_JSON_PATH ?? "<nicht gesetzt>"}`
+    );
+  }
 
   // Load identity.yaml (optional)
   const identity = loadIdentityYaml();

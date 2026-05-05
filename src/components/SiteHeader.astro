@@ -1,0 +1,105 @@
+---
+interface Props {
+  variant: "minimal" | "full";
+}
+const { variant } = Astro.props;
+const siteName = "Werner Productions Books";
+const authorName = "Dirk Werner";
+---
+<header class={`site-header site-header--${variant}`}>
+  <div class="site-header__inner">
+    <a
+      class="site-header__brand"
+      href="https://werner-productions.com"
+      rel="noopener"
+      title="Werner Productions — Verlag & Hub"
+    >
+      <img
+        class="site-header__logo-img"
+        src="/assets/werner-productions-logo.jpg"
+        alt="Werner Productions Logo"
+        width="44"
+        height="44"
+        loading="eager"
+        onerror="this.style.display='none'"
+      />
+      <span class="site-header__brand-text">
+        <span class="site-header__logo-name">{siteName}</span>
+        <span class="site-header__logo-author">by {authorName}</span>
+      </span>
+    </a>
+    {variant === "minimal" && (
+      <nav class="site-header__nav">
+        <a href="/" class="site-header__back">← Alle Bücher</a>
+      </nav>
+    )}
+    {variant === "full" && (
+      <nav class="site-header__nav">
+        <a href="#books">Bücher</a>
+        <a href="#apps">Apps</a>
+      </nav>
+    )}
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: #1a1a2e;
+    color: #e8e0f0;
+    border-bottom: 1px solid #2d2d4e;
+    padding: 0.75rem 1.5rem;
+  }
+  .site-header__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .site-header__brand {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    line-height: 1.2;
+  }
+  .site-header__logo-img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .site-header__brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .site-header__logo-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #c9a96e;
+    letter-spacing: 0.02em;
+  }
+  .site-header__logo-author {
+    font-size: 0.75rem;
+    color: #a090c0;
+  }
+  .site-header__nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .site-header__nav a {
+    color: #c0b0d8;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+  .site-header__nav a:hover {
+    color: #c9a96e;
+  }
+  .site-header__back {
+    font-size: 0.875rem;
+  }
+</style>
