@@ -2,6 +2,7 @@
 import type { Book } from "../lib/load-books.js";
 import { generateJsonLd } from "../lib/generate-book-jsonld.js";
 import SiteHeader from "../components/SiteHeader.astro";
+import PressQuote from "../components/PressQuote.astro";
 import CrossLinkingFooter from "../components/CrossLinkingFooter.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
@@ -62,6 +63,7 @@ hreflangLinks.unshift({ lang: book.language, href: `${BASE_URL}/${book.slug}/` }
   <SiteHeader variant="minimal" />
   <main>
     <slot />
+    <PressQuote />
   </main>
   <CrossLinkingFooter />
   <SiteFooter />

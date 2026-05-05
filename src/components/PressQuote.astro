@@ -1,0 +1,70 @@
+---
+const source = "Prairies Book Review";
+const quote = "Exquisitely simple, thought-provoking, and thoroughly readable…";
+const book = "The Battle Within";
+const date = "Feb. 2024";
+---
+
+<section class="press-quote" aria-label="Pressestimme">
+  <div class="press-quote__inner">
+    <span class="press-quote__label">Presse</span>
+    <h2 class="press-quote__source">{source}</h2>
+    <blockquote class="press-quote__quote">
+      <p>
+        <span class="press-quote__text">„{quote}"</span>
+        <span class="press-quote__attribution">
+          — The {source} über <strong>{book}</strong> ({date})
+        </span>
+      </p>
+    </blockquote>
+  </div>
+</section>
+
+<style>
+  .press-quote {
+    padding: 2rem 1.5rem;
+    background: #0e0e22;
+    border-top: 1px solid #2d2d4e;
+  }
+  .press-quote__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .press-quote__label {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #c9a96e;
+    margin: 0 0 0.5rem;
+  }
+  .press-quote__source {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e8e0f0;
+    margin: 0 0 0.75rem;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .press-quote__quote {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  .press-quote__quote p {
+    margin: 0;
+    color: #b0a0d0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .press-quote__text {
+    font-style: italic;
+    color: #c9a96e;
+  }
+  .press-quote__attribution {
+    color: #a090c0;
+    font-size: 0.85rem;
+  }
+  .press-quote__attribution strong {
+    color: #e8e0f0;
+  }
+</style>
