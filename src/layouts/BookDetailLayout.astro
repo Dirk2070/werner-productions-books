@@ -5,6 +5,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import FaqSection from "../components/FaqSection.astro";
 import PressQuote from "../components/PressQuote.astro";
 import FocusBadge from "../components/FocusBadge.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import CrossLinkingFooter from "../components/CrossLinkingFooter.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
@@ -88,6 +89,7 @@ hreflangLinks.unshift({ lang: book.language, href: `${BASE_URL}/${book.slug}/` }
     <FaqSection />
     <PressQuote />
     <FocusBadge />
+    <SocialLinks />
   </main>
   <CrossLinkingFooter />
   <SiteFooter />
