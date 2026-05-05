@@ -94,19 +94,14 @@ function crossValidate(data: BooksFile): string[] {
   const slugs = new Set(data.books.map((b) => b.slug));
 
   for (const book of data.books) {
-    for (const ref of book.workTranslation) {
-      if (!slugs.has(ref)) {
-        errors.push(`${book.slug}: workTranslation references unknown slug "${ref}"`);
-      }
-    }
-    for (const ref of book.translationOfWork) {
-      if (!slugs.has(ref)) {
-        errors.push(`${book.slug}: translationOfWork references unknown slug "${ref}"`);
-      }
-    }
-    for (const ref of book.relatedBooks) {
-      if (!slugs.has(ref)) {
-        errors.push(`${book.slug}: relatedBooks references unknown slug "${ref}"`);
+    for (const field of ["workTranslation", "translationOfWork", "relatedBooks"] as const) {
+      for (const ref of book[field]) {
+        if (ref === book.slug) {
+          errors.push(`${book.slug}: ${field} must not contain own slug (self-reference)`);
+        }
+        if (!slugs.has(ref)) {
+          errors.push(`${book.slug}: ${field} references unknown slug "${ref}"`);
+        }
       }
     }
   }
