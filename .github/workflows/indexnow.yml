@@ -1,0 +1,40 @@
+name: IndexNow Submit
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  notify:
+    name: Notify IndexNow (Bing/Yandex/Seznam/Naver)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Wait for Cloudflare Pages deploy
+        run: |
+          echo "Sleeping 120s to let Cloudflare Pages finish the build…"
+          sleep 120
+
+      - name: Verify key file is live
+        run: |
+          KEY_URL="https://books.werner-productions.com/7f3a8c2b9d4e1f5a6c8b3d2e7f1a9c4b.txt"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$KEY_URL")
+          if [ "$STATUS" != "200" ]; then
+            echo "Key file not reachable at $KEY_URL (HTTP $STATUS) — aborting submit"
+            exit 1
+          fi
+          echo "Key file OK ($KEY_URL)"
+
+      - name: Submit URLs to IndexNow
+        run: bun scripts/notify-indexnow.ts
