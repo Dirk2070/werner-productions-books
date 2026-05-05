@@ -29,6 +29,7 @@
     "sync:research:all": "bun scripts/sync-research-to-books.ts --all"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
     "astro": "^6.2.2",
     "cheerio": "^1.2.0",
     "image-size": "^2.0.2",

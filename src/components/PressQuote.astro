@@ -3,9 +3,30 @@ const source = "Prairies Book Review";
 const quote = "Exquisitely simple, thought-provoking, and thoroughly readable…";
 const book = "The Battle Within";
 const date = "Feb. 2024";
+
+const reviewJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "reviewBody": quote,
+  "datePublished": "2024-02-01",
+  "author": {
+    "@type": "Organization",
+    "name": "Prairies Book Review",
+    "url": "https://prairiesbookreview.com/",
+  },
+  "itemReviewed": {
+    "@type": "Book",
+    "name": "The Battle Within: A Guide to Overcoming Inner Struggles",
+    "author": {
+      "@id": "https://books.werner-productions.com/#author",
+    },
+    "url": "https://books.werner-productions.com/the-battle-within/",
+  },
+};
 ---
 
 <section class="press-quote" aria-label="Pressestimme">
+  <script type="application/ld+json" set:html={JSON.stringify(reviewJsonLd)} />
   <div class="press-quote__inner">
     <span class="press-quote__label">Presse</span>
     <h2 class="press-quote__source">{source}</h2>

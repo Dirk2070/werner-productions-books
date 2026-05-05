@@ -58,7 +58,39 @@ const jsonLd = {
         "Persönlichkeitsentwicklung",
         "Fantasy-Literatur",
         "Psychothriller"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Psychologischer Psychotherapeut",
+        "occupationalCategory": "Psychotherapy",
+        "qualifications": "Diplom-Psychologe, Approbation als Psychologischer Psychotherapeut (Verhaltenstherapie), Zusatzqualifikationen in Gestalt-, Körper- und personenzentrierter Therapie"
+      },
+      "workLocation": {
+        "@id": `${BASE_URL}/#practice`
+      },
+      "award": [
+        "FOCUS-Empfehlung Gesundheit 2023 für Psychotherapie",
+        "FOCUS-Empfehlung Gesundheit 2025 für Psychotherapie"
       ]
+    },
+    {
+      "@type": ["MedicalBusiness", "ProfessionalService"],
+      "@id": `${BASE_URL}/#practice`,
+      "name": "Praxis Dirk Werner — Psychologischer Psychotherapeut",
+      "founder": { "@id": `${BASE_URL}/#author` },
+      "employee": { "@id": `${BASE_URL}/#author` },
+      "medicalSpecialty": "Psychiatric",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Allgäu, Bayern"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Füssen-Hopfen am See",
+        "addressRegion": "Bayern",
+        "addressCountry": "DE"
+      },
+      "url": "https://werner-productions.com/"
     },
     {
       "@type": "WebSite",
