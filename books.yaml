@@ -2325,10 +2325,13 @@ books:
     descriptions:
       meta: "The Thirteen Gates: A Fantasy Psychothriller von Dirk Werner. Fantasy, Science Fiction."
       short: "The Thirteen Gates: A Fantasy Psychothriller — Fantasy, Science Fiction. Werner Productions."
-      long: "The Thirteen Gates: A Fantasy Psychothriller by Dirk Werner (ORCID 0009-0001-7822-0041, GND 1384382429), Werner
-        Productions imprint. Fantasy, Science Fiction. Topics: Fantasy, Science Fiction, Speculative Fiction. Available
-        as eBook (ASIN B0GBNV8F33), Paperback (ASIN B0GCDQW5MG), Audiobook (Apple Audio ID 1863474214). Goodreads: ID
-        245610516. Deutsche edition also available."
+      long: "Some doors should never be opened. Clara restores ancient manuscripts. Precise. Controlled. Alone.
+        Until a fragment with no origin lands on her desk. Beneath the faded script, a second layer shimmers
+        through — letters she never learned, yet somehow can read. When she touches the parchment, she sees
+        something. Someone. Then a message on her phone: Don't burn it. It deletes itself. What Clara doesn't
+        know: she carries something within her. Something ancient. Something that wants to go home. And she's
+        not the only one searching for it. An atmospheric fantasy-psychothriller about hidden worlds, ancient
+        powers — and the question of what we truly fear. English edition of Die Dreizehn Tore by Dirk Werner."
       marketing: >-
         **📌 In a Nutshell**
 
@@ -2403,20 +2406,17 @@ books:
       - FIC028000
     keywords: &a27
       - Fantasy
-      - Science Fiction
-      - Speculative Fiction
-      - Thirteen
-      - Gates
-      - Psychothriller
-      - Until fragment
-      - Beneath faded
+      - Psychological Thriller
+      - Jungian psychology
+      - Shadow work
+      - Gnostic cosmology
+      - Vedic Yuga cycles
+      - Individuation
+      - Archetypal fiction
     relatedBooks:
-      - the-thirteen-gates
+      - die-dreizehn-tore
     knowsAbout: *a27
-    reviews:
-      - quote: "Exquisitely simple, thought-provoking, and thoroughly readable."
-        source: "The Prairies Book Review"
-        attribution: "Dirk Werner, \"The Battle Within\""
+    reviews: []
     mentions: []
     dateModified: 2026-05-05
     goodreadsBookId: "245610516"
