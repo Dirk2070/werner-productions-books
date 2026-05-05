@@ -2386,16 +2386,16 @@ books:
           amazon: https://www.amazon.com/dp/B0GBNV8F33
           amazon_de: https://www.amazon.de/dp/B0GBNV8F33
           amazon_us: https://www.amazon.com/dp/B0GBNV8F33
-          appleBooks: https://books.apple.com/us/author/dirk-werner/id316714929
+          appleBooks: https://books.apple.com/us/book/the-thirteen-gates/id6756852785
           books2read: https://books2read.com/u/3nlMXB
           googlePlay: https://play.google.com/store/books/details?id=qRe4EQAAQBAJ
       - format: paperback
         publisher: Werner Productions
         urls:
-          amazon_de: https://www.amazon.de/dp/B0GCDQW5MG
-          amazon_us: https://www.amazon.com/dp/B0GCDQW5MG
+          amazon_de: https://www.amazon.de/dp/B0GCJCR1Q3
+          amazon_us: https://www.amazon.com/dp/B0GCJCR1Q3
           books2read: https://books2read.com/u/bOLEYJ?format=print
-        asin: B0GCDQW5MG
+        asin: B0GCJCR1Q3
       - format: audiobook
         publisher: Werner Productions
         narrator: AI Voice (Werner Productions)
@@ -2409,9 +2409,6 @@ books:
       - Science Fiction
       - Speculative Fiction
       - Psychological Thriller
-      - Psychothriller
-      - Thirteen
-      - Gates
       - Jungian psychology
       - Shadow work
       - Gnostic cosmology
