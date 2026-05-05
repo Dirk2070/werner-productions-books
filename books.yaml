@@ -5,7 +5,8 @@ books:
     language: de
     authors:
       - ref: https://books.werner-productions.com/#author
-    workTranslation: []
+    workTranslation:
+      - the-thirteen-gates
     translationOfWork: []
     descriptions:
       meta: "Die Dreizehn Tore: Ein Fantasy-Psychothriller von Dirk Werner. Fantasy, Science Fiction."
@@ -2320,7 +2321,7 @@ books:
       - ref: https://books.werner-productions.com/#author
     workTranslation: []
     translationOfWork:
-      - the-thirteen-gates
+      - die-dreizehn-tore
     descriptions:
       meta: "The Thirteen Gates: A Fantasy Psychothriller von Dirk Werner. Fantasy, Science Fiction."
       short: "The Thirteen Gates: A Fantasy Psychothriller — Fantasy, Science Fiction. Werner Productions."
