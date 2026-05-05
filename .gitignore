@@ -12,8 +12,15 @@ coverage
 
 # logs
 logs
-_.log
-report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+*.log
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# astro build cache
+.astro/
+
+# yaml backups
+*.bak
+*.bak.*
 
 # dotenv environment variable files
 .env
@@ -36,4 +43,13 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # research cache and output
 .cache/research/
-output/research/
+output/
+
+# bun init stubs
+/index.ts
+
+# external plan docs
+docs/superpowers/
+
+# local fixture (real data via BOOKS_JSON_PATH env)
+/books.json
