@@ -1,10 +1,12 @@
 import type { APIRoute } from "astro";
 import { loadBooks } from "../lib/load-books.js";
+import { loadFaqs } from "../lib/load-faqs.js";
 
 const BASE_URL = "https://books.werner-productions.com";
 
 export const GET: APIRoute = async () => {
   const books = await loadBooks();
+  const faqs = loadFaqs();
   const sortedDe = books
     .filter((b) => b.language === "de")
     .sort((a, b) => a.title.localeCompare(b.title, "de"));
@@ -68,6 +70,15 @@ export const GET: APIRoute = async () => {
   lines.push(`- [Impressum](${BASE_URL}/impressum/)`);
   lines.push(`- [Datenschutzerklärung](${BASE_URL}/datenschutz/)`);
   lines.push("");
+
+  lines.push("## Häufige Fragen");
+  lines.push("");
+  for (const faq of faqs) {
+    lines.push(`### ${faq.q_de}`);
+    lines.push("");
+    lines.push(faq.a_long_de.trim());
+    lines.push("");
+  }
 
   return new Response(lines.join("\n"), {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
