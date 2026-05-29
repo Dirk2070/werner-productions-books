@@ -5,6 +5,14 @@ const HOST = "books.werner-productions.com";
 const BASE = `https://${HOST}`;
 const KEY_LOCATION = `${BASE}/${KEY}.txt`;
 
+// IndexNow ist ein geteiltes Protokoll: api.indexnow.org verteilt an alle
+// teilnehmenden Engines (Bing/Seznam/Naver/…). Yandex wird zusätzlich direkt
+// angestoßen, damit die Einreichung dort garantiert ankommt.
+const ENDPOINTS = [
+  { name: "IndexNow (Bing/Seznam/Naver)", url: "https://api.indexnow.org/IndexNow" },
+  { name: "Yandex", url: "https://yandex.com/indexnow" },
+];
+
 const books = await loadBooks();
 
 const urlList = [
@@ -15,29 +23,37 @@ const urlList = [
   ...books.map((b) => `${BASE}/${b.slug}/`),
 ];
 
-console.log(`Submitting ${urlList.length} URLs to IndexNow…`);
-
-const res = await fetch("https://api.indexnow.org/IndexNow", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json; charset=utf-8",
-    "Host": "api.indexnow.org",
-  },
-  body: JSON.stringify({
-    host: HOST,
-    key: KEY,
-    keyLocation: KEY_LOCATION,
-    urlList,
-  }),
+const payload = JSON.stringify({
+  host: HOST,
+  key: KEY,
+  keyLocation: KEY_LOCATION,
+  urlList,
 });
 
-const body = await res.text();
-console.log(`IndexNow API responded ${res.status} ${res.statusText}`);
-if (body) console.log(body);
+console.log(`Submitting ${urlList.length} URLs to ${ENDPOINTS.length} endpoints…`);
 
-if (res.status === 200 || res.status === 202) {
-  console.log(`✓ IndexNow notified for ${urlList.length} URLs`);
+let okCount = 0;
+
+for (const endpoint of ENDPOINTS) {
+  try {
+    const res = await fetch(endpoint.url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: payload,
+    });
+    const body = await res.text();
+    const ok = res.status === 200 || res.status === 202;
+    console.log(`${ok ? "✓" : "✗"} ${endpoint.name}: HTTP ${res.status} ${res.statusText}`);
+    if (body) console.log(`   ${body.trim()}`);
+    if (ok) okCount++;
+  } catch (err) {
+    console.error(`✗ ${endpoint.name}: ${err instanceof Error ? err.message : String(err)}`);
+  }
+}
+
+if (okCount > 0) {
+  console.log(`✓ ${okCount}/${ENDPOINTS.length} endpoints accepted ${urlList.length} URLs`);
 } else {
-  console.error(`✗ IndexNow submission failed`);
+  console.error("✗ All IndexNow submissions failed");
   process.exit(1);
 }
