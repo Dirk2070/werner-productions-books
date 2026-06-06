@@ -1,5 +1,15 @@
 ---
-const apps = [
+const apps: {
+  id: string;
+  name: string;
+  tagline: string;
+  description?: string;
+  category?: string;
+  topics: string[];
+  url: string | null;
+  icon: string;
+  playStoreUrl: string | null;
+}[] = [
   {
     id: "shadow-integrator",
     name: "Shadow Integrator",
@@ -28,6 +38,18 @@ const apps = [
     playStoreUrl: null,
   },
   {
+    id: "markdownly-anything",
+    name: "Markdownly Anything",
+    tagline: "Markdown ↔ alle Formate",
+    description:
+      "Dein Workspace zum Konvertieren, Schreiben, Sprechen — Dateien, Webseiten, Google Docs. Lokal im Browser, offline, privat.",
+    category: "UtilitiesApplication",
+    topics: ["Markdown-Konvertierung", "Dokument-Editor", "Offline & Privat"],
+    url: "https://markdownly-anything.com",
+    icon: "/assets/app-icons/markdownly-anything.png",
+    playStoreUrl: null,
+  },
+  {
     id: "sundamind",
     name: "Sundamind",
     tagline: "Ruhe finden. Muster sehen. Klein verändern.",
@@ -45,12 +67,21 @@ const appsJsonLd = {
     .map((a) => ({
       "@type": "SoftwareApplication",
       "name": a.name,
-      "description": a.tagline,
-      "applicationCategory": "HealthApplication",
+      "description": a.description ?? a.tagline,
+      "applicationCategory": a.category ?? "HealthApplication",
       "operatingSystem": a.playStoreUrl ? "Android" : "Web",
       "url": a.url ?? a.playStoreUrl,
       "image": a.icon,
       "author": { "@id": "https://books.werner-productions.com/#author" },
+      "creator": {
+        "@type": "Person",
+        "name": "Dirk Werner",
+        "sameAs": [
+          "https://orcid.org/0009-0001-7822-0041",
+          "https://d-nb.info/gnd/1384382429",
+          "https://www.wikidata.org/wiki/Q137711448",
+        ],
+      },
       ...(a.playStoreUrl && { "installUrl": a.playStoreUrl }),
       "keywords": a.topics.join(", "),
     })),
@@ -61,6 +92,9 @@ const appsJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(appsJsonLd)} />
   <div class="apps-section__inner">
     <h2 class="apps-section__heading">Apps von Dirk Werner</h2>
+    <p class="apps-section__developer">
+      Entwickelt von Dirk Werner, Dipl.-Psych., approbierter Psychotherapeut
+    </p>
     <ul class="apps-section__list">
       {apps.map((app) => (
         <li class="apps-section__item">
@@ -137,6 +171,11 @@ const appsJsonLd = {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #7060a0;
+    margin: 0 0 0.5rem;
+  }
+  .apps-section__developer {
+    font-size: 0.85rem;
+    color: #a090c0;
     margin: 0 0 1.25rem;
   }
   .apps-section__list {
