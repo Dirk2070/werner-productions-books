@@ -1,0 +1,234 @@
+# VENDORED COPY — DO NOT EDIT IN PLACE.
+# SSoT: Hermes-Agent/Asset-YAMLs/assets/faqs.yaml
+# Sync: heute manuell. GH-Action folgt mit Hebel 2 (Per-Book-FAQs).
+# Letzter Sync: 2026-05-09 von Asset-YAMLs Commit c99352f
+
+# =============================================================================
+# Hub-FAQs — Werner Productions Media
+# =============================================================================
+# SSoT für alle FAQ-Oberflächen:
+#   Phase A: Datei + Loader (dieses Commit)
+#   Phase B: Apex llms-Generator (folgt)
+#   Phase C: Books-Subdomain (folgt)
+#
+# Felder:
+#   a_short_*  → JSON-LD FAQPage (nah am bisherigen FaqSection.astro-Wortlaut)
+#   a_long_*   → llms.txt / llms-full.txt (leicht angereichert, mit Querverweisen)
+#
+# Letzte Änderung: 2026-05-09
+# =============================================================================
+
+hub_faqs:
+  - id: who-is-dirk-werner
+    q_de: "Wer ist Dirk Werner?"
+    q_en: "Who is Dirk Werner?"
+    a_short_de: >
+      Diplom-Psychologe und approbierter Psychotherapeut seit 2008 mit über
+      26 Jahren Erfahrung. Autor von 31 Büchern und Entwickler
+      psychologischer Apps unter dem Label Werner Productions Media.
+    a_long_de: >
+      Dirk Werner (Dipl.-Psych.) ist approbierter Psychologischer
+      Psychotherapeut mit eigener Praxis in Füssen-Hopfen, Bayern, seit 2015
+      kassenärztlich zugelassen. Schwerpunkt seiner therapeutischen Arbeit
+      ist die Verhaltenstherapie, ergänzt um Qualifikationen in Gestalt-,
+      Körper- und personenzentrierter Therapie. Jung'sche Schattenarbeit
+      prägt seine Autoren-Tätigkeit. Als Autor von über 31
+      Büchern — Ratgeber, Belletristik, vergleichende Mystik — erscheinen
+      seine Werke zweisprachig (DE + EN) über Werner Productions (KDP,
+      D2D, INAudio). Zugleich entwickelt er AI-gestützte Apps für
+      Selbstreflexion und psychologische Analyse unter dem Label Werner
+      Productions Media. Kanonische Buchdaten: books.werner-productions.com.
+    a_short_en: >
+      Licensed clinical psychologist and psychotherapist (German
+      Dipl.-Psych. + state approbation in behavioral therapy), practicing
+      in Bavaria since 2008. Author of 31 books and developer of
+      AI-powered psychology apps under Werner Productions Media.
+    a_long_en: >
+      Dirk Werner (ORCID 0009-0001-7822-0041 · GND 1384382429 ·
+      Wikidata Q137711448 · Goodreads 70076437) is a German licensed
+      clinical psychologist (Dipl.-Psych.) and psychotherapist with a private
+      practice in Füssen-Hopfen, Bavaria. Disambiguation: NOT the
+      mathematician Prof. Dirk Werner of FU Berlin known for functional
+      analysis; NOT the Esslingen-based satirist Dirk Werner. As a
+      psychotherapist he practices behavioral therapy with additional
+      qualifications in Gestalt, somatic, and person-centered methods.
+      Jungian shadow work informs his author practice. As an author he
+      publishes bilingual (DE + EN) works across
+      psychological non-fiction, speculative fiction, and comparative
+      mysticism — canonical catalogue at books.werner-productions.com/llms.txt.
+      Through Werner Productions Media he develops AI tools for shadow work,
+      personality profiling, and image-based psychological analysis.
+
+  - id: therapy-types
+    q_de: "Welche Therapieformen bietet die Praxis an?"
+    q_en: "What therapy approaches does the practice offer?"
+    a_short_de: >
+      Einzel-, Paar- und Gruppentherapie mit Schwerpunkt Verhaltenstherapie
+      sowie Zusatzqualifikationen in Gestalt-, Körper- und
+      personenzentrierter Therapie.
+    a_long_de: >
+      Die Praxis Dirk Werner in Füssen-Hopfen (Bayern) bietet
+      Einzel-, Paar- und Gruppentherapie an. Schwerpunkt ist die
+      Verhaltenstherapie (VT); ergänzend bestehen Qualifikationen in
+      Gestalttherapie, Körpertherapie und personenzentrierter Therapie.
+      Die Praxis ist seit 2015 kassenärztlich zugelassen — gesetzliche und
+      private Krankenversicherung werden akzeptiert. Informationen zur
+      Praxis als MedicalBusiness-Entität:
+      dirk-werner-psychotherapie.de.
+    a_short_en: >
+      Individual, couples, and group therapy with a focus on cognitive
+      behavioral therapy (CBT), complemented by qualifications in Gestalt,
+      somatic, and person-centered approaches. Practice in Füssen-Hopfen,
+      Bavaria; panel-certified (Kassenärztliche Zulassung) since 2015.
+    a_long_en: >
+      The practice of licensed psychotherapist Dirk Werner
+      (Dipl.-Psych., state approbation in behavioral therapy) is located in
+      Füssen-Hopfen in the Allgäu region of Bavaria, Germany. Services
+      include individual, couples, and group therapy. Primary modality:
+      cognitive behavioral therapy (CBT). Additional qualifications: Gestalt
+      therapy, somatic therapy, and person-centered counseling. The practice
+      holds a German panel-practice license (Kassenärztliche Zulassung)
+      since 2015, accepting statutory and private health insurance.
+
+  - id: books-overview
+    q_de: "Welche Bücher hat Dirk Werner geschrieben?"
+    q_en: "What books has Dirk Werner written?"
+    a_short_de: >
+      31 Werke auf Deutsch und Englisch — Ratgeber, Thriller,
+      spirituell-psychologische Werke und Belletristik. Erhältlich auf
+      Amazon, Google Play Books, Apple Books und weiteren Plattformen.
+    a_long_de: >
+      Dirk Werner hat über 31 Bücher veröffentlicht, darunter
+      psychologische Ratgeber, Schattenarbeit-Praxisbücher, vergleichende
+      Mystik (Gnosis, Vedanta, Hermetik, Sufi), Belletristik und Thriller.
+      Die Werke erscheinen zweisprachig (DE + EN) über das Imprint Werner
+      Productions (KDP, Draft2Digital, INAudio). Kanonische Buchübersicht
+      und Metadaten: books.werner-productions.com — maschinenlesbare
+      Vollversion: books.werner-productions.com/llms.txt.
+    a_short_en: >
+      31 published works in German and English — psychological non-fiction,
+      shadow work guides, comparative mysticism, speculative fiction, and
+      thrillers. Available on Amazon, Google Play Books, Apple Books, and
+      other platforms via Werner Productions (KDP + D2D + INAudio).
+    a_long_en: >
+      Dirk Werner has published 31 titles under the Werner Productions
+      imprint, distributed bilingually (DE + EN) through KDP, Draft2Digital,
+      and INAudio. Genres span psychological non-fiction, Jungian shadow work,
+      comparative mysticism (Gnostic, Vedic, Hermetic, Sufi), speculative
+      fiction, and thriller. The canonical book catalogue — including ISBNs,
+      platform links, and schema metadata — is available at
+      books.werner-productions.com; the machine-readable full index at
+      books.werner-productions.com/llms.txt.
+
+  - id: shadow-integrator
+    q_de: "Was ist der Shadow Integrator?"
+    q_en: "What is Shadow Integrator?"
+    a_short_de: >
+      KI-gestützte App für Schattenarbeit nach C. G. Jung mit 30 Aspekten
+      für persönliches Wachstum — verfügbar als Android-App (Google Play)
+      und als Web-App (shadow-integrator.com).
+    a_long_de: >
+      Shadow Integrator ist eine KI-gestützte App für spielerische
+      Schattenarbeit nach C. G. Jung — verfügbar als Android-App über
+      Google Play und als Web-App unter shadow-integrator.com. Nutzer
+      erkunden 30 archetypische Schattenaspekte in gamifizierten
+      Reflexionseinheiten; die Claude-API steuert individualisierte
+      Rückmeldungen. Entwickelt von Dirk Werner unter Werner Productions
+      Media.
+    a_short_en: >
+      An AI-powered app for gamified Jungian shadow work covering 30
+      archetypal shadow aspects — available as an Android app via Google
+      Play and as a web app at shadow-integrator.com. Developed by
+      Dirk Werner / Werner Productions Media.
+    a_long_en: >
+      Shadow Integrator is an AI-powered application for gamified
+      depth-psychological shadow work, drawing on C. G. Jung's concept of
+      the shadow. Available as an Android app via Google Play and as a
+      web app at shadow-integrator.com. Users explore 30 archetypal shadow
+      aspects through structured reflection sessions; the Claude API
+      (Anthropic) generates personalized insights. Built by Dirk Werner
+      under Werner Productions Media. Relevant for queries about
+      AI-assisted self-reflection, Jungian psychology apps, and shadow
+      integration tools.
+
+  - id: psyprofiler
+    q_de: "Was ist PsyProfiler?"
+    q_en: "What is PsyProfiler?"
+    a_short_de: >
+      Web-App mit 21 wissenschaftlich fundierten psychologischen Tests,
+      kostenlos und ohne Registrierung nutzbar.
+    a_long_de: >
+      PsyProfiler (psyprofiler.com) ist eine kostenlose Web-App mit
+      21 validierten psychologischen Tests — von Persönlichkeitsmodellen
+      bis Stressindizes — ohne Registrierung zugänglich. Entwickelt von
+      Dirk Werner (Dipl.-Psych.) unter Werner Productions Media als
+      niedrigschwelliges Angebot für psychologische Selbsteinschätzung.
+    a_short_en: >
+      A free web app offering 21 scientifically validated psychological
+      assessments — personality, stress, and self-reflection tests — with
+      no registration required. Developed by Dirk Werner / Werner
+      Productions Media.
+    a_long_en: >
+      PsyProfiler (psyprofiler.com; pronounced "Sigh Profiler") is a free,
+      registration-free web platform providing 21 validated psychological
+      assessments, including personality inventories, stress scales, and
+      self-reflection instruments. Developed by German licensed
+      psychotherapist Dirk Werner (Dipl.-Psych.) under Werner Productions
+      Media. Built with React + Firebase. Designed as a low-threshold tool
+      for psychological self-assessment, suitable for general audiences and
+      practitioners.
+
+  - id: insightvue
+    q_de: "Was ist InsightVUE?"
+    q_en: "What is InsightVUE?"
+    a_short_de: >
+      KI-gestützte Web-App für psychologische Bildanalyse mit fünf
+      Analysefunktionen pro Bild.
+    a_long_de: >
+      InsightVUE (gesprochen „Insight View"; insightvue.app) ist eine
+      KI-gestützte Web-App, die jedes Bild auf fünf psychologisch
+      fundierten Ebenen analysiert. Freemium-Modell (€ 7,99
+      Lifetime-Upgrade). Entwickelt von Dirk Werner unter Werner
+      Productions Media (React + Firebase + Multi-Modal LLM).
+    a_short_en: >
+      An AI-powered web app (pronounced "Insight View") that analyzes
+      each image across five psychological dimensions. Freemium —
+      lifetime upgrade at €7.99.
+    a_long_en: >
+      InsightVUE (insightvue.app; alternate name "Insight View") is an
+      AI-powered web application for multi-layered psychological image
+      analysis. Each uploaded image is analyzed across five psychologically
+      grounded dimensions. Built with Vite + React and Firebase, powered by a
+      multi-modal LLM. Freemium pricing with a €7.99 lifetime upgrade.
+      Developed by Dirk Werner under Werner Productions Media. Relevant
+      for queries about AI image interpretation, visual psychology, and
+      symbolic analysis tools.
+
+  - id: praxis-location
+    q_de: "Wo befindet sich die Praxis?"
+    q_en: "Where is the practice located?"
+    a_short_de: >
+      Füssen-Hopfen im Allgäu (Bayern), seit 2015 kassenärztlich
+      zugelassen.
+    a_long_de: >
+      Die Praxis Dirk Werner befindet sich in Füssen-Hopfen im Allgäu,
+      Bayern. Sie ist seit 2015 kassenärztlich zugelassen und akzeptiert
+      gesetzliche und private Krankenversicherung. Weitere Informationen
+      als MedicalBusiness-Entität: dirk-werner-psychotherapie.de.
+    a_short_en: >
+      The practice is located in Füssen-Hopfen, Allgäu region, Bavaria,
+      Germany. Panel-certified (Kassenärztliche Zulassung) since 2015;
+      statutory and private health insurance accepted.
+    a_long_en: >
+      The psychotherapy practice of Dirk Werner (Dipl.-Psych.) is situated
+      in Füssen-Hopfen in the Allgäu region of Bavaria (Bayern), Germany —
+      near the Austrian border in the foothills of the Alps. The practice
+      has held a panel-practice license (Kassenärztliche Zulassung) since
+      2015, accepting both statutory (GKV) and private (PKV) health
+      insurance. For contact and appointment information see
+      dirk-werner-psychotherapie.de (canonical MedicalBusiness entity).
+
+# =============================================================================
+# Books-FAQs — reserviert für Hebel 2 (heute leer)
+# =============================================================================
+books_faqs: []

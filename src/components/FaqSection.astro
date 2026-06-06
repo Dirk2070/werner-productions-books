@@ -1,34 +1,11 @@
 ---
-const faqs = [
-  {
-    q: "Wer ist Dirk Werner?",
-    a: "Diplom-Psychologe und approbierter Psychotherapeut seit 2008 mit über 26 Jahren Erfahrung. Autor von 31 Büchern und Entwickler psychologischer Apps.",
-  },
-  {
-    q: "Welche Therapieformen bietet die Praxis an?",
-    a: "Einzel-, Paar- und Gruppentherapie mit Schwerpunkt Verhaltenstherapie sowie Zusatzqualifikationen in Gestalt-, Körper- und personenzentrierter Therapie.",
-  },
-  {
-    q: "Welche Bücher hat Dirk Werner geschrieben?",
-    a: "31 Werke auf Deutsch und Englisch — Ratgeber, Thriller, spirituell-psychologische Werke und Belletristik. Erhältlich auf Amazon, Google Play Books, Apple Books und weiteren Plattformen.",
-  },
-  {
-    q: "Was ist der Shadow Integrator?",
-    a: "KI-gestützte Android-App für Schattenarbeit nach C. G. Jung mit 30 Aspekten für persönliches Wachstum.",
-  },
-  {
-    q: "Was ist PsyProfiler?",
-    a: "Web-App mit 22 wissenschaftlich fundierten psychologischen Tests, kostenlos und ohne Registrierung nutzbar.",
-  },
-  {
-    q: "Was ist InsightVUE?",
-    a: "KI-gestützte Web-App für psychologische Bildanalyse mit fünf Analysefunktionen pro Bild.",
-  },
-  {
-    q: "Wo befindet sich die Praxis?",
-    a: "Füssen-Hopfen im Allgäu (Bayern), seit 2015 kassenärztlich zugelassen.",
-  },
-];
+import { loadFaqs } from "../lib/load-faqs.js";
+
+const hubFaqs = loadFaqs();
+
+// DE-only rendering: map hub_faq → component render shape
+// (q_de + a_short_de for HTML + JSON-LD; EN phase follows)
+const faqs = hubFaqs.map((f) => ({ q: f.q_de, a: f.a_short_de.trim() }));
 
 const faqJsonLd = {
   "@context": "https://schema.org",
