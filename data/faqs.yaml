@@ -210,6 +210,26 @@ hub_faqs:
       for queries about AI image interpretation, visual psychology, and
       symbolic analysis tools.
 
+  - id: markdownly-anything
+    q_de: "Was ist Markdownly Anything?"
+    q_en: "What is Markdownly Anything?"
+    a_short_de: >
+      Browser-Werkzeug zum Konvertieren zwischen Markdown und allen Formaten —
+      lokal, offline, privat.
+    a_long_de: >
+      Markdownly Anything (markdownly-anything.com) ist Dirk Werners Workspace
+      zum Konvertieren, Schreiben und Sprechen: Dateien, Webseiten und Google
+      Docs — lokal im Browser, offline und privat. Entwickelt unter dem Label
+      Werner Productions Media.
+    a_short_en: >
+      A browser workspace to convert between Markdown and every format —
+      local, offline, private.
+    a_long_en: >
+      Markdownly Anything (markdownly-anything.com) is Dirk Werner's workspace
+      to convert, write, and dictate: files, web pages, and Google Docs —
+      locally in the browser, offline and private. Developed under the
+      Werner Productions Media label.
+
   - id: praxis-location
     q_de: "Wo befindet sich die Praxis?"
     q_en: "Where is the practice located?"
