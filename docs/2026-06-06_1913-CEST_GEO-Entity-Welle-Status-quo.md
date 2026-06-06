@@ -43,5 +43,11 @@ Die 3-Domain-Entity-Welle ist **abgeschlossen und an allen vier Properties live 
 - [ ] Optional: wp `data/identity.yaml` (SSoT) um die 4 App-Namen + 13 Hörbücher anreichern (aktuell generisch; Live-Output ist bereits kanonisch).
 - [ ] Optional: globalen `#author`-Knoten (Hub `index.astro`) auf weitere `sameAs`-Konsistenz prüfen (Wikidata war dort nie drin).
 
+## Live-Verifikation Cache-Bypass (Nachtrag 2026-06-06, 19:33 CEST)
+Auf Hinweis von Claude Desktop (dessen Live-Fetch von werner-productions.com byte-identisch den Vor-Stand zeigte, auch mit `?v=2`) gegengeprüft — Ergebnis: **Site liefert korrekt aus.**
+- **origin/main** (deployte Quelle) enthält PR #9/#10/#11 (Commits 26792eb / adc1bf4 / 2d3022e); Marker korrekt: generische „Wer ist"-Apps 0×, „Entwickler der Apps PsyProfiler" vorhanden, „Lifetime-Pro" 0×, FAQPage-Block 1×.
+- **Live-`curl` mit Cache-Bypass:** `Cf-Cache-Status: DYNAMIC` (Cloudflare cached die Seite nicht → jeder Request trifft frisch die Origin); ausgeliefert: generische Apps 0×, „Lifetime-Pro"/„für immer" 0×, FAQPage 1×.
+- **Fazit:** Kein Deploy- und kein Cloudflare-Cache-Problem. Die byte-identische Alt-Auslieferung war ein **WebFetch-Tool-Cache** (15-Min-TTL pro URL) auf Claude-Desktop-Seite (`?v=2` umgeht ihn nicht). Kein Re-Deploy/Purge nötig → wp bleibt zu Recht ✅ (Entity 4 Apps/13 HB, Lifetime UWG-konform).
+
 ## Nicht wieder einbauen
 - **Wikidata `Q137711448`** — gelöscht (404, Rapid-Marketing/Notability). Identität ausschließlich über ORCID `0009-0001-7822-0041` + GND `1384382429` (+ FOCUS-Profil).
