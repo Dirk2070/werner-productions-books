@@ -1,5 +1,6 @@
 ---
 const orcid = "0009-0001-7822-0041";
+const gnd = "1384382429";
 const bio = "Diplom-Psychologe, Psychotherapeut, Autor, Digital Creator";
 ---
 
@@ -26,6 +27,14 @@ const bio = "Diplom-Psychologe, Psychotherapeut, Autor, Digital Creator";
         aria-label="ORCID-Profil von Dirk Werner"
       >
         ORCID {orcid}
+      </a>
+      <a
+        href={`https://d-nb.info/gnd/${gnd}`}
+        rel="noopener"
+        class="index-hero__orcid"
+        aria-label="GND-Eintrag von Dirk Werner"
+      >
+        GND {gnd}
       </a>
     </div>
   </div>
