@@ -24,8 +24,7 @@ function buildLlmsTxt(books: Book[]): string {
   return `# Werner Productions — Books
 
 > Bücher und Hörbücher von Dirk Werner. Werner Productions Imprint.
-> Author-Identifier: ORCID 0009-0001-7822-0041, GND 1384382429,
-> Wikidata Q137711448, Goodreads 70076437.
+> Author-Identifier: ORCID 0009-0001-7822-0041, GND 1384382429, Goodreads 70076437.
 
 ## Author
 

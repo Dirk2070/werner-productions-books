@@ -34,7 +34,6 @@ describe("generate-indices", () => {
   test("llms.txt has Identity-Anchors in header", () => {
     expect(llmsTxt).toContain("ORCID 0009-0001-7822-0041");
     expect(llmsTxt).toContain("GND 1384382429");
-    expect(llmsTxt).toContain("Wikidata Q137711448");
     expect(llmsTxt).toContain("Goodreads 70076437");
   });
 
