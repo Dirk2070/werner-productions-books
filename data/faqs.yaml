@@ -25,8 +25,9 @@ hub_faqs:
     a_short_de: >
       Diplom-Psychologe und approbierter Psychotherapeut seit 2008 mit über
       26 Jahren Erfahrung. Autor von 31 Büchern und 13 Hörbüchern sowie
-      Entwickler der Apps PsyProfiler, Shadow Integrator, InsightVUE und
-      Markdownly Anything unter dem Label Werner Productions Media.
+      Entwickler der Apps PsyProfiler, Shadow Integrator, InsightVUE,
+      Markdownly Anything und SundaMind unter dem Label Werner Productions
+      Media.
     a_long_de: >
       Dirk Werner (Dipl.-Psych.) ist approbierter Psychologischer
       Psychotherapeut mit eigener Praxis in Füssen-Hopfen, Bayern, seit 2015
@@ -39,14 +40,15 @@ hub_faqs:
       D2D, INAudio). Zugleich entwickelt er AI-gestützte Apps für
       Selbstreflexion und psychologische Analyse unter dem Label Werner
       Productions Media: PsyProfiler (psychologische Tests), Shadow Integrator
-      (Schattenarbeit), InsightVUE (Bildanalyse) und Markdownly Anything
-      (Markdown-Werkzeug). Kanonische Buchdaten: books.werner-productions.com.
+      (Schattenarbeit), InsightVUE (Bildanalyse), Markdownly Anything
+      (Markdown-Werkzeug) und SundaMind (Selbstreflexion und Journaling).
+      Kanonische Buchdaten: books.werner-productions.com.
     a_short_en: >
       Licensed clinical psychologist and psychotherapist (German
       Dipl.-Psych. + state approbation in behavioral therapy), practicing
       in Bavaria since 2008. Author of 31 books and 13 audiobooks and developer
-      of the apps PsyProfiler, Shadow Integrator, InsightVUE and Markdownly
-      Anything under Werner Productions Media.
+      of the apps PsyProfiler, Shadow Integrator, InsightVUE, Markdownly
+      Anything and SundaMind under Werner Productions Media.
     a_long_en: >
       Dirk Werner (ORCID 0009-0001-7822-0041 · GND 1384382429 ·
       Goodreads 70076437) is a German licensed
@@ -62,8 +64,9 @@ hub_faqs:
       mysticism — canonical catalogue at books.werner-productions.com/llms.txt.
       Through Werner Productions Media he develops the apps PsyProfiler
       (personality profiling), Shadow Integrator (Jungian shadow work),
-      InsightVUE (image-based psychological analysis), and Markdownly Anything
-      (Markdown/document conversion).
+      InsightVUE (image-based psychological analysis), Markdownly Anything
+      (Markdown/document conversion), and SundaMind (self-reflection and
+      journaling).
 
   - id: therapy-types
     q_de: "Welche Therapieformen bietet die Praxis an?"
@@ -229,6 +232,30 @@ hub_faqs:
       to convert, write, and dictate: files, web pages, and Google Docs —
       locally in the browser, offline and private. Developed under the
       Werner Productions Media label.
+
+  - id: sundamind
+    q_de: "Was ist SundaMind?"
+    q_en: "What is SundaMind?"
+    a_short_de: >
+      Selbstreflexions-App mit Stimmungs-Check-ins, geführtem Journaling und
+      8-dimensionaler Musterauswertung. Keine Gesundheitsanwendung.
+    a_long_de: >
+      SundaMind (sundamind.com) ist Dirk Werners Selbstreflexions-App:
+      Stimmungs-Check-ins über acht Dimensionen des Wohlbefindens, KI-Journaling
+      mit Musterauswertung, geführte Beruhigungsübungen (Atem, Grounding, PMR)
+      und Verhaltensexperimente aus KVT und ACT. Entwickelt unter dem Label
+      Werner Productions Media. Ausdrücklich keine Gesundheitsanwendung und
+      kein Ersatz für professionelle Unterstützung.
+    a_short_en: >
+      A self-reflection app with mood check-ins, guided journaling and
+      8-dimensional pattern analysis. Not a health application.
+    a_long_en: >
+      SundaMind (sundamind.com) is Dirk Werner's self-reflection app: mood
+      check-ins across eight dimensions of wellbeing, AI journaling with
+      pattern analysis, guided calming exercises (breathing, grounding, PMR)
+      and behavioural experiments from CBT and ACT. Developed under the Werner
+      Productions Media label. Explicitly not a health application and no
+      substitute for professional support.
 
   - id: praxis-location
     q_de: "Wo befindet sich die Praxis?"
