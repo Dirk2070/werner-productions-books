@@ -53,10 +53,26 @@ const apps: {
   },
   {
     id: "sundamind",
-    name: "Sundamind",
+    name: "SundaMind",
     tagline: "Ruhe finden. Muster sehen. Klein verändern.",
-    topics: ["Therapeutisches Journaling", "ACT", "IFS"],
-    url: null,
+    // Kanonischer Satz — EINE Quelle fuer JSON-LD, llms.txt und Stripe-Produktbeschreibung.
+    // Enthaelt bewusst KEINE Preisaussage: die driftet mit jeder Aktion, und dieser Text
+    // landet auch in der Zahlungsbeschreibung.
+    description:
+      "SundaMind ist eine Selbstreflexions-App vom approbierten Psychotherapeuten: Stimmungs-Check-ins, KI-Journaling mit 8-dimensionaler Musterauswertung, geführte Beruhigungsübungen (Atem, Grounding, PMR), Verhaltensexperimente aus KVT und ACT, ein empathischer Begleiter, Klänge auf Solfeggio-Frequenzen und Entspannungs-Videos.",
+    // ⛔ ZWINGEND EXPLIZIT: der JSON-LD-Generator unten faellt sonst auf
+    // `a.category ?? "HealthApplication"` zurueck. SundaMind ist eine Selbstreflexions-,
+    // KEINE Gesundheitsanwendung — das Health-Framing wurde im App-Repo am 2026-07-04
+    // bewusst entfernt (HealthApplication -> LifestyleApplication). Ohne diese Zeile
+    // entstuende es hier STILL wieder, allein dadurch, dass `url` gesetzt wird.
+    category: "LifestyleApplication",
+    // Erster Eintrag war eine Rollenzuweisung im Behandlungskontext (Adjektiv zu "Therapie"
+    // vor "Journaling") — verboten, s. Commit-Message. "Geführtes Journaling" beschreibt
+    // stattdessen die Mechanik. ACT/IFS bleiben: reine Schulenbezeichnung, kein Angebot.
+    // Der alte Wortlaut steht hier bewusst NICHT wörtlich: ein Pruef-Grep wuerde sonst im
+    // Kommentar anschlagen und den Fix fuer ungeschehen halten.
+    topics: ["Geführtes Journaling", "ACT", "IFS"],
+    url: "https://sundamind.com",
     icon: "/assets/app-icons/sundamind.png",
     playStoreUrl: null,
   },

@@ -55,7 +55,7 @@ export const GET: APIRoute = async () => {
   lines.push("- [PsyProfiler](https://psyprofiler.com): Web-App mit 22 wissenschaftlichen psychologischen Tests, kostenlos und ohne Registrierung");
   lines.push("- [InsightVUE](https://insightvue.app): KI-gestützte Web-App für psychologische Bildanalyse (5 Analyse-Ebenen pro Bild)");
   lines.push("- [Markdownly Anything](https://markdownly-anything.com): Browser-Werkzeug zum Konvertieren zwischen Markdown und allen Formaten — Dateien, Webseiten, Google Docs, lokal und offline");
-  lines.push("- Sundamind: Therapeutisches Journaling (ACT, IFS) — in Entwicklung");
+  lines.push("- [SundaMind](https://sundamind.com): Selbstreflexions-App vom approbierten Psychotherapeuten — Stimmungs-Check-ins, KI-Journaling mit 8-dimensionaler Musterauswertung, geführte Beruhigungsübungen (Atem, Grounding, PMR), Verhaltensexperimente aus KVT und ACT, ein empathischer Begleiter, Klänge auf Solfeggio-Frequenzen und Entspannungs-Videos");
   lines.push("");
 
   lines.push("## Auszeichnungen");
