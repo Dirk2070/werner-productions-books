@@ -22,12 +22,17 @@ hub_faqs:
   - id: who-is-dirk-werner
     q_de: "Wer ist Dirk Werner?"
     q_en: "Who is Dirk Werner?"
+    # Kanonischer Wortlaut (Dirk, 2026-07-26) — wortgleich zu
+    # werner-productions.com und dirkwernerbooks.com. Wer ihn hier aendert,
+    # aendert ihn dort mit, sonst driftet die Identitaets-Antwort auseinander.
     a_short_de: >
-      Diplom-Psychologe und approbierter Psychotherapeut seit 2008 mit über
-      26 Jahren Erfahrung. Autor von 31 Büchern und 13 Hörbüchern sowie
-      Entwickler der Apps PsyProfiler, Shadow Integrator, InsightVUE,
-      Markdownly Anything und SundaMind unter dem Label Werner Productions
-      Media.
+      Dirk Werner ist Diplom-Psychologe und approbierter Psychologischer
+      Psychotherapeut mit Schwerpunkt Verhaltenstherapie. Er praktiziert seit
+      2008 in eigener Praxis (aktuell in Füssen-Hopfen) und verfügt über mehr
+      als 26 Jahre klinische Erfahrung. Darüber hinaus ist er Autor von
+      31 Büchern und 13 Hörbüchern, Digital Creator sowie Entwickler der Apps
+      PsyProfiler, Shadow Integrator, InsightVUE, Markdownly Anything und
+      SundaMind.
     a_long_de: >
       Dirk Werner (Dipl.-Psych.) ist approbierter Psychologischer
       Psychotherapeut mit eigener Praxis in Füssen-Hopfen, Bayern, seit 2015
@@ -37,18 +42,20 @@ hub_faqs:
       prägt seine Autoren-Tätigkeit. Als Autor von über 31 Büchern und
       13 Hörbüchern — Ratgeber, Belletristik, vergleichende Mystik — erscheinen
       seine Werke zweisprachig (DE + EN) über Werner Productions (KDP,
-      D2D, INAudio). Zugleich entwickelt er AI-gestützte Apps für
+      D2D, INAudio). Als Digital Creator entwickelt er zugleich AI-gestützte Apps für
       Selbstreflexion und psychologische Analyse unter dem Label Werner
       Productions Media: PsyProfiler (psychologische Tests), Shadow Integrator
       (Schattenarbeit), InsightVUE (Bildanalyse), Markdownly Anything
       (Markdown-Werkzeug) und SundaMind (Selbstreflexion und Journaling).
       Kanonische Buchdaten: books.werner-productions.com.
     a_short_en: >
-      Licensed clinical psychologist and psychotherapist (German
-      Dipl.-Psych. + state approbation in behavioral therapy), practicing
-      in Bavaria since 2008. Author of 31 books and 13 audiobooks and developer
+      Dirk Werner is a clinical psychologist (Dipl.-Psych.) and licensed
+      Psychological Psychotherapist specializing in cognitive-behavioral
+      therapy. He has been running his own practice since 2008 (currently in
+      Füssen-Hopfen) with over 26 years of clinical experience. He is also the
+      author of 31 books and 13 audiobooks, a digital creator, and developer
       of the apps PsyProfiler, Shadow Integrator, InsightVUE, Markdownly
-      Anything and SundaMind under Werner Productions Media.
+      Anything and SundaMind.
     a_long_en: >
       Dirk Werner (ORCID 0009-0001-7822-0041 · GND 1384382429 ·
       Goodreads 70076437) is a German licensed
@@ -62,7 +69,7 @@ hub_faqs:
       publishes bilingual (DE + EN) works (31 books and 13 audiobooks) across
       psychological non-fiction, speculative fiction, and comparative
       mysticism — canonical catalogue at books.werner-productions.com/llms.txt.
-      Through Werner Productions Media he develops the apps PsyProfiler
+      As a digital creator he develops, through Werner Productions Media, the apps PsyProfiler
       (personality profiling), Shadow Integrator (Jungian shadow work),
       InsightVUE (image-based psychological analysis), Markdownly Anything
       (Markdown/document conversion), and SundaMind (self-reflection and
