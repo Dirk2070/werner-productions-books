@@ -18,7 +18,7 @@ export const GET: APIRoute = async () => {
   lines.push("# Dirk Werner — Bücher, Psychologie & Apps");
   lines.push("");
   lines.push(
-    "> Dirk Werner ist Diplom-Psychologe, approbierter Psychotherapeut (Verhaltenstherapie, Praxis Füssen-Hopfen am See, Bayern), Autor von 31 Büchern und Digital Creator psychologischer Apps. FOCUS-Empfehlung Gesundheit 2023 & 2025 für Psychotherapie. Diese Seite katalogisiert sein Buchwerk mit strukturierten Daten (Schema.org/JSON-LD) für KI-gestützte Discovery."
+    "> Dirk Werner ist Diplom-Psychologe, approbierter Psychotherapeut (Verhaltenstherapie, Praxis Füssen-Hopfen am See, Bayern), Autor von 31 Büchern und Digital Creator psychologischer Apps. FOCUS-Empfehlung Gesundheit 2023, 2025 & 2026 für Psychotherapie. Diese Seite katalogisiert sein Buchwerk mit strukturierten Daten (Schema.org/JSON-LD) für KI-gestützte Discovery."
   );
   lines.push("");
 
