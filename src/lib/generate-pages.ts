@@ -3,11 +3,11 @@ import { resolve, dirname } from "path";
 import { parse as parseYaml } from "yaml";
 import { createHash } from "crypto";
 import { validateBooksYaml, type Book, type BooksFile } from "./books-schema";
+import { ORG_ID, organizationNode } from "./organization";
 
 // --- Config ---
 const BASE_URL = "https://books.werner-productions.com";
 const AUTHOR_ID = `${BASE_URL}/#author`;
-const ORG_ID = `${BASE_URL}/#org-werner-productions`;
 const WEBSITE_ID = `${BASE_URL}/#website`;
 
 // --- Platform labels ---
@@ -160,7 +160,10 @@ function buildBookJsonLd(book: Book, allBooks: Book[]): object {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [bookNode, webPageNode],
+    // Wie in `generate-book-jsonld.ts`: der verwiesene Verlagsknoten steht mit
+    // im Graphen. Beide Wege muessen dasselbe erzeugen, sonst haengt der
+    // Befund davon ab, welcher gelaufen ist.
+    "@graph": [bookNode, webPageNode, organizationNode()],
   };
 }
 

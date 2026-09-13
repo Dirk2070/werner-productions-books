@@ -68,3 +68,68 @@ kommen, prüft der Wächter nichts. Sie muss aus dem gebauten HTML kommen.
 
 Ob eine Antwortmaschine den Verlag danach nennt. Das ist die Wirkung, nicht der
 Befund — und sie wird gemessen, nicht behauptet.
+
+---
+
+# Auswertung, 2026-09-13 · 23:45 CEST
+
+**Der Text oberhalb dieser Linie bleibt unverändert.** Eine gebrochene
+Vorhersagezeile wird nicht nachträchlich geglättet — sonst ist die Vorhersage
+nur eine Erzählung über das Ergebnis.
+
+| Zeile | Ergebnis |
+|---|---|
+| **P1** | ⛔ **gebrochen** — genau eine unaufgelöste `@id`: ✅. Aber **31 Seiten, nicht 33.** |
+| **P2** | ✅ gehalten — site-weiter Maßstab; `#author`/`#website` werden nicht mit-rot |
+| **P3** | ✅ gehalten — grün, ohne eine Zeile an den Buchseiten zu ändern |
+| **P4** | ✅ gehalten — Verweis auf `#gibt-es-nicht` verbogen → **rot, 31 Treffer** |
+| **P5** | ✅ gehalten — der Wächter liest `dist/`; die Definitionsmenge stammt aus dem gebauten HTML |
+
+## P1: woher die falsche Zahl kam
+
+**33 war keine Messung, sondern eine Rechnung: 34 Seiten minus Startseite.**
+Tatsächlich sind es 31 Buchseiten — die drei Seiten ohne `publisher`-Verweis
+sind `index`, **`impressum` und `datenschutz`**. Ich habe zwei Rechtsseiten als
+Buchseiten mitgezählt.
+
+Die Zahl hätte aus der Tabelle kommen müssen, nicht aus einer Subtraktion. Es
+ist der vierte Zählfehler dieser Sitzung und derselbe Bauart wie die
+vorhergehenden: **eine plausible Ableitung gibt sich als Erhebung aus.** Der
+Befund selbst war richtig, seine Ausdehnung falsch — und ohne den Wächter, der
+die Seiten *nennt*, wäre es unentdeckt geblieben.
+
+Nebenbefund dazu: **31 Buchseiten passen zu „Autor von 31 Büchern"** in der
+kanonischen Bio. Die Zahlen stimmen zusammen, das war vorher nicht geprüft.
+
+## Was gebaut wurde
+
+`src/lib/organization.ts` — **eine** Definition von `ORG_ID` und des Knotens,
+importiert von `generate-book-jsonld.ts` (der aktive Astro-Weg) **und**
+`generate-pages.ts` (`npm run generate`). Beide hatten die Konstante zuvor
+eigen; nur eine zu ändern hätte den Fehler beim nächsten Lauf des anderen Wegs
+neu erzeugt.
+
+Der Knoten steht **im Graphen jeder Seite, die ihn verweist** — 31 definiert, 31
+verwiesen, deckungsgleich im gebauten HTML. Nicht zentral auf der Startseite:
+eine Antwortmaschine, die eine einzelne Buchseite liest, löst keine `@id` auf,
+die nur anderswo definiert ist.
+
+Felder ausschließlich belegt: `name` und `description` aus dem
+llms.txt-Wortlaut, `url` der Hub, `founder` → `#author`, `publishingPrinciples`
+→ Impressum. **Keine Rechtsform, keine Adresse, kein Gründungsdatum** — das
+Impressum nennt Füssen für die *Praxis*, nicht für den Verlag.
+
+## Zwei Befunde, die dabei aufgefallen sind und offen bleiben
+
+**1. `index.astro:18` trägt `DO NOT MODIFY`** (commit `65ee79e`). Deshalb wurde
+dem Startseiten-Graphen nichts hinzugefügt. Folge: **die Startseite kennt den
+Verlag nicht.** Sie verweist ihn auch nicht, es baumelt also nichts — aber für
+eine Frage wie „wer verlegt die Bücher von Dirk Werner" ist die Startseite der
+naheliegende Einstieg. Das ist eine Entscheidung, nicht ein Versehen.
+
+**2. Der `#practice`-Knoten trägt die falsche URL.** Die Psychotherapie-Praxis
+(`MedicalBusiness`, Füssen-Hopfen) hat dort `"url": "https://werner-productions.com/"`
+— die Adresse des Medienunternehmens. Zwei verschiedene Entitäten mit einer
+URL; für eine Antwortmaschine ist die Praxis-Website damit
+`werner-productions.com`. **Nicht geändert** — der Knoten liegt im gesperrten
+Bereich, und Praxisdaten ändert man nicht nebenbei.

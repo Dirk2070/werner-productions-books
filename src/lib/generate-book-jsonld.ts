@@ -1,8 +1,8 @@
 import type { Book } from "./books-schema.js";
+import { ORG_ID, organizationNode } from "./organization.js";
 
 const BASE_URL = "https://books.werner-productions.com";
 const AUTHOR_ID = `${BASE_URL}/#author`;
-const ORG_ID = `${BASE_URL}/#org-werner-productions`;
 const WEBSITE_ID = `${BASE_URL}/#website`;
 
 const FORMAT_MAP: Record<string, string> = {
@@ -168,6 +168,9 @@ export function generateJsonLd(book: Book, allBooks: Book[]): object {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [bookNode, webPageNode],
+    // Der Verlagsknoten steht mit im Graphen, weil `bookNode.publisher` ihn
+    // verweist. Ein Verweis auf einen Knoten, der nur auf einer anderen Seite
+    // definiert ist, loest fuer einen Leser dieser Seite nicht auf.
+    "@graph": [bookNode, webPageNode, organizationNode()],
   };
 }
