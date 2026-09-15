@@ -28,9 +28,8 @@ export const GET: APIRoute = async () => {
   lines.push("- [ORCID](https://orcid.org/0009-0001-7822-0041): 0009-0001-7822-0041");
   lines.push("- [GND (DNB)](https://d-nb.info/gnd/1384382429): 1384382429");
   lines.push("- [Goodreads-Profil](https://www.goodreads.com/author/show/70076437)");
-  lines.push("- [Amazon Author Central](https://www.amazon.de/stores/Dirk-Werner/author/B0F2YNKR78)");
-  lines.push("- [Apple Books](https://books.apple.com/us/author/dirk-werner/id1800990912)");
-  lines.push("- [Google Play Books](https://play.google.com/store/books/author?id=Dirk+Werner)");
+  lines.push("- [Amazon Author Central](https://www.amazon.de/stores/author/B0CB9KB4QT/about)");
+  lines.push("- [Apple Books](https://books.apple.com/us/author/dirk-werner/id1896585925)");
   lines.push("- [Praxis-Website (werner-productions.com)](https://werner-productions.com/)");
   lines.push("- [Buch-Hub (dirkwernerbooks.com)](https://dirkwernerbooks.com)");
   lines.push("");
