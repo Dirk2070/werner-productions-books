@@ -172,7 +172,23 @@ const jsonLd = {
   <meta property="og:type" content="profile" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content={BASE_URL + "/"} />
-  <meta property="og:image" content={BASE_URL + "/assets/dirk-werner.jpg"} />
+  <!--
+    ⛔ HIER STAND `dirk-werner.jpg` — das Autorenportraet im HOCHFORMAT
+       (1125x2001). Messenger und Suchmaschinen schneiden ein Vorschaubild auf
+       etwa 1,91:1 zu; von einem Hochformat bleibt ein Streifen aus der Mitte,
+       beim Portraet also Hals und Jacke. Kaputt war nichts, es sah nur falsch
+       aus — und das faellt niemandem auf, der den eigenen Link selten selbst
+       verschickt.
+    ⭐ `og-image.jpg` ist 1200x630 und traegt DASSELBE Bild vollstaendig, auf
+       einem weichgezeichneten Ausschnitt seiner selbst. Das Original bleibt
+       unveraendert: es wird sichtbar verwendet (IndexHero, AuthorCard) und
+       steht als `image` am Person-Knoten, wo Hochformat richtig ist.
+  -->
+  <meta property="og:image" content={BASE_URL + "/assets/og-image.jpg"} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={BASE_URL + "/assets/og-image.jpg"} />
 
   <!-- JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
