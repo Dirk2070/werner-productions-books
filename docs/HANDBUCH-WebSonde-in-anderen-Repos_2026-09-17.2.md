@@ -1,6 +1,8 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-17.2** · Quelle: `Dirk2070/websonde`, `docs/HANDBUCH-WebSonde-in-anderen-Repos.md`
+**Handbuch-Version 2026-09-17.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
+`docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
 > ⛔ **Diese Datei ist eine Kopie, wenn sie nicht im Repo `websonde` liegt.**
 > Nicht hier bearbeiten — Änderungen gehen in der nächsten Verteilung verloren.
