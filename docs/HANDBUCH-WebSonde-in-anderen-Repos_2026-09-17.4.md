@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-17.3** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-09-17.4** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -553,13 +553,35 @@ aus dem privaten Repo. Bestand am 2026-09-17 (`gh secret list`, nur Namen):
 **Kein einziges Repo trägt die drei nötigen Werte.** Und der Ausweg, den dieses
 Handbuch weiter oben empfiehlt — Organization Secrets statt N Kopien —, **gibt es
 hier nicht**: `Dirk2070` ist ein persönliches Konto, kein Org (die API antwortet mit
-HTTP 404). Es bleibt die Wahl zwischen *ein Token in neun Repos* (nicht einzeln
-widerrufbar) und *je Repo ein eigenes Access-Token* (neun Tokens, dafür einzeln
-widerrufbar und einzeln sichtbar, wenn eines missbraucht wird).
+HTTP 404).
 
-**Diese Entscheidung ist offen.** Bis sie fällt, wird die Regel nicht durch Workflows
-umgesetzt, die rot laufen — ein Workflow ohne Secret meldet einen Fehler über sich
-selbst, nicht über die Seite.
+### ✅ Entschieden (Dirk, 2026-09-17): die Messung läuft zentral, nicht je Repo
+
+> *„Dann lokal im WebSonde Repo einbauen."*
+
+**Kein Repo bekommt die Access-Secrets.** Die Regel wird in `websonde` umgesetzt, dort,
+wo die Zugangsdaten ohnehin liegen — in `%USERPROFILE%\.secrets\`, außerhalb jedes
+Repos, geladen von `sonde.ps1`.
+
+Das ist nicht der Notausgang, sondern die bessere Bauart:
+
+- **Ein Token statt neun.** Ein unbefristetes Access-Token in neun Repos ließe sich
+  nicht einzeln widerrufen — genau die Warnung aus „Den Zugang setzen" weiter oben.
+  Hier bleibt es an einem Ort.
+- **Kein Secret in fremder CI.** Ein Wert, der in neun Actions-Umgebungen liegt, ist
+  in neun Logs, Caches und Fork-PRs exponiert.
+- **Eine Vorschrift, eine Umgebung.** Ein CI-Runner hat andere `parser`-Versionen als
+  der Nachtlauf, bricht also den `config_hash` — die Messung wäre mit der Messreihe
+  nicht vergleichbar. Zentral gemessen ist sie es.
+
+**Was dein Repo dafür tut: nichts.** Kein Workflow, kein Secret, keine Abhängigkeit.
+Die Regel „wer deployt, misst" bleibt gültig — sie wird nur nicht von dir ausgeführt.
+Was du beitragen kannst, ist ein **Build-Stempel** im ausgelieferten HTML
+(`<meta name="build-stamp">` mit dem Commit), damit die zentrale Messung erkennt,
+*welcher* Stand gemessen wurde und ob der Deploy überhaupt durch ist.
+
+Stand des Baus: `sonde audit --url … --runs kontrolle` kann die Messung heute schon.
+Was fehlt, ist die **Auslösung** — siehe `OFFEN.md`, „Nach dem Deploy messen".
 
 ## Die Arbeitsteilung mit den repo-eigenen Prüfern
 
