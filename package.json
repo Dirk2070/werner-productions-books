@@ -10,7 +10,7 @@
     "typescript": "^5"
   },
   "scripts": {
-    "build": "astro build",
+    "build": "npm run audit:identitaet && astro build",
     "dev": "astro dev",
     "validate:books": "bun scripts/validate-books.ts",
     "generate": "bun scripts/generate-book-pages.ts",
@@ -26,7 +26,8 @@
     "research:goodreads": "bun scripts/research-goodreads-audit.ts",
     "research:goodreads-only": "bun scripts/research-book.ts --refresh-goodreads-only",
     "sync:research": "bun scripts/sync-research-to-books.ts",
-    "sync:research:all": "bun scripts/sync-research-to-books.ts --all"
+    "sync:research:all": "bun scripts/sync-research-to-books.ts --all",
+    "audit:identitaet": "node scripts/audit-identitaet-abgleich.mjs --selbsttest && node scripts/audit-identitaet-abgleich.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
