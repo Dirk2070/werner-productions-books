@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-17.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-09-17.3** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -517,6 +517,49 @@ Reihe entsteht aus dem Nachtlauf, an einem Ort, mit einer Vorschrift.
 sich mit einer Rückfrage ab. In einem Workflow beantwortet sie niemand.
 
 ---
+
+## Regel: Wer deployt, misst (Dirk, 2026-09-17)
+
+> **Jedes Repo, das wichtige Zusätze deployt, führt auch die Testungen aus diesem
+> Handbuch durch.**
+
+Gemeint ist **Stufe 2**: nach dem Deploy live messen, mit der geholten Vorschrift,
+nach `kontrolle/`. Der Grund steht schon oben: Der Nachtlauf misst um 03:00 — wer
+abends deployt, erfährt bis zu **zwanzig Stunden** nichts. Die Regel schließt diese
+Lücke, sie ersetzt den Nachtlauf nicht.
+
+⛔ **Nicht als Deploy-Gate.** Die Messung läuft **nach** dem Deploy in einem eigenen
+Job und blockiert nichts — aus demselben Grund, aus dem WebSonde nicht in den
+Deploy-Pfad gehört (siehe nächster Abschnitt). Ein Deploy, der an einer fremden
+Serverstörung scheitert, ist kein Qualitätsgewinn.
+
+### Stand 2026-09-17: nirgends umgesetzt, und woran es hängt
+
+Geprüft an allen neun ausliefernden Repos: **keines** ruft WebSonde auf. Der einzige
+Treffer für „WebSonde" in `dirkwernerbooks1/.github/workflows/check.yml` ist ein
+**Kommentar**, kein Aufruf — eine Textsuche beantwortet nicht, ob etwas ausgeführt wird.
+
+⚠️ **Der Blocker sind die Secrets, nicht der Workflow.** Stufe 2 braucht
+`CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET` und einen PAT für die Installation
+aus dem privaten Repo. Bestand am 2026-09-17 (`gh secret list`, nur Namen):
+
+| Repo | vorhandene Secrets | WebSonde-tauglich |
+|---|---|---|
+| werner-productions, dirkwernerbooks1 | `CF_ACCOUNT_ID`, `CF_API_TOKEN`, `IDENTITY_PAT` | nein |
+| markdownly-anything, SundaMind | `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` | nein |
+| Shadow-Integrator, studio | `FIREBASE_SERVICE_ACCOUNT` | nein |
+| books, clear-arrows, InsightVUE-Webapp | keine | nein |
+
+**Kein einziges Repo trägt die drei nötigen Werte.** Und der Ausweg, den dieses
+Handbuch weiter oben empfiehlt — Organization Secrets statt N Kopien —, **gibt es
+hier nicht**: `Dirk2070` ist ein persönliches Konto, kein Org (die API antwortet mit
+HTTP 404). Es bleibt die Wahl zwischen *ein Token in neun Repos* (nicht einzeln
+widerrufbar) und *je Repo ein eigenes Access-Token* (neun Tokens, dafür einzeln
+widerrufbar und einzeln sichtbar, wenn eines missbraucht wird).
+
+**Diese Entscheidung ist offen.** Bis sie fällt, wird die Regel nicht durch Workflows
+umgesetzt, die rot laufen — ein Workflow ohne Secret meldet einen Fehler über sich
+selbst, nicht über die Seite.
 
 ## Die Arbeitsteilung mit den repo-eigenen Prüfern
 
