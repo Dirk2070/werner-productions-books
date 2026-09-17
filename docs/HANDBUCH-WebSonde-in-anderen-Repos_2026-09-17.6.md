@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-17.4** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-09-17.6** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -8,9 +8,12 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Nicht hier bearbeiten — Änderungen gehen in der nächsten Verteilung verloren.
 > Ob deine Kopie aktuell ist, sagt ein Vergleich der Versionszeile oben mit der
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
-> (`.erteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
+> (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-09-17, 14:00 CEST** (Upstream-Stand und DataForSEO nachgeführt; der übrige Text ist vom 2026-09-14 und am 2026-09-17 gegen den Code geprüft). Jede Angabe ist am Werkzeug geprüft:
+**Stand 2026-09-17, 22:50 CEST** (Faktor 5 rechnet seit 20:45 nur namensfreie
+Fragen, dazu der gemessene Ausgangsstand und die Referenz; um 14:00 kamen
+Upstream-Stand und DataForSEO hinzu; der übrige Text ist vom 2026-09-14 und am
+2026-09-17 gegen den Code geprüft). Jede Angabe ist am Werkzeug geprüft:
 Exit-Codes aus `cli.py`, Abhängigkeiten aus `pyproject.toml`, Deploy-Wege an
 der Cloudflare-API **und** an den Workflow-Dateien, die Kommandos an echten
 Läufen.
@@ -181,7 +184,7 @@ gehört nicht hinein, auch wenn er vergleichbar wäre.
 Auf demselben Rechner:
 
 ```
-  Vorschrift von https://websonde.app — Regelstand llms-messumfang, Profil audit v2
+  Vorschrift von https://websonde.app — Regelstand llms-messumfang, Profil audit v3
   Vorschrift und Umgebung identisch — dieser Lauf ist mit der Messreihe vergleichbar.
 ```
 
@@ -193,8 +196,19 @@ In einem Workflow eher:
 ```
 
 **Das ist kein Fehler.** Der `config_hash` trägt die Messumgebung mit
-(`parser`, `upstream`, `datenpakete`), und eine andere Umgebung *soll* die
-Vergleichbarkeit brechen. `--vorschrift-von` verspricht deshalb **keine
+(`parser`, `upstream`, `datenpakete`, seit 2026-09-17 auch `messort`), und eine
+andere Umgebung *soll* die Vergleichbarkeit brechen.
+
+⚠️ **Neu seit 2026-09-17: der Messort steht im Hash.** WebSonde ruft zu Laufbeginn
+einmal `https://cloudflare.com/cdn-cgi/trace` ab und legt das **Land** (`loc`) in
+die `bestandteile`; das Rechenzentrum (`colo`) steht nur im Laufkopf, weil es im
+Normalbetrieb wechselt, ohne dass sich an der Auslieferung etwas ändert. **Misst
+dein Repo aus einem anderen Land als der Nachtlauf, bricht der Vergleich** — auch
+wenn Vorschrift und Parser stimmen. Das ist gewollt: Wo eine Seite eine
+Sprachweiche oder Geo-Regel hat, misst du sonst einen anderen Besucher. Ist der
+Ort nicht bestimmbar, gibt es keinen Hash und damit „kein Vergleich"; geraten wird
+nichts. Die Erwartung steht als `messort_soll` in `sites.yml`, eine Abweichung
+meldet der Laufbericht als Befund über das **Messgerät**, nicht über die Seite. `--vorschrift-von` verspricht deshalb **keine
 Hash-Gleichheit** — es überträgt die Vorschrift und **benennt**, was trotzdem
 abweicht, getrennt nach Vorschrift und Umgebung. „Anders gemessen" ist nicht
 „anderes gemessen".
@@ -271,12 +285,67 @@ weil alle drei „KI" heißen könnten.
 | **Index** | `sonde index pruefen` | `GSC_KEY_FILE` | Ist die Seite **indexiert**? | kostenlos |
 | **PAA-Ernte** | `sonde paa ernten` | `DATAFORSEO_KEY_FILE` | Welche Fragen stellt Google im **People-also-ask**-Block? | 0,002 USD je Abruf |
 
+⚠️ **Faktor 5 rechnet seit 2026-09-17, 20:45 nur namensfreie Fragen.** Vorher
+folgte die Erwähnungsrate bei **10 von 13 Seiten exakt dem Anteil der
+Markenfragen**: sechs Fragen mit einer Markenfrage ergaben 17 %, drei Fragen mit
+zwei Markenfragen 67 %. Eine Seite ohne `themen` bekommt überwiegend Fragen, die
+ihren Namen enthalten — und die werden fast immer beantwortet, ganz gleich, wie
+sichtbar die Seite ist. Deshalb gilt jetzt:
+
+- **In die Note geht nur, was den Namen nicht nennt.** `ist_markenfrage` trennt
+  die beiden Sorten; das erste Wort der `marke` genügt als Treffer.
+- **Der Markenwert bleibt sichtbar, aber außerhalb der Note** — als `markenrate`,
+  daneben `themenfragen` und `markenfragen` als Bestand.
+- **Ohne namensfreie Frage gibt es keinen Score**, nicht eine Null. Der Grund
+  steht im Feld; nicht gemessen ist nicht null.
+
+⛔ **Alte Werte sind damit nicht fortschreibbar.** Jede Erwähnungsrate von vor
+dem 2026-09-17, 20:45 enthält Markenfragen. Der Vergleich beginnt neu.
+
+⛔ **Eine `marke`, die spezifischer ist als der übliche Name, misst zu niedrig.**
+Am selben Abend gemessen, gleiche Fragen, gleiche Antworten: `developers.cloudflare.com`
+kam mit `marke: Cloudflare Developers` auf **0 %** und mit `marke: Cloudflare`
+auf **67 %**. Die Modelle schreiben „Cloudflare", nie den Produktnamen. **Trag
+ein, wonach ein Mensch die Marke nennt**, nicht die genaue Produktbezeichnung —
+sonst misst du deine Schreibweise und nennst es Sichtbarkeit.
+
+⚠️ **`themen` ist kein Beiwerk, sondern die Messgrundlage.** Steht dort nichts,
+erzeugt WebSonde überwiegend Markenfragen — und nach der Umstellung bleibt die
+Note dann leer. Dasselbe gilt für `branche`: Sie muss die Kategorie treffen, in
+der jemand tatsächlich sucht. **Die Gegenprobe ist die Nachbarschaft in der
+Antwort:** Nennt das Modell auf die Kategoriefrage deine Wettbewerber, sitzt die
+Angabe richtig; nennt es Marktforscher, Analysten oder Dienstleister, sitzt sie
+falsch — auch wenn sie stimmt.
+
+⚠️ **Sprachfassungen sind eine eigene Kategorie, kein Vergleichspaar.** Eine
+`fassung_von`-Seite trägt `portfolio_score: false` und geht nicht in den
+Durchschnitt. Der Versuch, aus deutschem und englischem Lauf einen
+*Sprachbefund* abzulesen, ist am 2026-09-17 widerlegt worden: Die beiden Läufe
+unterscheiden **zwei Dinge zugleich** (Sprache und Fragensatz) und sind deshalb
+nicht deutbar. Der Sprachvergleich ist bewusst aufgegeben.
+
 **Sichtbarkeit und Zitation sind nicht dasselbe Maß.** `visibility` fragt, ob
 ein Modell die Marke nennt — das kann ein reiner Namenseffekt sein. `zitate`
 fragt, ob die eigene Seite als **Quelle** verwendet wird. Bei
 `dirkwernerbooks.com` hat genau diese Verwechslung den einzigen positiven Wert
 der ganzen Messreihe erzeugt: elf echte Kategoriefragen, kein Treffer, und die
 100 % kamen vom Namen.
+
+**Der Ausgangsstand, gegen den du misst** (2026-09-17, 198 Poe-Aufrufe über
+GPT-5.4, Claude-Sonnet-4.6 und Gemini-3.1-Pro, abgelegt in `kontrolle/`, nicht
+in `runs/`): Bei namensfreien Kategoriefragen nennt **keines der Modelle eine
+der eigenen Seiten — 0,0 % über alle dreizehn**. Faktor 5 steht portfolioweit
+auf **1,0**. Die Referenz `developers.cloudflare.com` erreicht mit passenden
+`themen` **67 %** und Faktor **4,5**: Die Obergrenze ist damit belegt, die Null
+ist ein Befund über die Sichtbarkeit und nicht über das Messgerät. In denselben
+Antworten stehen die Wettbewerber — Hogrefe, Schuhfried, Pearson; Headspace,
+Calm, 7mind; CloudConvert, Pandoc, Adobe. **Eine Null, die nur steigen kann, ist
+die brauchbarste Grundlinie, die es gibt.**
+
+⚠️ **Die Zitierrate hängt am Modell, die Erwähnungsrate nicht.** Gemini nannte in
+**0 von 72** Antworten eine Quelle, Claude in 15 %, GPT in 88 %. Wer den
+Modellsatz ändert, ändert die Zitierrate, ohne dass sich an der Seite etwas
+getan hat — der Modellsatz gehört deshalb neben jede Zitierzahl.
 
 ⛔ **`--sichtbarkeit` und `zitate` kosten Geld.** Der Schalter steht auf
 `default=False`, und das ist beabsichtigt: 20 Fragen × 5 Wiederholungen × 4
