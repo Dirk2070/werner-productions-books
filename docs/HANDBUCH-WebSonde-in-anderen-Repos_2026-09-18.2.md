@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-18.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-09-18.2** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,10 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-09-18, 22:30 CEST.** Neu in dieser Fassung: **`branche` ist ein
+**Stand 2026-09-18, 23:2x CEST.** Neu in `.2`: **Was zu tun ist, wenn die
+Installation abbricht** — ein `force-include` in `pyproject.toml` machte jede
+Neuinstallation unmöglich, während bestehende venvs weiterliefen (behoben,
+Wächter steht). Neu in `.1` war: **`branche` ist ein
 Messparameter, keine Beschreibung** — mit der Nachbarschaftsprobe als
 Abbruchbedingung, dem Fall „Feld bewusst leer" und dem Befund, dass die
 Anbieter-Schablone für Personenmarken nicht passt (**Regel 8** und der neue
@@ -78,6 +81,34 @@ für dieselbe Version laufen auseinander.
 ⚠️ **Keine Extras.** `openai` (KI-Sichtbarkeit) ist bewusst normale
 Abhängigkeit: ein gewöhnliches `uv sync` installiert Extras nicht und
 **entfernt sie aus einer venv, in der sie liegen**.
+
+⛔ **Wenn die Installation abbricht: `pip` ist hier der Zeuge, nicht der
+Schuldige.** Am 2026-09-18 scheiterte ein `pip install` in einem fremden Repo
+mit
+
+```
+ValueError: A second file is being added to the wheel archive
+at the same path: `websonde/daten/werner-productions.png`
+```
+
+Ursache war ein `force-include` in `pyproject.toml`, das eine Datei ein zweites
+Mal an denselben Pfad legte, die `packages` schon mitlieferte. Ältere
+`hatchling`-Versionen führten das zusammen, neuere brechen ab — und das
+Build-Backend war **ungepinnt**, zog also immer die neueste. Behoben am selben
+Tag, seither hält ein Wächter die Stelle
+(`tests/test_paket_laesst_sich_neu_installieren.py`).
+
+**Die Bauart ist der Grund, warum das hier steht.** Eine bestehende venv lief
+weiter, weil dort schon installiert war: Der Nachtlauf merkte nichts, die
+Testsuite auch nicht — sie prüft den Quellbaum, nicht das Artefakt. Es
+scheiterte **nur, wer neu installiert**: also genau du, wenn du dieses Handbuch
+zum ersten Mal befolgst, und der Workflow-Block weiter unten. Zwei Tage lang sah
+der Ausfall aus wie Erfolg, weil niemand zweimal anfängt.
+
+**Für dich heißt das:** Bricht `pip install` ab, ist das ein Befund über
+`websonde`, den du melden solltest — nicht über deinen Rechner. Prüfe vorher
+nur, ob du wirklich in einer **frischen** Umgebung bist; eine alte venv
+verschweigt solche Fehler.
 
 ### Den Zugang setzen
 
