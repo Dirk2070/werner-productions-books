@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-17.6** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-09-18.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,10 +10,15 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-09-17, 22:50 CEST** (Faktor 5 rechnet seit 20:45 nur namensfreie
-Fragen, dazu der gemessene Ausgangsstand und die Referenz; um 14:00 kamen
-Upstream-Stand und DataForSEO hinzu; der übrige Text ist vom 2026-09-14 und am
-2026-09-17 gegen den Code geprüft). Jede Angabe ist am Werkzeug geprüft:
+**Stand 2026-09-18, 22:30 CEST.** Neu in dieser Fassung: **`branche` ist ein
+Messparameter, keine Beschreibung** — mit der Nachbarschaftsprobe als
+Abbruchbedingung, dem Fall „Feld bewusst leer" und dem Befund, dass die
+Anbieter-Schablone für Personenmarken nicht passt (**Regel 8** und der neue
+Abschnitt unter Stufe 3). Dazu der Warnhinweis, dass bei den **Sprachfassungen
+eine einzige Frage den ganzen Faktor 5 trägt**. Der 2026-09-17 brachte Faktor 5
+ohne Markenfragen, den Ausgangsstand und die Referenz; um 14:00 Upstream-Stand
+und DataForSEO; der übrige Text ist vom 2026-09-14 und seither gegen den Code
+geprüft. Jede Angabe ist am Werkzeug geprüft:
 Exit-Codes aus `cli.py`, Abhängigkeiten aus `pyproject.toml`, Deploy-Wege an
 der Cloudflare-API **und** an den Workflow-Dateien, die Kommandos an echten
 Läufen.
@@ -311,11 +316,67 @@ sonst misst du deine Schreibweise und nennst es Sichtbarkeit.
 
 ⚠️ **`themen` ist kein Beiwerk, sondern die Messgrundlage.** Steht dort nichts,
 erzeugt WebSonde überwiegend Markenfragen — und nach der Umstellung bleibt die
-Note dann leer. Dasselbe gilt für `branche`: Sie muss die Kategorie treffen, in
-der jemand tatsächlich sucht. **Die Gegenprobe ist die Nachbarschaft in der
-Antwort:** Nennt das Modell auf die Kategoriefrage deine Wettbewerber, sitzt die
-Angabe richtig; nennt es Marktforscher, Analysten oder Dienstleister, sitzt sie
-falsch — auch wenn sie stimmt.
+Note dann leer.
+
+### `branche` ist ein Messparameter, keine Beschreibung
+
+**Das Feld beschreibt nicht, was deine Seite tut. Es benennt die Kategorie, in
+der jemand nach Anbietern sucht.** Das sind zwei verschiedene Dinge, und alle
+vier Fehlgriffe des Portfolios kamen daher, dass die Angabe das Erste tat.
+`branche` speist genau eine Frageschablone:
+
+```
+Wer sind die wichtigsten Anbieter im Bereich <branche>?
+```
+
+⛔ **Die Nachbarschaftsprobe ist die Abbruchbedingung, nicht der Nachweis
+hinterher** (Regel Dirks, 2026-09-18). Stell die Frage einmal direkt gegen die
+Engines, **bevor** etwas in `sites.yml` steht. Ein Eintrag, der erst gesetzt und
+dann geprüft wird, hebt die Noten und bricht die Hashes, bevor feststeht, ob die
+Formulierung sitzt. Zwölf Aufrufe kosten Cent, ein falscher Eintrag kostet eine
+Laufreihe.
+
+**Nennt das Modell deine Wettbewerber, sitzt die Angabe richtig; nennt es
+Marktforscher, Analysten oder Dienstleister, sitzt sie falsch — auch wenn sie
+sachlich stimmt.** Am 2026-09-18 belegt (12 Aufrufe, drei Engines):
+
+| Angabe | Nachbarschaft |
+|---|---|
+| ~~Dokumentenkonvertierung~~ | nur gartner.com — Marktanalyse |
+| **Markdown-Editor** ✅ | Obsidian, Typora, StackEdit, Zettlr, Joplin |
+| ~~Psychologische Bildanalyse~~ | Marktforschungsberichte |
+| **Aufmerksamkeitsvorhersage für Bildmaterial** ✅ | Neurons, EyeQuant, Attention Insight, Expoze |
+
+⛔ **Und dann gibt es Seiten, für die es die Kategorie nicht gibt.** Eine
+Dachseite, die Bücher, Apps, Psychotherapie und Coaching zugleich trägt, hat
+keine Anbieterklasse — jede Angabe ruft die Nachbarn *eines* Teilgeschäfts auf
+und lässt den Rest fallen. „Verlag und Software-Studio" scheiterte genau daran:
+Das Modell spaltete von sich aus auf und stellte Penguin Random House neben
+Microsoft.
+
+**Breiter fassen macht es schlimmer, nicht besser.** Eine Oberkategorie, die
+alles umfasst, hat keine Anbieterliste, weil niemand danach sucht; das Modell
+müsste sie erst zerlegen, und gemessen würde seine Reaktion auf eine erfundene
+Taxonomie. **Dann lass das Feld leer.** Ein Lauf ohne `branche` ergibt vier
+Themenfragen und **null** Branchenfragen — kein Fehler, keine Warnung, kein
+Abzug. Wächter: `tests/test_leere_branche_ist_kein_mangel.py`.
+
+> **Eine fehlende Branchenzuordnung ist nicht dasselbe wie eine fehlende
+> semantische Einordnung.** Die Vollständigkeit gehört ins Markup
+> (`Organization` mit `knowsAbout`, die Person mit ihren Rollen, die Angebote als
+> `Service`, `Book`, `SoftwareApplication`), wo sie Ziel ist. Bei `branche` ist
+> sie Ausschlusskriterium.
+
+⭐ **Wo die Schablone selbst nicht passt, ist das ein Befund über das Werkzeug.**
+Für Personenmarken und Autorenseiten existiert kein Anbietermarkt. Die Probe hat
+beide Hälften gemessen: „Anbieter im Bereich Bücher und Hörbücher" liefert nur
+Plattformen (Amazon, Audible, Thalia, Spotify), aber *„Welche deutschsprachigen
+Autoren schreiben Psychologie-Sachbücher und Belletristik?"* liefert **Namen** —
+Watzlawick, Schmidbauer, Fitzek, Spitzer, Bas Kast, Dobelli, Jakob Hein. Der
+Befund ist damit **„falsche Schablone", nicht „keine Kategorie"**, und das ist
+ein Bauauftrag: eine zweite Schablone mit **eigenem Konfigurationsschlüssel**,
+keine Umdeutung von `branche` — sonst wird ein Feld je Seitentyp verschieden
+gelesen.
 
 ⚠️ **Sprachfassungen sind eine eigene Kategorie, kein Vergleichspaar.** Eine
 `fassung_von`-Seite trägt `portfolio_score: false` und geht nicht in den
@@ -323,6 +384,27 @@ Durchschnitt. Der Versuch, aus deutschem und englischem Lauf einen
 *Sprachbefund* abzulesen, ist am 2026-09-17 widerlegt worden: Die beiden Läufe
 unterscheiden **zwei Dinge zugleich** (Sprache und Fragensatz) und sind deshalb
 nicht deutbar. Der Sprachvergleich ist bewusst aufgegeben.
+
+⛔ **Bei den Sprachfassungen misst EINE Frage den ganzen Faktor 5 — und es steht
+nirgends dran.** Alle drei tragen `themen: []`. Damit ist ihre **Branchenfrage
+die einzige namensfreie Frage** im ganzen Katalog, und der gesamte Faktor hängt
+an ihr. Am 2026-09-18 beim Leeren von `werner-productions.com/index-en` sichtbar
+geworden: Die Fassung liefert seither `score: None` mit dem Grund *„Keine
+namensfreie Frage gestellt"* — ausdrücklich **nicht gemessen** statt einer Null,
+also regelkonform, aber eben auch ungemessen.
+
+| Fassung | namensfreie Fragen | Faktor 5 |
+|---|---|---|
+| `werner-productions.com/index-en` | **0** | `None` — nicht gemessen |
+| `dirkwernerbooks.com/index-en` | 1 (die Branchenfrage) | hängt ganz an ihr |
+| `sundamind.com/en/` | 1 (die Branchenfrage) | hängt ganz an ihr |
+
+**Der Punkt ist die Bauart, nicht der Einzelfall.** Eine Messung, die auf einer
+einzigen Frage ruht, ist schwächer als eine über vier — und wenn diese Frage an
+einem Feld hängt, das man aus guten Gründen leeren könnte, ist sie zusätzlich
+fragil. Der Weg dorthin sind **eigene fremdsprachige `themen`**, nicht eine
+`branche`. Bis dahin: Lies bei einer Sprachfassung `themenfragen` mit, bevor du
+ihrem Faktor 5 etwas entnimmst.
 
 **Sichtbarkeit und Zitation sind nicht dasselbe Maß.** `visibility` fragt, ob
 ein Modell die Marke nennt — das kann ein reiner Namenseffekt sein. `zitate`
@@ -435,7 +517,7 @@ Läufe, die etwas gefunden haben.
 
 ---
 
-## Sieben Regeln, bevor du einem Wert glaubst
+## Acht Regeln, bevor du einem Wert glaubst
 
 **1. „Nichts hat sich geändert" ist selbst eine Messung.** Vor jeder Deutung
 einer Wertänderung: `git log --since` des gemessenen Repos im Zeitfenster
@@ -493,6 +575,22 @@ Autorität nach einer Titeländerung ist bis zur Korrektur ein Befund über dies
 Prüfung, nicht über die Marke** — und eine Seite, deren `og:title` den `<title>`
 wörtlich wiederholt, gilt als konsistent, auch wenn der Name nirgends
 übereinstimmt. Stand in `OFFEN.md` („Markenkonsistenz").
+
+**8. Eine Null in Faktor 5 sagt nichts, solange die Frage ungeprüft ist.** Der
+Wert ist der Anteil namensfreier Antworten, die deine Marke nennen — er misst
+also immer *zwei* Dinge zugleich: wie sichtbar die Seite ist **und** ob die
+Frage die richtige Nachbarschaft aufruft. Eine schiefe `branche` erzeugt
+verlässlich 0 % und sieht aus wie ein Sichtbarkeitsbefund. **Bevor du eine Null
+deutest, lies die Antwort und sieh nach, wer darin steht.** Stehen dort deine
+Wettbewerber, ist die Null echt; stehen dort Analysten oder Plattformen, misst
+du die Frage. Dasselbe gilt für den Nenner: `themenfragen` sagt dir, über wie
+viele Fragen der Wert gebildet wurde — bei den Sprachfassungen ist es **eine**.
+
+⚠️ Und ein Kontrollwert, der Ungleiches vergleicht, ist keiner: Die `markenrate`
+beruht heute je nach Katalogänge auf **einer oder zwei** Markenfragen, weil
+`messe_sichtbarkeit` bei `--max-fragen 6` glatt abschneidet statt `waehle_fragen`
+zu benutzen. Bei 10 von 13 Seiten fällt dabei *„Ist &lt;Marke&gt; empfehlenswert?"*
+weg. Die Note rührt das nicht an — der Kontrollwert schon. Steht in `OFFEN.md`.
 
 ### Was „Vorbehalt: Markenkonsistenz (Upstream #550)" konkret bedeutet
 
