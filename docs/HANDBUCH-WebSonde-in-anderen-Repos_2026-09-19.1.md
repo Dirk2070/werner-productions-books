@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-18.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-09-19.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,21 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-09-18, 23:2x CEST.** Neu in `.2`: **Was zu tun ist, wenn die
+**Stand 2026-09-19 CEST.** Neu in dieser Fassung (`2026-09-19.1`), alles vom
+2026-09-19:
+
+- ⭐ **Die zweite Frageschablone ist gebaut** — der Bauauftrag aus `.1` ist
+  erledigt, der Schlüssel heißt **`werkfrage`** (unter Stufe 3).
+- ⛔ **`profil_version` 3 → 4: alle 13 `config_hash` sind gebrochen** — Noten
+  über diesen Schnitt hinweg sind nicht vergleichbar (**Regel 3**).
+- **Der Markenabgleich hat zwei Stufen** (`marke_varianten`, `personenname`)
+  und sucht **wörtlich** (**Regel 7**).
+- **Ein Maßnahmentext trägt zwei Felder** — nur `befund` darf in einen Auftrag
+  an ein Sprachmodell (**Regel 10**, neu).
+- **Wer eine Prüfung lockert, fährt die Verfälschungsprobe noch einmal**
+  (**Regel 9**, neu).
+
+Neu in `.2` war: **Was zu tun ist, wenn die
 Installation abbricht** — ein `force-include` in `pyproject.toml` machte jede
 Neuinstallation unmöglich, während bestehende venvs weiterliefen (behoben,
 Wächter steht). Neu in `.1` war: **`branche` ist ein
@@ -404,10 +418,43 @@ beide Hälften gemessen: „Anbieter im Bereich Bücher und Hörbücher" liefert
 Plattformen (Amazon, Audible, Thalia, Spotify), aber *„Welche deutschsprachigen
 Autoren schreiben Psychologie-Sachbücher und Belletristik?"* liefert **Namen** —
 Watzlawick, Schmidbauer, Fitzek, Spitzer, Bas Kast, Dobelli, Jakob Hein. Der
-Befund ist damit **„falsche Schablone", nicht „keine Kategorie"**, und das ist
-ein Bauauftrag: eine zweite Schablone mit **eigenem Konfigurationsschlüssel**,
-keine Umdeutung von `branche` — sonst wird ein Feld je Seitentyp verschieden
-gelesen.
+Befund ist damit **„falsche Schablone", nicht „keine Kategorie"**.
+
+### ✅ Die zweite Schablone: `werkfrage` (seit 2026-09-19)
+
+Der Bauauftrag aus `.1` ist erledigt. Der Schlüssel heißt **`werkfrage`** und
+trägt den **Fragekern zwischen „Welche " und „?"** — wörtlich die Probefrage,
+keine Umformulierung:
+
+```yaml
+werkfrage: "deutschsprachigen Autoren schreiben Psychologie-Sachbücher und Belletristik"
+```
+
+⭐ **Der Feldname ist Teil der Abwehr.** Ein Feld, dessen Wert sichtbar ein
+**Satzfragment** ist, kann man nicht für eine Beschreibung halten — genau das war
+`branche` viermal passiert. Der unschöne Konfigurationswert ist der Punkt, nicht
+der Makel. **Eigener Schlüssel, keine Umdeutung von `branche`** (Dirk,
+2026-09-18): Sonst wird ein Feld je Seitentyp verschieden gelesen.
+
+⛔ **Dieselbe Nachbarschaftsprobe gilt, bevor du sie einträgst.** Sie ist auch
+hier Abbruchbedingung, nicht Nachweis hinterher. **Bestand: 1 von 13 Seiten**
+(`dirkwernerbooks.com`) — Dachseite und Werkregister haben eine andere Kategorie
+und brauchen ihre eigene Probe; Sprachfassungen bekommen nichts, solange die
+Frage deutsch ist.
+
+⚠️ **Die Frage steht hinter allen Themenfragen** (Position 5 von 7). Die
+Poe-Schiene (Faktor 5, Vorgabe 6) schneidet mit `[:n]` und stellt sie;
+`waehle_fragen` (Zitat-Schiene) greift abwechselnd und erreicht sie erst ab 8.
+
+⭐ **Der Verdacht, die Themenschablone sei derselbe Fehler, ist widerlegt**
+(2026-09-19, 15 Abrufe, Kriterium **vor** der Messung committet). Gefordert war,
+dass die Anbieterfragen *überwiegend* Vertriebswege nennen: gemessen **0 von 3
+Engines**. Kein Umbau. Der Effekt ist messbar, aber klein — dieselbe Kategorie
+liefert in der Anbieterform 17 von 83 Nennungen mit „Verlag", in der Werkform
+0 von 42. **Die Formulierung verschiebt, sie kippt nicht.**
+
+⚠️ **Regelwechsel:** Der Einbau hat `profil_version` von 3 auf 4 gehoben und
+**13 von 13 Hashes gebrochen** — absichtlich, siehe Regel 3.
 
 ⚠️ **Sprachfassungen sind eine eigene Kategorie, kein Vergleichspaar.** Eine
 `fassung_von`-Seite trägt `portfolio_score: false` und geht nicht in den
@@ -548,7 +595,7 @@ Läufe, die etwas gefunden haben.
 
 ---
 
-## Acht Regeln, bevor du einem Wert glaubst
+## Zehn Regeln, bevor du einem Wert glaubst
 
 **1. „Nichts hat sich geändert" ist selbst eine Messung.** Vor jeder Deutung
 einer Wertänderung: `git log --since` des gemessenen Repos im Zeitfenster
@@ -571,6 +618,13 @@ unterscheiden.
 `config_hash` sind keine Entwicklung, sondern zwei Messungen. Läufe vor
 2026-09-11 tragen **kein** Profil und sind mit keinem Lauf vergleichbar, auch
 nicht untereinander.
+⛔ **Am 2026-09-19 sind alle 13 Hashes gebrochen worden**, `profil_version`
+3 → 4, weil `werkfrage` in die `bestandteile` kam. Das war beabsichtigt und ist
+kein Fehler — aber jeder Vergleich über diesen Schnitt hinweg ist einer zwischen
+zwei verschiedenen Messungen. ⚠️ **Der Hash bricht nicht von selbst:**
+`bestandteile` ist eine **benannte Liste**; ein neues Feld muss absichtlich
+hinein. Wer eines hinzufügt, ohne es einzutragen, ändert die Messung, ohne dass
+die Kurve es zeigt — das ist der schlimmere Fall von beiden.
 
 **4. „Deployt ein Push?" hat zwei Quellen, und die zweite drei Ebenen.**
 Cloudflares Git Provider **und** GitHub-Workflows. Beim Workflow reicht „feuert
@@ -607,6 +661,21 @@ Prüfung, nicht über die Marke** — und eine Seite, deren `og:title` den `<tit
 wörtlich wiederholt, gilt als konsistent, auch wenn der Name nirgends
 übereinstimmt. Stand in `OFFEN.md` („Markenkonsistenz").
 
+⭐ **Und Faktor 5 sucht die Marke WÖRTLICH** (sie macht 60 % der Note aus). Seit
+2026-09-19 in zwei Stufen, weil ein Personenname anders zählt als ein
+Produktname:
+
+| Schlüssel | zählt |
+|---|---|
+| `marke_varianten` | **direkt** — jede Schreibweise, die die Marke meint |
+| `personenname` | **nur mit einem Kontextmerkmal** im selben Block |
+
+Der Grund für die zweite Stufe: Ein bloßer Name trifft zu oft jemand anderen.
+Gezählt wird erst, wenn im selben **Block** ein Merkmal steht, das die Person
+festlegt — nicht im selben Absatz, der ist zu weit. **Wer eine Marke einträgt,
+trägt ihre Schreibweisen mit ein**; was nicht in der Liste steht, findet die
+Messung nicht, auch wenn ein Mensch es sofort erkennt.
+
 **8. Eine Null in Faktor 5 sagt nichts, solange die Frage ungeprüft ist.** Der
 Wert ist der Anteil namensfreier Antworten, die deine Marke nennen — er misst
 also immer *zwei* Dinge zugleich: wie sichtbar die Seite ist **und** ob die
@@ -622,6 +691,29 @@ beruht heute je nach Katalogänge auf **einer oder zwei** Markenfragen, weil
 `messe_sichtbarkeit` bei `--max-fragen 6` glatt abschneidet statt `waehle_fragen`
 zu benutzen. Bei 10 von 13 Seiten fällt dabei *„Ist &lt;Marke&gt; empfehlenswert?"*
 weg. Die Note rührt das nicht an — der Kontrollwert schon. Steht in `OFFEN.md`.
+
+**9. Wer eine Prüfung lockert, fährt die Verfälschungsprobe noch einmal.** Eine
+Lockerung ist eine Änderung am Wächter und braucht dieselbe Probe wie sein Bau —
+sonst verschiebt die Reparatur den Fehler nur von Rot nach Grün, wo er nicht mehr
+auffällt. Am 2026-09-19 belegt: Ein Titelvergleich wurde in beide Richtungen
+geöffnet, damit ein **Untertitel** durchgeht; damit ging ein **anderer Band
+derselben Reihe** erst recht durch („The Five Love Languages" gegen „The 5 Love
+Languages *of Teenagers*"). ⛔ **Die Probe deckte die Fälle ab, *für* die
+gelockert wurde, und keinen einzigen Fall, den die Lockerung *neu* durchlässt.**
+Zwischen Lockerung und Fehlschlag lag eine Stunde; gefunden hat es ein Blick in
+den Browser, keine der beiden Maschinen. Die richtige Frage nach einer Lockerung
+lautet deshalb nicht „gehen die gewünschten Fälle jetzt durch?", sondern **„was
+geht jetzt zusätzlich durch, das nicht soll?"**
+
+**10. Ein Maßnahmentext trägt zwei Felder — nur `befund` darf in einen Auftrag.**
+Seit 2026-09-19 trennt `actions.Massnahme` **in der Datenstruktur**: `befund`
+trägt ausschließlich eigene Formulierungen, `wortlaut` den von der gemessenen
+Seite stammenden Teil. **Berichte zeigen beides; in einen Auftrag an ein
+Sprachmodell geht nur `befund`.** Der Grund ist keine Theorie: Eine gemessene
+Seite kann Text enthalten, der wie eine Anweisung aussieht, und Escaping hilft
+dagegen nicht — die Trennung muss an der **Quelle** sitzen, nicht an der Senke.
+⚠️ Wenn du Maßnahmen automatisiert weiterverarbeitest, ist das die Stelle, an der
+du aufpassen musst: `wortlaut` ist Fremdtext und bleibt Fremdtext.
 
 ### Was „Vorbehalt: Markenkonsistenz (Upstream #550)" konkret bedeutet
 
