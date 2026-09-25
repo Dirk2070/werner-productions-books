@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-19.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-09-25.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,8 +10,14 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-09-19 CEST.** Neu in dieser Fassung (`2026-09-19.1`), alles vom
-2026-09-19:
+**Stand 2026-09-25 CEST.** Neu in dieser Fassung (`2026-09-25.1`): **drei
+Zusatzmessungen außerhalb der Note** — `sonde gsc leistung`, `sonde laufzeit`,
+`sonde namensraum` (Abschnitt „Drei Zusatzmessungen, keine Note" vor „Was nicht
+möglich ist"). Keine davon ändert eine Note oder einen `config_hash`, keine läuft
+im Nachtlauf. Außerdem: **„Letzte 3 Monate" der Search Console sind 92 Tage,
+nicht 90** — ein Export ist erst ein Sollwert, wenn sein Zeitraum nachgestellt ist.
+
+Neu in `2026-09-19.1` war, alles vom 2026-09-19:
 
 - ⭐ **Die zweite Frageschablone ist gebaut** — der Bauauftrag aus `.1` ist
   erledigt, der Schlüssel heißt **`werkfrage`** (unter Stufe 3).
@@ -783,6 +789,109 @@ Was daraus folgt:
   entscheiden die Schema-Namen, und die sind nicht gespeichert.
 - Ein Lauf **vor** 2026-09-14 trägt den Schlüssel `vorbehalte` nicht — dort ist der
   Vorbehalt nicht „leer", sondern nicht gespeichert.
+
+---
+
+## Drei Zusatzmessungen, keine Note (seit 2026-09-25)
+
+Alle drei beantworten eine Frage, die die Note nicht stellt, und **alle drei
+bleiben draußen**: keine Note, kein `config_hash`, kein Export, kein Nachtlauf.
+Ein AST-Wächter hält jede von ihnen aus Note, Profil und Export fern. Rufe sie
+über `sonde.ps1` auf — der Starter setzt die Zugänge für diesen Lauf.
+
+| Kommando | Frage | Kosten | braucht |
+|---|---|---|---|
+| `sonde gsc leistung` | Wie spielt Google die Seite aus? | kostenlos | `GSC_KEY_FILE` |
+| `sonde laufzeit` | Bricht das Ausgelieferte beim Rendern? | kostenlos | Extra `render` |
+| `sonde namensraum` | Rankt die eigene Domain für den eigenen Namen, wer teilt ihn? | 0,002 USD je Marke | `DATAFORSEO_KEY_FILE` |
+
+Rückgabe: **Exit 2** bei allen drei, sobald etwas **nicht geprüft** oder
+**nicht abgerufen** wurde — nie 0 für „nicht gemessen". **Exit 1** gibt nur
+`sonde laufzeit`, wenn eine Seite einen Fehler hat — und `gsc leistung` dann,
+wenn der vorgeschaltete Stufenwächter dem Dienstkonto **mehr Rechte** als
+„Eingeschränkt" nachweist oder eine erwartete Property fehlt. Ihre fünf
+Befunde selbst sind Beobachtungen, keine Abnahmekriterien: `gsc leistung` und
+`namensraum` enden auch mit Befunden auf 0.
+
+### `sonde gsc leistung` — fünf Befunde aus der Search Console
+
+Je Property fünf Abrufe über **28 und 90 Tage** (API, Datenverzug 3 Tage;
+„Daten bis" wird **gemessen**, nicht angenommen). `--site sc-domain:…` für eine.
+
+1. **Striking Distance** — Anfrage-Seiten-Paare auf Position 8–20, mit
+   mindestens 10 (28 T.) bzw. 30 (90 T.) Impressionen, also rund einer
+   Einblendung je drei Tage.
+2. **Snippet** — Position ≤ 10, ≥ 50 Impressionen, CTR unter einer bewusst
+   niedrigen Untergrenze. ⚠️ Die Untergrenze ist eine **Schätzung**, keine
+   Kalibrierung; der Befund sagt „prüfen", nicht „schlecht".
+3. **Kannibalisierung** — dieselbe Anfrage mit ≥ 2 eigenen Seiten (je ≥ 5 Impr.).
+4. **Trend** — volle Wochen; Einbruch unter 50 % des Medians (ab Median 20),
+   **vier volle Wochen ohne Klick** mit Datum des letzten Klicks.
+5. **Divergenz** — hohe WebSonde-Note (≥ 7,0) bei **0 Klicks** in 28 Tagen.
+   ⛔ **Nur für URLs mit eigener Note** — die Note einer Startseite gilt nicht
+   für ihre Unterseiten.
+
+⛔ **Suchanfragen sind Fremdtext**: Sie stehen nur im Feld `wortlaut`, nie im
+`befund`, und nur unter `gsc/` (gitignored). Jede Befundgruppe nennt ihren
+Bestand („14 von 316 Anfrage-Seiten-Paaren"), dazu der **anonymisierte
+Anteil**: Seiten-Impressionen ohne zugeordnete Anfrage, beide Zahlen genannt.
+
+⚠️ **Ein Export aus der Weboberfläche ist kein Sollwert, bis sein Zeitraum
+nachgestellt ist.** „Letzte 3 Monate" sind **92 Tage** (`Filter.csv`). Am
+2026-09-25 machten zwei Randtage aus „hexaco modell" Pos. 25,3 (API, 90 T.)
+im Export Pos. 14,9 — und damit eine Striking-Distance-Anfrage, die es im
+Messfenster nicht ist.
+
+### `sonde laufzeit` — Laufzeitfehler im Headless-Chromium
+
+Lädt jede eigene Seite aus `sites.yml` (oder **statt** dessen `--url …`) in
+einem frischen Chromium unter der WebSonde-Kennung — **kein Stealth**. Drei
+Ausgänge: **fehlerfrei**, **Fehler** (mit Liste), **nicht geprüft** (Browser
+fehlt, Timeout, Netz kam nicht zur Ruhe).
+
+- **Fehler:** unbehandelte Skriptfehler, **durchgesetzte** CSP-Verstöße,
+  gescheiterte Anfragen und Antworten ≥ 400 **auf der eigenen Origin**, die
+  Next.js-Fehlerseite im Text.
+- **Nur Hinweis:** CSP-Verstöße im Report-Only-Modus; ein **401 an einer URL,
+  die in `sites.yml` unter `laufzeit_401_erwartet` steht** — je Eintrag `url`
+  und `grund`, die URL auf dem Host der Seite. Ein Anmeldestatus-Endpunkt, der
+  anonyme Besucher abweist, gehört dorthin. ⛔ **Jede andere URL mit 401 bleibt
+  Fehler**, auch ein zweiter Endpunkt derselben Domain: Eine globale Ausnahme
+  ließe einen kaputten Auth-Endpunkt auf jeder Seite still durch (Regel 9).
+- **Nur gezählt:** Fehlschläge fremder Origins; `net::ERR_ABORTED` (Browser
+  brechen Vorab-Abrufe routinemäßig ab).
+
+**Einrichten, einmal:** `uv sync --frozen --extra render`, dann
+`uv run python -m playwright install chromium`. Ohne das endet jede Seite mit
+„nicht geprüft" und Grund — nie mit „fehlerfrei". Ein späteres `uv run` lässt
+das Extra stehen (geprüft am 2026-09-25).
+
+⭐ **Ein grünes Ergebnis ist eine Aussage, weil die Probe an einer kaputten
+Seite rot wird** — die Suite fährt dafür eine Positivkontrolle im echten
+Browser. Am 2026-09-25 war psyprofiler.com fehlerfrei, obwohl ein
+Antwortsystem einen „client-side application error" gemeldet hatte: ein Befund
+über dessen Abruf, nicht über die Seite. Gefunden hat die Probe stattdessen
+zwei CSPs, die die **eigene Reichweitenmessung** still blockieren.
+
+### `sonde namensraum` — Marken-SERP und Produkt-Namensraum
+
+Je Marke eine Google-SERP über DataForSEO (Top 10, DE/de, desktop). Meldet die
+eigene Position und **fremde Domains mit gleichem oder buchstabennahem Namen**
+(Levenshtein-Abstand ≤ 2 zum Markennamen, TLD zählt nicht mit).
+
+- **Immer zuerst `--dry-run`**: zeigt Marken, Anzahl Abrufe und Kosten und
+  ruft **nichts** ab. Der Plan steht auch vor jedem echten Lauf.
+- **Nur `marke`, nie `marke_varianten`.** Varianten sind **eigene**
+  Schreibweisen. Einen fremden Namen dort einzutragen, damit er „gefunden"
+  wird, hieße, die Kollision als eigene Marke zu zählen.
+- **Personennamen fallen heraus**, mit Grund in der Ausgabe: Eine `marke`, die
+  im Portfolio als `personenname` steht, gehört zum Personen-Namensraum — der
+  braucht Grundwahrheit über Menschen, die es nicht gibt.
+- **Drei Klassen:** die Domain dieser Marke (zählt für die Position), eine
+  **andere Portfolio-Domain** (nicht fremd), fremd.
+- ⚠️ Eine SERP ist **ein** Abruf von **einem** Ort zu **einem** Zeitpunkt —
+  ein Datenpunkt, keine Reihe. Vor einer Deutung gegen die Search Console
+  halten: Kommt die Markenanfrage dort überhaupt vor?
 
 ---
 
