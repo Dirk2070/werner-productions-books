@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-09-25.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-07.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,16 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-09-25 CEST.** Neu in dieser Fassung (`2026-09-25.1`): **drei
+**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.1`): **eine vierte
+Zusatzmessung außerhalb der Note**, `sonde merkmale` (Abschnitt „Merkmalsprüfung,
+keine Note" vor „Was nicht möglich ist"). Sie prüft, ob die KI-Merkmale einer
+Seite live enthalten sind, und läuft täglich als eigene Aufgabe, nicht im
+Nachtlauf. Außerdem: die sameAs-Prüfung deckt jetzt bis zu **40** Ziele ab
+(vorher 12), ohne dass sich eine Note oder ein `config_hash` änderte, und die
+Vorabprüfung von `geo --version` wartet **90** Sekunden statt 30.
+
+Neu in `2026-09-25.1` war: **drei
+Zusatzmessungen außerhalb der Note**: **drei
 Zusatzmessungen außerhalb der Note** — `sonde gsc leistung`, `sonde laufzeit`,
 `sonde namensraum` (Abschnitt „Drei Zusatzmessungen, keine Note" vor „Was nicht
 möglich ist"). Keine davon ändert eine Note oder einen `config_hash`, keine läuft
@@ -892,6 +901,42 @@ eigene Position und **fremde Domains mit gleichem oder buchstabennahem Namen**
 - ⚠️ Eine SERP ist **ein** Abruf von **einem** Ort zu **einem** Zeitpunkt —
   ein Datenpunkt, keine Reihe. Vor einer Deutung gegen die Search Console
   halten: Kommt die Markenanfrage dort überhaupt vor?
+
+## Merkmalsprüfung, keine Note (seit 2026-10-07)
+
+`sonde merkmale` beantwortet eine Frage, die die Note nicht stellt: **Sind die
+KI-Merkmale, die ein Repo umgesetzt hat, auf der Live-Seite wirklich
+enthalten?** Es ist ein Katalog mit drei Ausgängen je Merkmal, keine
+Bewertung: `vorhanden`, `fehlt`, `nicht geprüft`. Ein Abruf, der scheitert
+(Netz, 403, 429, 5xx, Timeout), ist **nie** `fehlt`.
+
+Wie die drei anderen Zusatzmessungen bleibt es draußen: keine Note, kein
+`config_hash`, kein Export, nicht im Nachtlauf. Ein AST-Wächter hält das Modul
+aus Note, Profil und Export fern, ein zweiter Test aus `nachtlauf.ps1`.
+
+- **Katalog je Host im Code**, nicht in `sites.yml`. Heute gibt es ihn für
+  `dirkwernerbooks.com` und `werner-productions.com`. Ein Host ohne Katalog wird
+  mit Fehlermeldung abgelehnt, nie still übersprungen.
+- **Was geprüft wird:** die `/ai/*.json`, `ai.txt`, die llms-Dateien mit ihren
+  Abschnitten, die IndexNow-Schlüsseldatei, die Sitemap, die Sicherheits-Header,
+  ORCID, GND und LinkedIn am Person-Knoten und je Blogseite Titel, Autor,
+  Autorenzeile, Hören mit Audio, dazu die Transkriptseiten.
+- **Die Blogseiten kommen aus der Seite selbst:** aus `/ai/inhalte.json`. Ein
+  neuer Text wird geprüft, ohne dass jemand den Katalog pflegt. Hören und Audio
+  werden dort erwartet, wo `inhalte.json` für den Text eine Folge führt.
+- **Keine festen Zähler.** Erwartet werden Struktur und Mindestwerte
+  (`schema_version` ab 4, Listen nicht leer), nie „fünf Texte".
+- **Rückgabe:** Exit 0 alle vorhanden, **Exit 1** mindestens ein Merkmal fehlt,
+  **Exit 2** ein Abruf scheiterte, Exit 9 nur im Lauf-Skript (nie zugewiesen).
+- **Täglich:** `merkmalelauf.ps1` als Task „WebSonde Merkmale (taeglich)", 04:00,
+  eigene Meldedatei `protokolle\letzter-merkmalelauf.txt`. Ein Fehlschlag dort
+  berührt den Nachtlauf nicht.
+- ⚠️ **Ein `fehlt` ist ein Befund über die Seite, kein Beweis für einen Mangel.**
+  Zwei Merkmale des Katalogs waren bei der ersten Fassung falsch gewählt (eine
+  falsche Zeile der Seite, ein englischer Titel „Transcript"); die Meldung „19
+  fehlen" war Katalogfehler. Vor einer Deutung das tatsächliche HTML ansehen.
+  Ob ein Fehlen gewollt ist (anderes Seitenmodell), entscheidet der Eigentümer
+  der Seite.
 
 ---
 
