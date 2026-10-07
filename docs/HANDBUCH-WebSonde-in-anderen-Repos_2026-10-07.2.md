@@ -17,6 +17,10 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
   Angebot, dem Podcast und dem Blog einer Seite und zählt, was aus den
   llms-Dateien in der Antwort ankommt. Ein Anfangswert, kein Urteil; jeder
   Datensatz trägt eine **Profilkennung**, Profile werden nie verrechnet.
+- **Der Abschnitt „Feed-Links und Verzeichnisse"**: Der Podcast-Feed trägt den Rückweg
+  aus den Verzeichnissen auf die eigene Seite (Kanal-`<link>` und `<link>` je Folge).
+  Gemessen am 2026-10-07 für alle 17 Plattformen, mit drei Ausgängen je Plattform:
+  verlinkt, nicht verlinkt, nicht prüfbar.
 - **Der Abschnitt „Evidenzschicht und Anbieterquellen"**: Stufen A bis D und der
   Deckel, die Interessenlage je Quelle (neutral, anbieter, hersteller, eigen), die
   Vorsicht gegenüber Anbieterstudien und die `llms.txt`-Lage mit beiden
@@ -961,6 +965,89 @@ aus Note, Profil und Export fern, ein zweiter Test aus `nachtlauf.ps1`.
   Ob ein Fehlen gewollt ist (anderes Seitenmodell), entscheidet der Eigentümer
   der Seite.
 
+- **Belege:** `sonde merkmale` in `src/websonde/merkmale.py` und `cli.py`, Commit `67c3e13`;
+  Vorhersage und Auswertung in `docs/2026-10-07_Vorhersage-sonde-merkmale.md`; die Ausnahmen
+  ohne Ablaufdatum in Commit `f9c438f` (Test `tests/test_merkmale_ausnahmen.py`); Messung
+  am 2026-10-07: 84 Merkmale, davon 4 bekannt ausgenommen.
+
+---
+
+## Feed-Links und Verzeichnisse (seit 2026-10-07)
+
+Ein Podcast-Verzeichnis hostet nichts selbst: Es liest den Feed der Show und übernimmt
+daraus Angaben, darunter den Kanal-Link als Website der Show. Der Feed trägt damit den
+**Rückweg** aus den Verzeichnissen auf die eigene Seite. Dieser Abschnitt hält fest, was
+am **2026-10-07** am Beispiel `dirkwernerbooks.com` gemessen wurde.
+
+**Der Feed (gemessen 2026-10-07, `podcast.xml`, HTTP 200, 12 Folgen):**
+
+- Der Kanal trägt `<link>https://dirkwernerbooks.com/podcasts</link>`.
+- Jede der 12 Folgen trägt einen `<link>` auf den eigenen Folgenanker, `…/podcasts#<id>` für
+  deutsche und `…/podcasts-en#<id>` für englische Folgen, alle als vollständige https-Adresse
+  der eigenen Domain.
+- **Beleg:** Der Feed wird im Repo `dirkwernerbooks1` erzeugt (`scripts/build-podcasts.cjs`,
+  Zeile 1485 für die Folgen, Zeile 1519 für den Kanal) und dort geprüft
+  (`scripts/audit-podcasts.mjs`, Zeilen 624 bis 635: Anzahl und Wortlaut der Folgen-Links
+  gegen die Quelle). Eingeführt mit Commit `744965e5` (#155, 2026-09-12). WebSonde prüft den
+  Feed-Link selbst bisher nicht (offener Ausbau).
+
+**Die 17 Plattformen** (aus `https://dirkwernerbooks.com/ai/inhalte.json`, `plattformen`).
+Gemessen am 2026-10-07 mit einem gewöhnlichen Browser-User-Agent; gesucht wurde auf der
+Show-Seite je Markt nach einem Link (`<a href>`) auf `dirkwernerbooks.com` oder
+`werner-productions.com`. **Drei Ausgänge:** *verlinkt*; *nicht verlinkt* (Seite lesbar, die
+Show im sichtbaren Text, kein Link); *nicht prüfbar* (Fehlercode, Bot-Schutz oder Seite, die ihren
+Inhalt erst per Skript nachlädt). Ein Fehlercode ist ein „nicht prüfbar", kein Befund.
+
+| Plattform | Ausgang | Adresse und Linktext | `rel` |
+|---|---|---|---|
+| Apple Podcasts (DE, US, GB, CA) | **verlinkt**, in allen vier Märkten | `dirkwernerbooks.com/podcasts`, Text „Dirk Werner 2070" (im HTML als „Sendungswebsite" geführt) | noopener noreferrer |
+| Spotify | nicht prüfbar | Seite ist eine App-Hülle, Links werden per Skript nachgeladen | - |
+| TrueFans | nicht prüfbar | kein `<a>` im ausgelieferten HTML; die eingebetteten Seitendaten nennen `/podcasts` und den Feed | - |
+| Amazon Music (DE, US, GB, CA) | nicht prüfbar | per Skript nachgeladen, in allen vier Märkten | - |
+| Deezer | nicht verlinkt | kein Website-Feld; der Quelltext nennt nur Audio-Adressen von `dirkwernerbooks.com` | - |
+| Pocket Casts | **verlinkt** | `dirkwernerbooks.com/podcasts`, Text „dirkwernerbooks.com/podcasts" | noopener noreferrer |
+| Podcast Addict | **verlinkt, nur auf den Feed** | `dirkwernerbooks.com/podcast.xml`, Text „RSS feed", nicht auf die Website | keines |
+| YouTube Music | nicht prüfbar | App-Hülle, Inhalt per Skript nachgeladen | - |
+| Podchaser | nicht verlinkt | der Quelltext nennt nur das Titelbild und den Feed, keinen Website-Link | - |
+| Podverse | **verlinkt** | `…/podcast.xml` und `…/podcasts`, ohne Linktext (Symbol) | noreferrer |
+| Fountain | **verlinkt** | `dirkwernerbooks.com/podcasts`, Text „dirkwernerbooks.com/podcasts" | noopener noreferrer |
+| Goodpods | nicht prüfbar | HTTP 403 | - |
+| Player FM | nicht prüfbar | HTTP 403 | - |
+| Listen Notes | nicht prüfbar | HTTP 403, Seite „Are you a robot?" (Bot-Schutz) | - |
+| TuneIn | nicht prüfbar | die Seitendaten tragen ein Feld „Website:" mit `…/podcasts`, aber kein `<a>` im HTML | - |
+| Overcast | nicht prüfbar | per Skript nachgeladen | - |
+| Audible (DE, US, GB, CA) | DE **nicht verlinkt**; US, GB, CA nicht prüfbar | DE: Seite lesbar, kein Link auf eine eigene Domain | - |
+
+- **Auswertung der Tabelle:** Auf die Website verlinken 4 Plattformen (Apple, Pocket Casts,
+  Podverse, Fountain), nur auf den Feed 1 (Podcast Addict), ohne Link sind 3 (Deezer,
+  Podchaser, Audible DE), nicht prüfbar sind 9 (Spotify, TrueFans, Amazon Music, YouTube Music,
+  Goodpods, Player FM, Listen Notes, TuneIn, Overcast). **Kein gemessener Link trägt
+  `nofollow` oder `ugc`.** Jede gemessene Website-Adresse ist genau der Kanal-`<link>`
+  (`https://dirkwernerbooks.com/podcasts`); bei TrueFans und TuneIn steht sie in den
+  Seitendaten, ohne dass sich der Link im HTML messen ließe.
+- **Zählung:** `/ai/inhalte.json` führt **17** Plattformen. Die deutsche Seite `/podcasts` zeigt
+  **16**, weil Goodpods nur eine englische Seitenadresse trägt (`seite.en`, keine `seite.de`) und
+  nur auf `/podcasts-en` steht. YouTube Music liest den Feed laut Dirk (Angabe vom 2026-10-07)
+  nicht, die Adresse ist eine Playlist („Lux Mesopotamiae"); gemessen werden konnte das nicht (App-Hülle), die
+  Adresse in den Daten ist ein `playlist`-Link. Damit sind **16 von 17** Plattformen Feed-gespeist
+  (Angabe Dirk zu YouTube Music; gemessen ist nur der Link-Befund der Tabelle).
+- **Regel für jedes Repo mit Podcast- oder sonstigem Feed:** Der Kanal-`<link>` zeigt auf die
+  eigene Übersichtsseite der Show, jede Folge auf ihre eigene Folgenadresse, beides als
+  vollständige https-Adresse der eigenen Domain. Nach jeder Änderung am Feed ist dieser Link der
+  Rückweg aus den Verzeichnissen und gehört zu dem, was das Repo selbst prüft (hier
+  `audit-podcasts.mjs`). Belegt ist die Wirkung für Apple (Sendungswebsite) und für die
+  vier Plattformen mit gemessenem Link; für die übrigen ist sie nicht gemessen.
+- **Zwei Plattformen, die am selben Tag als „weg" gemeldet wurden** (Podcast Addict mit 404,
+  Listen Notes mit 410): Nachgeprüft am 2026-10-07 mit gewöhnlichem Browser-User-Agent und mit
+  der WebSonde-Kennung: **Podcast Addict antwortet mit HTTP 200** und zeigt die Show
+  „Dirk Werner 2070", **Listen Notes mit HTTP 403** und der Seite „Are you a robot?". Beides ist
+  keine Entfernung: Der Fehlercode von Podcast Addict war nicht wiederholbar, Listen Notes ist
+  Bot-Schutz und damit nicht prüfbar.
+- **Beleg der Messung:** Messskript und Rohdaten vom 2026-10-07 (Abruf von `podcast.xml`,
+  `ai/inhalte.json` und der 26 Show-Adressen der 17 Plattformen); die Abrufe laufen aus der
+  Entwicklungsumgebung, nicht aus dem Nachtlauf, und sind eine Messung von **einem** Tag und
+  **einem** Standort.
+
 ---
 
 ## Absorptionsmessung, keine Note (seit 2026-10-07)
@@ -1018,6 +1105,22 @@ fern, ein zweiter Test aus `nachtlauf.ps1`. Es braucht `PERPLEXITY_API_KEY`.
   821, 1295 und 2111 Zeichen statt 691, 933 und 1557). Der Angebotsmarker „La Gomera" stand
   bei F1 in 0 von 5 Antworten; das ist das Vorher für den Fall, dass er in die llms.txt
   aufgenommen wird.
+- **Beobachtung vom 2026-10-07, keine Regel:** In einer manuell gestellten Antwort auf die
+  Podcast-Frage (Perplexity-Oberfläche, nicht der Befehl) standen unter den Quellen neben den
+  eigenen Seiten Verzeichnisse der Show (Pocket Casts, Spotify, TrueFans) und Seiten, die nicht zur
+  Show gehören (ein Feed „Locker und Leidenschaft", eine Autorenseite eines Namensvetters beim
+  Freitag, Übersichtsseiten von FAZ und WDR). Diese Seiten stehen nicht im Antworttext. Der Befehl selbst fand bei F2 in 5 von 5 Läufen Verzeichnisse der Show unter
+  den gefundenen Seiten.
+- **Offener Ausbau:** Die Einordnung kennt die Klassen eigene Seiten, andere eigene
+  Portfolio-Hosts, Verzeichnisse der eigenen Show und „andere". **Namensvettern und fremde
+  Feeds sind noch keine eigene Klasse**, sie stehen unter „andere"; die Praxisseite der
+  eigenen Domain `dirk-werner-psychotherapie.de` steht nicht in der Konfiguration und zählt
+  deshalb ebenfalls dort.
+- **Belege:** `src/websonde/absorption.py` und `cli.py`; Commits `7ec14f3` (erster Bau und
+  Auswertung), `6d54e02` (Quelleneinordnung), `87ca84e` (Profil 2, Angebotsmarker,
+  `--auswerten`); Vorhersage und Auswertung in `docs/2026-10-07_Vorhersage-sonde-absorption.md`
+  und `docs/2026-10-07_Vorhersage-sonde-absorption-profil2.md`; Datensätze vom 2026-10-07 im
+  lokalen Ordner `absorption/` (nicht im Repo).
 
 ---
 
@@ -1040,8 +1143,8 @@ Maximum über alle.
 - **Interessenlage je Quelle** (Dirk, 2026-10-01): `neutral`, `anbieter`, `hersteller`, `eigen`.
   Dazu je Quelle `befund_zum_interesse`: `dafuer`, `dagegen` oder `unklar`, bezogen auf **diesen
   Befund** und das Produktangebot des Anbieters, nicht auf den Anbieter im Ganzen.
-- **Anbieterstudien sind kein absoluter Beleg.** Wer GEO-Optimierung verkauft (Ahrefs, SE
-  Ranking, Semrush, AirOps und ähnliche), hat ein Interesse am Ergebnis der eigenen Studie; sie
+- **Anbieterstudien sind kein absoluter Beleg.** Ahrefs, OppAlerts, SE Ranking, Semrush und AirOps sind
+  bezahlte GEO-Anbieter mit Eigeninteresse und haben ein Interesse am Ergebnis der eigenen Studie; sie
   sind fast immer korrelativ und ohne Kontrollgruppe. Ein „kein Effekt"-Befund kann ebenso im
   Anbieterinteresse liegen („messt lieber eure Zitierungen"). Regel: Stützt sich ein Effekt
   **ausschließlich** auf Anbieterquellen mit `dafuer` oder `unklar`, gilt höchstens **Stufe C**;
@@ -1060,8 +1163,8 @@ Maximum über alle.
 
 | Eintrag | sagt | Stufe |
 |---|---|---|
-| `llms-txt-sichtbarkeit` (Aggregat) | Eine llms.txt erhöht Sichtbarkeit oder Zitierung in generativen Antworten nicht. Belege ausschließlich Anbieterstudien (SE Ranking, Trakkr, allmo, Ahrefs); eine Ahrefs-Studie über 137.210 Domains findet, dass KI-Bots eine fehlende llms.txt nicht suchen; Google nennt weder Schaden noch Nutzen. | Zitierung C, Crawling C, Retrieval bei Google A |
-| `llms-txt-abruf-perplexity` (Einzelfall) | Perplexity hat im Einzelfall die llms.txt einer Domain als Quelle zitiert und Formulierungen daraus übernommen; Inhalte, die dort fehlten, fehlten auch in der Antwort. Eigene Beobachtung vom 2026-10-01, **n=1**: eine Frage, ein Anbieter, eine Domain. | D, Empfehlung `none` |
+| `llms-txt-sichtbarkeit` (Aggregat) | „Eine llms.txt erhöht die Sichtbarkeit oder Zitierung in generativen Antworten nicht." Zitierung: Belege ausschließlich Anbieter (SE Ranking, Trakkr, allmo), „von B gedeckelt". Crawling: „137.210 Domains, 28% valide, 97% null Zugriffe; KI-Bots suchen keine fehlende llms.txt" (Ahrefs). Retrieval: „Google: 'Google Search ignores them'; weder Schaden noch Nutzen". | Zitierung C, Crawling C, Retrieval bei Google A |
+| `llms-txt-abruf-perplexity` (Einzelfall) | „Perplexity hat im Einzelfall die llms.txt einer Domain als Quelle zitiert und Formulierungen daraus übernommen; Inhalte, die dort fehlten, fehlten auch in der Antwort." Bedingungen: „n=1: eine Frage, ein Anbieter (Perplexity), eine Domain (werner-productions.com)", „eigene Beobachtung von Dirk Werner am 2026-10-01 (observed_search), keine Studie". | D, Empfehlung `none` |
 
 - **Beides kann gleichzeitig stimmen.** Das Aggregat ist domainweit, korrelativ und stammt von
   Anbietern; der Einzelfall zeigt nur, dass eine Antwortmaschine die Datei in einem Fall abgerufen
@@ -1077,6 +1180,12 @@ Maximum über alle.
 - **Die Crawler-Bedingung ist offen:** Die robots.txt beider Domains sperrte am Beobachtungstag
   keinen Bot; die Cloudflare-Zonenebene (Bot Fight Mode, KI-Crawler-Block) ist für diesen Tag
   nicht geprüft.
+
+- **Belege:** `evidenz.yml` und `src/websonde/evidenz.py`; Commits `bae7622` (Evidenz je Effekt statt
+  Maximum, 2026-09-30), `e190e1f` (Verfall je Effekt, 2026-10-01), `2599d64` (Interessenlage je
+  Quelle, `llms.txt` umklassifiziert, 2026-10-01), `32b4049` und `6ed1321` (Einzelfall
+  Perplexity, 2026-10-07); Regel zu Anbieterstudien: Dirk, 2026-10-01; der Stand der Einträge
+  ist die Datei im Repo (7 Einträge am 2026-10-07).
 
 ---
 
