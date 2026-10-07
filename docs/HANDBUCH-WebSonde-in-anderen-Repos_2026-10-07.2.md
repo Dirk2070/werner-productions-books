@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-07.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-07.2** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,22 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.1`): **eine vierte
+**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.2`):
+
+- **Eine fünfte Zusatzmessung außerhalb der Note: `sonde absorption`** (Abschnitt
+  „Absorptionsmessung, keine Note"). Sie fragt Perplexity mehrfach nach dem
+  Angebot, dem Podcast und dem Blog einer Seite und zählt, was aus den
+  llms-Dateien in der Antwort ankommt. Ein Anfangswert, kein Urteil; jeder
+  Datensatz trägt eine **Profilkennung**, Profile werden nie verrechnet.
+- **Der Abschnitt „Evidenzschicht und Anbieterquellen"**: Stufen A bis D und der
+  Deckel, die Interessenlage je Quelle (neutral, anbieter, hersteller, eigen), die
+  Vorsicht gegenüber Anbieterstudien und die `llms.txt`-Lage mit beiden
+  Einträgen (Aggregat und Einzelfall).
+- **Die Merkmalsprüfung kennt bekannte Ausnahmen, ohne Ablaufdatum.** Eine
+  Ausnahme endet über eine Bedingung: Hat die Seite das Merkmal, meldet der Lauf
+  sie als überflüssig.
+
+Neu in `2026-10-07.1` war: **eine vierte
 Zusatzmessung außerhalb der Note**, `sonde merkmale` (Abschnitt „Merkmalsprüfung,
 keine Note" vor „Was nicht möglich ist"). Sie prüft, ob die KI-Merkmale einer
 Seite live enthalten sind, und läuft täglich als eigene Aufgabe, nicht im
@@ -19,8 +34,7 @@ Nachtlauf. Außerdem: die sameAs-Prüfung deckt jetzt bis zu **40** Ziele ab
 Vorabprüfung von `geo --version` wartet **90** Sekunden statt 30.
 
 Neu in `2026-09-25.1` war: **drei
-Zusatzmessungen außerhalb der Note**: **drei
-Zusatzmessungen außerhalb der Note** — `sonde gsc leistung`, `sonde laufzeit`,
+Zusatzmessungen außerhalb der Note**, `sonde gsc leistung`, `sonde laufzeit`,
 `sonde namensraum` (Abschnitt „Drei Zusatzmessungen, keine Note" vor „Was nicht
 möglich ist"). Keine davon ändert eine Note oder einen `config_hash`, keine läuft
 im Nachtlauf. Außerdem: **„Letzte 3 Monate" der Search Console sind 92 Tage,
@@ -926,8 +940,17 @@ aus Note, Profil und Export fern, ein zweiter Test aus `nachtlauf.ps1`.
   werden dort erwartet, wo `inhalte.json` für den Text eine Folge führt.
 - **Keine festen Zähler.** Erwartet werden Struktur und Mindestwerte
   (`schema_version` ab 4, Listen nicht leer), nie „fünf Texte".
-- **Rückgabe:** Exit 0 alle vorhanden, **Exit 1** mindestens ein Merkmal fehlt,
-  **Exit 2** ein Abruf scheiterte, Exit 9 nur im Lauf-Skript (nie zugewiesen).
+- **Bekannte Ausnahmen, ohne Ablaufdatum** (Dirk, 2026-10-07): Ein fehlendes Merkmal
+  kann ausdrücklich als bekannt geführt werden, mit Host, Pfad, Merkmal, Grund und
+  Anlegedatum. Keine Regel nach Muster, nur Einträge je Seite. Der Lauf meldet es als
+  „bekannt ausgenommen" und endet mit Exit 0. Die Ausnahme endet über eine
+  Bedingung, nicht über den Kalender: Hat die Seite das Merkmal doch, meldet der Lauf
+  die Ausnahme als **überflüssig** (Exit 1), und sie gehört entfernt. Ein gescheiterter
+  Abruf bleibt „nicht geprüft", er gilt nie als bekannt. Stand: vier Einträge für
+  Blogseiten im Altmodell (Hören); die Einträge stehen im Code (`merkmale.py`).
+- **Rückgabe:** Exit 0 alle vorhanden (bekannt ausgenommene zählen dazu), **Exit 1**
+  mindestens ein Merkmal fehlt oder eine Ausnahme ist überflüssig, **Exit 2** ein
+  Abruf scheiterte, Exit 9 nur im Lauf-Skript (nie zugewiesen).
 - **Täglich:** `merkmalelauf.ps1` als Task „WebSonde Merkmale (taeglich)", 04:00,
   eigene Meldedatei `protokolle\letzter-merkmalelauf.txt`. Ein Fehlschlag dort
   berührt den Nachtlauf nicht.
@@ -937,6 +960,123 @@ aus Note, Profil und Export fern, ein zweiter Test aus `nachtlauf.ps1`.
   fehlen" war Katalogfehler. Vor einer Deutung das tatsächliche HTML ansehen.
   Ob ein Fehlen gewollt ist (anderes Seitenmodell), entscheidet der Eigentümer
   der Seite.
+
+---
+
+## Absorptionsmessung, keine Note (seit 2026-10-07)
+
+`sonde absorption` beantwortet eine Frage, die weder die Note noch die Merkmalsprüfung
+stellt: **Steht in einer Antwort von Perplexity, was die llms-Dateien einer Seite
+liefern?** Es ist ein **Anfangswert, kein Urteil**: Es gibt keinen Schwellwert für
+„gegriffen", und ohne einen früheren Lauf im selben Messgerät gibt es keinen Vergleich.
+
+Wie die anderen Zusatzmessungen bleibt es draußen: keine Note, kein `config_hash`, kein
+Export, nicht im Nachtlauf. Ein AST-Wächter hält das Modul aus Note, Profil und Export
+fern, ein zweiter Test aus `nachtlauf.ps1`. Es braucht `PERPLEXITY_API_KEY`.
+
+- **Aufruf:** immer zuerst `sonde.ps1 absorption --dry-run` (zeigt Profil, Fragen, Marker,
+  Anzahl der Anfragen und die geschätzten Kosten, ruft nichts ab). Dann ohne `--dry-run`.
+  `--wiederholungen N` (1 bis 10, Standard 5), `--ablage` (Standard `absorption`, in
+  `.gitignore`: die Antworttexte sind Fremdtext und groß). `--auswerten` liest die
+  Datensätze der Ablage und zeigt sie **je Profil getrennt**, ohne etwas abzurufen.
+- **Drei feste Fragen** (Wortlaut im Code, Teil der Profilkennung): F1 Angebot, F2
+  Podcast, F3 Blog, je mit der Anzahl der Wiederholungen gestellt.
+- **Zwei Arten von Markern, getrennt ausgewiesen.** *Titelmarker* kommen bei jedem Lauf
+  frisch aus `/ai/inhalte.json` der Seite: Essaytitel in beiden Sprachen, Folgentitel,
+  Showname. Ein neuer Text wird ohne Pflege mitgemessen. Ein Titel, der Essay und Folge
+  zugleich heißt, zählt in **beiden** Arten. *Angebotsmarker* stehen fest im Code (heute
+  „La Gomera") und zählen nie als Titelmarker. Ein Marker gilt, wenn er normalisiert (ohne
+  Satzzeichen, Groß und Klein egal) als ganze Wörter im Antworttext steht, bei Titeln auch
+  der Kurztitel vor einem Doppelpunkt.
+- **Gefundene Seiten** (`search_results`, Stufe 1) werden je Lauf eingeordnet: Hub-llms.txt,
+  Hub sonst, llms-Dateien, Blog, Podcasts und Transkripte der anderen Seite, andere eigene
+  Portfolio-Hosts, **Verzeichnisse der eigenen Show** (Adresse steht in `/ai/inhalte.json`,
+  bei Apple auch Folgenseiten mit derselben Kennung) und „andere".
+- **Profile.** Jeder Datensatz trägt `profil` mit Version, Kennung (Hash aus Anweisung,
+  Modell, Ausgabeplatz, Fragewortlaut und Angebotsmarker) und den Bestandteilen. **Profil 1**
+  (Lauf vom 2026-10-07): Anweisung „Antworte knapp", 1024 Ausgabetokens, kein Angebotsmarker;
+  Datensätze ohne Profilfeld gelten als Profil 1. **Profil 2**: keine Anweisung, 2048
+  Ausgabetokens, Angebotsmarker. Eine geänderte Kennung heißt: anderes Profil. **Zahlen
+  werden nie über zwei Profile gerechnet.**
+- **Rückgabe:** Exit 0 alles gemessen, **Exit 2** nicht vollständig gemessen (Schlüssel
+  fehlt, Anfragen gescheitert, Marker nicht ladbar). Es gibt keinen Exit 1: Es gibt keinen
+  Befund über die Seite. Ein gescheiterter Lauf ist **nicht gemessen**, nie „kein Marker".
+- **Kosten:** im Profil 1 gemessen 0,0044 USD je Anfrage; ein Lauf im Profil 2 (15 Anfragen)
+  kostete 0,0684 USD. Die Obergrenze im Plan (0,0065 je Anfrage) ist eine Annahme.
+- **Wiederholen:** Nach einer Änderung an den llms-Dateien denselben Lauf mit **derselben
+  Kennung** wiederholen und gegen den früheren Lauf desselben Profils halten.
+- ⚠️ **Was die Messung nicht sagt.** Ein Treffer zeigt, dass der Inhalt in der Antwort steht,
+  nicht woher er kam: Titel stehen auch auf den Seiten selbst, und im ersten Lauf standen
+  Marker in Antworten auch dort, wo die Hub-llms.txt nicht unter den gefundenen Seiten war.
+  Ein „zitiert" gibt es nicht, weil die Agent API keine `url_citation`-Annotationen liefert
+  (0 von 30). Die Quellenliste einer Antwort enthält Seiten **über** die Show und
+  Namensvettern; das sind keine Backlinks im Linksinn. Der Antworttext steht nur im Feld
+  `wortlaut` des Datensatzes.
+- **Anfangswerte vom 2026-10-07** (je ein Lauf, fünf Wiederholungen): Die Hub-llms.txt stand
+  bei F1 und F2 in 5 von 5, bei F3 in 3 von 5 Läufen unter den gefundenen Seiten, in beiden
+  Profilen gleich. Ohne die Anweisung „knapp" waren die Antworten nur etwas länger (Mediane
+  821, 1295 und 2111 Zeichen statt 691, 933 und 1557). Der Angebotsmarker „La Gomera" stand
+  bei F1 in 0 von 5 Antworten; das ist das Vorher für den Fall, dass er in die llms.txt
+  aufgenommen wird.
+
+---
+
+## Evidenzschicht und Anbieterquellen (seit 2026-09-30)
+
+Die Datei `evidenz.yml` in `websonde` verbindet **Prüfpunkte** mit **belegten Aussagen über
+einen Wirkweg** („erhöht eine llms.txt die Zitierung?"). Sie ist keine Messung der Seite,
+sondern der Stand der Beleglage. Du siehst sie in den Maßnahmentexten eines Berichts: Je
+Prüfpunkt nennt der Text **jeden Effekt einzeln** (Stufe, Richtung, Geltungsbereich), kein
+Maximum über alle.
+
+- **Stufen A bis D hängen am Effekt, nicht an der Aussage.** A, B, C, D sinken mit der
+  Beweiskraft. Die Empfehlungsstärke (`none`, `weak`, `moderate`, `strong`) darf den Deckel
+  nicht überschreiten: A erlaubt `strong`, B `moderate`, C `weak`, D nur `none`. Den Deckel
+  setzt der stärkste **breit geltende, richtungstragende** Effekt, positiv oder negativ; ein
+  Effekt, der nur für eine einzige Engine gilt, hebt ihn nicht.
+- **Leer heißt ungeprüft, nicht Stufe D.** Ein Prüfpunkt ohne Eintrag wird nicht still
+  herabgestuft. Eine Maßnahme mit Empfehlung `none` steht im HTML-Bericht im Abschnitt „Gemeldet,
+  keine Empfehlung" und nicht in den Top 10 oder den Quick Wins.
+- **Interessenlage je Quelle** (Dirk, 2026-10-01): `neutral`, `anbieter`, `hersteller`, `eigen`.
+  Dazu je Quelle `befund_zum_interesse`: `dafuer`, `dagegen` oder `unklar`, bezogen auf **diesen
+  Befund** und das Produktangebot des Anbieters, nicht auf den Anbieter im Ganzen.
+- **Anbieterstudien sind kein absoluter Beleg.** Wer GEO-Optimierung verkauft (Ahrefs, SE
+  Ranking, Semrush, AirOps und ähnliche), hat ein Interesse am Ergebnis der eigenen Studie; sie
+  sind fast immer korrelativ und ohne Kontrollgruppe. Ein „kein Effekt"-Befund kann ebenso im
+  Anbieterinteresse liegen („messt lieber eure Zitierungen"). Regel: Stützt sich ein Effekt
+  **ausschließlich** auf Anbieterquellen mit `dafuer` oder `unklar`, gilt höchstens **Stufe C**;
+  `dagegen` bleibt ohne Abschlag; eine neutrale oder Herstellerquelle im Beleg hebt den
+  Abschlag auf. `hersteller` gilt nur für die Plattform selbst (Google, OpenAI, Anthropic,
+  Perplexity), nie für ein Dritt-Tool. `eigen` ist die Beobachtung des Betreibers selbst: Sie
+  hebt keinen Deckel und steht im Eintrag, damit die Herkunft sichtbar bleibt.
+- **Verfall der Belege.** Je Effekt gilt ein Höchstalter (Standard 6 Monate, bei
+  Herstellerangaben 3). Ist ein Effekt zum Stichtag älter, gilt der Eintrag als veraltet, der
+  Maßnahmentext sagt es, und die Empfehlung ist auf `weak` gedeckelt. Der Nachtlauf nennt
+  bald ablaufende Evidenz („Evidenz laeuft bald ab"). `evidenz_version` geht in den Lauf, nicht
+  in den `config_hash`. Ob dieser Verfall mit der Regel „keine Ablaufdaten" vereinbar ist,
+  ist offen (Stand 2026-10-07).
+
+### Die `llms.txt`-Lage: zwei Einträge, die sich nicht widersprechen
+
+| Eintrag | sagt | Stufe |
+|---|---|---|
+| `llms-txt-sichtbarkeit` (Aggregat) | Eine llms.txt erhöht Sichtbarkeit oder Zitierung in generativen Antworten nicht. Belege ausschließlich Anbieterstudien (SE Ranking, Trakkr, allmo, Ahrefs); eine Ahrefs-Studie über 137.210 Domains findet, dass KI-Bots eine fehlende llms.txt nicht suchen; Google nennt weder Schaden noch Nutzen. | Zitierung C, Crawling C, Retrieval bei Google A |
+| `llms-txt-abruf-perplexity` (Einzelfall) | Perplexity hat im Einzelfall die llms.txt einer Domain als Quelle zitiert und Formulierungen daraus übernommen; Inhalte, die dort fehlten, fehlten auch in der Antwort. Eigene Beobachtung vom 2026-10-01, **n=1**: eine Frage, ein Anbieter, eine Domain. | D, Empfehlung `none` |
+
+- **Beides kann gleichzeitig stimmen.** Das Aggregat ist domainweit, korrelativ und stammt von
+  Anbietern; der Einzelfall zeigt nur, dass eine Antwortmaschine die Datei in einem Fall abgerufen
+  hat. Der Einzelfall sagt **nichts** über die Wirkung auf die Sichtbarkeit und ändert das
+  Aggregat nicht.
+- **WebSonde empfiehlt die llms.txt nicht als Maßnahme** (`none`) und hält sie auch nicht für
+  schädlich. Ob Änderungen an ihr in Antworten ankommen, beantwortet keine dieser Aussagen,
+  sondern die Absorptionsmessung (`sonde absorption`), als Anfangswert und dann im Vergleich
+  gleicher Profile.
+- **Frühere Hinweise stehen im Einzelfall-Eintrag, aber nicht mitgezählt:** eine Perplexity-Antwort
+  vom 2026-09-12, die die Hub-llms.txt unter ihren Quellen führte und den Showtitel trotzdem
+  falsch nannte, und eine ältere Notiz zu einer zitierten Apps-Seite.
+- **Die Crawler-Bedingung ist offen:** Die robots.txt beider Domains sperrte am Beobachtungstag
+  keinen Bot; die Cloudflare-Zonenebene (Bot Fight Mode, KI-Crawler-Block) ist für diesen Tag
+  nicht geprüft.
 
 ---
 
