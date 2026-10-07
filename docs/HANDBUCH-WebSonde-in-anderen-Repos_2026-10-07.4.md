@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-07.3** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-07.4** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,11 +10,16 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.3`): Im Abschnitt
-„Absorptionsmessung, keine Note" steht jetzt der **Kontrolllauf bei unveränderter Seite**
-und damit die Streuung der Messung. Der Eintrag „La Gomera" in der Hub-llms.txt ist
-**nicht erfolgt** (0 Treffer am 2026-10-07), die Wiederholung nach dem Eintrag steht aus.
-Sonst ist nichts geändert.
+**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.4`): **Die Kopfsignale hreflang,
+Twitter Card und og:locale** (Abschnitt „Kopfsignale: hreflang, Twitter Card, og:locale").
+Ein neuer Befehl `sonde kopfsignale` misst sie je eigenem Host über alle HTML-Seiten der Sitemap
+(Zusatzmessung ohne Note), und **derselbe Leser geht gleichgewichtig als dritter Bestandteil in den
+Faktor `struktur` der Note ein**. Das ist ein **Regelwechsel** (Regelstand `kopfsignale`): Läufe davor
+sind nicht vergleichbar.
+
+Neu in `2026-10-07.3` war: Im Abschnitt „Absorptionsmessung, keine Note" der **Kontrolllauf bei
+unveränderter Seite** und damit die Streuung der Messung; der Eintrag „La Gomera" in der Hub-llms.txt ist
+nicht erfolgt (0 Treffer am 2026-10-07).
 
 Neu in `2026-10-07.2` war:
 
@@ -1053,6 +1058,77 @@ Inhalt erst per Skript nachlädt). Ein Fehlercode ist ein „nicht prüfbar", ke
   `ai/inhalte.json` und der 26 Show-Adressen der 17 Plattformen); die Abrufe laufen aus der
   Entwicklungsumgebung, nicht aus dem Nachtlauf, und sind eine Messung von **einem** Tag und
   **einem** Standort.
+
+---
+
+## Kopfsignale: hreflang, Twitter Card, og:locale (seit 2026-10-07)
+
+Auftrag Dirk, 2026-10-07: hreflang und Twitter Card „generell in WebSonde einbauen", und
+„Note verbessert sich proportional zu den anderen Markern". Zwei Wege, ein Leser
+(`src/websonde/kopfsignale.py`):
+
+| Weg | Was | Wirkung |
+|---|---|---|
+| **Note** (`probes.SondenErgebnis.kopfsignale`, Faktor `struktur`) | die **geprüfte Seite** (URL aus `sites.yml`) und ihre `hreflang`-Gegenseiten, höchstens sechs | dritter, **gleichgewichtiger** Bestandteil: `mittel(Schema, Meta, Kopfsignale)` statt `mittel(Schema, Meta)`; der JavaScript-Abzug bleibt danach |
+| **Zusatzmessung** (`sonde kopfsignale`) | **alle HTML-Seiten der Sitemap** je eigenem Host (Rolle `eigen`, Seiten im Bau eingeschlossen, Referenzseiten nicht), höchstens 150 je Host | keine Note, kein Hash, kein Export, nicht im Nachtlauf |
+
+**Signale** (je Host oder je Seite, vier Ausgänge: `vorhanden`, `fehlt`, `nicht_geprueft`,
+`nicht_zutreffend`): `hreflang_vorhanden`, `hreflang_selbstverweis`, `hreflang_x_default`,
+`hreflang_gegenverweis`, `hreflang_code_gueltig`, `hreflang_passt_zu_lang`, `twitter_card`,
+`twitter_titel`, `twitter_beschreibung`, `twitter_bild`, `og_locale`.
+
+**Regeln, die das Messgerät haben muss** (jede aus einem Fehler oder einer Gegenprobe vom 2026-10-07):
+
+- **Beide Schreibweisen lesen:** `<meta name="twitter:card">` und `<meta property="twitter:card">`.
+  Die Startseiten von `dirkwernerbooks.com` schreiben `property=`; ein Leser nur für `name=` meldete
+  dort „fehlt", und die erste Messung des Tages tat genau das. Das war ein Messfehler, keine Lücke.
+- **Open Graph ist die zweite gültige Form** für Twitter-Titel, -Beschreibung und -Bild. `twitter:card`
+  wird in der eigenen Form verlangt; steht dort nur Open Graph, meldet der Befund „fehlt" und nennt dazu,
+  dass die Ersetzung durch die Plattform **nicht gemessen** ist.
+- **Ein einsprachiger Host hat keinen `hreflang`-Mangel:** keine Seite mit `hreflang` und nur eine
+  `<html lang>`-Sprache ergibt `nicht_zutreffend`, nicht „fehlt".
+- **Ein gescheiterter Abruf ist nie „fehlt":** nicht lesbare Seiten zählen als `nicht_lesbar`, nicht
+  als Lücke; ohne messbaren Anteil entfällt der Bestandteil und der Faktor mittelt über Schema und Meta.
+- **Rückverweis nur über einen Sprach-Eintrag:** ein `x-default`, das auf die Seite zeigt, ist kein
+  Gegenverweis (ein Test fing diesen Fehler im Messgerät vor dem ersten echten Lauf).
+
+**Der Anteil in der Note:** `vorhanden` an (`vorhanden` + `fehlt`) über die geprüfte Seite und ihre
+Gegenseiten; `nicht_zutreffend` und `nicht_geprueft` werden herausgerechnet, nicht geschätzt. Die
+Begründung des Faktors nennt die fehlenden Signale mit Namen. **Marker:** der Schlüssel `kopfsignale`
+in `belege` des Faktors `struktur` (Regelstand `kopfsignale`, fünfter Wechsel, `store.REGELSTAENDE`).
+
+- ⚠️ **Der Regelwechsel bricht die Kurve.** Jeder Lauf nach der Regel trägt einen anderen
+  `config_hash`; die Delta-Anzeige meldet gegen frühere Läufe „nicht vergleichbar". Ein Sprung am
+  Tag des ersten Laufs ist der Maßstabswechsel, kein Befund über die Seite. Erwartung: Durchschnitt
+  der neun eigenen Hauptseiten +0,07 (Spanne +0,03 bis +0,12), noch **nicht gegen einen Lauf gehalten**
+  (Stand 2026-10-07).
+- **Kontrolle am 2026-10-07 mit zwei Läufen** (`audit` nach `kontrolle/`): `dirkwernerbooks.com`
+  Gesamt 8,2 auf 8,3, Struktur 9,0 auf 9,5; `sundamind.com` mit 54 % Kopfsignalen. Beide tragen
+  den Marker und einen neuen Hash.
+
+**Messung vom 2026-10-07** (`sonde kopfsignale`, neun Hosts, 99 Signale: 55 vorhanden, 26 fehlt,
+18 nicht zutreffend). Beobachtung vom Tag, keine Regel:
+
+| Host | gelesen | Befund |
+|---|---|---|
+| dirkwernerbooks.com | 118 Seiten | `hreflang_*` 118 von 118, 116 Gegenverweise ohne Ausfall; `twitter_bild` fehlt auf 8 Seiten |
+| werner-productions.com | 7 Seiten | alles vorhanden außer `og_locale` (7 von 7 fehlen) |
+| insightvue.app | 11 Seiten | `hreflang` zeigt auf jeder Unterseite auf `/` (kein Selbstverweis auf 10 von 11); nur mit der WebSonde-Kennung sichtbar, ein `curl` mit anderer Kennung erhielt keine Links |
+| books.werner-productions.com | 34 Seiten | `x-default` fehlt auf 31 von 31, `twitter:card` fehlt auf 33 von 34 |
+| sundamind.com | 12 Seiten | `twitter:*`, `og:*` und `og:locale` fehlen auf 11 von 12 |
+| markdownly-anything.com | 26 Seiten | 5 ohne `hreflang`, 3 ohne Selbstverweis, `og:locale` fehlt auf 10 |
+| psyprofiler.com, shadow-integrator.com, clear-arrows.com | 32, 5, 1 Seiten | einsprachig, `hreflang` nicht zutreffend; `og:locale` fehlt auf 28 von 32 und 5 von 5 |
+
+- **Aufruf:** `.\sonde.ps1 kopfsignale [--site <Host>] [--ablage <Ordner>] [--seiten-max <n>]`; nie
+  `sonde.exe` direkt (nur `sonde.ps1` liest `~\.secrets\cf-access.env`). Rückgabe: 0 nichts fehlt, 1 etwas fehlt,
+  2 nicht vollständig geprüft. Ablage nur nach `kontrolle/` oder in einen eigenen Ordner, nie nach `runs/`.
+- **Offen:** Meta-Tags liest `geo audit` (Upstream, Kategorie `meta`: Titel 5, Description 2, Canonical 3,
+  Open Graph 4 von 14 Punkten); Twitter Card, `hreflang` und `og:locale` kommen erst hier dazu. Keine der
+  gemessenen Lücken wurde an den Seiten geändert; sichtbare Änderungen brauchen Dirks Freigabe.
+- **Belege:** `src/websonde/kopfsignale.py`, `probes.py`, `factors.py`, `store.py`, `cli.py`; Commit `ecb0e34`;
+  Vorhersagen `docs/2026-10-07_Vorhersage-sonde-kopfsignale.md` und
+  `docs/2026-10-07_Vorhersage-Regelwechsel-kopfsignale-in-der-note.md`; Vermerk und Auswertung
+  `docs/2026-10-07_0850-CEST_Vermerk-Regelwechsel-kopfsignale-und-Auswertung-der-Vorhersagen.md`.
 
 ---
 
