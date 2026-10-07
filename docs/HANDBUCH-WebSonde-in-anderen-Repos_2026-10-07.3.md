@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-07.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-07.3** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,13 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.2`):
+**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.3`): Im Abschnitt
+„Absorptionsmessung, keine Note" steht jetzt der **Kontrolllauf bei unveränderter Seite**
+und damit die Streuung der Messung. Der Eintrag „La Gomera" in der Hub-llms.txt ist
+**nicht erfolgt** (0 Treffer am 2026-10-07), die Wiederholung nach dem Eintrag steht aus.
+Sonst ist nichts geändert.
+
+Neu in `2026-10-07.2` war:
 
 - **Eine fünfte Zusatzmessung außerhalb der Note: `sonde absorption`** (Abschnitt
   „Absorptionsmessung, keine Note"). Sie fragt Perplexity mehrfach nach dem
@@ -1105,6 +1111,18 @@ fern, ein zweiter Test aus `nachtlauf.ps1`. Es braucht `PERPLEXITY_API_KEY`.
   821, 1295 und 2111 Zeichen statt 691, 933 und 1557). Der Angebotsmarker „La Gomera" stand
   bei F1 in 0 von 5 Antworten; das ist das Vorher für den Fall, dass er in die llms.txt
   aufgenommen wird.
+- **Kontrolllauf vom 2026-10-07, Seite unverändert, Profil 2 (Kennung `b497f17c7f00`):** Ein
+  zweiter Lauf eine Stunde nach dem ersten zeigt die Streuung. La Gomera blieb bei allen drei
+  Fragen in 0 von 5. Die Hub-llms.txt stand bei F3 in 0 statt 3 von 5 Läufen unter den
+  gefundenen Seiten, bei F1 und F2 weiter in 5 von 5. Die verschiedenen Marker bei F2 stiegen
+  von 5 auf 11, ohne dass sich die Seite änderte. Die Mediane der Länge lagen bei 859, 1474 und
+  2088 Zeichen (erster Lauf 821, 1295, 2111), die Kosten bei 0,0693 USD. Zwei der acht
+  Vorhersagezeilen wurden verfehlt (Hub-llms.txt bei F3, Marker bei F2). **Folge für jede
+  spätere Wiederholung:** „llms.txt gefunden" bei F3 und die Markerzahl bei F2 gelten erst als
+  Wirkung, wenn sie die Spannen 0 bis 3 beziehungsweise 5 bis 11 verlassen; zwei Läufe schätzen
+  die Streuung, sie sind keine Verteilung.
+- **Stand der Wiederholung:** „La Gomera" steht am 2026-10-07 in keiner llms-Datei der Hub-Seite
+  und von dirkwernerbooks.com (0 Treffer); die Wiederholung wartet auf diesen Eintrag.
 - **Beobachtung vom 2026-10-07, keine Regel:** In einer manuell gestellten Antwort auf die
   Podcast-Frage (Perplexity-Oberfläche, nicht der Befehl) standen unter den Quellen neben den
   eigenen Seiten Verzeichnisse der Show (Pocket Casts, Spotify, TrueFans) und Seiten, die nicht zur
@@ -1119,7 +1137,9 @@ fern, ein zweiter Test aus `nachtlauf.ps1`. Es braucht `PERPLEXITY_API_KEY`.
 - **Belege:** `src/websonde/absorption.py` und `cli.py`; Commits `7ec14f3` (erster Bau und
   Auswertung), `6d54e02` (Quelleneinordnung), `87ca84e` (Profil 2, Angebotsmarker,
   `--auswerten`); Vorhersage und Auswertung in `docs/2026-10-07_Vorhersage-sonde-absorption.md`
-  und `docs/2026-10-07_Vorhersage-sonde-absorption-profil2.md`; Datensätze vom 2026-10-07 im
+  `docs/2026-10-07_Vorhersage-sonde-absorption-profil2.md` und
+  `docs/2026-10-07_Vorhersage-sonde-absorption-kontrolllauf.md` (Vorhersage `2e7d1fe`,
+  Auswertung `78c369a`); Datensätze vom 2026-10-07 im
   lokalen Ordner `absorption/` (nicht im Repo).
 
 ---
