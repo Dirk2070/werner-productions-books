@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-07.4** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-10.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,15 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-07 CEST.** Neu in dieser Fassung (`2026-10-07.4`): **Die Kopfsignale hreflang,
+**Stand 2026-10-10 CEST.** Neu in dieser Fassung (`2026-10-10.1`): **Die Differenzprobe
+`sonde differenzprobe`** (Abschnitt „Differenzprobe: deklariert gegen beobachtet"). Sie beantwortet
+in drei getrennten Angaben je Crawler, was robots.txt erklärt, was der Server einem Abruf mit dem
+Crawler-Token ausliefert und, mit `--identitaet` für eigene Zonen, ob der echte Crawler kam und
+bedient wurde. Keine Note, kein Hash, nicht im Nachtlauf. Dazu zwei Berichtigungen am Starter:
+`sonde.ps1` liest jetzt auch `CLOUDFLARE_ANALYTICS_TOKEN` aus `cf-access.env`, und `sonde crawler`
+findet `gcloud` unter Windows. Die Evidenzbasis trägt zwei neue Einträge ohne Bindung an eine Maßnahme.
+
+Neu in `2026-10-07.4` war: **Die Kopfsignale hreflang,
 Twitter Card und og:locale** (Abschnitt „Kopfsignale: hreflang, Twitter Card, og:locale").
 Ein neuer Befehl `sonde kopfsignale` misst sie je eigenem Host über alle HTML-Seiten der Sitemap
 (Zusatzmessung ohne Note), und **derselbe Leser geht gleichgewichtig als dritter Bestandteil in den
@@ -1129,6 +1137,95 @@ in `belege` des Faktors `struktur` (Regelstand `kopfsignale`, fünfter Wechsel, 
   Vorhersagen `docs/2026-10-07_Vorhersage-sonde-kopfsignale.md` und
   `docs/2026-10-07_Vorhersage-Regelwechsel-kopfsignale-in-der-note.md`; Vermerk und Auswertung
   `docs/2026-10-07_0850-CEST_Vermerk-Regelwechsel-kopfsignale-und-Auswertung-der-Vorhersagen.md`.
+
+---
+
+## Differenzprobe: deklariert gegen beobachtet (seit 2026-10-10)
+
+Auftrag Dirk, 2026-10-10. Die Note liest robots.txt, also was eine Seite **erklärt**. Ob der Server
+einem Crawler dasselbe ausliefert wie einem Browser, steht in keiner Datei: Eine Zone kann GPTBot in
+robots.txt einladen und ihn am Rand abweisen. Die Differenzprobe misst das, in drei Angaben je Crawler,
+die **nie zu einer verrechnet** werden:
+
+| Angabe | Woher | Werte |
+|---|---|---|
+| `deklariert` | robots.txt, über denselben Leser wie die Note | `erlaubt`, `gesperrt`, `teilweise`, `nicht_pruefbar` |
+| `beobachtet` | synthetische Probe: Startseite und `/llms.txt`, je einmal mit Browser-Kopf, je Crawler-Token, noch einmal mit Browser-Kopf | `gleich`, `abweichend`, `nicht_pruefbar` |
+| `identitaet` | bei der synthetischen Probe **immer** `unbestimmt` | `unbestimmt` |
+
+Mit `--identitaet` kommt **Stufe 3** dazu, nur für eigene Zonen, aus Zugriffsdaten statt aus einem
+eigenen Abruf:
+
+| Angabe | Woher | Werte |
+|---|---|---|
+| `identitaet` (Stufe 3) | Cloudflare-Analytics oder Firebase-Logs des eigenen Hosts, Fenster sieben Tage | `bestaetigt`, `unbestaetigt`, `kein_zugriff`, `nicht_pruefbar` |
+| `zugang` | nur bei `bestaetigt` | `bedient`, `abgewiesen`, jeweils mit „n von m" |
+
+Crawler der Probe: GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot. `evidence` ist `synthetic` für die
+Probe und `observed_crawler` für Stufe 3.
+
+**Was die synthetische Probe ist und was nicht.** Ihr Kopf trägt das Token des Crawlers **und** die
+Kennung `WebSonde-Differenzprobe`; sie gibt sich nicht als der echte Crawler aus und kommt vom Messort.
+Eine Abweichung weist auf Bot-Abwehr hin, die auf den Kopf reagiert. Sie belegt nicht, dass der echte
+Crawler abgewiesen wird. Umgekehrt belegt `gleich` nicht, dass er durchkommt, wenn eine Regel an der
+Adresse hängt. Deshalb steht die Probe weder in der Note noch im K.-o. noch im `config_hash`.
+
+**Regeln, die das Messgerät haben muss** (jede aus einem Fehler oder einer Gegenprobe vom 2026-10-10):
+
+- **Beide gesperrt ist `nicht_pruefbar`, nie `gleich`.** Offen ist ein Browser-Abruf nur mit Status 200
+  ohne Abwehr-Kopf; ein 202 ist bei Bot-Abwehr die Wartestellung einer Challenge.
+- **Die Kontrolle liegt nach den Bot-Abrufen.** Unterscheiden sich schon die zwei Browser-Abrufe im Hash,
+  trägt der Hash kein Urteil; dann zählen Status, Endadresse, Content-Type und grob die Größe (eine
+  Bot-Antwort unter der Hälfte der kleineren Browser-Antwort gilt als abweichend; die Hälfte ist eine
+  Setzung). Enden die zwei Browser-Abrufe selbst verschieden, ist das Ziel `nicht_pruefbar`.
+- **Eine Abweichung zählt erst, wenn sie sich wiederholt.** Ein einzelner 502 oder ein Ratenlimit mitten
+  in der Folge ist kein Befund.
+- **Ein grünes Ergebnis zählt nur wegen der Positivkontrolle.** Am 2026-10-10 an fremden Seiten gegengeprüft:
+  Die Probe meldet Sperren mit 403 und 451 als `abweichend` und eine Seite, die schon den Browser-Kopf
+  sperrt, als `nicht_pruefbar`.
+- **Stufe 3 kennt zwei Belege, weil eine Form allein zu wenig meldet:** die Kategorie verifizierter Bots an
+  der Cloudflare-Edge **oder** die Absender-Adresse in den Bereichen, die der Betreiber selbst veröffentlicht.
+  PerplexityBot trägt bei Cloudflare keine Kategorie; ClaudeBot hat in den Firebase-Logs kein Prüfverfahren
+  und ist dort `nicht_pruefbar`. Die Adresse dient nur dem Abgleich und steht in keinem Datensatz.
+- **Ein 401 und ein 404 sind keine Abweisung.** Ein Anmelde-Endpunkt antwortet jedem mit 401.
+  Als Abweisung zählen 403, 429, 451 und Sperr- oder Challenge-Aktionen der Edge.
+- **Eine leere Quelle ist nicht „kein Zugriff".** Die eigene Probe des laufenden Kommandos ist die
+  Positivkontrolle je Host: Nennt die Quelle nicht einmal sie, trägt sie keine Daten, und der Host ist
+  `nicht_pruefbar`. Die Abrufe der eigenen Probe werden gezählt und gehen in kein Urteil ein.
+- **`kein_zugriff` sagt nichts über eine Sperre.** Der Crawler kam im Fenster nicht.
+
+**Messung vom 2026-10-10** (neun eigene Hosts, Messort NL). Beobachtung vom Tag, keine Regel:
+
+- Synthetische Probe: 36 von 36 Crawler-Zeilen `erlaubt` und `gleich`, in drei Läufen. Auf drei Hosts
+  (dirkwernerbooks.com, werner-productions.com, books.werner-productions.com) wechselt der Hash der Startseite
+  schon zwischen zwei Browser-Abrufen; dort ruht das Urteil auf Status, Endadresse und Content-Type.
+- Stufe 3, sieben Tage: 31 von 36 `bestaetigt` und `bedient`, **kein verifizierter Abruf abgewiesen**;
+  ClaudeBot dreimal `nicht_pruefbar` (Firebase-Hosts), einmal `kein_zugriff`, einmal `unbestaetigt`.
+- Nebenbefund: Auf allen neun Hosts gibt es Abrufe unter Crawler-Namen ohne Beleg. Ein Teil sucht nach
+  Geheimnisdateien (`/.env`, Schlüsseldateien). Wo solche Abrufe eine 200 bekamen, war es die Startseite
+  einer Anwendung, die jeden Pfad mit 200 beantwortet, oder eine für den Browser bestimmte
+  Konfigurationsdatei. Ein Crawler-Name im Log ist deshalb kein Beleg für den Crawler.
+
+- **Aufruf:** `.\sonde.ps1 differenzprobe [--site <Host>] [--ablage <Ordner>] [--identitaet] [--fenster-tage <n>]`;
+  nie `sonde.exe` direkt. Ohne `--identitaet` braucht das Kommando keinen Token. Mit dem Schalter braucht es
+  `CLOUDFLARE_ANALYTICS_TOKEN` (aus `~\.secrets\cf-access.env`, `sonde.ps1` liest ihn) und für Firebase-Hosts
+  ein angemeldetes `gcloud`. Rückgabe: 0 alles gleich und kein verifizierter Abruf abgewiesen, 1 mindestens
+  eine wiederholte Abweichung oder ein abgewiesener verifizierter Abruf, 2 der Vergleich oder eine Quelle
+  war nicht prüfbar. Ablage nur nach `kontrolle/` oder in einen eigenen Ordner, nie nach `runs/`.
+- **Nur eigene Hosts** (Rolle `eigen` in `sites.yml`). Eine fremde Seite bekommt keinen Abruf mit Bot-Token.
+- **Grenzen:** Ein Bot-Abruf, der in ein Zeitlimit läuft, ist `nicht_pruefbar`, nicht `abweichend`. Ein 403
+  auf einem Pfad, der jedem so antwortet, gälte in Stufe 3 als Abweisung; die Abfrage führt keinen Pfad mit.
+  Die Zählwerte aus Cloudflare sind hochgerechnete Stichproben.
+- **Evidenz:** zwei Einträge in `evidenz.yml`, beide Empfehlung `none` und **an keine Maßnahme gebunden**
+  (`checks: []`): `robots-erlaubnis-ohne-zugang` (CrawlIndex, Stufe C) und
+  `ki-crawler-abrufe-gegen-vermittelte-sitzungen` (Karbon, eine Domain, Stufe D). Ein Eintrag mit `none` darf
+  nie an der Kennung einer K.-o.-Maßnahme hängen: er stufte sie im Bericht zu „keine Empfehlung" herab.
+- **Belege:** `src/websonde/probes.py` (`pruefe_crawlerzugang`), `crawler.py` (Stufe 3), `klartext.py`, `cli.py`;
+  Commits `a6fd5b3`, `a00f2ee`, `6670711`; Vorhersagen und Auswertungen
+  `docs/2026-10-10_1155-CEST_Vorhersage-Differenzprobe-deklariert-gegen-beobachtet.md`,
+  `docs/2026-10-10_1210-CEST_Auswertung-Differenzprobe-deklariert-gegen-beobachtet.md`,
+  `docs/2026-10-10_1317-CEST_Vorhersage-Differenzprobe-Stufe-3-Identitaet-bestaetigt.md`,
+  `docs/2026-10-10_1336-CEST_Auswertung-Differenzprobe-Stufe-3-Identitaet-bestaetigt.md`.
 
 ---
 
