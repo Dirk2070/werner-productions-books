@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-10.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-10.2** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,11 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-10 CEST.** Neu in dieser Fassung (`2026-10-10.1`): **Die Differenzprobe
+**Stand 2026-10-10 CEST.** Neu in dieser Fassung (`2026-10-10.2`): Der Regelwechsel `kopfsignale` ist gegen
+den ersten Nachtlauf gehalten (Abschnitt „Kopfsignale"): Durchschnitt der neun Hauptseiten **+0,11**, in der
+vorhergesagten Spanne; sieben Seiten steigen, zwei sinken, drei bleiben. Die Evidenzbasis zählt **9** Einträge.
+
+Neu in `2026-10-10.1` war: **Die Differenzprobe
 `sonde differenzprobe`** (Abschnitt „Differenzprobe: deklariert gegen beobachtet"). Sie beantwortet
 in drei getrennten Angaben je Crawler, was robots.txt erklärt, was der Server einem Abruf mit dem
 Crawler-Token ausliefert und, mit `--identitaet` für eigene Zonen, ob der echte Crawler kam und
@@ -1107,9 +1111,15 @@ in `belege` des Faktors `struktur` (Regelstand `kopfsignale`, fünfter Wechsel, 
 
 - ⚠️ **Der Regelwechsel bricht die Kurve.** Jeder Lauf nach der Regel trägt einen anderen
   `config_hash`; die Delta-Anzeige meldet gegen frühere Läufe „nicht vergleichbar". Ein Sprung am
-  Tag des ersten Laufs ist der Maßstabswechsel, kein Befund über die Seite. Erwartung: Durchschnitt
-  der neun eigenen Hauptseiten +0,07 (Spanne +0,03 bis +0,12), noch **nicht gegen einen Lauf gehalten**
-  (Stand 2026-10-07).
+  Tag des ersten Laufs ist der Maßstabswechsel, kein Befund über die Seite.
+- **Gegen den ersten Nachtlauf gehalten (2026-10-08, ausgewertet 2026-10-10):** Der Durchschnitt der neun
+  eigenen Hauptseiten stieg von 7,38 auf 7,49, also um **+0,11**; erwartet waren +0,07 (Spanne +0,03 bis
+  +0,12). Sieben von zwölf Seiten steigen (+0,10 bis +0,30), zwei sinken durch eigene Lücken (beide
+  Fassungen von `sundamind.com`, je −0,10), drei bleiben. Bei keiner Seite hat sich zwischen den beiden
+  Läufen ein anderer Faktor bewegt. Die Einzelwerte fallen gröber aus als gerechnet: `struktur` steht im
+  Datensatz in halben Schritten, die Gesamtnote mit einer Nachkommastelle; Unterschiede unter 0,1 sind an
+  einer einzelnen Seite nicht messbar. Beleg:
+  `docs/2026-10-10_1548-CEST_Auswertung-Regelwechsel-kopfsignale-erster-Nachtlauf-N1-N2.md`.
 - **Kontrolle am 2026-10-07 mit zwei Läufen** (`audit` nach `kontrolle/`): `dirkwernerbooks.com`
   Gesamt 8,2 auf 8,3, Struktur 9,0 auf 9,5; `sundamind.com` mit 54 % Kopfsignalen. Beide tragen
   den Marker und einen neuen Hash.
@@ -1378,7 +1388,7 @@ Maximum über alle.
   Maximum, 2026-09-30), `e190e1f` (Verfall je Effekt, 2026-10-01), `2599d64` (Interessenlage je
   Quelle, `llms.txt` umklassifiziert, 2026-10-01), `32b4049` und `6ed1321` (Einzelfall
   Perplexity, 2026-10-07); Regel zu Anbieterstudien: Dirk, 2026-10-01; der Stand der Einträge
-  ist die Datei im Repo (7 Einträge am 2026-10-07).
+  ist die Datei im Repo (9 Einträge am 2026-10-10).
 
 ---
 
