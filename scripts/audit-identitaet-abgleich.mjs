@@ -193,6 +193,15 @@ function sammleDateien() {
  *   Ein Waechter, der eine offene Entscheidung vorwegnimmt, meldet Wetter.
  */
 const FELDER = [
+  // ⭐ Der Personenanker steht genau einmal als Konstante und wird hier gegen
+  //   `anker` der Quelle gehalten (Dirk, 2026-10-11: books verweist auf den
+  //   Apex-Knoten statt einen eigenen zu fuehren).
+  {
+    datei: 'src/lib/organization.ts',
+    feld: 'anker',
+    muster: /PERSON_ID\s*=\s*"([^"]+)"/,
+    was: 'Personenanker',
+  },
   {
     datei: 'data/faqs.yaml',
     feld: 'orcid',

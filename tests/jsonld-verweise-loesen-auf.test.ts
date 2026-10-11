@@ -24,6 +24,8 @@ import { readFileSync, existsSync, readdirSync, statSync } from "fs";
 const rootDir = resolve(import.meta.dir, "..");
 const distDir = resolve(rootDir, "dist");
 const BASE_URL = "https://books.werner-productions.com";
+const APEX_PERSON = "https://werner-productions.com/#person";
+const APEX_ORG = "https://werner-productions.com/#organization";
 
 type Fund = { id: string; datei: string };
 
@@ -87,6 +89,20 @@ function sammle(wert: unknown, datei: string, def: Set<string>, ref: Fund[]): vo
 let definiert: Set<string>;
 let verweise: Fund[];
 let geprueft: string[];
+let personDefinitionen: { datei: string; knoten: Record<string, unknown> }[];
+let orgKnoten: { datei: string; knoten: Record<string, unknown> }[];
+
+/** Alle Objekte mit gegebener @id, an beliebiger Tiefe. */
+function mitId(wert: unknown, id: string, raus: Record<string, unknown>[]): void {
+  if (Array.isArray(wert)) {
+    for (const w of wert) mitId(w, id, raus);
+    return;
+  }
+  if (wert === null || typeof wert !== "object") return;
+  const o = wert as Record<string, unknown>;
+  if (o["@id"] === id) raus.push(o);
+  for (const v of Object.values(o)) mitId(v, id, raus);
+}
 
 beforeAll(() => {
   // Ein fehlendes dist/ darf nicht zu "uebersprungen" fuehren: ein Waechter,
@@ -107,10 +123,19 @@ beforeAll(() => {
 
   definiert = new Set();
   verweise = [];
+  personDefinitionen = [];
+  orgKnoten = [];
   for (const pfad of geprueft) {
     const kurz = pfad.slice(distDir.length + 1).replace(/\\/g, "/");
     for (const block of ldBloecke(readFileSync(pfad, "utf-8"))) {
       sammle(block, kurz, definiert, verweise);
+      const p: Record<string, unknown>[] = [];
+      mitId(block, APEX_PERSON, p);
+      // Verweise (nur @id) und schlanke Knoten: jeder Knoten MIT @type zaehlt als Definition.
+      for (const k of p) if ("@type" in k) personDefinitionen.push({ datei: kurz, knoten: k });
+      const o: Record<string, unknown>[] = [];
+      mitId(block, `${BASE_URL}/#org-werner-productions`, o);
+      for (const k of o) if ("@type" in k) orgKnoten.push({ datei: kurz, knoten: k });
     }
   }
 });
@@ -135,6 +160,50 @@ describe("JSON-LD: site-eigene @id-Verweise loesen auf", () => {
         : `\n${nachId.size} @id wird verwiesen, aber nirgends definiert:\n${bericht}\n` +
             `Definiert sind: ${[...definiert].filter((d) => d.includes("#")).sort().join(", ")}\n`,
     ).toBe(0);
+  });
+
+  test("kein @id auf #author, weder definiert noch verwiesen (Entscheidung Dirks 2026-10-11)", () => {
+    const alt = [...definiert].filter((d) => d.endsWith("#author"));
+    const altVerweise = verweise.filter((v) => v.id.endsWith("#author"));
+    expect(alt, `noch definiert: ${alt.join(", ")}`).toEqual([]);
+    expect(
+      altVerweise.length,
+      `noch verwiesen auf ${altVerweise.length} Stelle(n), z. B. ${altVerweise[0]?.datei}`,
+    ).toBe(0);
+  });
+
+  test("Verweise auf externe Anker sind nur die zwei des Apex und die App-Anker der Schwesterseiten", () => {
+    // Bewusst kein "extern gilt als aufgeloest": erlaubt ist eine feste Liste.
+    // Jede weitere fremde @id waere ein Verweis, den der Waechter oben nie
+    // sehen koennte -- er prueft nur die Site-eigenen. Die App-Anker
+    // (`mentions` der Buchseiten) gab es vor der Angleichung schon; sie sind
+    // hier benannt, nicht stillschweigend durchgelassen.
+    const erlaubt = new Set([APEX_PERSON, APEX_ORG]);
+    const appAnker = /^https:\/\/(psyprofiler\.com|shadow-integrator\.com|insightvue\.app)\/#app$/;
+    const fremd = verweise.filter((v) => !v.id.startsWith(BASE_URL));
+    const unerlaubt = fremd.filter((v) => !erlaubt.has(v.id) && !appAnker.test(v.id));
+    expect(
+      unerlaubt.map((v) => `${v.id} (${v.datei})`),
+      "fremde @id ausserhalb der Apex-Anker und der App-Anker",
+    ).toEqual([]);
+    // Der Wachter hat die Verweise wirklich gesehen.
+    expect(fremd.some((v) => v.id === APEX_ORG)).toBe(true);
+  });
+
+  test("books fuehrt keinen eigenen Personenknoten: der Apex-Anker erscheint nur schlank", () => {
+    expect(personDefinitionen.length).toBeGreaterThan(30);
+    const zuViel = personDefinitionen.filter(
+      (d) => Object.keys(d.knoten).sort().join() !== ["@id", "@type", "name"].sort().join(),
+    );
+    expect(zuViel.map((d) => d.datei)).toEqual([]);
+  });
+
+  test("jede Organization mit @id des Verlags traegt parentOrganization auf den Apex", () => {
+    expect(orgKnoten.length).toBeGreaterThan(30);
+    const ohne = orgKnoten.filter(
+      (o) => JSON.stringify(o.knoten["parentOrganization"]) !== JSON.stringify({ "@id": APEX_ORG }),
+    );
+    expect(ohne.map((o) => o.datei)).toEqual([]);
   });
 
   test("der Verlag ist ein eigener Knoten mit @id, nicht nur ein Verweis", () => {

@@ -1,4 +1,5 @@
 ---
+import { personRef } from "../lib/organization.js";
 const source = "Prairies Book Review";
 const quote = "Exquisitely simple, thought-provoking, and thoroughly readable…";
 const book = "The Battle Within";
@@ -17,9 +18,7 @@ const reviewJsonLd = {
   "itemReviewed": {
     "@type": "Book",
     "name": "The Battle Within: A Guide to Overcoming Inner Struggles",
-    "author": {
-      "@id": "https://books.werner-productions.com/#author",
-    },
+    "author": personRef(),
     "url": "https://books.werner-productions.com/the-battle-within/",
   },
 };

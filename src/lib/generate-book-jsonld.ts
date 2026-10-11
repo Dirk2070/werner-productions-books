@@ -1,8 +1,7 @@
 import type { Book } from "./books-schema.js";
-import { ORG_ID, organizationNode } from "./organization.js";
+import { ORG_ID, organizationNode, personRef } from "./organization.js";
 
 const BASE_URL = "https://books.werner-productions.com";
-const AUTHOR_ID = `${BASE_URL}/#author`;
 const WEBSITE_ID = `${BASE_URL}/#website`;
 
 const FORMAT_MAP: Record<string, string> = {
@@ -79,7 +78,7 @@ export function generateJsonLd(book: Book, allBooks: Book[]): object {
     name: book.title,
     inLanguage: book.language,
     description: book.descriptions.long,
-    author: { "@id": AUTHOR_ID },
+    author: personRef(),
     publisher: { "@id": ORG_ID },
     image: `${BASE_URL}/${book.cover.filename}`,
     dateModified: book.dateModified,

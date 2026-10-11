@@ -10,77 +10,29 @@ import PressQuote from "../components/PressQuote.astro";
 import FocusBadge from "../components/FocusBadge.astro";
 import CrossLinkingFooter from "../components/CrossLinkingFooter.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { organizationNode } from "../lib/organization.js";
+import { organizationNode, personRef, PERSON_ID } from "../lib/organization.js";
 
 const books = await loadBooks();
 
 const BASE_URL = "https://books.werner-productions.com";
 
 // JSON-LD: Person + WebSite + ProfilePage @graph (commit 65ee79e — DO NOT MODIFY)
+// Ausnahme von der Sperre, 2026-10-12, ausdrückliche Freigabe Dirks (Entscheidung
+// vom 2026-10-11, books an werner-identity angleichen): der eigene Person-Knoten
+// `#author` ist durch den Verweis auf den Apex-Anker `#person` ersetzt
+// (personRef(), src/lib/organization.ts); alle Verweise darauf zeigen auf
+// PERSON_ID. Die Eigenschaften der Person pflegt der Apex. Sonst unberührt,
+// auch `#practice`.
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Person",
-      "@id": `${BASE_URL}/#author`,
-      "name": "Dirk Werner",
-      "givenName": "Dirk",
-      "familyName": "Werner",
-      "jobTitle": "Diplom-Psychologe, Psychotherapeut, Autor, Digital Creator",
-      "description": "Dirk Werner ist Diplom-Psychologe, Psychotherapeut, Autor psychologischer Sachbücher und Romane sowie Digital Creator von psychologischen Apps und Social Media Content.",
-      "image": `${BASE_URL}/assets/dirk-werner.jpg`,
-      "url": BASE_URL,
-      "sameAs": [
-        "https://orcid.org/0009-0001-7822-0041",
-        "https://d-nb.info/gnd/1384382429",
-        "https://www.goodreads.com/author/show/70076437",
-        "https://dirkwernerbooks.com",
-        "https://werner-productions.com",
-        "https://shadow-integrator.com",
-        "https://psyprofiler.com",
-        "https://insightvue.app",
-        "https://www.amazon.de/stores/author/B0CB9KB4QT/about",
-        "https://books.apple.com/us/author/dirk-werner/id1896585925",
-        "https://www.youtube.com/@LuxMesopotamiae-kw6rw",
-        "https://www.youtube.com/@dirkwerner777",
-        "https://www.instagram.com/dirk.werner.d.w.2070/",
-        "https://www.threads.com/@dirk.werner.d.w.2070",
-        "https://www.tiktok.com/@innergrowthguide5",
-        "https://x.com/dirk_werner1",
-        "https://twitter.com/LuxMesopotamiae",
-        "https://de.linkedin.com/in/dirk-werner-657a81a8",
-        "https://www.xing.com/profile/Dirk_Werner12",
-        "https://www.focus-gesundheit.de/arzt/dipl-psych-dirk-werner-4207595"
-      ],
-      "knowsAbout": [
-        "Psychologie",
-        "Psychotherapie",
-        "Jungianische Psychologie",
-        "Persönlichkeitsentwicklung",
-        "Fantasy-Literatur",
-        "Psychothriller"
-      ],
-      "hasOccupation": {
-        "@type": "Occupation",
-        "name": "Psychologischer Psychotherapeut",
-        "occupationalCategory": "Psychotherapy",
-        "qualifications": "Diplom-Psychologe, Approbation als Psychologischer Psychotherapeut (Verhaltenstherapie), Zusatzqualifikationen in Gestalt-, Körper- und personenzentrierter Therapie"
-      },
-      "workLocation": {
-        "@id": `${BASE_URL}/#practice`
-      },
-      "award": [
-        "FOCUS-Empfehlung Gesundheit 2023 für Psychotherapie",
-        "FOCUS-Empfehlung Gesundheit 2025 für Psychotherapie",
-        "FOCUS-Empfehlung Gesundheit 2026 für Psychotherapie"
-      ]
-    },
+    personRef(),
     {
       "@type": ["MedicalBusiness", "ProfessionalService"],
       "@id": `${BASE_URL}/#practice`,
       "name": "Praxis Dirk Werner — Psychologischer Psychotherapeut",
-      "founder": { "@id": `${BASE_URL}/#author` },
-      "employee": { "@id": `${BASE_URL}/#author` },
+      "founder": { "@id": PERSON_ID },
+      "employee": { "@id": PERSON_ID },
       "medicalSpecialty": "Psychiatric",
       "areaServed": {
         "@type": "AdministrativeArea",
@@ -135,7 +87,7 @@ const jsonLd = {
       "name": "Werner Productions Books",
       "description": "Bücher von Dirk Werner — Psychologie, Persönlichkeitsentwicklung und Fantasy",
       "publisher": {
-        "@id": `${BASE_URL}/#author`
+        "@id": PERSON_ID
       },
       "inLanguage": ["de", "en"]
     },
@@ -148,10 +100,10 @@ const jsonLd = {
         "@id": `${BASE_URL}/#website`
       },
       "about": {
-        "@id": `${BASE_URL}/#author`
+        "@id": PERSON_ID
       },
       "mainEntity": {
-        "@id": `${BASE_URL}/#author`
+        "@id": PERSON_ID
       }
     }
   ]

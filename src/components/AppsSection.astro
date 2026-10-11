@@ -1,4 +1,5 @@
 ---
+import { personRef } from "../lib/organization.js";
 const apps: {
   id: string;
   name: string;
@@ -90,15 +91,8 @@ const appsJsonLd = {
       "operatingSystem": a.playStoreUrl ? "Android" : "Web",
       "url": a.url ?? a.playStoreUrl,
       "image": a.icon,
-      "author": { "@id": "https://books.werner-productions.com/#author" },
-      "creator": {
-        "@type": "Person",
-        "name": "Dirk Werner",
-        "sameAs": [
-          "https://orcid.org/0009-0001-7822-0041",
-          "https://d-nb.info/gnd/1384382429",
-        ],
-      },
+      "author": personRef(),
+      "creator": personRef(),
       ...(a.playStoreUrl && { "installUrl": a.playStoreUrl }),
       "keywords": a.topics.join(", "),
     })),

@@ -28,7 +28,7 @@ describe("generate-pages", () => {
   test("Dreizehn Tore output has author-@id reference on Index node", () => {
     const jsonLd = jsonLdOf("die-dreizehn-tore");
     const book = jsonLd["@graph"].find((n: any) => n["@type"] === "Book");
-    expect(book.author["@id"]).toBe("https://books.werner-productions.com/#author");
+    expect(book.author["@id"]).toBe("https://werner-productions.com/#person");
   });
 
   test("output has WebPage node with mainEntity cross-ref", () => {

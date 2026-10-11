@@ -2,9 +2,9 @@ import { readFileSync, existsSync } from "fs";
 import { resolve } from "path";
 import { parse as parseYaml } from "yaml";
 import { validateBooksYaml } from "../src/lib/books-schema";
+import { PERSON_ID } from "../src/lib/organization";
 
 const BASE_URL = "https://books.werner-productions.com";
-const AUTHOR_ID = `${BASE_URL}/#author`;
 
 const args = process.argv.slice(2);
 const checkUrls = args.includes("--check-urls");
@@ -94,10 +94,10 @@ async function validateBook(book: any): Promise<CheckResult> {
     }
 
     // Check: author @id matches Index author node
-    if (bookNode.author?.["@id"] === AUTHOR_ID) {
+    if (bookNode.author?.["@id"] === PERSON_ID) {
       pass();
     } else {
-      fail(`author @id "${bookNode.author?.["@id"]}" does not match "${AUTHOR_ID}"`);
+      fail(`author @id "${bookNode.author?.["@id"]}" does not match "${PERSON_ID}"`);
     }
   }
 
