@@ -10,7 +10,7 @@
     "typescript": "^5"
   },
   "scripts": {
-    "build": "npm run audit:identitaet && astro build",
+    "build": "npm run audit:identitaet && astro build && node scripts/audit-identitaet-abgleich.mjs --zeige",
     "dev": "astro dev",
     "validate:books": "bun scripts/validate-books.ts",
     "generate": "bun scripts/generate-book-pages.ts",

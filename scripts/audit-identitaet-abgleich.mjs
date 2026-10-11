@@ -32,13 +32,51 @@
  * Aufruf: node scripts/audit-identitaet-abgleich.mjs [--selbsttest]
  */
 
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, existsSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { dirname, join, resolve, extname } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const WURZEL = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const QUELLE = 'https://werner-productions.com/ai/identitaet.json';
+// Die Umgebungsvariablen gibt es fuer den Test (tests/identitaet-abgleich-drei-ausgaenge.test.ts):
+// Quelle und Ergebnisdatei lassen sich auf einen lokalen Server bzw. ein
+// Wegwerf-Verzeichnis richten, ohne Fremdabruf.
+const QUELLE = process.env.IDENTITAET_QUELLE ?? 'https://werner-productions.com/ai/identitaet.json';
+
+/**
+ * ⭐ DREI AUSGAENGE, maschinenlesbar getrennt (Dirk, 2026-10-11):
+ *   stimmt_ueberein  Exit 0
+ *   weicht_ab        Exit 1 (Abbruch des Builds)
+ *   nicht_geprueft   Exit 0 -- der Build laeuft weiter, aber NIE still
+ * Der Status steht in einer kleinen Datei ausserhalb von dist/ (.cache/ ist
+ * ignoriert und wird nicht ausgeliefert) und als letzte Zeile des Audits; das
+ * Build-Skript zeigt sie nach dem Build noch einmal (--zeige).
+ */
+const ERGEBNIS_DATEI = process.env.IDENTITAET_ERGEBNIS ?? join(WURZEL, '.cache', 'identitaet-abgleich.json');
+const STATUS_ZEILE = {
+  stimmt_ueberein: 'STIMMT UEBEREIN',
+  weicht_ab: 'WEICHT AB',
+  nicht_geprueft: 'NICHT GEPRUEFT',
+};
+function statusZeile(e) {
+  const t = e.status === 'nicht_geprueft' ? ` — ${e.ursache}; der Build laeuft weiter, die Identitaetsangaben wurden NICHT gegen die Quelle gehalten`
+    : e.status === 'weicht_ab' ? ` — ${e.ursache}` : e.ursache ? ` — ${e.ursache}` : '';
+  return `IDENTITAETS-ABGLEICH: ${STATUS_ZEILE[e.status]}${t}`;
+}
+
+if (process.argv.includes('--zeige')) {
+  // Nach dem Build: dieselbe Zeile noch einmal, als letzte Zeile des Build-Logs.
+  let e;
+  try {
+    e = JSON.parse(readFileSync(ERGEBNIS_DATEI, 'utf8'));
+  } catch {
+    e = { status: 'nicht_geprueft', ursache: 'kein Ergebnis dieses Laufs vorhanden' };
+  }
+  console.log(statusZeile(e));
+  process.exit(0);
+}
+// Ein altes Ergebnis darf nie fuer diesen Lauf gelten.
+if (!process.argv.includes('--selbsttest')) rmSync(ERGEBNIS_DATEI, { force: true });
 
 /* ═══════════════════════════════════════════════════════════════════════════
  * TEIL 2: KEIN DOKTORTITEL AN DIRK WERNER
@@ -260,9 +298,9 @@ function vergleichbar(url) {
  * scheiterte; `eigene` ist eine Map feld -> gelesener Wert (null = nicht
  * gefunden).
  */
-export function bewerte(quelle, eigene) {
+export function bewerte(quelle, eigene, ursache = null) {
   if (quelle === null) {
-    return { art: 'unbekannt', befunde: [], text: `Quelle ${QUELLE} nicht erreichbar — Abgleich NICHT durchgefuehrt` };
+    return { art: 'unbekannt', befunde: [], text: `Quelle ${QUELLE} nicht erreichbar${ursache ? ` (${ursache})` : ''} — Abgleich NICHT durchgefuehrt` };
   }
   const befunde = [];
   // ⛔ `praxis_url` ist kein eigenes Feld der Quelle — es wird aus
@@ -414,17 +452,43 @@ if (process.argv.includes('--selbsttest')) {
 // ausdruecklich nur warnen soll. Gefunden beim ersten echten Lauf, weil die
 // Quelle noch nicht deployt war — der Zustand, fuer den der dritte Zweig
 // ueberhaupt gebaut wurde. Ein Fehlerweg, den man nie ausloest, ist ungeprueft.
-let quelle = null;
-const abbruch = new AbortController();
-const frist = setTimeout(() => abbruch.abort(), 15000);
-try {
-  const antwort = await fetch(QUELLE, { signal: abbruch.signal });
-  if (antwort.ok) quelle = await antwort.json();
-} catch {
-  quelle = null;
-} finally {
-  clearTimeout(frist);
+/*
+ * ⭐ URSACHE DER FRUEHEREN FEHLMELDUNG (belegt 2026-10-12): in etwa jedem 15.
+ * Lauf mit frischer Verbindung dauerte der TCP-Verbindungsaufbau ~11 s (curl:
+ * time_namelookup 0,01 s, time_connect 11,1 s, danach HTTP 200). Nodes fetch
+ * (undici) bricht den Aufbau nach 10 s ab -> UND_ERR_CONNECT_TIMEOUT, und das
+ * wurde als "nicht erreichbar" gemeldet. Eine Antwort der Quelle gab es im
+ * Fehlfall nie (kein Status, kein Body, kein TLS). Eine NEUE Verbindung
+ * danach ist wieder schnell (~0,3 s). Darum: kurze Frist je Versuch und EIN
+ * Wiederholungsversuch, und nur bei Fehlern des Verbindungsaufbaus -- ein
+ * HTTP-Status oder kaputtes JSON ist eine Antwort der Quelle und wird nicht
+ * wiederholt. Die echte Ursache steht in der Meldung.
+ */
+const FRIST_MS = 8000;
+async function holeQuelle(versuche = 2) {
+  const ursachen = [];
+  for (let i = 1; i <= versuche; i++) {
+    const abbruch = new AbortController();
+    const frist = setTimeout(() => abbruch.abort(), FRIST_MS);
+    const t0 = Date.now();
+    try {
+      const antwort = await fetch(QUELLE, { signal: abbruch.signal });
+      if (!antwort.ok) return { quelle: null, ursache: `Versuch ${i}: HTTP ${antwort.status}` };
+      try {
+        return { quelle: await antwort.json(), ursache: null };
+      } catch {
+        return { quelle: null, ursache: `Versuch ${i}: Antwort ist kein JSON (Content-Type ${antwort.headers.get('content-type') ?? '—'})` };
+      }
+    } catch (e) {
+      const art = e?.cause?.code ?? (e?.name === 'AbortError' ? `Frist ${FRIST_MS / 1000} s` : e?.message);
+      ursachen.push(`Versuch ${i}: ${art} nach ${Date.now() - t0} ms`);
+    } finally {
+      clearTimeout(frist);
+    }
+  }
+  return { quelle: null, ursache: ursachen.join('; ') };
 }
+const { quelle, ursache: abrufUrsache } = await holeQuelle();
 
 const eigene = new Map();
 for (const f of FELDER) {
@@ -438,7 +502,7 @@ for (const f of FELDER) {
   eigene.set(`${f.was} (${f.datei})`, { feld: f.feld, eigener: wert });
 }
 
-const ergebnis = bewerte(quelle, eigene);
+const ergebnis = bewerte(quelle, eigene, abrufUrsache);
 
 /*
  * ── Teil 2 laeuft IMMER ───────────────────────────────────────────────────
@@ -483,8 +547,12 @@ if (titelDateien.length < MIN_DATEIEN) {
 // ⛔ `titelRot` wird in JEDEM Zweig beruecksichtigt. Der erste Entwurf dieses
 //    Waechters liess alle Zweige durchfallen und haengte die OK-Meldung immer
 //    an — genau die Bauart, die einen Befund verschluckt.
+let status;
+let zeilenText;
 if (ergebnis.art === 'unbekannt') {
   console.log(`⚠️  Identitaets-Abgleich: ${ergebnis.text}`);
+  status = 'nicht_geprueft';
+  zeilenText = abrufUrsache ?? 'Quelle nicht erreichbar';
   process.exitCode = titelRot ? 1 : 0;
 } else if (ergebnis.art === 'abweichung') {
   console.error(`FEHLER Identitaets-Abgleich: ${ergebnis.text}`);
@@ -493,11 +561,24 @@ if (ergebnis.art === 'unbekannt') {
   if (quelle?.stand) console.error(`  Stand der Quelle: ${quelle.stand} (Commit ${(quelle.quell_commit ?? '—').slice(0, 8)})`);
   console.error('  Weicht die QUELLE ab, wird werner-identity geaendert und der Hub neu deployt —');
   console.error('  nicht diese Kopie. Weicht die KOPIE ab, wird sie hier korrigiert.');
+  status = 'weicht_ab';
+  zeilenText = ergebnis.text;
   process.exitCode = 1;
 } else {
   console.log(
     `OK — Identitaets-Abgleich: ${ergebnis.text} ` +
       `(Quelle vom ${quelle.stand}, Commit ${(quelle.quell_commit ?? '—').slice(0, 8)}).`,
   );
+  status = 'stimmt_ueberein';
+  zeilenText = `${ergebnis.text} (Quelle vom ${quelle.stand}, Commit ${(quelle.quell_commit ?? '—').slice(0, 8)})`;
   process.exitCode = titelRot ? 1 : 0;
 }
+// Ergebnisdatei und die eindeutige Schlusszeile. Die Datei liegt ausserhalb von dist/.
+const endergebnis = { status, ursache: zeilenText, zeit: new Date().toISOString(), quelle: QUELLE };
+try {
+  mkdirSync(dirname(ERGEBNIS_DATEI), { recursive: true });
+  writeFileSync(ERGEBNIS_DATEI, JSON.stringify(endergebnis, null, 2) + '\n');
+} catch (e) {
+  console.error(`WARNUNG: Ergebnisdatei ${ERGEBNIS_DATEI} nicht geschrieben (${e.message})`);
+}
+console.log(statusZeile(endergebnis));
