@@ -7,7 +7,7 @@ slug: cults
 title: "Cults: The Dark Side of Belonging"
 language: en
 authors:
-  - ref: "https://books.werner-productions.com/#author"
+  - ref: "https://werner-productions.com/#person"
 workTranslation: []
 translationOfWork: []
 descriptions:

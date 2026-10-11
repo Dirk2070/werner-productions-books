@@ -4,7 +4,7 @@ books:
     subtitle: Ein Fantasy-Psychothriller
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation:
       - the-thirteen-gates
     translationOfWork: []
@@ -101,7 +101,7 @@ books:
     title: 101 goldene Regeln für eine harmonische Paar-Beziehung
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -178,7 +178,7 @@ books:
     title: "American Shadows: Hecate's Intervention - The Unofficial Sequel to American Gods"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -265,7 +265,7 @@ books:
     title: "Awakening: The Lyra Code"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -347,7 +347,7 @@ books:
     title: "Dankbarkeit im Alltag: Ein interaktives Tagebuch für mehr Zufriedenheit und Lebensfreude"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -432,7 +432,7 @@ books:
     title: "Das Vermächtnis der Logen: Dr. Seelmanns 3. Fall (Dr. Seelmanns mysteriöse Fälle)"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -500,7 +500,7 @@ books:
     title: "Deadly Echo: Dr. Seelmann's Second Case (Dr. Seelmann's Mysterious Cases Book 2)"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -595,7 +595,7 @@ books:
     title: "Der Herzschmerz-Ratgeber: Eine Schritt-für-Schritt-Anleitung zur Heilung und zum Neuanfang"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -675,7 +675,7 @@ books:
     title: "Emotionale Intelligenz und Leadership: Wie Sie Ihre Stärken optimal nutzen (Thought Leader)"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -762,7 +762,7 @@ books:
     title: "Fatal Trance: Dr. Seelmann's First Case (Dr. Seelmann's Mysterious Cases Book 1)"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -852,7 +852,7 @@ books:
       (Psychotherapie: Mittel und Methoden)"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -941,7 +941,7 @@ books:
     title: "Herzklopfen für die Ewigkeit: Der Weg zu dauerhafter Liebe"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1027,7 +1027,7 @@ books:
     title: "How to Recognize Cults: A Guide to Protecting Yourself from Manipulation and Control"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1123,7 +1123,7 @@ books:
     title: Instructions for Staying in the Matrix Forever
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1214,7 +1214,7 @@ books:
     title: "Kosmische Matrix: Heilige Geometrie zum Ausmalen: 70+ inspirierende Motive"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1297,7 +1297,7 @@ books:
     title: "Malen gegen den Schmerz: Dein Weg zur Heilung: inklusive 50+ Ausgangsmotiven für deine kreative Traumabewältigung"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1381,7 +1381,7 @@ books:
     title: "Nanogenesis: The Rise of Superhumans"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1465,7 +1465,7 @@ books:
     title: "Psychotainment: Wie du auf jeder Party glänzt: 101 psychologische Fakten, die Gespräche unvergesslich machen"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1546,7 +1546,7 @@ books:
     title: "Selbstsabotage überwinden: Entfessle dein wahres Potenzial"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1630,7 +1630,7 @@ books:
     title: "Self-Love Over Perfection: A Guide to Overcoming Female Narcissism"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1725,7 +1725,7 @@ books:
     title: "Seminar der Herzen: Eine Geschichte, die Beziehungen erklärt"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1806,7 +1806,7 @@ books:
     title: "Souverän durch ihre Tests: Ein Handbuch für Männer"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1884,7 +1884,7 @@ books:
     title: "Suizidprävention: Basics"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -1954,7 +1954,7 @@ books:
     title: "The Battle Within: A Guide to Overcoming Inner Struggles"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -2047,7 +2047,7 @@ books:
     title: The Key of the Enlightened
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -2137,7 +2137,7 @@ books:
     title: "The Legacy of the Lodges: Dr. Seelmann's 3rd Case (Dr. Seelmann's Mysterious Cases)"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -2229,7 +2229,7 @@ books:
     title: The Simulation Chronicles
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -2318,7 +2318,7 @@ books:
     title: "The Thirteen Gates: A Fantasy Psychothriller"
     language: en
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork:
       - die-dreizehn-tore
@@ -2426,7 +2426,7 @@ books:
     title: "Tödliches Echo: Dr. Seelmanns zweiter Fall (Dr. Seelmanns mysteriöse Fälle)"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -2521,7 +2521,7 @@ books:
     title: "Umgang mit Eifersüchtigen: So bewahrst du deine innere Stärke"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:
@@ -2607,7 +2607,7 @@ books:
     title: "Verhängnisvolle Trance: Dr. Seelmanns erster Fall (Dr. Seelmanns mysteriöse Fälle)"
     language: de
     authors:
-      - ref: https://books.werner-productions.com/#author
+      - ref: https://werner-productions.com/#person
     workTranslation: []
     translationOfWork: []
     descriptions:

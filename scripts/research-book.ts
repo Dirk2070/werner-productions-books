@@ -19,6 +19,7 @@
 import { readFileSync, existsSync } from "fs";
 import { resolve } from "path";
 import { parse as parseYaml } from "yaml";
+import { PERSON_ID } from "../src/lib/organization";
 import type { BooksJsonEntry } from "../src/lib/research/types";
 import { fetchWithCache } from "../src/lib/research/fetch-cache";
 import { parseBookPage } from "../src/lib/research/parse-book-page";
@@ -62,7 +63,7 @@ import { splitEditionUrls } from "../src/lib/research/url-splitter";
 const TTL_7D = 7 * 24 * 60 * 60 * 1000;
 const TTL_24H = 24 * 60 * 60 * 1000;
 const ALLE_BUECHER_URL = "https://dirkwernerbooks.com/buecher/";
-const AUTHOR_REF = "https://books.werner-productions.com/#author";
+const AUTHOR_REF = PERSON_ID;
 const PUBLISHER = "Werner Productions";
 const PUBLICATION_DATE_PLACEHOLDER = "2024-01-01";
 const NARRATOR_PLACEHOLDER = "AI Voice (Werner Productions)";
