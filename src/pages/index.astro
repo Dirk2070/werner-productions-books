@@ -10,6 +10,7 @@ import PressQuote from "../components/PressQuote.astro";
 import FocusBadge from "../components/FocusBadge.astro";
 import CrossLinkingFooter from "../components/CrossLinkingFooter.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { organizationNode } from "../lib/organization.js";
 
 const books = await loadBooks();
 
@@ -192,6 +193,8 @@ const jsonLd = {
 
   <!-- JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <!-- Verlagsknoten (organization.ts), bewusst als eigener Block neben dem gesperrten Graphen; @id wie auf den Buchseiten -->
+  <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@graph": [organizationNode()] })} />
 
   <link rel="stylesheet" href="/styles/book-detail.css" />
 </head>
