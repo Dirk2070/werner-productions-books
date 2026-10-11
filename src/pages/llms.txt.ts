@@ -66,6 +66,7 @@ export const GET: APIRoute = async () => {
 
   lines.push("## Optional");
   lines.push("");
+  lines.push(`- [Volltexte aller Bücher (llms-full.txt)](${BASE_URL}/llms-full.txt)`);
   lines.push(`- [Sitemap](${BASE_URL}/sitemap-index.xml)`);
   lines.push(`- [Impressum](${BASE_URL}/impressum/)`);
   lines.push(`- [Datenschutzerklärung](${BASE_URL}/datenschutz/)`);
