@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-10.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-11.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,20 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-10 CEST.** Neu in dieser Fassung (`2026-10-10.2`): Der Regelwechsel `kopfsignale` ist gegen
+**Stand 2026-10-11 CEST.** Neu in dieser Fassung (`2026-10-11.1`):
+
+- ⛔ **Faktor 5 ist nicht mehr Teil der Note.** „Werden Sie in KI-Antworten tatsächlich genannt?" ist eine
+  **eigene Ergebnisreihe** mit eigenem Hash: `sonde sichtbarkeit` (neuer Abschnitt „Faktor 5: eigene
+  Ergebnisreihe"). Drei Wege, je Weg und Modell eine Verteilung, nie eine Zahl; nicht im Nachtlauf.
+- ⛔ **`profil_version` 5 → 6: alle 13 `config_hash` sind gebrochen.** Keine Note hat sich dadurch geändert,
+  aber kein Lauf ab dem 2026-10-12 trägt ein Delta gegen die Läufe davor (**Regel 3**). Der Laufbericht von
+  `audit` und `portfolio` weist den Bruch jetzt selbst aus.
+- **Die Schalter `--sichtbarkeit`, `--engines`, `--max-fragen` an `audit` und `portfolio` und das Kommando
+  `sonde visibility` gibt es nicht mehr.** Ein Aufruf damit endet mit Exit 2 und schreibt nichts.
+- ⛔ **Ein Sichtbarkeitslauf kostet Geld und läuft nur nach gezeigter Schätzung und Dirks Ok**
+  (**Regel 11**, neu).
+
+Neu in `2026-10-10.2` war: Der Regelwechsel `kopfsignale` ist gegen
 den ersten Nachtlauf gehalten (Abschnitt „Kopfsignale"): Durchschnitt der neun Hauptseiten **+0,11**, in der
 vorhergesagten Spanne; sieben Seiten steigen, zwei sinken, drei bleiben. Die Evidenzbasis zählt **9** Einträge.
 
@@ -202,9 +215,9 @@ oder Organization Secrets.
 
 ```bash
 export POE_API_KEY="…"           # Sichtbarkeit — kostet Poe-Points
-export PERPLEXITY_API_KEY="…"    # Zitation — kostet Guthaben
+export PERPLEXITY_API_KEY="…"    # Zitation und Sichtbarkeit — kostet Guthaben
 export GSC_KEY_FILE="…json"      # Index — kostenlos, nur lesend
-export DATAFORSEO_KEY_FILE="…json"  # PAA-Ernte — 0,002 USD je Abruf
+export DATAFORSEO_KEY_FILE="…json"  # PAA-Ernte (0,002 USD je Abruf), Sichtbarkeit (Stichprobe)
 ```
 
 `GSC_KEY_FILE` und `DATAFORSEO_KEY_FILE` sind **Pfade**, nie der Inhalt — die
@@ -386,45 +399,43 @@ weil alle drei „KI" heißen könnten.
 
 | Weg | Kommando | Schlüssel | Frage | Kosten |
 |---|---|---|---|---|
-| **Sichtbarkeit** | `sonde visibility --url …` oder `audit --sichtbarkeit` | `POE_API_KEY` | **Kennt** ein Modell die Marke? | Poe-Points je Lauf |
+| **Sichtbarkeit** | `sonde sichtbarkeit --url …` | `POE_API_KEY`, `PERPLEXITY_API_KEY`, `DATAFORSEO_KEY_FILE` | Wird die Seite **gefunden, zitiert, genannt**? | Guthaben bei drei Anbietern; Schätzung vor dem Lauf |
 | **Zitation** | `sonde zitate --url …` | `PERPLEXITY_API_KEY` | **Verlinkt** eine Antwortmaschine die Seite? | Guthaben je Anfrage |
 | **Index** | `sonde index pruefen` | `GSC_KEY_FILE` | Ist die Seite **indexiert**? | kostenlos |
 | **PAA-Ernte** | `sonde paa ernten` | `DATAFORSEO_KEY_FILE` | Welche Fragen stellt Google im **People-also-ask**-Block? | 0,002 USD je Abruf |
 
-⚠️ **Faktor 5 rechnet seit 2026-09-17, 20:45 nur namensfreie Fragen.** Vorher
-folgte die Erwähnungsrate bei **10 von 13 Seiten exakt dem Anteil der
-Markenfragen**: sechs Fragen mit einer Markenfrage ergaben 17 %, drei Fragen mit
-zwei Markenfragen 67 %. Eine Seite ohne `themen` bekommt überwiegend Fragen, die
-ihren Namen enthalten — und die werden fast immer beantwortet, ganz gleich, wie
-sichtbar die Seite ist. Deshalb gilt jetzt:
+⛔ **Faktor 5 ist seit 2026-10-11 nicht mehr Teil der Note.** Die Sichtbarkeit ist
+eine eigene Ergebnisreihe mit eigenem Hash; was sie misst, wie man sie liest und
+was sie kostet, steht im Abschnitt „Faktor 5: eigene Ergebnisreihe". Die Note
+führt den Faktor weiter als Zeile ohne Wert („nicht Teil der Note") und rechnet
+ihn heraus, wie in jedem Nachtlauf zuvor.
 
-- **In die Note geht nur, was den Namen nicht nennt.** `ist_markenfrage` trennt
-  die beiden Sorten; das erste Wort der `marke` genügt als Treffer.
-- **Der Markenwert bleibt sichtbar, aber außerhalb der Note** — als `markenrate`,
-  daneben `themenfragen` und `markenfragen` als Bestand.
-- **Ohne namensfreie Frage gibt es keinen Score**, nicht eine Null. Der Grund
-  steht im Feld; nicht gemessen ist nicht null.
-
-⛔ **Alte Werte sind damit nicht fortschreibbar.** Jede Erwähnungsrate von vor
-dem 2026-09-17, 20:45 enthält Markenfragen. Der Vergleich beginnt neu.
+⛔ **Werte der alten Messung sind nicht fortschreibbar.** Bis 2026-10-11 gab es
+eine Erwähnungsrate über Poe (`sonde visibility`, Schalter `--sichtbarkeit`),
+seit 2026-09-17 nur über namensfreie Fragen. Die Ergebnisreihe stellt andere
+Fragen, zählt in drei Stufen und nur Antworten mit belegter Suche. Der Vergleich
+beginnt neu.
 
 ⛔ **Eine `marke`, die spezifischer ist als der übliche Name, misst zu niedrig.**
-Am selben Abend gemessen, gleiche Fragen, gleiche Antworten: `developers.cloudflare.com`
+Am 2026-09-17 gemessen, gleiche Fragen, gleiche Antworten: `developers.cloudflare.com`
 kam mit `marke: Cloudflare Developers` auf **0 %** und mit `marke: Cloudflare`
 auf **67 %**. Die Modelle schreiben „Cloudflare", nie den Produktnamen. **Trag
 ein, wonach ein Mensch die Marke nennt**, nicht die genaue Produktbezeichnung —
-sonst misst du deine Schreibweise und nennst es Sichtbarkeit.
+sonst misst du deine Schreibweise und nennst es Sichtbarkeit. Das gilt für die
+Ergebnisreihe unverändert: Die Stufe `genannt` sucht die Schreibweisen aus
+`marke_varianten`, sonst `marke`.
 
-⚠️ **`themen` ist kein Beiwerk, sondern die Messgrundlage.** Steht dort nichts,
-erzeugt WebSonde überwiegend Markenfragen — und nach der Umstellung bleibt die
-Note dann leer.
+⚠️ **`themen`, `werkfrage` und `wettbewerber` liest nur noch `zitate`.** Die
+Ergebnisreihe bildet ihre Fragen aus `marke`, `branche` und `einsatzzweck`.
 
 ### `branche` ist ein Messparameter, keine Beschreibung
 
 **Das Feld beschreibt nicht, was deine Seite tut. Es benennt die Kategorie, in
 der jemand nach Anbietern sucht.** Das sind zwei verschiedene Dinge, und alle
 vier Fehlgriffe des Portfolios kamen daher, dass die Angabe das Erste tat.
-`branche` speist genau eine Frageschablone:
+`branche` speist die Anbieterfrage der Zitat-Schiene und, in `sonde sichtbarkeit`,
+alle drei namensfreien Klassen (Anbieter, Empfehlung, Orientierung). Der Kern ist
+dieselbe Schablone:
 
 ```
 Wer sind die wichtigsten Anbieter im Bereich <branche>?
@@ -458,9 +469,13 @@ Microsoft.
 **Breiter fassen macht es schlimmer, nicht besser.** Eine Oberkategorie, die
 alles umfasst, hat keine Anbieterliste, weil niemand danach sucht; das Modell
 müsste sie erst zerlegen, und gemessen würde seine Reaktion auf eine erfundene
-Taxonomie. **Dann lass das Feld leer.** Ein Lauf ohne `branche` ergibt vier
-Themenfragen und **null** Branchenfragen — kein Fehler, keine Warnung, kein
-Abzug. Wächter: `tests/test_leere_branche_ist_kein_mangel.py`.
+Taxonomie. **Dann lass das Feld leer.** Der Fragenkatalog der Zitat-Schiene hat ohne
+`branche` vier Themenfragen und **null** Branchenfragen — kein Fehler, keine
+Warnung, kein Abzug. Wächter: `tests/test_leere_branche_ist_kein_mangel.py`.
+In `sonde sichtbarkeit` läuft eine solche Seite nur die Markenfrage und steht im
+Ergebnis als **„nur Marke, Kategorie nicht geprüft"**. Die Lücke wird in
+`sites.yml` mit `sichtbarkeit_luecke: "<Grund>"` als bewusst markiert; der
+Schätzmodus nennt sie in jedem Fall, mit oder ohne Grund.
 
 > **Eine fehlende Branchenzuordnung ist nicht dasselbe wie eine fehlende
 > semantische Einordnung.** Die Vollständigkeit gehört ins Markup
@@ -477,6 +492,10 @@ Watzlawick, Schmidbauer, Fitzek, Spitzer, Bas Kast, Dobelli, Jakob Hein. Der
 Befund ist damit **„falsche Schablone", nicht „keine Kategorie"**.
 
 ### ✅ Die zweite Schablone: `werkfrage` (seit 2026-09-19)
+
+⚠️ **Seit 2026-10-11 liest nur noch `zitate` dieses Feld.** `sonde sichtbarkeit`
+kennt vier feste Klassen und keine Werkfrage; `dirkwernerbooks.com` läuft dort
+nur die Markenfrage.
 
 Der Bauauftrag aus `.1` ist erledigt. Der Schlüssel heißt **`werkfrage`** und
 trägt den **Fragekern zwischen „Welche " und „?"** — wörtlich die Probefrage,
@@ -498,9 +517,10 @@ hier Abbruchbedingung, nicht Nachweis hinterher. **Bestand: 1 von 13 Seiten**
 und brauchen ihre eigene Probe; Sprachfassungen bekommen nichts, solange die
 Frage deutsch ist.
 
-⚠️ **Die Frage steht hinter allen Themenfragen** (Position 5 von 7). Die
-Poe-Schiene (Faktor 5, Vorgabe 6) schneidet mit `[:n]` und stellt sie;
-`waehle_fragen` (Zitat-Schiene) greift abwechselnd und erreicht sie erst ab 8.
+⚠️ **Die Frage steht hinter allen Themenfragen** (Position 5 von 7).
+`waehle_fragen` (Zitat-Schiene) greift abwechselnd und erreicht sie erst ab
+`--max-fragen 8`. Die Poe-Schiene, die sie mit der Vorgabe 6 stellte, gibt es
+seit 2026-10-11 nicht mehr.
 
 ⭐ **Der Verdacht, die Themenschablone sei derselbe Fehler, ist widerlegt**
 (2026-09-19, 15 Abrufe, Kriterium **vor** der Messung committet). Gefordert war,
@@ -519,54 +539,48 @@ Durchschnitt. Der Versuch, aus deutschem und englischem Lauf einen
 unterscheiden **zwei Dinge zugleich** (Sprache und Fragensatz) und sind deshalb
 nicht deutbar. Der Sprachvergleich ist bewusst aufgegeben.
 
-⛔ **Bei den Sprachfassungen misst EINE Frage den ganzen Faktor 5 — und es steht
-nirgends dran.** Alle drei tragen `themen: []`. Damit ist ihre **Branchenfrage
-die einzige namensfreie Frage** im ganzen Katalog, und der gesamte Faktor hängt
-an ihr. Am 2026-09-18 beim Leeren von `werner-productions.com/index-en` sichtbar
-geworden: Die Fassung liefert seither `score: None` mit dem Grund *„Keine
-namensfreie Frage gestellt"* — ausdrücklich **nicht gemessen** statt einer Null,
-also regelkonform, aber eben auch ungemessen.
+⚠️ **In der Ergebnisreihe laufen die Sprachfassungen nicht.** Ein Eintrag mit
+`fassung_von` bekäme dieselben deutschen Fragen wie seine Hauptseite und kostete
+dieselbe Messung ein zweites Mal. Bis 2026-10-11 trug bei den drei Fassungen eine
+einzige Frage den ganzen Faktor 5; diese Bauart gibt es nicht mehr.
 
-| Fassung | namensfreie Fragen | Faktor 5 |
-|---|---|---|
-| `werner-productions.com/index-en` | **0** | `None` — nicht gemessen |
-| `dirkwernerbooks.com/index-en` | 1 (die Branchenfrage) | hängt ganz an ihr |
-| `sundamind.com/en/` | 1 (die Branchenfrage) | hängt ganz an ihr |
+**Genannt und zitiert sind nicht dasselbe Maß.** Dass ein Modell die Marke
+nennt, kann ein reiner Namenseffekt sein; zitiert ist die Seite erst, wenn sie
+als **Quelle** in einem strukturierten Feld der Antwort steht. `sonde sichtbarkeit`
+führt beides als getrennte Stufen, `zitate` misst die Quelle über einen einzelnen
+Weg. Bei `dirkwernerbooks.com` hat genau diese Verwechslung den einzigen
+positiven Wert der alten Messreihe erzeugt: elf echte Kategoriefragen, kein
+Treffer, und die 100 % kamen vom Namen.
 
-**Der Punkt ist die Bauart, nicht der Einzelfall.** Eine Messung, die auf einer
-einzigen Frage ruht, ist schwächer als eine über vier — und wenn diese Frage an
-einem Feld hängt, das man aus guten Gründen leeren könnte, ist sie zusätzlich
-fragil. Der Weg dorthin sind **eigene fremdsprachige `themen`**, nicht eine
-`branche`. Bis dahin: Lies bei einer Sprachfassung `themenfragen` mit, bevor du
-ihrem Faktor 5 etwas entnimmst.
-
-**Sichtbarkeit und Zitation sind nicht dasselbe Maß.** `visibility` fragt, ob
-ein Modell die Marke nennt — das kann ein reiner Namenseffekt sein. `zitate`
-fragt, ob die eigene Seite als **Quelle** verwendet wird. Bei
-`dirkwernerbooks.com` hat genau diese Verwechslung den einzigen positiven Wert
-der ganzen Messreihe erzeugt: elf echte Kategoriefragen, kein Treffer, und die
-100 % kamen vom Namen.
-
-**Der Ausgangsstand, gegen den du misst** (2026-09-17, 198 Poe-Aufrufe über
+**Der Ausgangsstand der alten Messung** (2026-09-17, 198 Poe-Aufrufe über
 GPT-5.4, Claude-Sonnet-4.6 und Gemini-3.1-Pro, abgelegt in `kontrolle/`, nicht
 in `runs/`): Bei namensfreien Kategoriefragen nennt **keines der Modelle eine
-der eigenen Seiten — 0,0 % über alle dreizehn**. Faktor 5 steht portfolioweit
+der eigenen Seiten — 0,0 % über alle dreizehn**. Faktor 5 stand portfolioweit
 auf **1,0**. Die Referenz `developers.cloudflare.com` erreicht mit passenden
 `themen` **67 %** und Faktor **4,5**: Die Obergrenze ist damit belegt, die Null
 ist ein Befund über die Sichtbarkeit und nicht über das Messgerät. In denselben
 Antworten stehen die Wettbewerber — Hogrefe, Schuhfried, Pearson; Headspace,
 Calm, 7mind; CloudConvert, Pandoc, Adobe. **Eine Null, die nur steigen kann, ist
 die brauchbarste Grundlinie, die es gibt.**
+⚠️ Dieser Stand stammt aus der Messung vor 2026-10-11 (andere Fragen,
+Erwähnungsrate statt Stufen) und ist mit der Ergebnisreihe **nicht vergleichbar**;
+ihr eigener Ausgangsstand entsteht mit dem ersten Vollauf.
 
-⚠️ **Die Zitierrate hängt am Modell, die Erwähnungsrate nicht.** Gemini nannte in
+⚠️ **Die Zitierrate hängt am Modell, die Erwähnungsrate nicht** (alte Messung,
+2026-09-17). Gemini nannte in
 **0 von 72** Antworten eine Quelle, Claude in 15 %, GPT in 88 %. Wer den
 Modellsatz ändert, ändert die Zitierrate, ohne dass sich an der Seite etwas
-getan hat — der Modellsatz gehört deshalb neben jede Zitierzahl.
+getan hat — der Modellsatz gehört deshalb neben jede Zitierzahl. In der
+Ergebnisreihe ist je Weg und Modell festgehalten, ob die Antwort überhaupt
+strukturierte Quellen trägt (`quellen_strukturiert` in `sichtbarkeit.yml`); wo
+nicht, ist `zitiert` dort `nicht_geprueft`, nie null.
 
-⛔ **`--sichtbarkeit` und `zitate` kosten Geld.** Der Schalter steht auf
-`default=False`, und das ist beabsichtigt: 20 Fragen × 5 Wiederholungen × 4
-Modelle sind ≈ 8,60 $ je Portfoliolauf. In einem Workflow, der bei jedem Push
-feuert, summiert sich das still. **Erst `--dry-run`.**
+⛔ **`sonde sichtbarkeit` und `zitate` kosten Geld.** Ein Vollauf der
+Ergebnisreihe ist mit **23,62 $** geschätzt (755 Anfragen, Preise vom
+2026-10-11), ein Einzelseitenlauf mit einer Frage über alle drei Wege mit
+1,29 $. Keines der beiden Kommandos gehört in einen Workflow, der bei jedem Push
+feuert. **Erst der Schätzmodus** (`sonde sichtbarkeit --nur-kosten`, bei `zitate`
+`--dry-run`) — und für die Sichtbarkeit gilt **Regel 11**.
 
 ⚠️ **Nur `audit` kennt `--vorschrift-von`.** `zitate` und `index pruefen` lesen
 `sites.yml` (`--url` filtert nur daraus) — **ein fremdes Repo kann sie heute
@@ -574,8 +588,9 @@ nicht ohne eigene Konfiguration nutzen.** Die drei Wege sind nicht gleich weit
 geöffnet.
 
 ⚠️ **Websuche verfügbar heißt nicht Websuche passiert.** Ohne Anweisung hat
-Perplexity in keinem Modell gesucht. „Gesucht ja/nein" ist Pflichtfeld je
-Antwort.
+Perplexity in keinem Modell gesucht. „Gesucht" ist Pflichtfeld je Antwort, in
+der Ergebnisreihe dreiwertig (`ja`, `nein`, `unbestimmt`); Antworten ohne
+belegte Suche stehen getrennt von der Hauptverteilung.
 
 ⚠️ **Der Gegenstand bewegt sich hier unter der Messung.** Modellantworten sind
 nicht deterministisch, Anbieter tauschen Modelle ohne Vorankündigung. Ein
@@ -651,7 +666,7 @@ Läufe, die etwas gefunden haben.
 
 ---
 
-## Zehn Regeln, bevor du einem Wert glaubst
+## Elf Regeln, bevor du einem Wert glaubst
 
 **1. „Nichts hat sich geändert" ist selbst eine Messung.** Vor jeder Deutung
 einer Wertänderung: `git log --since` des gemessenen Repos im Zeitfenster
@@ -664,9 +679,10 @@ ein Zweig vom Juni). Verlässlich ist die GitHub-API
 (`gh api "repos/<owner>/<repo>/commits?since=<zeitpunkt>"`), weil sie auch
 Commits aus anderen Sitzungen und Rechnern zeigt.
 
-**2. „Nicht gemessen" ist nicht null.** `offpage` steht auf `None`, wenn die
-Sichtbarkeit nicht gemessen wurde, und wird **herausgerechnet**, nicht als 0
-gewertet. Wer den Wert weiterverarbeitet, muss `None` behandeln — `0.0` ist
+**2. „Nicht gemessen" ist nicht null.** `offpage` steht seit 2026-10-11 in
+**jedem** Lauf auf `None` (Faktor 5 ist eine eigene Ergebnisreihe) und wird
+**herausgerechnet**, nicht als 0 gewertet; dasselbe gilt für jeden anderen
+Faktor ohne Messung. Wer den Wert weiterverarbeitet, muss `None` behandeln — `0.0` ist
 beim GEO-Score ein **plausibler** Wert und deshalb nicht von einer Messung zu
 unterscheiden.
 
@@ -681,6 +697,13 @@ zwei verschiedenen Messungen. ⚠️ **Der Hash bricht nicht von selbst:**
 `bestandteile` ist eine **benannte Liste**; ein neues Feld muss absichtlich
 hinein. Wer eines hinzufügt, ohne es einzutragen, ändert die Messung, ohne dass
 die Kurve es zeigt — das ist der schlimmere Fall von beiden.
+⛔ **Am 2026-10-11 sind wieder alle 13 Hashes gebrochen worden**, `profil_version`
+5 → 6, weil die Sichtbarkeit die `bestandteile` verlassen hat. Keine Note hat
+sich dadurch geändert. Der Laufbericht von `audit` und `portfolio` nennt einen
+solchen Bruch seither selbst: je Seite eine Zeile „Profilbruch der Note" mit dem
+Tag des Vorlaufs und den geänderten Bestandteilen, in `portfolio` dazu die Zahl
+der betroffenen Seiten. Gemeldet wird er nur, wenn **kein** früherer Lauf mit
+Note denselben Hash trägt.
 
 **4. „Deployt ein Push?" hat zwei Quellen, und die zweite drei Ebenen.**
 Cloudflares Git Provider **und** GitHub-Workflows. Beim Workflow reicht „feuert
@@ -717,7 +740,7 @@ Prüfung, nicht über die Marke** — und eine Seite, deren `og:title` den `<tit
 wörtlich wiederholt, gilt als konsistent, auch wenn der Name nirgends
 übereinstimmt. Stand in `OFFEN.md` („Markenkonsistenz").
 
-⭐ **Und Faktor 5 sucht die Marke WÖRTLICH** (sie macht 60 % der Note aus). Seit
+⭐ **Und die Stufe `genannt` der Ergebnisreihe sucht die Marke WÖRTLICH.** Seit
 2026-09-19 in zwei Stufen, weil ein Personenname anders zählt als ein
 Produktname:
 
@@ -730,23 +753,23 @@ Der Grund für die zweite Stufe: Ein bloßer Name trifft zu oft jemand anderen.
 Gezählt wird erst, wenn im selben **Block** ein Merkmal steht, das die Person
 festlegt — nicht im selben Absatz, der ist zu weit. **Wer eine Marke einträgt,
 trägt ihre Schreibweisen mit ein**; was nicht in der Liste steht, findet die
-Messung nicht, auch wenn ein Mensch es sofort erkennt.
+Messung nicht, auch wenn ein Mensch es sofort erkennt. Das Merkmal muss
+höchstens 150 Zeichen vom Namen entfernt stehen; ein Name ohne Merkmal wird als
+`unbestaetigt` mitgeschrieben und nicht gezählt. **Eine Schreibweise, die schon
+in der Frage steht, zählt nicht** (seit 2026-10-11) — bei der Markenfrage wäre
+sie ein Echo.
 
-**8. Eine Null in Faktor 5 sagt nichts, solange die Frage ungeprüft ist.** Der
-Wert ist der Anteil namensfreier Antworten, die deine Marke nennen — er misst
-also immer *zwei* Dinge zugleich: wie sichtbar die Seite ist **und** ob die
-Frage die richtige Nachbarschaft aufruft. Eine schiefe `branche` erzeugt
-verlässlich 0 % und sieht aus wie ein Sichtbarkeitsbefund. **Bevor du eine Null
-deutest, lies die Antwort und sieh nach, wer darin steht.** Stehen dort deine
-Wettbewerber, ist die Null echt; stehen dort Analysten oder Plattformen, misst
-du die Frage. Dasselbe gilt für den Nenner: `themenfragen` sagt dir, über wie
-viele Fragen der Wert gebildet wurde — bei den Sprachfassungen ist es **eine**.
-
-⚠️ Und ein Kontrollwert, der Ungleiches vergleicht, ist keiner: Die `markenrate`
-beruht heute je nach Katalogänge auf **einer oder zwei** Markenfragen, weil
-`messe_sichtbarkeit` bei `--max-fragen 6` glatt abschneidet statt `waehle_fragen`
-zu benutzen. Bei 10 von 13 Seiten fällt dabei *„Ist &lt;Marke&gt; empfehlenswert?"*
-weg. Die Note rührt das nicht an — der Kontrollwert schon. Steht in `OFFEN.md`.
+**8. Ein „0 von 5" in der Ergebnisreihe sagt nichts, solange die Frage ungeprüft ist.**
+Die Stufe `genannt` einer namensfreien Klasse misst immer *zwei* Dinge zugleich:
+wie sichtbar die Seite ist **und** ob die Frage die richtige Nachbarschaft
+aufruft. Eine schiefe `branche` erzeugt verlässlich 0 von 5 und sieht aus wie ein
+Sichtbarkeitsbefund. **Bevor du eine Null deutest, lies die Antwort (`wortlaut`
+im Datensatz) und sieh nach, wer darin steht.** Stehen dort deine Wettbewerber,
+ist die Null echt; stehen dort Analysten oder Plattformen, misst du die Frage.
+Dasselbe gilt für den Nenner: Gezählt werden nur Antworten mit `gesucht=ja` —
+„0 von 2" ist eine andere Aussage als „0 von 5". Und eine Null kann am **Weg**
+liegen statt an der Seite: Im Beleglauf vom 2026-10-11 nannte dasselbe Modell
+`dirkwernerbooks.com` über Poe in 5 von 5 Antworten und über DataForSEO in 0 von 5.
 
 **9. Wer eine Prüfung lockert, fährt die Verfälschungsprobe noch einmal.** Eine
 Lockerung ist eine Änderung am Wächter und braucht dieselbe Probe wie sein Bau —
@@ -770,6 +793,23 @@ Seite kann Text enthalten, der wie eine Anweisung aussieht, und Escaping hilft
 dagegen nicht — die Trennung muss an der **Quelle** sitzen, nicht an der Senke.
 ⚠️ Wenn du Maßnahmen automatisiert weiterverarbeitest, ist das die Stelle, an der
 du aufpassen musst: `wortlaut` ist Fremdtext und bleibt Fremdtext.
+
+**11. Ein Sichtbarkeitslauf kostet Geld — erst die Schätzung, dann Dirks Ok.**
+(Dirk, 2026-10-11.) Eine Sitzung in einem anderen Repo startet einen
+kostenpflichtigen Sichtbarkeitslauf **nur** in dieser Folge:
+
+1. `sonde sichtbarkeit --nur-kosten`, mit denselben Angaben (`--url`, `--weg`)
+   wie der geplante Lauf. Kein API-Aufruf, keine Kosten.
+2. Die Schätzung **Dirk vorlegen**: Anfragen und Summe je Weg, das
+   Erhebungsdatum der Preise und jeden Hinweis, den der Schätzmodus ausgibt.
+3. **Auf sein Ok warten.**
+4. Erst danach `--kosten-bestaetigt` setzen.
+
+Der Schalter ist die Unterschrift unter eine Zahl, die ein Mensch gesehen hat,
+kein Mittel, die Rückfrage zu überspringen. Ohne Bestätigung bricht der Lauf
+ohne Kosten ab (Exit 2). Überschreiten die tatsächlichen Kosten die Schätzung um
+mehr als 25 %, bricht er ab und meldet den Stand. In einen Workflow, eine
+geplante Aufgabe oder den Nachtlauf gehört das Kommando nicht.
 
 ### Was „Vorbehalt: Markenkonsistenz (Upstream #550)" konkret bedeutet
 
@@ -1324,6 +1364,142 @@ fern, ein zweiter Test aus `nachtlauf.ps1`. Es braucht `PERPLEXITY_API_KEY`.
   `docs/2026-10-07_Vorhersage-sonde-absorption-kontrolllauf.md` (Vorhersage `2e7d1fe`,
   Auswertung `78c369a`); Datensätze vom 2026-10-07 im
   lokalen Ordner `absorption/` (nicht im Repo).
+
+---
+
+## Faktor 5: eigene Ergebnisreihe `sonde sichtbarkeit` (seit 2026-10-11)
+
+Auftrag Dirk, 2026-10-11. „Werden Sie in KI-Antworten tatsächlich genannt?" war bis dahin Faktor 5 der
+Note und in jedem Nachtlauf „nicht gemessen". Jetzt ist es eine eigene Ergebnisreihe: **nicht in der
+Note, nicht in ihrem `config_hash`, nicht im Nachtlauf**, mit eigenem Hash und eigener Ablage.
+
+**Drei Wege, keiner entfällt, nie zu einer Zahl verrechnet:**
+
+| Weg | Umfang | Modelle | Zugang |
+|---|---|---|---|
+| Poe (direkte API, kein MCP-Proxy) | voll | `GPT-5.4`, `Claude-Sonnet-4.6`, `Gemini-3.1-Pro` | `POE_API_KEY` |
+| Perplexity Agent API | voll | `perplexity/sonar` | `PERPLEXITY_API_KEY` |
+| DataForSEO | **Stichprobe**, zwei Seiten | `gpt-5.4-2026-03-05`, `claude-sonnet-4-6`, `gemini-3.1-pro-preview` | `DATAFORSEO_KEY_FILE` |
+
+Die Stichprobe (`dirkwernerbooks.com`, `sundamind.com`) steht in `sichtbarkeit.yml` und im Hash. Sie
+dient der Kreuzprüfung der Wege und wird nie automatisch erweitert.
+
+**Vier Frageklassen, Wortlaut von Dirk und exakt so in der Vorschrift und im Hash:**
+
+| Klasse | Wortlaut | braucht in `sites.yml` |
+|---|---|---|
+| Anbieter | „Wer sind die wichtigsten Anbieter im Bereich {branche}?" | `branche` |
+| Empfehlung | „Ich suche {branche} für {einsatzzweck}. Was würdest du mir empfehlen und warum?" | `branche`, `einsatzzweck` |
+| Orientierung | „Worauf sollte man bei {branche} achten?" | `branche` |
+| Marke | „Was ist {marke} und für wen ist es gedacht?" | `marke` |
+
+Jede Frage läuft **fünfmal** je Weg und Modell. Fehlt einer Seite ein Feld, ist die Klasse dort
+`nicht_geprueft`; es gibt keine generische Ersatzfassung. Seiten ohne `branche`
+(`dirkwernerbooks.com`, `werner-productions.com`) laufen nur die Markenfrage und stehen im Ergebnis als
+„nur Marke, Kategorie nicht geprüft". Sprachfassungen (`fassung_von`) laufen nicht.
+
+**Drei Stufen je Antwort, je dreiwertig (`ja`, `nein`, `nicht_geprueft`):**
+
+| Stufe | heißt | woher |
+|---|---|---|
+| `gefunden` | die eigene Domain steht in der Trefferliste der Suche | nur wo die Antwort die Treffer trägt (Perplexity) |
+| `zitiert` | die eigene Domain steht in einer **strukturierten** Quelle | nur wo die Antwort Quellen als Feld trägt; **nie aus dem Antworttext gelesen** |
+| `genannt` | eine Schreibweise der Marke steht im Antworttext | überall; Regeln unter Regel 7 |
+
+Dazu das Pflichtfeld **`gesucht`** (`ja`, `nein`, `unbestimmt`). Die Hauptverteilung zählt nur Antworten
+mit `gesucht=ja`; Antworten mit `unbestimmt` stehen getrennt daneben. Bei Poe mit Gemini ist das der
+Regelfall: Die Antwort trägt Quellen, aber keinen Sucheintrag (Beleglauf: 5 von 5 `unbestimmt`).
+
+**So liest du das Ergebnis.** Je Seite, Weg, Modell und Klasse eine Zeile:
+
+```
+poe / GPT-5.4 / marke: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
+   mit Suche (5): gefunden nicht geprueft | zitiert 5 von 5 | genannt 5 von 5
+```
+
+Ausgegeben wird eine **Verteilung** („3 von 5"), nie ein Ja oder Nein und nie ein Mittel über Wege oder
+Modelle. `nicht geprueft` heißt: Diese Stufe liefert dieser Weg nicht — es ist keine Null. `evidence` ist
+`observed_search`.
+
+**Übereinstimmung Poe gegen DataForSEO** (nur Stichprobe): je Frage und Modell `gleich`, `abweichend`
+oder `nicht vergleichbar`, gemessen an der Stufe `genannt` unter den Antworten mit Suche. Das ist ein
+**Befund über die Messwege, nicht über die Seite**. Weichen mehr als ein Drittel der vergleichbaren
+Zellen ab, empfiehlt der Bericht, die Stichprobe zu erweitern; unter drei vergleichbaren Zellen meldet
+er, dass die Zahl für eine Aussage nicht reicht.
+
+**Kommandos:**
+
+```bash
+# Schätzmodus: Anfragen mal Preis je Weg, ohne einen einzigen API-Aufruf
+sonde sichtbarkeit --nur-kosten
+sonde sichtbarkeit --url https://example.com/ --nur-kosten
+
+# Lauf: zeigt zuerst dieselbe Schätzung und fragt dann nach
+sonde sichtbarkeit --url https://example.com/
+sonde sichtbarkeit --url https://example.com/ --weg perplexity   # nur ein Weg
+
+# Beleg- und Kontrollläufe: eigene Ablage, nie runs/
+sonde sichtbarkeit --url https://example.com/ --ablage kontrolle/<Datum>_<Anlass>
+```
+
+| Exit | Bedeutung |
+|---|---|
+| 0 | alles gemessen, oder Schätzmodus |
+| 2 | nicht gestartet (Konfiguration, Zugang, **Kosten nicht bestätigt**), abgebrochen oder nicht vollständig gemessen |
+
+**Kosten** (Preise vom 2026-10-11, gemessen an zwei bis drei Proben je Modell, in
+`sichtbarkeit-preise.yml`; nicht im Hash, weil ein Preis keine Messvorschrift ist):
+
+| Lauf | Anfragen | Schätzung |
+|---|---:|---:|
+| Vollauf, 10 Seiten | 755 | 23,62 $ |
+| davon Poe | 510 | 19,37 $ |
+| davon Perplexity | 170 | 0,78 $ |
+| davon DataForSEO (Stichprobe) | 75 | 3,47 $ |
+| Einzelseitenlauf `dirkwernerbooks.com` (eine Frage) | 35 | 1,29 $ |
+
+- Ist die Preistabelle älter als 30 Tage, steht im Schätzmodus eine Warnung neben der Summe.
+- Fehlt einer Seite `branche` oder `einsatzzweck`, nennt der Schätzmodus die Seite, das Feld und die
+  Klassen, die dadurch nicht geprüft werden — **vor** der Kostenfreigabe.
+- Im Laufkopf stehen geschätzte und tatsächliche Kosten nebeneinander. Über 125 % der Schätzung bricht
+  der Lauf ab.
+- ⚠️ **Poe-Kosten kommen verzögert.** Poe trägt einen Eintrag beim Start der Anfrage in den
+  Punkteverlauf ein und füllt die Punkte erst danach; die Abbruchgrenze sieht sie etwa eine Anfrage je
+  Modell später. Im Beleglauf meldete der Laufkopf deshalb 0,81 $ statt 1,26 $ (behoben, `d41e8ee`).
+
+⛔ **Regel 11 gilt für jeden Lauf:** erst der Schätzmodus, dann Dirks Ok, dann `--kosten-bestaetigt`.
+
+**Aus einem anderen Repo:** Das Kommando liest `sites.yml`, `sichtbarkeit.yml` und
+`sichtbarkeit-preise.yml` aus dem Arbeitsordner und kennt kein `--vorschrift-von`. Eine URL, die nicht
+in `sites.yml` steht, wird abgelehnt (ohne Marke und Branche gibt es keine Frage). **Ein fremdes Repo
+misst die Sichtbarkeit deshalb nicht selbst**; der Lauf findet im Arbeitsordner von `websonde` statt.
+
+**Der Beleglauf** (2026-10-11, `dirkwernerbooks.com`, nur Markenfrage, 35 von 35 Anfragen gemessen,
+geschätzt 1,29 $, tatsächlich 1,26 $):
+
+| Weg | Modell | gesucht | genannt | zitiert | gefunden |
+|---|---|---|---|---|---|
+| Poe | GPT-5.4 | 5 ja | 5 von 5 | 5 von 5 | nicht geprüft |
+| Poe | Claude-Sonnet-4.6 | 5 ja | 5 von 5 | nicht geprüft | nicht geprüft |
+| Poe | Gemini-3.1-Pro | 5 unbestimmt | getrennt: 5 von 5 | getrennt: 5 von 5 | nicht geprüft |
+| Perplexity | perplexity/sonar | 5 ja | 5 von 5 | nicht geprüft | 5 von 5 |
+| DataForSEO | gpt-5.4-2026-03-05 | 5 ja | 5 von 5 | 4 von 5 | nicht geprüft |
+| DataForSEO | claude-sonnet-4-6 | 5 ja | **0 von 5** | 0 von 5 | nicht geprüft |
+| DataForSEO | gemini-3.1-pro-preview | 5 ja | 5 von 5 | 5 von 5 | nicht geprüft |
+
+**Was das belegt und was nicht.** Der Adapter läuft über alle drei Wege. Eine Markenfrage misst die
+Bekanntheit des Namens, nicht die Auffindbarkeit im Thema: 5 von 5 ist hier kein Wert, den man neben
+die 0,0 % der alten Kategoriefragen stellen kann. **Keine namensfreie Klasse ist bisher gemessen**; ob
+die drei Kategorieklassen das richtige Anbieterfeld aufrufen, zeigt erst der Vollauf, und der ist nicht
+gefahren. Die Abweichung bei Claude (Poe 5 von 5, DataForSEO 0 von 5) ist ein Befund über den Weg: Über
+DataForSEO stellte das Modell je Antwort eine Suchanfrage, zitierte nur Händler und nannte den Namen
+ohne Kontextmerkmal. Zwei vergleichbare Zellen reichen nicht für eine Aussage über die Messwege.
+
+- Vorschrift `sichtbarkeit.yml`, Preise `sichtbarkeit-preise.yml`, Modul `src/websonde/sichtbarkeit.py`.
+- Herleitung: `docs/2026-10-11_1910-CEST_Preflight-Faktor-5-drei-Wege-Text-Suche-Quellen-Preis.md`,
+  `docs/2026-10-11_1911-CEST_Vorhersage-Faktor-5-Ergebnisreihe-Kosten-Uebereinstimmung-Profilbruch.md`,
+  `docs/2026-10-11_2021-CEST_Auswertung-Faktor-5-Beleglauf-Vorhersage-gegen-Ergebnis.md`.
+- Ablage: lokaler Ordner `sichtbarkeit/` (nicht im Repo); der Beleglauf liegt unter `kontrolle/`.
 
 ---
 
