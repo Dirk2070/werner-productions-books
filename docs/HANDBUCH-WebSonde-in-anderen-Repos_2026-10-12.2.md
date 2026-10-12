@@ -22,6 +22,9 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
   stehen **nicht** in `marke_varianten` und zählen nur in namensfreien Fragen für `genannt`.
 - ⛔ **Zwei weitere Brüche der Ergebnisreihe am Abend des 2026-10-12**, für alle zehn Seiten. Regelstand
   jetzt `stufen-dreiwertig-urheber-hostgrenze-werktitel-markenklasse`. Die Note ist nicht berührt.
+- ⛔ **Dieser Regelstand ist eingefroren, bis der Sichtbarkeits-Vollauf am 01.11.2026 gelaufen ist**
+  (Dirk, 2026-10-12): keine Änderungen an Zählregeln, Varianten, Klassen oder Hash-Bestandteilen.
+  Neue Regelideen gehören nur in `OFFEN.md` im Repo `websonde`, unter „nach dem Vollauf 01.11.".
 
 Neu in `2026-10-12.1` war:
 
@@ -1761,6 +1764,15 @@ Nachgezählt an den gespeicherten Antworten, ohne neue Anfrage:
 
 **Alle zehn Seiten liegen seit dem Abend des 2026-10-12 unter dem heutigen Regelstand** (neu
 ausgewertet, kein Abruf). Ein Lauf davor ist mit einem Lauf danach nicht vergleichbar.
+
+> ⛔ **EINGEFROREN bis nach dem Sichtbarkeits-Vollauf am 01.11.2026** (Dirk, 2026-10-12): Der
+> Regelstand `stufen-dreiwertig-urheber-hostgrenze-werktitel-markenklasse` bleibt, wie er ist.
+> **Keine Änderungen an Zählregeln, Varianten, Klassen oder Hash-Bestandteilen** – also auch kein
+> neuer Eintrag in `marke_varianten`, `personenname`, `kontextmerkmale`, `werktitel`,
+> `werktitel_mit_kontext`, `branche` oder einem Klassenfeld, und keine Änderung an
+> `sichtbarkeit.yml`. Sonst hätte der Vollauf keinen Vorlauf unter gleichem Hash.
+> **Neue Regelideen werden nur gesammelt:** in `OFFEN.md` im Repo `websonde`, unter der Überschrift
+> „nach dem Vollauf 01.11.". Aus einem anderen Repo heraus: dort eintragen lassen, nichts umbauen.
 
 `sonde sichtbarkeit --neu-auswerten` bewertet die jüngsten Datensätze der Ablage nach dem heutigen
 Regelstand neu: dieselben Antworten, **kein API-Aufruf, keine Kosten**, ein neuer Datensatz neben dem
