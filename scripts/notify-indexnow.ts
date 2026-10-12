@@ -1,4 +1,5 @@
 import { loadBooks } from "../src/lib/load-books.js";
+import { warnzeilen } from "./lib/indexnow-warnung.js";
 
 const KEY = "7f3a8c2b9d4e1f5a6c8b3d2e7f1a9c4b";
 const HOST = "books.werner-productions.com";
@@ -33,6 +34,7 @@ const payload = JSON.stringify({
 console.log(`Submitting ${urlList.length} URLs to ${ENDPOINTS.length} endpoints…`);
 
 let okCount = 0;
+const gescheitert: { stelle: string; grund: string }[] = [];
 
 for (const endpoint of ENDPOINTS) {
   try {
@@ -46,10 +48,16 @@ for (const endpoint of ENDPOINTS) {
     console.log(`${ok ? "✓" : "✗"} ${endpoint.name}: HTTP ${res.status} ${res.statusText}`);
     if (body) console.log(`   ${body.trim()}`);
     if (ok) okCount++;
+    else gescheitert.push({ stelle: new URL(endpoint.url).hostname, grund: `${res.status} ${res.statusText}`.trim() });
   } catch (err) {
     console.error(`✗ ${endpoint.name}: ${err instanceof Error ? err.message : String(err)}`);
+    gescheitert.push({ stelle: new URL(endpoint.url).hostname, grund: err instanceof Error ? err.message : String(err) });
   }
 }
+
+// Je gescheiterter Stelle eine sichtbare Zeile und in Actions eine Annotation (Dirk, 2026-10-12).
+// Ob der Lauf rot endet, entscheidet weiter die Regel darunter.
+for (const zeile of warnzeilen(gescheitert)) console.log(zeile);
 
 if (okCount > 0) {
   console.log(`✓ ${okCount}/${ENDPOINTS.length} endpoints accepted ${urlList.length} URLs`);
