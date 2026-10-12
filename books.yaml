@@ -1952,7 +1952,12 @@ books:
       en: "Suicide Prevention: Basics"
   - slug: the-battle-within
     title: "The Battle Within: A Guide to Overcoming Inner Struggles"
-    language: de
+    # Stand bis 2026-10-12 auf `de`, und das war falsch: Das Buch ist englisch, auch als
+    # Hoerbuch (Dirk, 2026-10-12; im Hub-Repo seit 2026-09-19 berichtigt, werner-identity
+    # fuehrt werksprache "en"). Es traegt als einziges eine selbst zugeteilte deutsche ISBN
+    # (978-3); die Herkunft der Nummer ist nicht die Werksprache. Der Wert steuert auf der
+    # Buchseite `inLanguage`, `<html lang>`, `og:locale` und den eigenen hreflang-Eintrag.
+    language: en
     authors:
       - ref: https://werner-productions.com/#person
     workTranslation: []
