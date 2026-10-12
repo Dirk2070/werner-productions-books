@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-11.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-11.2** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,26 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-11 CEST.** Neu in dieser Fassung (`2026-10-11.1`):
+**Stand 2026-10-11 CEST.** Neu in dieser Fassung (`2026-10-11.2`), alles aus der Probe des Handbuchs
+über `werner-productions` und aus dem ersten Vollauf der Sichtbarkeit:
+
+- **Stufe 1 zeigt je Seite den jüngsten Lauf**, und `sonde daten --url <Seite>` schränkt auf eine Seite
+  ein. Vorher standen dort zehn Läufe einer einzigen Seite.
+- **Stufe 2 holt die Vorschrift der eigenen Seite**, erst ohne einen eigenen Lauf die der Nachbarseite.
+  Vorher gewann für `werner-productions.com/` Nacht für Nacht die englische Fassung.
+- **Poe ist in der Sichtbarkeitsreihe verkleinert** (Dirk, 2026-10-11): GPT im vollen Umfang, Claude nur
+  in der Stichprobe, Gemini bei Poe entfällt. Ein Vollauf ist mit **10,10 $** geschätzt statt mit 23,62 $.
+- **Der erste Vollauf ist gefahren** (440 von 440 Anfragen, 9,90 $); der Ausgangsstand steht im
+  Abschnitt „Faktor 5: eigene Ergebnisreihe".
+- ⛔ **Zwei Berichtigungen an der Ergebnisreihe, am Vollauf gefunden:** Bei der Markenfrage ist
+  `genannt` ohne Beleg außerhalb des Echos `nicht_geprueft` statt `nein`, und ein fehlender
+  Sucheintrag ist bei Poe mit GPT `gesucht nein` statt `unbestimmt`. Neu: `sonde sichtbarkeit
+  --neu-auswerten` (dieselben Antworten, kein Abruf).
+- **Zwei Meldungen berichtigt:** Ein entfernter Vorschriftsteil steht in Stufe 2 unter „Die
+  VORSCHRIFT weicht ab", nicht unter Umgebung; `sonde sichtbarkeit` sagt in einem fremden Ordner,
+  dass es im Arbeitsordner von websonde läuft.
+
+Neu in `2026-10-11.1` war:
 
 - ⛔ **Faktor 5 ist nicht mehr Teil der Note.** „Werden Sie in KI-Antworten tatsächlich genannt?" ist eine
   **eigene Ergebnisreihe** mit eigenem Hash: `sonde sichtbarkeit` (neuer Abschnitt „Faktor 5: eigene
@@ -234,8 +253,28 @@ beliebige Domain.
 ```bash
 sonde daten --ordner oberflaeche          # Weg A, lokal, ohne Netz und Token
 sonde daten --von https://websonde.app    # Weg B, über Cloudflare Access
+sonde daten --von https://websonde.app --url https://werner-productions.com/   # eine Seite
 sonde daten --von https://websonde.app --roh   # als JSON
 ```
+
+**Ohne `--url` steht je Seite der jüngste Lauf da**, nach Adresse geordnet:
+
+```
+623 Laeufe ueber 13 Seiten, erzeugt 2026-10-11T01:07:10.407289+00:00
+Je Seite der juengste Lauf (--url <Seite> zeigt ihren Verlauf, --roh alles):
+  2026-10-11T01:06:56.044158+00:00   7.1  https://books.werner-productions.com/
+  2026-10-11T01:03:01.990188+00:00   8.0  https://clear-arrows.com/
+  …
+```
+
+**Mit `--url` steht der Verlauf dieser einen Seite da** (die letzten zehn Läufe, ihr Bestand in der
+Zeile darüber); mit `--roh` dazu nur ihre Einträge als JSON. Eine Seite, die der Index nicht kennt,
+ist Exit 2 mit der Liste der bekannten Seiten, kein leeres Ergebnis. Ist der jüngste Lauf einer Seite
+ein Ausfall, steht darunter der letzte Lauf mit Note.
+
+⚠️ **Bis zur Fassung vom 2026-10-11 zeigte das Kommando die letzten zehn Einträge des Index**, und der
+ist nach Adresse geordnet: zehn Läufe von `werner-productions.com/index-en`, für jede andere Seite
+nichts. Wer eine ältere Installation hat, bekommt seine Seite nur über `--roh`.
 
 **Ein Kommando für zwei Quellen, weil der Vertrag das Format ist und nicht der
 Ort:** `daten/index.json` nennt jeden Lauf mit `datei`, `url`, `zeitpunkt`,
@@ -270,14 +309,21 @@ fremdes Repo hat keine. `_seite_fuer()` gibt dann ein blankes
 `Seite(url=url)` zurück: **die Messung läuft mit Vorgabewerten und sagt es
 nicht.**
 
-`--vorschrift-von` holt die Vorschrift aus dem letzten veröffentlichten Lauf
-derselben Domain (`profil.bestandteile`, im Klartext) und **bricht ab, wenn
-keiner vorliegt** — Exit 2, kein Rückfall.
+`--vorschrift-von` holt die Vorschrift aus dem jüngsten veröffentlichten Lauf
+**genau dieser Seite** (`profil.bestandteile`, im Klartext). Nur wenn die Reihe
+die Seite nicht kennt, nimmt es den jüngsten Lauf derselben Domain und sagt das
+(nächster Abschnitt). Liegt auch davon keiner vor, **bricht es ab** — Exit 2,
+kein Rückfall.
+
+⚠️ **Bis 2026-10-11 gewann der jüngste Lauf der Domain.** Der Nachtlauf misst
+eine Sprachfassung direkt nach ihrer Hauptseite; für `werner-productions.com/`
+kam deshalb die Vorschrift von `…/index-en`, obwohl die eigene veröffentlicht
+war. Gefunden an genau dem Beispielaufruf oben.
 
 ### `--url` bestimmt, **was** gemessen wird
 
-Eine Vorschrift gilt für **eine** Seite. Wer eine andere derselben Domain
-messen will, gibt sie in `--url` an, und sie gewinnt:
+Eine Vorschrift gilt für **eine** Seite. Wer eine Seite misst, die die Reihe
+nicht kennt, bekommt die Vorschrift der Nachbarseite, und `--url` gewinnt:
 
 ```
   Die Vorschrift gilt fuer https://werner-productions.com/, gemessen wird
@@ -564,7 +610,8 @@ Calm, 7mind; CloudConvert, Pandoc, Adobe. **Eine Null, die nur steigen kann, ist
 die brauchbarste Grundlinie, die es gibt.**
 ⚠️ Dieser Stand stammt aus der Messung vor 2026-10-11 (andere Fragen,
 Erwähnungsrate statt Stufen) und ist mit der Ergebnisreihe **nicht vergleichbar**;
-ihr eigener Ausgangsstand entsteht mit dem ersten Vollauf.
+ihr eigener Ausgangsstand ist der erste Vollauf vom 2026-10-11 (Abschnitt „Faktor 5: eigene
+Ergebnisreihe").
 
 ⚠️ **Die Zitierrate hängt am Modell, die Erwähnungsrate nicht** (alte Messung,
 2026-09-17). Gemini nannte in
@@ -576,7 +623,7 @@ strukturierte Quellen trägt (`quellen_strukturiert` in `sichtbarkeit.yml`); wo
 nicht, ist `zitiert` dort `nicht_geprueft`, nie null.
 
 ⛔ **`sonde sichtbarkeit` und `zitate` kosten Geld.** Ein Vollauf der
-Ergebnisreihe ist mit **23,62 $** geschätzt (755 Anfragen, Preise vom
+Ergebnisreihe ist mit **10,10 $** geschätzt (440 Anfragen, Preise vom
 2026-10-11), ein Einzelseitenlauf mit einer Frage über alle drei Wege mit
 1,29 $. Keines der beiden Kommandos gehört in einen Workflow, der bei jedem Push
 feuert. **Erst der Schätzmodus** (`sonde sichtbarkeit --nur-kosten`, bei `zitate`
@@ -757,7 +804,8 @@ Messung nicht, auch wenn ein Mensch es sofort erkennt. Das Merkmal muss
 höchstens 150 Zeichen vom Namen entfernt stehen; ein Name ohne Merkmal wird als
 `unbestaetigt` mitgeschrieben und nicht gezählt. **Eine Schreibweise, die schon
 in der Frage steht, zählt nicht** (seit 2026-10-11) — bei der Markenfrage wäre
-sie ein Echo.
+sie ein Echo. Fehlt dort jeder weitere Beleg, ist `genannt` **`nicht_geprueft`**,
+nicht `nein`: Der Name steht ja im Text, er belegt nur nichts.
 
 **8. Ein „0 von 5" in der Ergebnisreihe sagt nichts, solange die Frage ungeprüft ist.**
 Die Stufe `genannt` einer namensfreien Klasse misst immer *zwei* Dinge zugleich:
@@ -768,8 +816,8 @@ im Datensatz) und sieh nach, wer darin steht.** Stehen dort deine Wettbewerber,
 ist die Null echt; stehen dort Analysten oder Plattformen, misst du die Frage.
 Dasselbe gilt für den Nenner: Gezählt werden nur Antworten mit `gesucht=ja` —
 „0 von 2" ist eine andere Aussage als „0 von 5". Und eine Null kann am **Weg**
-liegen statt an der Seite: Im Beleglauf vom 2026-10-11 nannte dasselbe Modell
-`dirkwernerbooks.com` über Poe in 5 von 5 Antworten und über DataForSEO in 0 von 5.
+liegen statt an der Seite: Im Vollauf vom 2026-10-11 fand Perplexity `sundamind.com`
+bei der Markenfrage in 5 von 5 Antworten, Poe mit GPT zitierte die Domain in 0 von 5.
 
 **9. Wer eine Prüfung lockert, fährt die Verfälschungsprobe noch einmal.** Eine
 Lockerung ist eine Änderung am Wächter und braucht dieselbe Probe wie sein Bau —
@@ -1377,12 +1425,21 @@ Note, nicht in ihrem `config_hash`, nicht im Nachtlauf**, mit eigenem Hash und e
 
 | Weg | Umfang | Modelle | Zugang |
 |---|---|---|---|
-| Poe (direkte API, kein MCP-Proxy) | voll | `GPT-5.4`, `Claude-Sonnet-4.6`, `Gemini-3.1-Pro` | `POE_API_KEY` |
+| Poe (direkte API, kein MCP-Proxy) | `GPT-5.4` **voll**, `Claude-Sonnet-4.6` nur **Stichprobe** | zwei Modelle | `POE_API_KEY` |
 | Perplexity Agent API | voll | `perplexity/sonar` | `PERPLEXITY_API_KEY` |
 | DataForSEO | **Stichprobe**, zwei Seiten | `gpt-5.4-2026-03-05`, `claude-sonnet-4-6`, `gemini-3.1-pro-preview` | `DATAFORSEO_KEY_FILE` |
 
 Die Stichprobe (`dirkwernerbooks.com`, `sundamind.com`) steht in `sichtbarkeit.yml` und im Hash. Sie
 dient der Kreuzprüfung der Wege und wird nie automatisch erweitert.
+
+⛔ **Poe ist seit Vorschrift Version 2 klein** (Dirk, 2026-10-11). Drei Poe-Modelle im vollen Umfang
+kosteten je Vollauf 19,37 $, so viel wie ein Monatsabo. Geblieben ist `GPT-5.4` im vollen Umfang
+(das billigste, sucht belegbar, liefert Quellen); `Claude-Sonnet-4.6` läuft nur noch auf den zwei
+Stichprobenseiten als Gegenstück zu DataForSEO; `Gemini-3.1-Pro` entfällt bei Poe, weil dort jede
+Antwort `gesucht=unbestimmt` war und keine in die Hauptverteilung zählte. Ein Modell kann in der
+Vorschrift den Umfang seines Wegs überschreiben (`umfang: stichprobe` am Modell); der wirksame
+Umfang steht im Hash. **Wer ein Poe-Modell zurückholt oder hebt, ändert Kosten und Hash** — das ist
+eine Entscheidung Dirks, kein Handgriff.
 
 **Vier Frageklassen, Wortlaut von Dirk und exakt so in der Vorschrift und im Hash:**
 
@@ -1404,11 +1461,11 @@ Jede Frage läuft **fünfmal** je Weg und Modell. Fehlt einer Seite ein Feld, is
 |---|---|---|
 | `gefunden` | die eigene Domain steht in der Trefferliste der Suche | nur wo die Antwort die Treffer trägt (Perplexity) |
 | `zitiert` | die eigene Domain steht in einer **strukturierten** Quelle | nur wo die Antwort Quellen als Feld trägt; **nie aus dem Antworttext gelesen** |
-| `genannt` | eine Schreibweise der Marke steht im Antworttext | überall; Regeln unter Regel 7 |
+| `genannt` | eine Schreibweise der Marke steht im Antworttext | überall; Regeln unter Regel 7. Bei der **Markenfrage** nur positiv belegbar (Domain, weitere Schreibweise, Personenname mit Merkmal); ohne solchen Beleg `nicht_geprueft`, nie `nein` |
 
 Dazu das Pflichtfeld **`gesucht`** (`ja`, `nein`, `unbestimmt`). Die Hauptverteilung zählt nur Antworten
-mit `gesucht=ja`; Antworten mit `unbestimmt` stehen getrennt daneben. Bei Poe mit Gemini ist das der
-Regelfall: Die Antwort trägt Quellen, aber keinen Sucheintrag (Beleglauf: 5 von 5 `unbestimmt`).
+mit `gesucht=ja`; Antworten mit `unbestimmt` stehen getrennt daneben. Bei Poe mit Gemini war das der
+Regelfall (Beleglauf: 5 von 5 `unbestimmt`), deshalb läuft das Modell dort nicht mehr.
 
 **So liest du das Ergebnis.** Je Seite, Weg, Modell und Klasse eine Zeile:
 
@@ -1444,7 +1501,7 @@ sonde sichtbarkeit --url https://example.com/ --ablage kontrolle/<Datum>_<Anlass
 
 | Exit | Bedeutung |
 |---|---|
-| 0 | alles gemessen, oder Schätzmodus |
+| 0 | alles gemessen, Schätzmodus oder Neuauswertung |
 | 2 | nicht gestartet (Konfiguration, Zugang, **Kosten nicht bestätigt**), abgebrochen oder nicht vollständig gemessen |
 
 **Kosten** (Preise vom 2026-10-11, gemessen an zwei bis drei Proben je Modell, in
@@ -1452,11 +1509,11 @@ sonde sichtbarkeit --url https://example.com/ --ablage kontrolle/<Datum>_<Anlass
 
 | Lauf | Anfragen | Schätzung |
 |---|---:|---:|
-| Vollauf, 10 Seiten | 755 | 23,62 $ |
-| davon Poe | 510 | 19,37 $ |
+| Vollauf, 10 Seiten | 440 | 10,10 $ |
+| davon Poe (GPT voll, Claude Stichprobe) | 195 | 5,85 $ |
 | davon Perplexity | 170 | 0,78 $ |
 | davon DataForSEO (Stichprobe) | 75 | 3,47 $ |
-| Einzelseitenlauf `dirkwernerbooks.com` (eine Frage) | 35 | 1,29 $ |
+| Einzelseitenlauf `werner-productions.com` (eine Frage, nicht in der Stichprobe) | 10 | 0,15 $ |
 
 - Ist die Preistabelle älter als 30 Tage, steht im Schätzmodus eine Warnung neben der Summe.
 - Fehlt einer Seite `branche` oder `einsatzzweck`, nennt der Schätzmodus die Seite, das Feld und die
@@ -1474,8 +1531,47 @@ sonde sichtbarkeit --url https://example.com/ --ablage kontrolle/<Datum>_<Anlass
 in `sites.yml` steht, wird abgelehnt (ohne Marke und Branche gibt es keine Frage). **Ein fremdes Repo
 misst die Sichtbarkeit deshalb nicht selbst**; der Lauf findet im Arbeitsordner von `websonde` statt.
 
-**Der Beleglauf** (2026-10-11, `dirkwernerbooks.com`, nur Markenfrage, 35 von 35 Anfragen gemessen,
-geschätzt 1,29 $, tatsächlich 1,26 $):
+**Der erste Vollauf** (2026-10-11, 21:44 bis 22:39 CEST, Vorschrift Version 2, 10 Seiten, 34 Fragen,
+**440 von 440 Anfragen gemessen**, geschätzt 10,10 $, tatsächlich **9,90 $**). Das ist der Ausgangsstand
+der Reihe:
+
+- **Namensfreie Klassen, eigene Seiten:** In 4 von 215 Antworten mit Suche wird eine eigene Seite
+  genannt, alle bei `shadow-integrator.com` über Perplexity (Anbieter 1 von 5, Empfehlung 3 von 5).
+  Jede andere Zeile der sieben Seiten mit `branche` steht auf 0.
+- **Die Referenz** `developers.cloudflare.com`: Empfehlungsfrage 5 von 5 über Poe-GPT und über
+  Perplexity, Anbieterfrage 1 von 5 und 0 von 5.
+- **GPT sucht bei der Orientierungsfrage nie** (40 von 40 Antworten ohne Suche). In dieser Klasse kann
+  eine Seite bei GPT nicht gefunden werden; die Zeilen stehen getrennt von der Hauptverteilung.
+- **Die Nachbarschaft stimmt bei fünf Seiten** (die Antworten nennen die erwartbaren Wettbewerber).
+  Bei `books.werner-productions.com` liest sich die Empfehlungsfrage als Autor, der einen Verlag sucht;
+  dort misst die Null die Frage. Bei `clear-arrows.com` ruft die Anbieterfrage Spieleportale auf.
+- **Markenfrage:** Perplexity findet die eigene Domain bei sieben von neun Seiten in 5 von 5
+  Antworten (`insightvue.app` und `books.werner-productions.com`: 2 von 5). Poe-GPT zitiert sie bei
+  `sundamind.com` und `clear-arrows.com` in 0 von 5: SundaMind wird über `dirkwernerbooks.com`
+  beschrieben, „Clear Arrows" für ein gleichnamiges Handy-Spiel gehalten, „Werner Productions" mehrfach
+  für eine Filmfirma (eigene Domain zitiert in 2 von 5).
+- **Übereinstimmung der Wege** (Stichprobe, 10 Zellen): 6 gleich, 0 abweichend, 4 nicht vergleichbar.
+
+⛔ **Zwei Berichtigungen, an diesem Lauf gefunden** (Regelstand `stufen-dreiwertig-echo-ungeprueft`):
+
+- **Bei der Markenfrage ist `genannt` ohne Beleg außerhalb des Echos `nicht_geprueft`, nie `nein`.**
+  In 92 Antworten stand der Markenname im Text, und die Stufe lautete trotzdem `nein`, auch bei der
+  Referenz. Gezählt hatte nur, wer zusätzlich die Domain ausschrieb; gemessen wurde also die
+  Zitierweise des Modells. **Ein „0 von 5" bei der Markenfrage aus einem Datensatz vor dieser
+  Berichtigung ist kein Befund.**
+- **`suche_belegbar` am Modell:** Wo ein Weg jede Suche als Eintrag zeigt (Poe mit GPT: 120 von 120
+  Antworten mit Sucheintrag tragen Quellen, 50 von 50 ohne ihn keine), ist ein fehlender Eintrag
+  `gesucht nein` statt `unbestimmt`.
+
+`sonde sichtbarkeit --neu-auswerten` bewertet die jüngsten Datensätze der Ablage nach dem heutigen
+Regelstand neu: dieselben Antworten, **kein API-Aufruf, keine Kosten**, ein neuer Datensatz neben dem
+alten (Feld `neu_ausgewertet`). So ist der Ausgangsstand oben entstanden. Alle Zeilen und die Belege:
+`docs/2026-10-11_2246-CEST_Auswertung-Sichtbarkeit-erster-Vollauf-Verteilungen-Kosten-zwei-Regelberichtigungen.md`.
+
+**Der Beleglauf davor** (2026-10-11, Vorschrift Version 1 mit drei Poe-Modellen, `dirkwernerbooks.com`,
+nur Markenfrage, 35 von 35 Anfragen gemessen, geschätzt 1,29 $, tatsächlich 1,26 $; mit dem Vollauf
+nicht vergleichbar, anderer Hash). ⚠️ Die Spalte „genannt" steht hier nach dem Regelstand VOR der
+Echo-Berichtigung: „0 von 5" bei Claude über DataForSEO hieße heute „nicht geprüft".
 
 | Weg | Modell | gesucht | genannt | zitiert | gefunden |
 |---|---|---|---|---|---|
@@ -1489,9 +1585,7 @@ geschätzt 1,29 $, tatsächlich 1,26 $):
 
 **Was das belegt und was nicht.** Der Adapter läuft über alle drei Wege. Eine Markenfrage misst die
 Bekanntheit des Namens, nicht die Auffindbarkeit im Thema: 5 von 5 ist hier kein Wert, den man neben
-die 0,0 % der alten Kategoriefragen stellen kann. **Keine namensfreie Klasse ist bisher gemessen**; ob
-die drei Kategorieklassen das richtige Anbieterfeld aufrufen, zeigt erst der Vollauf, und der ist nicht
-gefahren. Die Abweichung bei Claude (Poe 5 von 5, DataForSEO 0 von 5) ist ein Befund über den Weg: Über
+die 0,0 % der alten Kategoriefragen stellen kann. Die namensfreien Klassen misst erst der Vollauf oben. Die Abweichung bei Claude (Poe 5 von 5, DataForSEO 0 von 5) ist ein Befund über den Weg: Über
 DataForSEO stellte das Modell je Antwort eine Suchanfrage, zitierte nur Händler und nannte den Namen
 ohne Kontextmerkmal. Zwei vergleichbare Zellen reichen nicht für eine Aussage über die Messwege.
 
