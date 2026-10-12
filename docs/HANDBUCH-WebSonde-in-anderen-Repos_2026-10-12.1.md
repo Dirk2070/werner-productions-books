@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-11.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-12.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,26 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-11 CEST.** Neu in dieser Fassung (`2026-10-11.2`), alles aus der Probe des Handbuchs
+**Stand 2026-10-12 CEST.** Neu in dieser Fassung (`2026-10-12.1`):
+
+- ⛔ **Die Ergebnisreihe der Sichtbarkeit ist am 2026-10-12 dreimal gebrochen** (Regelstand jetzt
+  `stufen-dreiwertig-urheber-hostgrenze`). Die Note und ihr `config_hash` sind nicht berührt. Der
+  Laufbericht weist den Bruch selbst aus (Zeile „BRUCH DER ERGEBNISREIHE", Feld `vorlauf`).
+- **Kontextmerkmale zählen nur als ganzes Wort oder ganze Phrase** (**Regel 7**). „Autorennfahrer"
+  bestätigt kein Merkmal „Autor"; gebeugte Formen werden eigens eingetragen.
+- ⛔ **Bei der Markenfrage ist der Personenname kein `genannt`.** Dafür gibt es die eigene Angabe
+  **`urheber_zugeordnet`** (ja, nein, falsch, nicht geprüft), getrennt gezählt, nie verrechnet.
+- **Die eigene Domain zählt nur als ganzer Host.** Eine Unterdomain ist eine andere Seite; das gilt für
+  `genannt`, `zitiert` und `gefunden`.
+- **Feld je Frageklasse:** `branche_anbieter`, `branche_empfehlung`, `branche_orientierung`
+  übersteuern `branche` für genau ihre Klasse.
+- **Der Laufbericht stellt jeden Lauf neben den letzten unter gleichem Hash**; ein monatlicher
+  Schätzlauf meldet die Kosten eines Vollaufs und startet nie einen bezahlten Lauf.
+- **Ein Vollauf ist jetzt mit 9,80 $ geschätzt** (420 Anfragen), nicht mehr mit 10,10 $.
+- **Neuer Abschnitt „Nach dem Deploy: IndexNow"** (Regel Dirks vom 2026-10-12, einheitliche Wertung,
+  Standardweg für `insightvue.app`).
+
+Neu in `2026-10-11.2` war, alles aus der Probe des Handbuchs
 über `werner-productions` und aus dem ersten Vollauf der Sichtbarkeit:
 
 - **Stufe 1 zeigt je Seite den jüngsten Lauf**, und `sonde daten --url <Seite>` schränkt auf eine Seite
@@ -807,6 +826,23 @@ in der Frage steht, zählt nicht** (seit 2026-10-11) — bei der Markenfrage wä
 sie ein Echo. Fehlt dort jeder weitere Beleg, ist `genannt` **`nicht_geprueft`**,
 nicht `nein`: Der Name steht ja im Text, er belegt nur nichts.
 
+Drei Verschärfungen vom 2026-10-12, alle an gespeicherten Antworten nachgezählt:
+
+- **Ein Kontextmerkmal zählt nur als ganzes Wort oder ganze Phrase.** „Autor" trifft nicht
+  „Autorennfahrer", „Buch" nicht „Lehrbuch". Folge: Gebeugte Formen stehen nicht mehr von selbst
+  mit drin (`Psychologe` findet `Psychologen` nicht) und werden eigens eingetragen.
+- **Bei der Markenfrage zählt der Personenname nicht als `genannt`.** Die Marke steht in der
+  Frage; ein Urheber im Text belegt die Marke nicht. Was der Name dort aussagt, steht in der
+  eigenen Angabe `urheber_zugeordnet` (Abschnitt „Faktor 5: eigene Ergebnisreihe").
+- **Die eigene Domain zählt nur als ganzer Host**, `www.` eingeschlossen. Vorher war sie eine
+  Teilzeichenkette: Die Buchseite auf einer Unterdomain zählte bei der Dachseite mit.
+
+⛔ **Vor jedem neuen Eintrag in `marke_varianten`, `personenname` oder `kontextmerkmale` die
+gespeicherten Antworten durchsuchen.** Zwei Fälle vom 2026-10-12: „ClearArrows" stand 19-mal in den
+Antworten, jedes Mal als Kennung einer fremden, gleichnamigen App, und blieb draußen. Die Kurzform
+„Markdownly" blieb draußen, weil es ein fremdes Werkzeug `markdownly.js` gibt. Eine Variante, die
+plausibel aussieht, kann einen Fremden zählen.
+
 **8. Ein „0 von 5" in der Ergebnisreihe sagt nichts, solange die Frage ungeprüft ist.**
 Die Stufe `genannt` einer namensfreien Klasse misst immer *zwei* Dinge zugleich:
 wie sichtbar die Seite ist **und** ob die Frage die richtige Nachbarschaft
@@ -1455,17 +1491,51 @@ Jede Frage läuft **fünfmal** je Weg und Modell. Fehlt einer Seite ein Feld, is
 (`dirkwernerbooks.com`, `werner-productions.com`) laufen nur die Markenfrage und stehen im Ergebnis als
 „nur Marke, Kategorie nicht geprüft". Sprachfassungen (`fassung_von`) laufen nicht.
 
+**Feld je Frageklasse (seit 2026-10-12).** `branche` speist alle drei namensfreien Klassen zugleich.
+Ruft eine Klasse die richtige Nachbarschaft auf und eine andere nicht, übersteuert ein eigenes Feld
+`branche` für genau diese Klasse:
+
+| Schlüssel in `sites.yml` | gilt für |
+|---|---|
+| `branche_anbieter` | nur die Anbieterfrage |
+| `branche_empfehlung` | nur die Empfehlungsfrage |
+| `branche_orientierung` | nur die Orientierungsfrage |
+
+- Fehlt das Klassenfeld, gilt `branche` wie bisher. Ist `branche` leer, läuft nur die Klasse mit Feld.
+- Ein Schlüssel ohne passende Klasse ist ein Fehler (Exit 2), kein stilles Nichts.
+- Die Hinweiszeile des Schätzmodus nennt die Klasse, die über ein Klassenfeld läuft; der Datensatz
+  trägt je Frage `branche_aus`.
+- Im Hash der Ergebnisreihe steht das Feld nur bei Seiten, die eins tragen. Nicht im `config_hash`
+  der Note.
+- Erster Einsatz: `clear-arrows.com` trägt nur `branche_empfehlung` (ein einzelnes Spiel hat keinen
+  Anbietermarkt). **Auch hier gilt Regel 8: erst die Nachbarschaftsprobe, dann der Eintrag.**
+
 **Drei Stufen je Antwort, je dreiwertig (`ja`, `nein`, `nicht_geprueft`):**
 
 | Stufe | heißt | woher |
 |---|---|---|
 | `gefunden` | die eigene Domain steht in der Trefferliste der Suche | nur wo die Antwort die Treffer trägt (Perplexity) |
 | `zitiert` | die eigene Domain steht in einer **strukturierten** Quelle | nur wo die Antwort Quellen als Feld trägt; **nie aus dem Antworttext gelesen** |
-| `genannt` | eine Schreibweise der Marke steht im Antworttext | überall; Regeln unter Regel 7. Bei der **Markenfrage** nur positiv belegbar (Domain, weitere Schreibweise, Personenname mit Merkmal); ohne solchen Beleg `nicht_geprueft`, nie `nein` |
+| `genannt` | eine Schreibweise der Marke steht im Antworttext | überall; Regeln unter Regel 7. Bei der **Markenfrage** nur positiv belegbar (Domain als ganzer Host, weitere Schreibweise); der Personenname zählt dort **nicht** (seit 2026-10-12). Ohne solchen Beleg `nicht_geprueft`, nie `nein` |
 
 Dazu das Pflichtfeld **`gesucht`** (`ja`, `nein`, `unbestimmt`). Die Hauptverteilung zählt nur Antworten
 mit `gesucht=ja`; Antworten mit `unbestimmt` stehen getrennt daneben. Bei Poe mit Gemini war das der
 Regelfall (Beleglauf: 5 von 5 `unbestimmt`), deshalb läuft das Modell dort nicht mehr.
+
+**`urheber_zugeordnet`, eine eigene Angabe (seit 2026-10-12).** Nur bei der Markenfrage, getrennt von
+den drei Stufen, gezählt und **nie mit `genannt` verrechnet**. Im Laufbericht eine eigene Zeile
+„Urheber zugeordnet":
+
+| Wert | heißt |
+|---|---|
+| `ja` | der `personenname` der Seite steht mit einem ihrer Kontextmerkmale im Text |
+| `falsch` | beim Namen steht ein Namensvetter-Kontext, oder ein anderer Personenname steht in einer Urheberrolle |
+| `nein` | kein Urheber genannt |
+| `nicht_geprueft` | die Seite trägt keinen `personenname`, oder der Name steht ohne Merkmal da |
+
+Das Muster für „anderer Name" kennt nur ausdrückliche Rollenwörter (entwickelt, gegründet, Gründer,
+developed by …). Was es nicht kennt, bleibt `nein`, nie `falsch`. Der Namensvetter-Kontext steht im
+Hash. `personenname` trägt eine Seite nur, wenn die ausgelieferte Seite die Person als Urheber führt.
 
 **So liest du das Ergebnis.** Je Seite, Weg, Modell und Klasse eine Zeile:
 
@@ -1483,6 +1553,20 @@ oder `nicht vergleichbar`, gemessen an der Stufe `genannt` unter den Antworten m
 **Befund über die Messwege, nicht über die Seite**. Weichen mehr als ein Drittel der vergleichbaren
 Zellen ab, empfiehlt der Bericht, die Stichprobe zu erweitern; unter drei vergleichbaren Zellen meldet
 er, dass die Zahl für eine Aussage nicht reicht.
+
+**Vergleich gegen den letzten Lauf (seit 2026-10-12).** Der Laufbericht stellt jeden regulären Lauf
+neben den jüngsten früheren Datensatz der Seite **unter gleichem Hash**: je Weg, Modell, Klasse und
+Stufe die Verteilung mit Suche. Er zählt gleiche, verschiedene und nicht vergleichbare Zellen; jeder
+Unterschied steht einzeln da, mit „innerhalb" oder „AUSSERHALB der Spanne einer unveränderten Seite".
+Der Datensatz trägt dasselbe als `vergleich`.
+
+- ⚠️ **Die Spanne ist gerechnet, nicht gemessen**, und so beschriftet: zwei Standardabweichungen des
+  Unterschieds zweier Anteile bei fünf Wiederholungen. 0 gegen 2 von 5 liegt innerhalb, 0 gegen 3 von 5
+  außerhalb. Eine gemessene Spanne gibt es erst nach mehreren Vollläufen unter gleichem Hash.
+- Nie über Wege, Modelle oder Klassen hinweg. `urheber_zugeordnet` ist nicht Teil des Vergleichs.
+- **Hat sich der Hash geändert, gibt es keinen Vergleich, sondern eine Bruchzeile:** „BRUCH DER
+  ERGEBNISREIHE" je Seite, mit dem Hash des Vorlaufs und den geänderten Bestandteilen. Der Datensatz
+  trägt das als `vorlauf`.
 
 **Kommandos:**
 
@@ -1509,12 +1593,15 @@ sonde sichtbarkeit --url https://example.com/ --ablage kontrolle/<Datum>_<Anlass
 
 | Lauf | Anfragen | Schätzung |
 |---|---:|---:|
-| Vollauf, 10 Seiten | 440 | 10,10 $ |
-| davon Poe (GPT voll, Claude Stichprobe) | 195 | 5,85 $ |
-| davon Perplexity | 170 | 0,78 $ |
+| Vollauf, 10 Seiten, 32 Fragen (Stand 2026-10-12) | 420 | 9,80 $ |
+| davon Poe (GPT voll, Claude Stichprobe) | 185 | 5,59 $ |
+| davon Perplexity | 160 | 0,74 $ |
 | davon DataForSEO (Stichprobe) | 75 | 3,47 $ |
 | Einzelseitenlauf `werner-productions.com` (eine Frage, nicht in der Stichprobe) | 10 | 0,15 $ |
 
+- Der erste Vollauf vom 2026-10-11 war mit 440 Anfragen und 10,10 $ geschätzt. Seither läuft
+  `clear-arrows.com` nur noch die Empfehlungs- und die Markenfrage; daher 420 und 9,80 $. **Die Zahl
+  gilt zu ihrem Datum; maßgeblich ist immer die Ausgabe von `--nur-kosten`.**
 - Ist die Preistabelle älter als 30 Tage, steht im Schätzmodus eine Warnung neben der Summe.
 - Fehlt einer Seite `branche` oder `einsatzzweck`, nennt der Schätzmodus die Seite, das Feld und die
   Klassen, die dadurch nicht geprüft werden — **vor** der Kostenfreigabe.
@@ -1525,6 +1612,14 @@ sonde sichtbarkeit --url https://example.com/ --ablage kontrolle/<Datum>_<Anlass
   Modell später. Im Beleglauf meldete der Laufkopf deshalb 0,81 $ statt 1,26 $ (behoben, `d41e8ee`).
 
 ⛔ **Regel 11 gilt für jeden Lauf:** erst der Schätzmodus, dann Dirks Ok, dann `--kosten-bestaetigt`.
+
+**Monatlicher Schätzlauf (seit 2026-10-12).** Die Aufgabe „WebSonde Sichtbarkeit Schaetzung
+(monatlich)" läuft am 1. jedes Monats um 05:00 (`sichtbarkeit-schaetzlauf.ps1`). Sie führt nur
+`sonde sichtbarkeit --nur-kosten` aus, schreibt `protokolle\letzter-sichtbarkeit-schaetzlauf.txt`
+(Schätzung je Weg, Summe, „kein Lauf gestartet") und zeigt ein Meldungsfenster. **Sie startet nie
+einen bezahlten Lauf**; ein Wächter hält fest, dass der Bestätigungsschalter in keiner ausgeführten
+Zeile steht. Die Aufgabe läuft interaktiv, also nur bei angemeldetem Benutzer, und holt einen
+verpassten Start nach; ob das Nachholen greift, ist nicht gemessen.
 
 **Aus einem anderen Repo:** Das Kommando liest `sites.yml`, `sichtbarkeit.yml` und
 `sichtbarkeit-preise.yml` aus dem Arbeitsordner und kennt kein `--vorschrift-von`. Eine URL, die nicht
@@ -1563,9 +1658,23 @@ der Reihe:
   Antworten mit Sucheintrag tragen Quellen, 50 von 50 ohne ihn keine), ist ein fehlender Eintrag
   `gesucht nein` statt `unbestimmt`.
 
+⛔ **Drei weitere Brüche am 2026-10-12** (Regelstand jetzt `stufen-dreiwertig-urheber-hostgrenze`):
+Schreibweisen und Personenname für alle Seiten mit Ganzwort-Merkmal, dann die Berichtigung „Personenname
+ist bei der Markenfrage kein `genannt`" samt `urheber_zugeordnet`, dann die Hostgrenze. **Die Zeilen
+des ersten Vollaufs oben stehen nach dem Regelstand vom 2026-10-11** und sind mit einem Lauf ab dem
+2026-10-12 nicht vergleichbar. Nachgezählt an den gespeicherten Antworten, ohne neue Anfrage: Die
+namensfreien Klassen blieben überall unverändert, die Hostgrenze änderte keine einzige Wertung (0
+Abweichungen in 440 Antworten). Bei `dirkwernerbooks.com` fielen 10 Markenantworten von `genannt ja`
+auf `nicht_geprueft` zurück (25 → 15 von 30), weil sie nur über den Personennamen gezählt hatten.
+
+Alle zehn Seiten liegen seit dem 2026-10-12 unter dem heutigen Regelstand: acht neu ausgewertet,
+`books.werner-productions.com` und `clear-arrows.com` nachgemessen (60 Anfragen, geschätzt 0,90 $,
+tatsächlich 0,83 $), weil sich dort die Fragen geändert hatten.
+
 `sonde sichtbarkeit --neu-auswerten` bewertet die jüngsten Datensätze der Ablage nach dem heutigen
 Regelstand neu: dieselben Antworten, **kein API-Aufruf, keine Kosten**, ein neuer Datensatz neben dem
-alten (Feld `neu_ausgewertet`). So ist der Ausgangsstand oben entstanden. Alle Zeilen und die Belege:
+alten (Feld `neu_ausgewertet`). **Seiten, deren Fragen sich seither geändert haben, übergeht es** und
+nennt sie; sie brauchen einen neuen Lauf. So ist der Ausgangsstand oben entstanden. Alle Zeilen und die Belege:
 `docs/2026-10-11_2246-CEST_Auswertung-Sichtbarkeit-erster-Vollauf-Verteilungen-Kosten-zwei-Regelberichtigungen.md`.
 
 **Der Beleglauf davor** (2026-10-11, Vorschrift Version 1 mit drei Poe-Modellen, `dirkwernerbooks.com`,
@@ -1748,6 +1857,44 @@ Was du beitragen kannst, ist ein **Build-Stempel** im ausgelieferten HTML
 
 Stand des Baus: `sonde audit --url … --runs kontrolle` kann die Messung heute schon.
 Was fehlt, ist die **Auslösung** — siehe `OFFEN.md`, „Nach dem Deploy messen".
+
+## Nach dem Deploy: IndexNow (Dirk, 2026-10-12)
+
+> **Sämtliche Hauptapps müssen mit dem neuesten Stand auf IndexNow sein.**
+
+Das ist keine Messung der WebSonde, aber eine Regel für jedes Repo, das eine Hauptseite ausliefert.
+
+- **Gemeldet wird, was ausgeliefert ist, nicht was gepusht ist.** Die Meldung läuft nach dem Deploy.
+  Wo ein Push nicht deployt, gehört sie ans Ende des Deploy-Vorgangs, nicht an den Push.
+- **Einheitliche Wertung** (in `clear-arrows` und `InsightVUE-Webapp` umgesetzt, Datei
+  `scripts/lib/indexnow-wertung.mjs` mit Test): grün, wenn mindestens `api.indexnow.org` oder Bing
+  angenommen hat; rot nur, wenn keine der beiden annimmt. Yandex bleibt in der Liste.
+- **Je gescheiterter Stelle eine sichtbare Zeile** `WARNUNG: <Stelle> nicht erreicht`, in GitHub Actions
+  zusätzlich als Annotation. In den übrigen sieben Repos mit eigenem Meldeweg steht seit dem
+  2026-10-12 nur diese Warnung; ihre jeweilige Regel, wann der Lauf rot endet, ist unverändert.
+- **Ein Schritt `success` belegt nicht, dass eine Stelle angenommen hat.** Er belegt, dass das Skript
+  nicht rot endete. Im Protokoll nachlesen, welche Stelle mit welchem Status geantwortet hat.
+- ⚠️ `yandex.com/indexnow` nahm am 2026-10-12 nichts an, weder von Dirks Rechner noch aus GitHub
+  Actions. Ursache nicht belegt. Eine Warnung zu Yandex ist deshalb zunächst kein Befund über dein Repo.
+- **Proben eines Meldeskripts laufen gegen eine lokale Attrappe**, nicht gegen die echten Stellen.
+
+**Sonderfall `insightvue.app` (Firebase Hosting, Deploy von Hand).** Dort gilt seit dem 2026-10-12 nur
+noch dieser Weg; er steht ausführlich in der `CLAUDE.md` des Repos und in `REPOS.md`:
+
+1. `.firebaserc` und `firebase.json` lesen; Target-Name und Site-ID getrennt feststellen.
+2. Den Build in einen Vorschaukanal der eigenen Site legen (`firebase hosting:channel:deploy`).
+3. Im Kanal prüfen: die Schnittstelle antwortet, die Dateien sind byte-gleich mit dem Build, die
+   Ausgabe trägt keine Warnung „Unable to find a valid endpoint".
+4. Erst dann innerhalb **derselben Site-ID** auf live klonen (`firebase hosting:clone`), live noch
+   einmal prüfen, zuletzt IndexNow.
+
+Der Grund: Ein direkter Hosting-Deploy gab am 2026-10-12 eine Version frei, deren Weiterleitung zur
+Schnittstelle nicht aufgelöst war. Die Schnittstelle antwortete rund 90 Sekunden mit 404, bei Exit 0
+und „Deploy complete". ⛔ **Container ≠ App:** Die Firebase-Projekt-ID ist ein Container mit mehreren
+Apps und Sites; Projekt-ID und Site-ID nie verwechseln, nie projektweit deployen. Zwei Fallen dabei:
+Vorschauadressen tragen von Firebase aus `X-Robots-Tag: noindex` (kein Befund), und
+`firebase hosting:clone` endete mehrfach mit Exit 2 nach der Meldung „has been cloned". Entscheidend
+sind das Release und die Live-Prüfung, nicht der Exit-Code.
 
 ## Die Arbeitsteilung mit den repo-eigenen Prüfern
 
