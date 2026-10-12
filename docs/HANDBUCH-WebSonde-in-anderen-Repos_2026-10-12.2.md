@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-12.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-12.2** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,17 +10,31 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-12 CEST.** Neu in dieser Fassung (`2026-10-12.1`):
+**Stand 2026-10-12 CEST, abends.** Neu in dieser Fassung (`2026-10-12.2`):
 
-- ⛔ **Die Ergebnisreihe der Sichtbarkeit ist am 2026-10-12 dreimal gebrochen** (Regelstand jetzt
-  `stufen-dreiwertig-urheber-hostgrenze`). Die Note und ihr `config_hash` sind nicht berührt. Der
+- ⛔ **In der Markenklasse entfällt die Stufe `genannt` – ohne Ausnahme.** Die Frage nennt den Namen;
+  dass die Antwort ihn, die Domain oder eine weitere Schreibweise trägt, ist dort kein Fund. Der
+  Laufbericht zeigt an dieser Stelle **„entfällt (Name stand in der Frage)"**. Bis zur Fassung `.1`
+  machte die Domain als ganzer Host eine Markenantwort zu `genannt ja`.
+- **Was eine Markenantwort belegt, steht in drei Zuordnungen**, getrennt gezählt und nie mit `genannt`
+  verrechnet: `urheber_zugeordnet`, **`werk_zugeordnet`** (neu) und **`domain_zugeordnet`** (neu).
+- **Werktitel haben zwei eigene Felder**, `werktitel` und `werktitel_mit_kontext` (**Regel 7**). Sie
+  stehen **nicht** in `marke_varianten` und zählen nur in namensfreien Fragen für `genannt`.
+- ⛔ **Zwei weitere Brüche der Ergebnisreihe am Abend des 2026-10-12**, für alle zehn Seiten. Regelstand
+  jetzt `stufen-dreiwertig-urheber-hostgrenze-werktitel-markenklasse`. Die Note ist nicht berührt.
+
+Neu in `2026-10-12.1` war:
+
+- ⛔ **Die Ergebnisreihe der Sichtbarkeit ist am 2026-10-12 dreimal gebrochen** (Regelstand danach
+  `stufen-dreiwertig-urheber-hostgrenze`, inzwischen überholt, siehe oben). Die Note und ihr
+  `config_hash` sind nicht berührt. Der
   Laufbericht weist den Bruch selbst aus (Zeile „BRUCH DER ERGEBNISREIHE", Feld `vorlauf`).
 - **Kontextmerkmale zählen nur als ganzes Wort oder ganze Phrase** (**Regel 7**). „Autorennfahrer"
   bestätigt kein Merkmal „Autor"; gebeugte Formen werden eigens eingetragen.
 - ⛔ **Bei der Markenfrage ist der Personenname kein `genannt`.** Dafür gibt es die eigene Angabe
   **`urheber_zugeordnet`** (ja, nein, falsch, nicht geprüft), getrennt gezählt, nie verrechnet.
 - **Die eigene Domain zählt nur als ganzer Host.** Eine Unterdomain ist eine andere Seite; das gilt für
-  `genannt`, `zitiert` und `gefunden`.
+  `genannt`, `zitiert` und `gefunden` (und seit `.2` für `domain_zugeordnet`).
 - **Feld je Frageklasse:** `branche_anbieter`, `branche_empfehlung`, `branche_orientierung`
   übersteuern `branche` für genau ihre Klasse.
 - **Der Laufbericht stellt jeden Lauf neben den letzten unter gleichem Hash**; ein monatlicher
@@ -40,8 +54,9 @@ Neu in `2026-10-11.2` war, alles aus der Probe des Handbuchs
   in der Stichprobe, Gemini bei Poe entfällt. Ein Vollauf ist mit **10,10 $** geschätzt statt mit 23,62 $.
 - **Der erste Vollauf ist gefahren** (440 von 440 Anfragen, 9,90 $); der Ausgangsstand steht im
   Abschnitt „Faktor 5: eigene Ergebnisreihe".
-- ⛔ **Zwei Berichtigungen an der Ergebnisreihe, am Vollauf gefunden:** Bei der Markenfrage ist
-  `genannt` ohne Beleg außerhalb des Echos `nicht_geprueft` statt `nein`, und ein fehlender
+- ⛔ **Zwei Berichtigungen an der Ergebnisreihe, am Vollauf gefunden:** Bei der Markenfrage war
+  `genannt` ohne Beleg außerhalb des Echos kein `nein` mehr (seit `2026-10-12.2` entfällt die Stufe
+  dort ganz), und ein fehlender
   Sucheintrag ist bei Poe mit GPT `gesucht nein` statt `unbestimmt`. Neu: `sonde sichtbarkeit
   --neu-auswerten` (dieselben Antworten, kein Abruf).
 - **Zwei Meldungen berichtigt:** Ein entfernter Vorschriftsteil steht in Stufe 2 unter „Die
@@ -487,8 +502,9 @@ kam mit `marke: Cloudflare Developers` auf **0 %** und mit `marke: Cloudflare`
 auf **67 %**. Die Modelle schreiben „Cloudflare", nie den Produktnamen. **Trag
 ein, wonach ein Mensch die Marke nennt**, nicht die genaue Produktbezeichnung —
 sonst misst du deine Schreibweise und nennst es Sichtbarkeit. Das gilt für die
-Ergebnisreihe unverändert: Die Stufe `genannt` sucht die Schreibweisen aus
-`marke_varianten`, sonst `marke`.
+Ergebnisreihe unverändert: Die Stufe `genannt` sucht in **namensfreien** Fragen die
+Schreibweisen aus `marke_varianten`, sonst `marke` (in der Markenklasse entfällt sie,
+**Regel 7**).
 
 ⚠️ **`themen`, `werkfrage` und `wettbewerber` liest nur noch `zitate`.** Die
 Ergebnisreihe bildet ihre Fragen aus `marke`, `branche` und `einsatzzweck`.
@@ -806,14 +822,16 @@ Prüfung, nicht über die Marke** — und eine Seite, deren `og:title` den `<tit
 wörtlich wiederholt, gilt als konsistent, auch wenn der Name nirgends
 übereinstimmt. Stand in `OFFEN.md` („Markenkonsistenz").
 
-⭐ **Und die Stufe `genannt` der Ergebnisreihe sucht die Marke WÖRTLICH.** Seit
-2026-09-19 in zwei Stufen, weil ein Personenname anders zählt als ein
-Produktname:
+⭐ **Und die Stufe `genannt` der Ergebnisreihe sucht die Marke WÖRTLICH**, und zwar in den
+**namensfreien** Fragen. Seit 2026-09-19 in zwei Stufen, weil ein Personenname anders zählt als ein
+Produktname; seit 2026-10-12 mit zwei eigenen Feldern für Werktitel:
 
 | Schlüssel | zählt |
 |---|---|
 | `marke_varianten` | **direkt** — jede Schreibweise, die die Marke meint |
 | `personenname` | **nur mit einem Kontextmerkmal** im selben Block |
+| `werktitel` | **direkt**, als ganze Phrase — eindeutige Titel eines Werks der Seite |
+| `werktitel_mit_kontext` | als ganze Phrase und **nur mit dem `personenname`** nah im selben Block |
 
 Der Grund für die zweite Stufe: Ein bloßer Name trifft zu oft jemand anderen.
 Gezählt wird erst, wenn im selben **Block** ein Merkmal steht, das die Person
@@ -822,11 +840,34 @@ trägt ihre Schreibweisen mit ein**; was nicht in der Liste steht, findet die
 Messung nicht, auch wenn ein Mensch es sofort erkennt. Das Merkmal muss
 höchstens 150 Zeichen vom Namen entfernt stehen; ein Name ohne Merkmal wird als
 `unbestaetigt` mitgeschrieben und nicht gezählt. **Eine Schreibweise, die schon
-in der Frage steht, zählt nicht** (seit 2026-10-11) — bei der Markenfrage wäre
-sie ein Echo. Fehlt dort jeder weitere Beleg, ist `genannt` **`nicht_geprueft`**,
-nicht `nein`: Der Name steht ja im Text, er belegt nur nichts.
+in der Frage steht, zählt nicht** (seit 2026-10-11) — sie wäre ein Echo.
 
-Drei Verschärfungen vom 2026-10-12, alle an gespeicherten Antworten nachgezählt:
+⛔ **In der Markenklasse entfällt `genannt` ganz, ohne Ausnahme** (Dirk, 2026-10-12, abends). Dort
+steht der Name in der Frage. Weder die Domain noch eine weitere Schreibweise noch ein Werktitel
+macht aus einer Markenantwort ein `genannt ja`, und ein Fehlen macht kein `nein`. Die Ausgabe heißt
+**„entfällt (Name stand in der Frage)"**. Was die Antwort belegt, steht in den drei Zuordnungen
+`urheber_zugeordnet`, `werk_zugeordnet` und `domain_zugeordnet` (Abschnitt „Faktor 5: eigene
+Ergebnisreihe"). **Eine Markenzeile ohne Anteil bei `genannt` ist also kein Ausfall.**
+
+Für Werktitel gilt seit dem 2026-10-12:
+
+- `werktitel` sind eindeutig: volle Titel und Haupttitel, die nichts anderes bezeichnen. Sie zählen
+  als ganze Phrase direkt.
+- `werktitel_mit_kontext` sind Titel, die auch etwas anderes heißen können („Awakening", „Gemeinsam
+  den Weg gehen"). Sie zählen nur, wenn der `personenname` im selben Block höchstens 150 Zeichen
+  entfernt steht. **Der Beruf allein genügt nicht:** „Selbstsabotage überwinden" neben
+  „Psychotherapeut" kann das gleichnamige Buch eines anderen sein.
+- Beide zählen nur in **namensfreien** Fragen für `genannt`. In der Markenklasse stehen sie als
+  `werk_zugeordnet`.
+- ⛔ **Werktitel gehören nicht in `marke_varianten`.** Dort würden sie auch dort als Schreibweise der
+  Marke gelesen, wo sie keine sind. Für deinen eigenen Eintrag: Marken-Schreibweisen nach
+  `marke_varianten`, Titel von Büchern, Kursen oder Spielen in eines der beiden Titelfelder; ein
+  Titel der zweiten Stufe braucht einen `personenname` an derselben Seite.
+- Erster Einsatz: `dirkwernerbooks.com` und `books.werner-productions.com` tragen 38 Titel in
+  `werktitel` und 20 in `werktitel_mit_kontext` (31 Werke, volle Titel und Haupttitel). Einstufung
+  und Nachzählung: `docs/2026-09-19_Werktitel-zur-Bestaetigung.md` im Repo `websonde`.
+
+Drei Verschärfungen vom 2026-10-12 (vormittags), alle an gespeicherten Antworten nachgezählt:
 
 - **Ein Kontextmerkmal zählt nur als ganzes Wort oder ganze Phrase.** „Autor" trifft nicht
   „Autorennfahrer", „Buch" nicht „Lehrbuch". Folge: Gebeugte Formen stehen nicht mehr von selbst
@@ -837,8 +878,8 @@ Drei Verschärfungen vom 2026-10-12, alle an gespeicherten Antworten nachgezähl
 - **Die eigene Domain zählt nur als ganzer Host**, `www.` eingeschlossen. Vorher war sie eine
   Teilzeichenkette: Die Buchseite auf einer Unterdomain zählte bei der Dachseite mit.
 
-⛔ **Vor jedem neuen Eintrag in `marke_varianten`, `personenname` oder `kontextmerkmale` die
-gespeicherten Antworten durchsuchen.** Zwei Fälle vom 2026-10-12: „ClearArrows" stand 19-mal in den
+⛔ **Vor jedem neuen Eintrag in `marke_varianten`, `personenname`, `kontextmerkmale` oder einem
+der Titelfelder die gespeicherten Antworten durchsuchen.** Zwei Fälle vom 2026-10-12: „ClearArrows" stand 19-mal in den
 Antworten, jedes Mal als Kennung einer fremden, gleichnamigen App, und blieb draußen. Die Kurzform
 „Markdownly" blieb draußen, weil es ein fremdes Werkzeug `markdownly.js` gibt. Eine Variante, die
 plausibel aussieht, kann einen Fremden zählen.
@@ -1516,15 +1557,18 @@ Ruft eine Klasse die richtige Nachbarschaft auf und eine andere nicht, übersteu
 |---|---|---|
 | `gefunden` | die eigene Domain steht in der Trefferliste der Suche | nur wo die Antwort die Treffer trägt (Perplexity) |
 | `zitiert` | die eigene Domain steht in einer **strukturierten** Quelle | nur wo die Antwort Quellen als Feld trägt; **nie aus dem Antworttext gelesen** |
-| `genannt` | eine Schreibweise der Marke steht im Antworttext | überall; Regeln unter Regel 7. Bei der **Markenfrage** nur positiv belegbar (Domain als ganzer Host, weitere Schreibweise); der Personenname zählt dort **nicht** (seit 2026-10-12). Ohne solchen Beleg `nicht_geprueft`, nie `nein` |
+| `genannt` | eine Schreibweise der Marke, die Domain als ganzer Host oder ein Werktitel steht im Antworttext | in **namensfreien** Fragen; Regeln unter Regel 7. In der **Markenklasse** entfällt die Stufe ohne Ausnahme: Anzeige „entfällt (Name stand in der Frage)" |
 
 Dazu das Pflichtfeld **`gesucht`** (`ja`, `nein`, `unbestimmt`). Die Hauptverteilung zählt nur Antworten
 mit `gesucht=ja`; Antworten mit `unbestimmt` stehen getrennt daneben. Bei Poe mit Gemini war das der
 Regelfall (Beleglauf: 5 von 5 `unbestimmt`), deshalb läuft das Modell dort nicht mehr.
 
-**`urheber_zugeordnet`, eine eigene Angabe (seit 2026-10-12).** Nur bei der Markenfrage, getrennt von
-den drei Stufen, gezählt und **nie mit `genannt` verrechnet**. Im Laufbericht eine eigene Zeile
-„Urheber zugeordnet":
+**Drei Zuordnungen der Markenklasse (seit 2026-10-12).** Nur bei der Markenfrage, getrennt von den drei
+Stufen, gezählt und **nie mit `genannt` verrechnet**. Im Laufbericht je eine eigene Zeile: „Urheber
+zugeordnet", „Werk zugeordnet", „Domain zugeordnet". In namensfreien Fragen tragen die drei Felder
+keinen Wert.
+
+**`urheber_zugeordnet`** (vier Werte):
 
 | Wert | heißt |
 |---|---|
@@ -1537,20 +1581,46 @@ Das Muster für „anderer Name" kennt nur ausdrückliche Rollenwörter (entwick
 developed by …). Was es nicht kennt, bleibt `nein`, nie `falsch`. Der Namensvetter-Kontext steht im
 Hash. `personenname` trägt eine Seite nur, wenn die ausgelieferte Seite die Person als Urheber führt.
 
+**`werk_zugeordnet`** (drei Werte): Nennt die Antwort ein Werk der Seite?
+
+| Wert | heißt |
+|---|---|
+| `ja` | ein `werktitel` steht als ganze Phrase da, oder ein `werktitel_mit_kontext` mit dem `personenname` nah im selben Block |
+| `nein` | die Seite führt Werktitel, keiner steht in der Antwort |
+| `nicht_geprueft` | die Seite führt keine Werktitel, oder ein Titel der zweiten Stufe steht ohne den Namen da |
+
+**`domain_zugeordnet`** (drei Werte): Steht die Domain der Seite in der Antwort?
+
+| Wert | heißt |
+|---|---|
+| `ja` | die Domain steht als ganzer Host da (`www.` eingeschlossen, eine Unterdomain zählt nicht) |
+| `nein` | sie steht nicht da |
+| `nicht_geprueft` | die Domain steht schon in der Frage |
+
 **So liest du das Ergebnis.** Je Seite, Weg, Modell und Klasse eine Zeile:
 
 ```
+poe / GPT-5.4 / anbieter: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
+   mit Suche (5): gefunden nicht geprüft | zitiert 0 von 5 | genannt 0 von 5
 poe / GPT-5.4 / marke: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
-   mit Suche (5): gefunden nicht geprueft | zitiert 5 von 5 | genannt 5 von 5
+   mit Suche (5): gefunden nicht geprüft | zitiert 4 von 5 | genannt entfällt (Name stand in der Frage)
+   Urheber zugeordnet (eigene Angabe, nicht in `genannt`): ja 5, nein 0, falsch 0, nicht geprüft 0
+   Werk zugeordnet (eigene Angabe, nicht in `genannt`): ja 0, nein 4, nicht geprüft 1
+   Domain zugeordnet (eigene Angabe, nicht in `genannt`): ja 4, nein 1, nicht geprüft 0
 ```
 
+(Zeilen aus der Neuauswertung vom 2026-10-12, abends: `shadow-integrator.com` und
+`dirkwernerbooks.com`.)
+
 Ausgegeben wird eine **Verteilung** („3 von 5"), nie ein Ja oder Nein und nie ein Mittel über Wege oder
-Modelle. `nicht geprueft` heißt: Diese Stufe liefert dieser Weg nicht — es ist keine Null. `evidence` ist
-`observed_search`.
+Modelle. „nicht geprüft" bei `gefunden` oder `zitiert` heißt: Diese Stufe liefert dieser Weg nicht — es
+ist keine Null. „entfällt (Name stand in der Frage)" bei `genannt` heißt: Markenklasse, die Stufe gibt
+es dort nicht; lies die drei Zuordnungszeilen darunter. `evidence` ist `observed_search`.
 
 **Übereinstimmung Poe gegen DataForSEO** (nur Stichprobe): je Frage und Modell `gleich`, `abweichend`
 oder `nicht vergleichbar`, gemessen an der Stufe `genannt` unter den Antworten mit Suche. Das ist ein
-**Befund über die Messwege, nicht über die Seite**. Weichen mehr als ein Drittel der vergleichbaren
+**Befund über die Messwege, nicht über die Seite**. Zellen der Markenklasse stehen dort als `nicht
+vergleichbar` („Poe 0 von 0, DataForSEO 0 von 0"), weil `genannt` in ihr entfällt. Weichen mehr als ein Drittel der vergleichbaren
 Zellen ab, empfiehlt der Bericht, die Stichprobe zu erweitern; unter drei vergleichbaren Zellen meldet
 er, dass die Zahl für eine Aussage nicht reicht.
 
@@ -1563,7 +1633,8 @@ Der Datensatz trägt dasselbe als `vergleich`.
 - ⚠️ **Die Spanne ist gerechnet, nicht gemessen**, und so beschriftet: zwei Standardabweichungen des
   Unterschieds zweier Anteile bei fünf Wiederholungen. 0 gegen 2 von 5 liegt innerhalb, 0 gegen 3 von 5
   außerhalb. Eine gemessene Spanne gibt es erst nach mehreren Vollläufen unter gleichem Hash.
-- Nie über Wege, Modelle oder Klassen hinweg. `urheber_zugeordnet` ist nicht Teil des Vergleichs.
+- Nie über Wege, Modelle oder Klassen hinweg. Die drei Zuordnungen der Markenklasse sind nicht Teil
+  des Vergleichs.
 - **Hat sich der Hash geändert, gibt es keinen Vergleich, sondern eine Bruchzeile:** „BRUCH DER
   ERGEBNISREIHE" je Seite, mit dem Hash des Vorlaufs und den geänderten Bestandteilen. Der Datensatz
   trägt das als `vorlauf`.
@@ -1649,7 +1720,8 @@ der Reihe:
 
 ⛔ **Zwei Berichtigungen, an diesem Lauf gefunden** (Regelstand `stufen-dreiwertig-echo-ungeprueft`):
 
-- **Bei der Markenfrage ist `genannt` ohne Beleg außerhalb des Echos `nicht_geprueft`, nie `nein`.**
+- **Bei der Markenfrage war `genannt` ohne Beleg außerhalb des Echos kein `nein` mehr** (überholt:
+  seit dem 2026-10-12 abends entfällt die Stufe in der Markenklasse ganz).
   In 92 Antworten stand der Markenname im Text, und die Stufe lautete trotzdem `nein`, auch bei der
   Referenz. Gezählt hatte nur, wer zusätzlich die Domain ausschrieb; gemessen wurde also die
   Zitierweise des Modells. **Ein „0 von 5" bei der Markenfrage aus einem Datensatz vor dieser
@@ -1658,18 +1730,37 @@ der Reihe:
   Antworten mit Sucheintrag tragen Quellen, 50 von 50 ohne ihn keine), ist ein fehlender Eintrag
   `gesucht nein` statt `unbestimmt`.
 
-⛔ **Drei weitere Brüche am 2026-10-12** (Regelstand jetzt `stufen-dreiwertig-urheber-hostgrenze`):
+⛔ **Drei weitere Brüche am 2026-10-12, vormittags** (Regelstand danach
+`stufen-dreiwertig-urheber-hostgrenze`):
 Schreibweisen und Personenname für alle Seiten mit Ganzwort-Merkmal, dann die Berichtigung „Personenname
 ist bei der Markenfrage kein `genannt`" samt `urheber_zugeordnet`, dann die Hostgrenze. **Die Zeilen
 des ersten Vollaufs oben stehen nach dem Regelstand vom 2026-10-11** und sind mit einem Lauf ab dem
 2026-10-12 nicht vergleichbar. Nachgezählt an den gespeicherten Antworten, ohne neue Anfrage: Die
 namensfreien Klassen blieben überall unverändert, die Hostgrenze änderte keine einzige Wertung (0
-Abweichungen in 440 Antworten). Bei `dirkwernerbooks.com` fielen 10 Markenantworten von `genannt ja`
-auf `nicht_geprueft` zurück (25 → 15 von 30), weil sie nur über den Personennamen gezählt hatten.
+Abweichungen in 440 Antworten). Bei `dirkwernerbooks.com` verloren 10 Markenantworten ihr `genannt ja`
+(25 → 15 von 30), weil sie nur über den Personennamen gezählt hatten.
 
-Alle zehn Seiten liegen seit dem 2026-10-12 unter dem heutigen Regelstand: acht neu ausgewertet,
-`books.werner-productions.com` und `clear-arrows.com` nachgemessen (60 Anfragen, geschätzt 0,90 $,
-tatsächlich 0,83 $), weil sich dort die Fragen geändert hatten.
+Acht Seiten wurden dafür neu ausgewertet, `books.werner-productions.com` und `clear-arrows.com`
+nachgemessen (60 Anfragen, geschätzt 0,90 $, tatsächlich 0,83 $), weil sich dort die Fragen geändert
+hatten.
+
+⛔ **Zwei weitere Brüche am 2026-10-12, abends** (Regelstand jetzt
+`stufen-dreiwertig-urheber-hostgrenze-werktitel-markenklasse`): erst die zwei Felder für Werktitel
+samt `werk_zugeordnet`, dann „Markenklasse ohne Ausnahme" samt `domain_zugeordnet`. Bei den beiden
+Buchseiten stehen zusätzlich `werktitel` und `werktitel_mit_kontext` in den Bestandteilen des Hashes.
+Nachgezählt an den gespeicherten Antworten, ohne neue Anfrage:
+
+- `genannt` in **namensfreien** Fragen ist an keiner Stelle verändert, `urheber_zugeordnet` auch nicht.
+- In der Markenklasse standen vorher 39 `genannt ja` (`dirkwernerbooks.com` 15, `insightvue.app` 5,
+  `markdownly-anything.com` 5, `psyprofiler.com` 5, `shadow-integrator.com` 3, `sundamind.com` 3,
+  `werner-productions.com` 2, `books.werner-productions.com` 1). Sie sind entfallen. 38 davon kamen
+  von der Domain und stehen jetzt als `domain_zugeordnet ja`; eines (`shadow-integrator.com`) kam von
+  einer weiteren Schreibweise der Marke und steht in keiner Zuordnung mehr.
+- `werk_zugeordnet`: `dirkwernerbooks.com` ja 13, nein 16, nicht geprüft 1;
+  `books.werner-productions.com` nein 10.
+
+**Alle zehn Seiten liegen seit dem Abend des 2026-10-12 unter dem heutigen Regelstand** (neu
+ausgewertet, kein Abruf). Ein Lauf davor ist mit einem Lauf danach nicht vergleichbar.
 
 `sonde sichtbarkeit --neu-auswerten` bewertet die jüngsten Datensätze der Ablage nach dem heutigen
 Regelstand neu: dieselben Antworten, **kein API-Aufruf, keine Kosten**, ein neuer Datensatz neben dem
@@ -1679,24 +1770,24 @@ nennt sie; sie brauchen einen neuen Lauf. So ist der Ausgangsstand oben entstand
 
 **Der Beleglauf davor** (2026-10-11, Vorschrift Version 1 mit drei Poe-Modellen, `dirkwernerbooks.com`,
 nur Markenfrage, 35 von 35 Anfragen gemessen, geschätzt 1,29 $, tatsächlich 1,26 $; mit dem Vollauf
-nicht vergleichbar, anderer Hash). ⚠️ Die Spalte „genannt" steht hier nach dem Regelstand VOR der
-Echo-Berichtigung: „0 von 5" bei Claude über DataForSEO hieße heute „nicht geprüft".
+nicht vergleichbar, anderer Hash). ⚠️ Die Spalte `genannt` dieses Laufs steht hier nicht mehr: In
+der Markenklasse entfällt die Stufe (Name stand in der Frage); die damaligen Werte entstanden nach
+einer Regel, die es nicht mehr gibt.
 
-| Weg | Modell | gesucht | genannt | zitiert | gefunden |
-|---|---|---|---|---|---|
-| Poe | GPT-5.4 | 5 ja | 5 von 5 | 5 von 5 | nicht geprüft |
-| Poe | Claude-Sonnet-4.6 | 5 ja | 5 von 5 | nicht geprüft | nicht geprüft |
-| Poe | Gemini-3.1-Pro | 5 unbestimmt | getrennt: 5 von 5 | getrennt: 5 von 5 | nicht geprüft |
-| Perplexity | perplexity/sonar | 5 ja | 5 von 5 | nicht geprüft | 5 von 5 |
-| DataForSEO | gpt-5.4-2026-03-05 | 5 ja | 5 von 5 | 4 von 5 | nicht geprüft |
-| DataForSEO | claude-sonnet-4-6 | 5 ja | **0 von 5** | 0 von 5 | nicht geprüft |
-| DataForSEO | gemini-3.1-pro-preview | 5 ja | 5 von 5 | 5 von 5 | nicht geprüft |
+| Weg | Modell | gesucht | zitiert | gefunden |
+|---|---|---|---|---|
+| Poe | GPT-5.4 | 5 ja | 5 von 5 | nicht geprüft |
+| Poe | Claude-Sonnet-4.6 | 5 ja | nicht geprüft | nicht geprüft |
+| Poe | Gemini-3.1-Pro | 5 unbestimmt | getrennt: 5 von 5 | nicht geprüft |
+| Perplexity | perplexity/sonar | 5 ja | nicht geprüft | 5 von 5 |
+| DataForSEO | gpt-5.4-2026-03-05 | 5 ja | 4 von 5 | nicht geprüft |
+| DataForSEO | claude-sonnet-4-6 | 5 ja | **0 von 5** | nicht geprüft |
+| DataForSEO | gemini-3.1-pro-preview | 5 ja | 5 von 5 | nicht geprüft |
 
 **Was das belegt und was nicht.** Der Adapter läuft über alle drei Wege. Eine Markenfrage misst die
-Bekanntheit des Namens, nicht die Auffindbarkeit im Thema: 5 von 5 ist hier kein Wert, den man neben
-die 0,0 % der alten Kategoriefragen stellen kann. Die namensfreien Klassen misst erst der Vollauf oben. Die Abweichung bei Claude (Poe 5 von 5, DataForSEO 0 von 5) ist ein Befund über den Weg: Über
-DataForSEO stellte das Modell je Antwort eine Suchanfrage, zitierte nur Händler und nannte den Namen
-ohne Kontextmerkmal. Zwei vergleichbare Zellen reichen nicht für eine Aussage über die Messwege.
+Bekanntheit des Namens, nicht die Auffindbarkeit im Thema: Ihre Werte stellt man nicht neben
+die 0,0 % der alten Kategoriefragen. Die namensfreien Klassen misst erst der Vollauf oben. Die Abweichung bei Claude (`zitiert` 0 von 5 über DataForSEO) ist ein Befund über den Weg: Über
+DataForSEO stellte das Modell je Antwort eine Suchanfrage und zitierte nur Händler.
 
 - Vorschrift `sichtbarkeit.yml`, Preise `sichtbarkeit-preise.yml`, Modul `src/websonde/sichtbarkeit.py`.
 - Herleitung: `docs/2026-10-11_1910-CEST_Preflight-Faktor-5-drei-Wege-Text-Suche-Quellen-Preis.md`,
