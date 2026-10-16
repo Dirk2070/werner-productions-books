@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-16.4** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-16.5** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,20 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-16 CEST, spätabends.** Neu in dieser Fassung (`2026-10-16.4`):
+**Stand 2026-10-16 CEST, spätabends.** Neu in dieser Fassung (`2026-10-16.5`):
+
+- ⛔ **Herkunft der Zitate: erst die eigenen Profile, dann der Host** (Dirk, 2026-10-16). Ein Zitat auf
+  ein eigenes Profil zählt als `eigen`, auch wenn es auf einer offenen Plattform liegt, etwa LinkedIn,
+  Linktree, YouTube, Instagram, TikTok oder Threads. Die Profile kommen aus
+  `werner-identity/identity.yaml` (`person.gleiche_urls`), Option `--identitaet`, und sind Pflicht wie
+  die Herkunftsliste. Grund: Der Host verrät nicht, wem die Seite gehört. Im Bestand zählten
+  7 eigene Zitate als fremd (5 × LinkedIn-Profil, 2 × Linktree). Abschnitt „Faktor 5", Absatz
+  „Herkunft der Zitate".
+- **Eine Quellenklasse ist keine Nennung.** Die 11 Zitate der Klasse `redaktionell` im Bestand stammen
+  alle aus Kategoriefragen, und keine der zitierten Seiten nennt Dirk Werner oder eine seiner Marken.
+  Fremde redaktionelle Nennungen: 0. Gleicher Absatz.
+
+Neu in `2026-10-16.4` war:
 
 - **Die Herkunftsliste hat jetzt 15 Einträge statt 11**, jeweils mit Beleg. en.wikipedia.org und
   linktr.ee stehen als `ugc_niedrige_huerde` darin (eigene Prüfnotiz aus der Plattformdoku), gamepro.de
@@ -1687,7 +1700,7 @@ bricht die Ergebnisreihe aller Seiten einmal**, weil `trefferliste` im Hash steh
 
 | Klasse | woher |
 |---|---|
-| `eigen` | Host einer Seite aus `sites.yml`, außer `rolle: referenz` |
+| `eigen` | eigenes Profil aus `identity.yaml` (zuerst geprüft), oder Host einer Seite aus `sites.yml`, außer `rolle: referenz` |
 | `redaktionell` | `herkunftsklassen.yml`; Beleg ist das abgerufene Impressum mit Redaktion |
 | `ugc_niedrige_huerde` | `herkunftsklassen.yml`; ein neues Konto veröffentlicht ohne redaktionelle Prüfung (Liu et al., arXiv:2610.11932, Tab. II, oder eine datierte Prüfnotiz) |
 | `unbestimmt` | jeder andere Host; nie `redaktionell` aus Mangel an Beleg |
@@ -1695,7 +1708,29 @@ bricht die Ergebnisreihe aller Seiten einmal**, weil `trefferliste` im Hash steh
 So steht die Herkunft im Datensatz und im Bericht:
 - **Je Antwort:** `quellen_herkunft`. Wo der Weg keine strukturierten Quellen liefert, steht `None`.
 - **Je Zeile:** eine Zählung über alle Antworten der Zelle.
-- **Je Datensatz:** `herkunftsliste` mit sha256, Zahl der Einträge und den eigenen Hosts.
+- **Je Datensatz:** `herkunftsliste` mit sha256, Zahl der Einträge und den eigenen Hosts, dazu
+  `profile` (sha256 und Zahl der eigenen Profile; `None` heißt: nicht gelesen).
+
+**Eigene Profile vor dem Host (seit 2026-10-16, Dirk).** Der Host verrät nicht, wem eine Seite gehört:
+`linktr.ee` ist eine offene Plattform, `linktr.ee/Dirk_Werner` aber Dirks eigene Seite. Deshalb wird
+jedes Zitat zuerst gegen `person.gleiche_urls` aus `werner-identity/identity.yaml` geprüft und erst
+danach nach Host klassifiziert. Eine Kopie der Liste in websonde gibt es nicht; `sites.yml:
+sameas_erlaubt` weicht davon ab und wird hier nicht verwendet. Die Regeln des Abgleichs:
+- **Host:** gleich nach Abnahme von `www.` und eines Länderkürzels mit zwei Buchstaben, denn
+  `www.linkedin.com/in/…` und `de.linkedin.com/in/…` sind dasselbe Profil.
+- **Pfad:** gleich, ohne Rücksicht auf Groß- und Kleinschreibung, oder er beginnt an einer
+  Segmentgrenze mit dem Profilpfad. Grenzen sind `/` und `.`; so trifft `/@kanal/videos`, und
+  Goodreads `author/show/<ID>.<Name>` ebenfalls. `linktr.ee/Dirk_Werner2` trifft nicht.
+- **Query und Fragment** zählen nicht.
+- **Grenzen:** Eine Quelle, die nur aus einem Hostnamen besteht (DataForSEO/Gemini), bleibt bei der
+  Hostklasse. Ein einzelnes Video (`youtube.com/watch?v=…`) trägt den Kanal nicht im Pfad und bleibt
+  fremd.
+- **Pflicht:** Ohne `identity.yaml` (Standard `../werner-identity/identity.yaml`, Option `--identitaet`)
+  oder mit leerer Liste startet weder ein Lauf noch `--neu-auswerten`.
+
+Ausdrücklich fremd bleiben Adressen, die Dirks Namen tragen, aber nicht seine sind: Apple
+`id316714929` (der Mathematiker), Goodreads `author/list/1142115` (eine andere ID) und
+`linkedin.com/company/werner-film-productions`.
 
 Es gibt keine Note und keinen Hash; eine gepflegte Liste bricht keine Reihe. Wo ein Datensatz entsteht,
 ist die Liste Pflicht: Ohne `herkunftsklassen.yml` startet weder ein Lauf noch `--neu-auswerten`.
@@ -1703,11 +1738,19 @@ ist die Liste Pflicht: Ohne `herkunftsklassen.yml` startet weder ein Lauf noch `
 Zum Stand der Liste: Sie ist bewusst schmal. Darin stehen 8 Plattformen aus Tab. II, 2 Plattformen mit
 eigener Prüfnotiz (en.wikipedia.org, linktr.ee) und 5 Redaktionen (Stand 2026-10-16, abends). Am Bestand
 vom 2026-10-16 fielen von 711 Zitaten 97 auf `eigen`, 11 auf `redaktionell`, 20 auf
-`ugc_niedrige_huerde` und 583 auf `unbestimmt`. Geprüfte, aber nicht eingetragene Hosts stehen mit
+`ugc_niedrige_huerde` und 583 auf `unbestimmt`. Nach dem Profilabgleich sind es 104 `eigen`, 11
+`redaktionell`, 13 `ugc_niedrige_huerde` und 583 `unbestimmt`. Geprüfte, aber nicht eingetragene Hosts stehen mit
 ihrem Grund als Kommentar in der Liste. Ein Host, der zwischen beiden Klassen liegt, bleibt
 `unbestimmt`: App-Läden, Herstellerseiten oder de.wikipedia.org, wo Leser neue Bearbeitungen erst nach
 der Sichtung sehen. Eine große Zahl `unbestimmt` heißt „nicht
 klassifiziert", nicht „unseriös".
+
+⚠️ **Eine Quellenklasse ist keine Nennung.** Die Herkunft sagt, woher eine Antwort ihre Belege nimmt.
+Ob die zitierte Seite einen nennt, sagt sie nicht. Am Bestand vom 2026-10-16 stammen alle 11
+`redaktionell`-Zitate aus Kategoriefragen: Bestsellerlisten im Börsenblatt, Beiträge des Deutschlandfunk
+Kultur über andere Autorinnen, Übersichten über Mental-Health-Apps. Keine der 9 Seiten nennt Dirk Werner
+oder eine seiner Marken (abgerufen am 2026-10-16, 8 Suchbegriffe). Wer eine Grundlinie für „fremde
+Nennungen" braucht, prüft die zitierten Seiten selbst auf den Namen. Am Bestand ergibt das 0, nicht 11.
 
 **Was eine Antwort im Datensatz trägt (seit 2026-10-16 beschrieben).** Der Laufbericht zeigt Zählungen.
 Die einzelne Antwort steht im Datensatz unter `antworten`, und einige ihrer Felder erscheinen in keiner
