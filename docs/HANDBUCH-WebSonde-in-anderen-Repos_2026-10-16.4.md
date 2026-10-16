@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-16.3** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-16.4** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,15 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-16 CEST, spätabends.** Neu in dieser Fassung (`2026-10-16.3`):
+**Stand 2026-10-16 CEST, spätabends.** Neu in dieser Fassung (`2026-10-16.4`):
+
+- **Die Herkunftsliste hat jetzt 15 Einträge statt 11**, jeweils mit Beleg. en.wikipedia.org und
+  linktr.ee stehen als `ugc_niedrige_huerde` darin (eigene Prüfnotiz aus der Plattformdoku), gamepro.de
+  und regionalupdate.de als `redaktionell` (Impressum). Acht weitere Kandidaten wurden geprüft und
+  stehen mit Grund als Kommentar in der Liste, darunter de.wikipedia.org (Sichtung) und goodreads.com
+  (Katalog von Bibliothekaren). Abschnitt „Faktor 5“, Absatz „Herkunft der Zitate“.
+
+Neu in `2026-10-16.3` war:
 
 - **Die Felder je Antwort im Datensatz sind beschrieben**, mit der Angabe, welcher Weg welches Feld
   füllt. Anlass: `suchanfragen` blieb bei Perplexity in jeder gespeicherten Antwort leer,
@@ -1692,9 +1700,13 @@ So steht die Herkunft im Datensatz und im Bericht:
 Es gibt keine Note und keinen Hash; eine gepflegte Liste bricht keine Reihe. Wo ein Datensatz entsteht,
 ist die Liste Pflicht: Ohne `herkunftsklassen.yml` startet weder ein Lauf noch `--neu-auswerten`.
 
-Zum Stand der Liste: Sie ist bewusst schmal, mit 8 Plattformen aus Tab. II und 3 Redaktionen. Am
-Bestand vom 2026-10-16 fielen von 711 Zitaten 97 auf `eigen`, 8 auf `redaktionell`, 14 auf
-`ugc_niedrige_huerde` und 592 auf `unbestimmt`. Eine große Zahl `unbestimmt` heißt „nicht
+Zum Stand der Liste: Sie ist bewusst schmal. Darin stehen 8 Plattformen aus Tab. II, 2 Plattformen mit
+eigener Prüfnotiz (en.wikipedia.org, linktr.ee) und 5 Redaktionen (Stand 2026-10-16, abends). Am Bestand
+vom 2026-10-16 fielen von 711 Zitaten 97 auf `eigen`, 11 auf `redaktionell`, 20 auf
+`ugc_niedrige_huerde` und 583 auf `unbestimmt`. Geprüfte, aber nicht eingetragene Hosts stehen mit
+ihrem Grund als Kommentar in der Liste. Ein Host, der zwischen beiden Klassen liegt, bleibt
+`unbestimmt`: App-Läden, Herstellerseiten oder de.wikipedia.org, wo Leser neue Bearbeitungen erst nach
+der Sichtung sehen. Eine große Zahl `unbestimmt` heißt „nicht
 klassifiziert", nicht „unseriös".
 
 **Was eine Antwort im Datensatz trägt (seit 2026-10-16 beschrieben).** Der Laufbericht zeigt Zählungen.
