@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-16.1** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-16.2** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,19 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-16 CEST, abends.** Neu in dieser Fassung (`2026-10-16.1`):
+**Stand 2026-10-16 CEST, spätabends.** Neu in dieser Fassung (`2026-10-16.2`):
+
+- ⛔ **Poe/GPT-5.4 liefert jetzt Trefferliste und Zitate in einer Antwort.** Die Anfrage fordert
+  `include: ["web_search_call.action.sources"]` an. `gefunden` kommt aus der Quellenliste der Suche,
+  `zitiert` aus `url_citation`, also aus derselben Antwort. „Gefunden, aber nicht zitiert" ist damit je
+  Antwort ablesbar und wird nie verrechnet. **Das bricht die Ergebnisreihe aller Seiten einmal**
+  (`trefferliste` steht im Hash, Dirk: „jetzt, vor dem Vollauf"); der Laufbericht nennt
+  „Geändert: modelle". Abschnitt „Faktor 5".
+- **Herkunft der Zitate** (`eigen` | `redaktionell` | `ugc_niedrige_huerde` | `unbestimmt`) steht je
+  Antwort und als Zählung je Zeile, aus `herkunftsklassen.yml` und `sites.yml`. Es gibt keine Note und
+  keinen Hash; der Datensatz nennt die Liste per sha256. Abschnitt „Faktor 5".
+
+Neu in `2026-10-16.1` war:
 
 - **Jede Zeile der Sichtbarkeit trägt ihren Fragetyp** (`marke` | `kategorie`), im Datensatz je
   Antwort und Verteilung als Pflichtfeld `fragetyp`, im Laufbericht an jeder Zeile. Eine
@@ -23,7 +35,8 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
   Empfehlung". Dazu zwei Einträge ohne Bindung an eine Maßnahme (Modellwissen über Marken; ein Zitat
   belegt keine Unabhängigkeit). Abschnitt „Evidenzschicht".
 - **Kein Weg der Sichtbarkeit liefert Trefferliste und Zitate zugleich** (Preflight 2026-10-16).
-  „Gefunden, aber nicht zitiert" ist deshalb nicht prüfbar. Abschnitt „Faktor 5".
+  „Gefunden, aber nicht zitiert" ist deshalb nicht prüfbar. Abschnitt „Faktor 5". *(Überholt in
+  `2026-10-16.2`: Poe/GPT-5.4 liefert beides.)*
 
 Neu in `2026-10-12.2` war:
 
@@ -1625,10 +1638,13 @@ poe / GPT-5.4 / marke [Fragetyp Marke: misst die Bekanntheit des Namens, nicht d
    Urheber zugeordnet (eigene Angabe, nicht in `genannt`): ja 5, nein 0, falsch 0, nicht geprüft 0
    Werk zugeordnet (eigene Angabe, nicht in `genannt`): ja 0, nein 4, nicht geprüft 1
    Domain zugeordnet (eigene Angabe, nicht in `genannt`): ja 4, nein 1, nicht geprüft 0
+   Herkunft der Zitate (eigene Angabe, keine Note): eigen 4, redaktionell 0, UGC niedrige Hürde 0, unbestimmt 3
 ```
 
 (Zeilen aus der Neuauswertung vom 2026-10-12, abends: `shadow-integrator.com` und
-`dirkwernerbooks.com`; die Angabe in eckigen Klammern steht seit dem 2026-10-16 da.)
+`dirkwernerbooks.com`; die Angabe in eckigen Klammern steht seit dem 2026-10-16 da. Die Herkunftszeile
+gibt es seit dem 2026-10-16, spätabends; ihre Zahlen hier sind ein Beispiel. Ab dem nächsten Lauf steht
+bei Poe/GPT-5.4 unter `gefunden` eine Zahl statt „nicht geprüft".)
 
 **Fragetyp (seit 2026-10-16).** Jede Antwort und jede Verteilung trägt `fragetyp`: `marke`, wenn die
 Frage den Namen nennt, sonst `kategorie`. Entschieden wird das an derselben Stelle, die auch über das
@@ -1637,11 +1653,42 @@ den Namen, ist sie vom Typ `marke`. Eine Verteilung ohne oder mit gemischtem Fra
 eine Zeile ohne Angabe zu schreiben. Der Fragetyp steht nicht im Hash. Datensätze von vor dem
 2026-10-16 tragen ihn nicht; `--neu-auswerten` ergänzt ihn ohne Abruf.
 
-**Retrieval getrennt von „zitiert": nicht prüfbar (Preflight 2026-10-16).** Perplexity liefert die
-abgesetzten Suchanfragen und die Trefferliste, aber keine Zitate: 0 Annotationen, keine `[n]`-Marken,
-keine URLs im Antworttext. Poe mit GPT und DataForSEO liefern Zitate, aber keine Trefferliste. Welche
-gefundenen Quellen nicht zitiert wurden, liefert damit kein Weg. Beide Stufen bleiben getrennt und
-werden nie verrechnet.
+**Gefunden und zitiert aus einer Antwort: Poe/GPT-5.4 (seit 2026-10-16, spätabends).** Poe reicht
+`include: ["web_search_call.action.sources"]` durch. Im Preflight lieferte ein Abruf 21 Treffer und
+4 Zitate, und alle 4 Zitate standen in der Trefferliste. Die Vorschrift setzt deshalb
+`trefferliste: true` bei GPT-5.4. Damit ist „gefunden, aber nicht zitiert" je Antwort ablesbar
+(`gefunden ja`, `zitiert nein`). Beide Stufen bleiben getrennt und werden nie verrechnet. Zwei Dinge sind
+dabei zu beachten:
+- **Lücke statt Null.** Sucht das Modell, ohne eine Quellenliste zu liefern, steht `gefunden` auf „nicht
+  geprüft", nicht auf `nein`.
+- **Alte Datensätze bleiben, wie sie sind.** Datensätze von vor dem Einbau tragen keine Trefferliste;
+  `--neu-auswerten` lässt `gefunden` dort „nicht geprüft".
+
+Die anderen Wege liefern nicht beides: Perplexity liefert die Trefferliste ohne Zitate, auch mit
+`openai/gpt-5.4` über dieselbe Agent API. DataForSEO liefert Zitate ohne Trefferliste. **Der Einbau
+bricht die Ergebnisreihe aller Seiten einmal**, weil `trefferliste` im Hash steht.
+
+**Herkunft der Zitate (seit 2026-10-16, spätabends).** Jedes Zitat bekommt eine von vier Klassen:
+
+| Klasse | woher |
+|---|---|
+| `eigen` | Host einer Seite aus `sites.yml`, außer `rolle: referenz` |
+| `redaktionell` | `herkunftsklassen.yml`; Beleg ist das abgerufene Impressum mit Redaktion |
+| `ugc_niedrige_huerde` | `herkunftsklassen.yml`; ein neues Konto veröffentlicht ohne redaktionelle Prüfung (Liu et al., arXiv:2610.11932, Tab. II, oder eine datierte Prüfnotiz) |
+| `unbestimmt` | jeder andere Host; nie `redaktionell` aus Mangel an Beleg |
+
+So steht die Herkunft im Datensatz und im Bericht:
+- **Je Antwort:** `quellen_herkunft`. Wo der Weg keine strukturierten Quellen liefert, steht `None`.
+- **Je Zeile:** eine Zählung über alle Antworten der Zelle.
+- **Je Datensatz:** `herkunftsliste` mit sha256, Zahl der Einträge und den eigenen Hosts.
+
+Es gibt keine Note und keinen Hash; eine gepflegte Liste bricht keine Reihe. Wo ein Datensatz entsteht,
+ist die Liste Pflicht: Ohne `herkunftsklassen.yml` startet weder ein Lauf noch `--neu-auswerten`.
+
+Zum Stand der Liste: Sie ist bewusst schmal, mit 8 Plattformen aus Tab. II und 3 Redaktionen. Am
+Bestand vom 2026-10-16 fielen von 711 Zitaten 97 auf `eigen`, 8 auf `redaktionell`, 14 auf
+`ugc_niedrige_huerde` und 592 auf `unbestimmt`. Eine große Zahl `unbestimmt` heißt „nicht
+klassifiziert", nicht „unseriös".
 
 Ausgegeben wird eine **Verteilung** („3 von 5"), nie ein Ja oder Nein und nie ein Mittel über Wege oder
 Modelle. „nicht geprüft" bei `gefunden` oder `zitiert` heißt: Diese Stufe liefert dieser Weg nicht — es
