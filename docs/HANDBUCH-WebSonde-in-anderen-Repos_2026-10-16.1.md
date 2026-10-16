@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-12.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-16.1** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,22 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-12 CEST, abends.** Neu in dieser Fassung (`2026-10-12.2`):
+**Stand 2026-10-16 CEST, abends.** Neu in dieser Fassung (`2026-10-16.1`):
+
+- **Jede Zeile der Sichtbarkeit trägt ihren Fragetyp** (`marke` | `kategorie`), im Datensatz je
+  Antwort und Verteilung als Pflichtfeld `fragetyp`, im Laufbericht an jeder Zeile. Eine
+  Markenzeile misst die Bekanntheit des Namens, nicht die Sichtbarkeit im Thema. Kein Hash und
+  keine Zählung berührt, der eingefrorene Regelstand bleibt.
+- **Die Evidenzbasis zählt 12 Einträge.** Neu sind drei aus zwei Studien vom Oktober 2026: FAQ-Block,
+  Zusammenfassungsbox, Autor und schema.org als Zitierhebel bekommen **keine Empfehlung**
+  (`faq-zusammenfassung-zitierhebel`, gebunden an `faq-schema` und `antwortstruktur`). Folge:
+  „FAQPage-Schema … ergänzen" steht ab dem Nachtlauf vom 17.10. unter „Gemeldet, keine
+  Empfehlung". Dazu zwei Einträge ohne Bindung an eine Maßnahme (Modellwissen über Marken; ein Zitat
+  belegt keine Unabhängigkeit). Abschnitt „Evidenzschicht".
+- **Kein Weg der Sichtbarkeit liefert Trefferliste und Zitate zugleich** (Preflight 2026-10-16).
+  „Gefunden, aber nicht zitiert" ist deshalb nicht prüfbar. Abschnitt „Faktor 5".
+
+Neu in `2026-10-12.2` war:
 
 - ⛔ **In der Markenklasse entfällt die Stufe `genannt` – ohne Ausnahme.** Die Frage nennt den Namen;
   dass die Antwort ihn, die Domain oder eine weitere Schreibweise trägt, ist dort kein Fund. Der
@@ -1603,9 +1618,9 @@ Hash. `personenname` trägt eine Seite nur, wenn die ausgelieferte Seite die Per
 **So liest du das Ergebnis.** Je Seite, Weg, Modell und Klasse eine Zeile:
 
 ```
-poe / GPT-5.4 / anbieter: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
+poe / GPT-5.4 / anbieter [Fragetyp Kategorie: namensfrei]: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
    mit Suche (5): gefunden nicht geprüft | zitiert 0 von 5 | genannt 0 von 5
-poe / GPT-5.4 / marke: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
+poe / GPT-5.4 / marke [Fragetyp Marke: misst die Bekanntheit des Namens, nicht die Sichtbarkeit im Thema]: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
    mit Suche (5): gefunden nicht geprüft | zitiert 4 von 5 | genannt entfällt (Name stand in der Frage)
    Urheber zugeordnet (eigene Angabe, nicht in `genannt`): ja 5, nein 0, falsch 0, nicht geprüft 0
    Werk zugeordnet (eigene Angabe, nicht in `genannt`): ja 0, nein 4, nicht geprüft 1
@@ -1613,7 +1628,20 @@ poe / GPT-5.4 / marke: gemessen 5 von 5 | gesucht ja 5, nein 0, unbestimmt 0
 ```
 
 (Zeilen aus der Neuauswertung vom 2026-10-12, abends: `shadow-integrator.com` und
-`dirkwernerbooks.com`.)
+`dirkwernerbooks.com`; die Angabe in eckigen Klammern steht seit dem 2026-10-16 da.)
+
+**Fragetyp (seit 2026-10-16).** Jede Antwort und jede Verteilung trägt `fragetyp`: `marke`, wenn die
+Frage den Namen nennt, sonst `kategorie`. Entschieden wird das an derselben Stelle, die auch über das
+Echo und die Zuordnungen entscheidet. Nennt also ausnahmsweise eine namensfreie Klasse über `branche`
+den Namen, ist sie vom Typ `marke`. Eine Verteilung ohne oder mit gemischtem Fragetyp bricht ab, statt
+eine Zeile ohne Angabe zu schreiben. Der Fragetyp steht nicht im Hash. Datensätze von vor dem
+2026-10-16 tragen ihn nicht; `--neu-auswerten` ergänzt ihn ohne Abruf.
+
+**Retrieval getrennt von „zitiert": nicht prüfbar (Preflight 2026-10-16).** Perplexity liefert die
+abgesetzten Suchanfragen und die Trefferliste, aber keine Zitate: 0 Annotationen, keine `[n]`-Marken,
+keine URLs im Antworttext. Poe mit GPT und DataForSEO liefern Zitate, aber keine Trefferliste. Welche
+gefundenen Quellen nicht zitiert wurden, liefert damit kein Weg. Beide Stufen bleiben getrennt und
+werden nie verrechnet.
 
 Ausgegeben wird eine **Verteilung** („3 von 5"), nie ein Ja oder Nein und nie ein Mittel über Wege oder
 Modelle. „nicht geprüft" bei `gefunden` oder `zitiert` heißt: Diese Stufe liefert dieser Weg nicht — es
@@ -1870,7 +1898,25 @@ Maximum über alle.
   Maximum, 2026-09-30), `e190e1f` (Verfall je Effekt, 2026-10-01), `2599d64` (Interessenlage je
   Quelle, `llms.txt` umklassifiziert, 2026-10-01), `32b4049` und `6ed1321` (Einzelfall
   Perplexity, 2026-10-07); Regel zu Anbieterstudien: Dirk, 2026-10-01; der Stand der Einträge
-  ist die Datei im Repo (9 Einträge am 2026-10-10).
+  ist die Datei im Repo (9 Einträge am 2026-10-10, 12 am 2026-10-16).
+
+### Drei Einträge vom 2026-10-16: Seitenpraktiken, Modellwissen, Herkunft der Zitate
+
+| Eintrag | sagt | gebunden an | Empfehlung |
+|---|---|---|---|
+| `faq-zusammenfassung-zitierhebel` (Chen & Koudas, arXiv:2610.15033) | Vergleicht man Seiten derselben Website, gehen FAQ-Block, Zusammenfassungsbox, Autor und schema.org nicht mit mehr Zitaten einher. Über Websites hinweg scheinen sie zu helfen, weil sie auf ohnehin oft zitierten Websites gehäuft vorkommen. | `faq-schema`, `antwortstruktur` | `none` |
+| `modellwissen-marke-suche-und-nennung` (dieselbe Studie) | Was ein Modell über eine Marke weiß, prägt Suchanfragen, Quellenwahl und Nennung, auch ohne stützende Seite. | keiner | `none` |
+| `zitat-belegt-keine-unabhaengigkeit` (Liu et al., arXiv:2610.11932) | Häufig zitierte Domains nehmen oft neue Konten mit niedriger Hürde an; dort Veröffentlichtes kam im Experiment binnen Tagen in die Zitate. | keiner | `none` |
+
+- **Alle drei Effekte stehen auf Stufe C:** je eine Studie, englische bzw. englisch-chinesische
+  Fragen, US-Markt bzw. Endkundenoberflächen. Chen & Koudas danken dem GEO-Dienst ktau.ai für Hilfe mit
+  den Daten; das steht als Interessenlage im Eintrag.
+- **Die Entitäts- und Namensraummessungen werden nicht abgewertet.** Ihr Wirkweg ist das Modellwissen
+  über die Marke, nicht die Auswahl einzelner Seiten. Deshalb ist der zweite Eintrag an keinen
+  Prüfpunkt gebunden.
+- **Warum zwei Einträge aus einer Studie:** Der Maßnahmentext nennt jeden Effekt aller gebundenen
+  Einträge. Im selben Eintrag stünde bei der FAQ-Maßnahme „Retrieval C: positiv", das Gegenteil
+  dessen, was die Studie zur FAQ sagt.
 
 ---
 
