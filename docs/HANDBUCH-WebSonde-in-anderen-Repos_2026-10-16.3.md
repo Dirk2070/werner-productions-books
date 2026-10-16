@@ -1,6 +1,6 @@
 # WebSonde in einem anderen Repo
 
-**Handbuch-Version 2026-10-16.2** — sie steht auch im Dateinamen, damit ohne Öffnen
+**Handbuch-Version 2026-10-16.3** — sie steht auch im Dateinamen, damit ohne Öffnen
 sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 `docs/HANDBUCH-WebSonde-in-anderen-Repos_<Version>.md`
 
@@ -10,7 +10,14 @@ sichtbar ist, wie aktuell eine Kopie ist. Quelle: `Dirk2070/websonde`,
 > Quelle. Verteilt und geprüft wird mit `verteile-handbuch.ps1` aus `websonde`
 > (`.\verteile-handbuch.ps1 -Pruefen` vergleicht nur und schreibt nichts).
 
-**Stand 2026-10-16 CEST, spätabends.** Neu in dieser Fassung (`2026-10-16.2`):
+**Stand 2026-10-16 CEST, spätabends.** Neu in dieser Fassung (`2026-10-16.3`):
+
+- **Die Felder je Antwort im Datensatz sind beschrieben**, mit der Angabe, welcher Weg welches Feld
+  füllt. Anlass: `suchanfragen` blieb bei Perplexity in jeder gespeicherten Antwort leer,
+  unbemerkt, weil kein Bericht das Feld zeigt und keine Zeile es beschrieb. Seit dem 2026-10-16 liest
+  WebSonde es auch bei Perplexity. Abschnitt „Faktor 5", Absatz „Was eine Antwort im Datensatz trägt".
+
+Neu in `2026-10-16.2` war:
 
 - ⛔ **Poe/GPT-5.4 liefert jetzt Trefferliste und Zitate in einer Antwort.** Die Anfrage fordert
   `include: ["web_search_call.action.sources"]` an. `gefunden` kommt aus der Quellenliste der Suche,
@@ -1689,6 +1696,37 @@ Zum Stand der Liste: Sie ist bewusst schmal, mit 8 Plattformen aus Tab. II und 3
 Bestand vom 2026-10-16 fielen von 711 Zitaten 97 auf `eigen`, 8 auf `redaktionell`, 14 auf
 `ugc_niedrige_huerde` und 592 auf `unbestimmt`. Eine große Zahl `unbestimmt` heißt „nicht
 klassifiziert", nicht „unseriös".
+
+**Was eine Antwort im Datensatz trägt (seit 2026-10-16 beschrieben).** Der Laufbericht zeigt Zählungen.
+Die einzelne Antwort steht im Datensatz unter `antworten`, und einige ihrer Felder erscheinen in keiner
+Berichtszeile. Wer sie auswertet, muss wissen, welcher Weg sie füllt. `None` heißt immer: Dieser Weg
+liefert das Feld nicht. Eine leere Liste heißt: geliefert, aber leer.
+
+| Feld | Poe GPT-5.4 | Poe Claude | Perplexity sonar | DataForSEO (alle drei) |
+|---|---|---|---|---|
+| `wortlaut` | Antworttext | Antworttext | Antworttext | Antworttext |
+| `gesucht_beleg` | `web_search_call` oder `function_call:web_search`; ohne Eintrag `kein Sucheintrag` | wie GPT-5.4 | `search_web.invocation=n` | `web_search=true/false` |
+| `suchanfragen` | aus dem Sucheintrag | aus dem Sucheintrag | aus `search_results.queries`, **erst seit 2026-10-16** | `fan_out_queries` |
+| `quellen` (→ `zitiert`) | `url_citation` | `None` | `None` | Annotationen |
+| `treffer` (→ `gefunden`) | Quellenliste der Suche, **seit 2026-10-16** | `None` | Trefferliste | `None` |
+| `quellen_herkunft` | je Zitat, seit 2026-10-16 | `None` | `None` | je Zitat |
+
+Dazu kommen je Antwort `modell_geantwortet`, `suchort`, `abgeschnitten`, `kosten_usd` und `fragetyp`.
+
+Am Bestand vom 2026-10-11/12 (jüngster Datensatz je Seite) sah die Füllung von `suchanfragen` so aus:
+
+| Weg und Modell | Antworten mit Suche | davon mit `suchanfragen` |
+|---|---|---|
+| Poe GPT-5.4 | 120 | 120 |
+| Poe Claude | 25 | 25 |
+| DataForSEO | 60 | 60 |
+| Perplexity | 158 | **0** |
+
+Bei Perplexity war das ein Lesefehler und keine Eigenschaft des Wegs. Gespeicherte Antworten bleiben
+leer, weil der Datensatz keine Rohantwort trägt; erst der nächste Lauf füllt das Feld.
+
+⚠️ **Ein Feld, das kein Bericht zeigt, kann still leer sein.** Wer ein Feld aus `antworten` auswertet,
+zählt zuerst, in wie vielen Antworten es gefüllt ist, und hält das gegen `gesucht`.
 
 Ausgegeben wird eine **Verteilung** („3 von 5"), nie ein Ja oder Nein und nie ein Mittel über Wege oder
 Modelle. „nicht geprüft" bei `gefunden` oder `zitiert` heißt: Diese Stufe liefert dieser Weg nicht — es
